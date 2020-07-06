@@ -14,6 +14,10 @@ const LogoContainer = styled.a`
   padding: ${({ theme }) => theme.space[4]} ${({ theme }) => theme.space[3]};
   text-align: center;
   color: var(--white);
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints[4]}) {
+    flex-direction: row;
+    align-items: center;
+  }
 `
 
 const LogoIcon = styled.div`
@@ -38,11 +42,11 @@ const LogoIcon = styled.div`
     background: linear-gradient(-45deg, rgba(255,255,255,0), rgba(255,255,255,0.5));
   }
   @media screen and (max-width: ${({ theme }) => theme.breakpoints[4]}) {
-    width: ${({ theme }) => theme.space[7]};
-    height: ${({ theme }) => theme.space[7]};
-    border-radius: ${({ theme }) => theme.space[3]};
+    width: ${({ theme }) => theme.space[6]};
+    height: ${({ theme }) => theme.space[6]};
+    border-radius: calc(${({ theme }) => theme.space[2]} + ${({ theme }) => theme.space[1]});
     &:after {
-      border-radius: ${({ theme }) => theme.space[3]};
+      border-radius: calc(${({ theme }) => theme.space[2]} + ${({ theme }) => theme.space[0]});
     }
   }
 `
@@ -52,7 +56,9 @@ const LogoTitle = styled.h1`
   margin-top: ${({ theme }) => theme.space[4]};
   margin-bottom: 0;
   @media screen and (max-width: ${({ theme }) => theme.breakpoints[4]}) {
-    font-size: ${({ theme }) => theme.fontSizes[5]};
+    font-size: ${({ theme }) => theme.fontSizes[4]};
+    margin-top: 0;
+    padding-left: ${({ theme }) => theme.space[3]}
   }
 `
 
