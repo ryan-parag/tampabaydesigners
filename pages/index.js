@@ -1,6 +1,7 @@
 import Layout from '@components/Layout'
 import PostList from '@components/PostList'
 import getPosts from '@utils/getPosts'
+import Placeholder from '@components/Placeholder'
 
 const Index = ({ posts, title, description, ...props }) => {
   return (
@@ -8,6 +9,7 @@ const Index = ({ posts, title, description, ...props }) => {
       <Layout pageTitle={title} description={description}>
         <h1>Welcome!</h1>
         <p>{description}</p>
+        <Placeholder/>
       </Layout>
     </>
   )

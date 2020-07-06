@@ -1,6 +1,7 @@
 import Layout from '@components/Layout'
 import Link from 'next/link'
 import siteConfig from '../siteconfig.json'
+import Placeholder from '@components/Placeholder'
 
 const Slack = ({ title, description, ...props }) => {
   return (
@@ -10,6 +11,7 @@ const Slack = ({ title, description, ...props }) => {
         <a href={siteConfig.slackSignUp}>
           Sign Up
         </a>
+        <Placeholder/>
       </Layout>
     </>
   )

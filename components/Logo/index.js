@@ -14,9 +14,14 @@ const LogoContainer = styled.a`
   padding: ${({ theme }) => theme.space[4]} ${({ theme }) => theme.space[3]};
   text-align: center;
   color: var(--white);
+  transition: all 120ms ease-out 0s;
   @media screen and (max-width: ${({ theme }) => theme.breakpoints[4]}) {
     flex-direction: row;
     align-items: center;
+  }
+  &:hover, &:focus {
+    color: var(--white);
+    text-shadow: 0px 4px 20px rgba(255,255,255,.2);
   }
 `
 
@@ -29,8 +34,8 @@ const LogoIcon = styled.div`
   justify-content: center;
   border-radius: ${({ theme }) => theme.space[4]};
   padding: ${({ theme }) => theme.space[1]};
+  box-shadow: inset 0px 0px 0px 2px rgba(255,255,255,.2);
   position: relative;
-  border: 2px solid rgba(255,255,255,.2);
   &:after {
     content: '';
     border-radius: ${({ theme }) => theme.space[4]};

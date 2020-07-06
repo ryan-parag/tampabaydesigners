@@ -1,10 +1,12 @@
 import Layout from '@components/Layout'
+import Placeholder from '@components/Placeholder'
 
 const Meetups = ({ title, description, ...props }) => {
   return (
     <>
       <Layout pageTitle={`${title} | Meetups`} description={description}>
         <h1>Meetups</h1>
+        <Placeholder/>
       </Layout>
     </>
   )
