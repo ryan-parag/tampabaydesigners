@@ -2,8 +2,16 @@ import Head from 'next/head'
 import { Normalize } from 'styled-normalize'
 import Header from '@components/Header'
 import { GlobalStyle } from '@components/GlobalStyles'
-import { ThemeProvider } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 import { theme } from '@components/Theme'
+import Footer from '@components/Footer'
+
+const Main = styled.main`
+width: 100%;
+padding: ${({ theme }) => theme.space[3]};
+max-width: ${({ theme }) => theme.layoutWidth};
+margin: auto;
+`
 
 export default function Layout({ children, pageTitle, description, ...props }) {
   return (
@@ -20,11 +28,11 @@ export default function Layout({ children, pageTitle, description, ...props }) {
         <Normalize />
         <section>
           <Header />
-          <div>{children}</div>
+          <Main>
+            {children}
+          </Main>
+          <Footer/>
         </section>
-        <footer>
-          Built with <img src="/netliheart.svg" alt="Netlify Heart" /> for you
-        </footer>
       </ThemeProvider>
     </>
   )

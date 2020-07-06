@@ -2,6 +2,7 @@ export const theme = {
   fonts: {
     body: 'Inter, system-ui, sans-serif',
   },
+  layoutWidth: '768px',
   breakpoints: [
     '1440px', // 0
     '1256px', // 1
