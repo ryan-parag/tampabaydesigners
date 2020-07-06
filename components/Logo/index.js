@@ -51,7 +51,7 @@ const LogoIcon = styled.div`
     height: ${({ theme }) => theme.space[6]};
     border-radius: calc(${({ theme }) => theme.space[2]} + ${({ theme }) => theme.space[1]});
     &:after {
-      border-radius: calc(${({ theme }) => theme.space[2]} + ${({ theme }) => theme.space[0]});
+      border-radius: calc(${({ theme }) => theme.space[2]} + ${({ theme }) => theme.space[1]});
     }
   }
 `
