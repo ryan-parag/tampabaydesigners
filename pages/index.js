@@ -65,8 +65,8 @@ const Index = ({ title, description, ...props }) => {
     <>
       <Layout pageTitle={title} description={description}>
         <h1>Welcome!</h1>
-        <p>🆕 New to the Tampa design community?</p>
-        <p>{description}</p>
+        <p>✨ New to the Tampa Bay design community? ✨</p>
+        <p>Here's a curated list of active, design-related communities in the Tampa Bay area. These communities are made up of UX designers, illustrators, web designers, and more - all with the goal of sharing knowledge, trading feedback, and posting the latest job openings.</p>
         <ul>
           <li>
             <Link href="/slack">Join a few of the Slack communities</Link>

@@ -67,4 +67,7 @@ export const GlobalStyle = createGlobalStyle`
       color: var(--purple);
     }
   }
+  p {
+    line-height: ${({ theme }) => theme.lineHeights.body};
+  }
 `
