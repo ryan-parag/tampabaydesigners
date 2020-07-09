@@ -2,42 +2,7 @@ import Layout from '@components/Layout'
 import getPosts from '@utils/getPosts'
 import Link from 'next/link'
 import styled from 'styled-components'
-
-const GroupContainer = styled.a`
-  padding: ${({ theme }) => theme.space[4]};
-  display: flex;
-  border-radius: ${({ theme }) => theme.space[2]};
-  flex-direction: column;
-  align-items: center;
-  background: var(--gray100);
-  border: 1px solid var(--gray300);
-  text-align: center;
-  color: inherit;
-  text-decoration: none;
-  transition: all 120ms ease-out 0s;
-  &:visited {
-    color: inherit;
-  }
-  &:hover, &:focus {
-    background: var(--gray200);
-    border-color: var(--gray400);
-    outline: none;
-    color: inherit;
-  }
-  &:focus {
-    border-color: var(--orange);
-  }
-  &:active {
-    border-color: var(--gray400);
-    color: var(--gray700);
-    box-shadow: inset 0px 0px ${({ theme }) => theme.space[3]} var(--gray400);
-  }
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints[4]}) {
-    flex-direction: row;
-    align-items: flex-start;
-    text-align: left;
-  }
-`
+import { BoxLink } from '@components/Box'
 
 const GroupContent = styled.div`
   margin-top: ${({ theme }) => theme.space[3]};
@@ -62,7 +27,7 @@ const Index = ({ posts, title, description, ...props }) => {
   const groups = [
     {
       name: 'Tampa Bay UX',
-      link: '',
+      link: 'https://www.meetup.com/Tampabay-UX-Group/',
       img: '/tampa-bay-ux.png',
       description: 'The Tampa Bay User Experience Group is one of the largest volunteer led user experience professional organizations in south central Florida.'
     },{
@@ -110,7 +75,7 @@ const Index = ({ posts, title, description, ...props }) => {
         <GroupGrid>
           {
             groups.map(group => (
-              <GroupContainer href={group.link} target="_blank" key={group.name}>
+              <BoxLink href={group.link} target="_blank" key={group.name}>
                 <img src={group.img} width="64"/>
                 <GroupContent>
                   <h3 style={{
@@ -119,20 +84,27 @@ const Index = ({ posts, title, description, ...props }) => {
                   }}>
                     {group.name}
                   </h3>
-                  <p style={{
-                    marginBottom: '0',
-                    lineHeight: '1.2',
-                    color: 'var(--gray600)'
-                  }}>
+                  <p
+                    title={group.description}
+                    style={{
+                      marginBottom: '0',
+                      lineHeight: '1.2',
+                      color: 'var(--gray600)'
+                    }}
+                  >
                     <small>
                       {truncate(group.description)}
                     </small>
                   </p>
                 </GroupContent>
-              </GroupContainer>
+              </BoxLink>
             ))
           }
         </GroupGrid>
+        <p>
+          Don't see your group listed?{' '}
+          <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSddTfmh1Gn4U-olwwrVgkFyV8YQakBmouImmhASQcoACqUeZQ/viewform?usp=sf_link">Fill out the form</a>
+        </p>
       </Layout>
     </>
   )

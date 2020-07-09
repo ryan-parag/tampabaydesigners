@@ -6,6 +6,7 @@ import Event from '@components/Event'
 const Meetups = ({ title, description, ...props }) => {
 
   const [state, setState] = useState([])
+  const [unverified, setUnverified] = useState([])
 
   let newDate = new Date()
   let month = newDate.getMonth();
@@ -15,8 +16,6 @@ const Meetups = ({ title, description, ...props }) => {
   ]
 
   const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-
-  const designEvents=[]
 
   const designGroups = {
     tampaBayUx: {
@@ -61,29 +60,46 @@ const Meetups = ({ title, description, ...props }) => {
     }
   }
 
-  useEffect(() => {
-    const base = new Airtable({apiKey: 'keyaoGBqnQGlNnUL8'}).base('appnhKjkS5AMvjjHx')
+  const designEvents=[]
+  const unverifiedEvents=[]
+
+  const callAirtable = () => {
+    const base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base(process.env.AIRTABLE_BASE)
 
     base('events').select({
       view: 'Grid view'
     }).eachPage(function page(records, fetchNextPage) {
       records.forEach(function(record) {
-        let newEvent = {
-          eventName:  record.get('Event Name'),
-          org:  record.get('Org'),
-          date: record.get('Date'),
-          description: record.get('Description'),
-          link: record.get('Link'),
+        let verified = record.get('Verified')
+        if(verified) {
+          let newEvent = {
+            eventName:  record.get('Event Name'),
+            org:  record.get('Org'),
+            date: record.get('Date'),
+            description: record.get('Description'),
+            link: record.get('Link'),
+          }
+          designEvents.push(newEvent)
+        } else {
+          unverifiedEvents.push(record.get('Event Name'))
         }
-        designEvents.push(newEvent)
       })
       fetchNextPage()
       const sortedEvents = designEvents.slice().sort((a, b) => new Date(a.date) - new Date(b.date))
       setState(sortedEvents)
+      setUnverified(unverifiedEvents)
     }, function done(err) {
       if( err) { console.log(err); return; }
     })
-  })
+  }
+
+  useEffect(() => {
+    let unmounted = false
+
+   callAirtable()
+
+   return () => { unmounted = true }
+  }, [])
 
   const formatDate = date => {
     let d = new Date(date)
@@ -122,6 +138,21 @@ const Meetups = ({ title, description, ...props }) => {
             <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfXiL1a1f70HFyf0uXmQLscm30vMUxzgRoO1pnV8dz2PGBttA/viewform?usp=sf_link">Submit an event to be listed</a>
           </small>
         </p>
+        {
+          unverified.length > 0 ? (
+            <div style={{
+              padding: '24px',
+              background: 'var(--red)',
+              color: 'var(--white)',
+              borderRadius: '8px',
+              marginBottom: '24px'
+            }}>
+              {unverified.length} event{unverified.length > 1 ? 's' : null} pending in Airtable
+            </div>
+          )
+          :
+          null
+        }
         <div>
           {
             state.map(event => (
