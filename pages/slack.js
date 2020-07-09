@@ -25,6 +25,7 @@ const SignUpButton = styled.a`
   }
   &:hover, &:focus {
     background: var(--red);
+    color: var(--white);
     .arrow {
       transform: translateX(${({ theme}) => theme.space[2]}) scale(1.1);
       opacity: 1;
