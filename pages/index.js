@@ -1,5 +1,4 @@
 import Layout from '@components/Layout'
-import getPosts from '@utils/getPosts'
 import Link from 'next/link'
 import styled from 'styled-components'
 import { BoxLink } from '@components/Box'
@@ -22,7 +21,7 @@ const GroupGrid = styled.div`
   }
 `
 
-const Index = ({ posts, title, description, ...props }) => {
+const Index = ({ title, description, ...props }) => {
 
   const groups = [
     {
@@ -115,13 +114,8 @@ export default Index
 export async function getStaticProps() {
   const configData = await import(`../siteconfig.json`)
 
-  const posts = ((context) => {
-    return getPosts(context)
-  })(require.context('../posts', true, /\.md$/))
-
   return {
     props: {
-      posts,
       title: configData.default.title,
       description: configData.default.description,
     },

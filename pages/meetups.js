@@ -185,16 +185,3 @@ export async function getStaticProps() {
     },
   }
 }
-
-/*
-<div>
-    {
-      designEvents.map(event => (
-        <div key={event.eventName}>
-          <h4>{event.eventName}</h4>
-          <span>{event.date}</span>
-        </div>
-      ))
-    }
-  </div>
-  */

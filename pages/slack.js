@@ -1,5 +1,4 @@
 import Layout from '@components/Layout'
-import Link from 'next/link'
 import siteConfig from '../siteconfig.json'
 import styled from 'styled-components'
 import { Box } from '@components/Box'
