@@ -1,34 +1,13 @@
 import React, { useEffect,useState } from 'react'
+import { BoxLink } from '@components/Box'
 import styled from 'styled-components'
 
-const EventContainer = styled.a`
-  display: flex;
+const EventContainer = styled(BoxLink)`
   align-items: flex-start;
-  text-decoration: none;
-  color: inherit;
-  background: var(--gray100);
-  border: 1px solid var(--gray300);
+  flex-direction: row;
+  text-align: left;
   padding: ${({ theme }) => theme.space[4]} ${({ theme }) => theme.space[3]};
-  border-radius: ${({ theme }) => theme.space[2]};
   margin-bottom: ${({ theme }) => theme.space[3]};
-  transition: all 120ms ease-out 0s;
-  &:visited {
-    color: inherit;
-  }
-  &:hover, &:focus {
-    background: var(--gray200);
-    border-color: var(--gray400);
-    outline: none;
-    color: inherit;
-  }
-  &:focus {
-    border-color: var(--orange);
-  }
-  &:active {
-    border-color: var(--gray400);
-    color: var(--gray700);
-    box-shadow: inset 0px 0px ${({ theme }) => theme.space[3]} var(--gray400);
-  }
 `
 
 const EventDescription = styled.p`
