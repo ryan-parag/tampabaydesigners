@@ -72,7 +72,7 @@ const Index = ({ title, description, ...props }) => {
             <Link href="/slack">Join a few of the Slack communities</Link>
           </li>
           <li>
-          <Link href="/meetups">Attend an upcoming event</Link>
+          <Link href="/events">Attend an upcoming event</Link>
           </li>
         </ul>
         <h3>Our local design communities:</h3>
