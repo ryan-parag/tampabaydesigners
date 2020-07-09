@@ -38,8 +38,8 @@ export default function Header() {
           <NavItem href="/slack">
             Slack
           </NavItem>
-          <NavItem href="/meetups">
-            Meetups
+          <NavItem href="/events">
+            Events
           </NavItem>
           <NavItem href="/about">
             About

@@ -3,7 +3,7 @@ import Airtable from 'airtable'
 import React, { useEffect,useState } from 'react'
 import Event from '@components/Event'
 
-const Meetups = ({ title, description, ...props }) => {
+const Events = ({ title, description, ...props }) => {
 
   const [state, setState] = useState([])
   const [unverified, setUnverified] = useState([])
@@ -111,8 +111,8 @@ const Meetups = ({ title, description, ...props }) => {
 
   return (
     <>
-      <Layout pageTitle={`${title} | Meetups`} description={description}>
-        <h1>Meetups</h1>
+      <Layout pageTitle={`${title} | Events`} description={description}>
+        <h1>Events</h1>
         <p>It's {monthNames[month]} and we're still in the middle of a global pandemic - to help keep everyone safe, many meetups are being held via video conference.</p>
         <p>
           Attend an upcoming event from one of the local design communities:{' '}
@@ -173,7 +173,7 @@ const Meetups = ({ title, description, ...props }) => {
   )
 }
 
-export default Meetups
+export default Events
 
 export async function getStaticProps() {
   const configData = await import(`../siteconfig.json`)
