@@ -14,7 +14,9 @@ const Meetups = ({ title, description, ...props }) => {
 
   const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
-  ];
+  ]
+
+  const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
   const designEvents=[]
 
@@ -85,6 +87,14 @@ const Meetups = ({ title, description, ...props }) => {
     })
   })
 
+  const formatDate = date => {
+    let d = new Date(date)
+    let month = d.getMonth()
+    let year = d.getFullYear()
+    let day = d.getDay()
+    return dayNames[day] + ', ' + monthNames[month] + ' ' + d.getDate() + ' ' + year
+  }
+
   return (
     <>
       <Layout pageTitle={`${title} | Meetups`} description={description}>
@@ -123,7 +133,7 @@ const Meetups = ({ title, description, ...props }) => {
                 name={event.eventName}
                 img={renderImg(event.org)}
                 description={event.description}
-                date={event.date}
+                date={formatDate(event.date)}
                 org={event.org}
               />
             ))
