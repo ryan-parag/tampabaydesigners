@@ -32,6 +32,19 @@ const GroupContainer = styled.a`
     color: var(--gray700);
     box-shadow: inset 0px 0px ${({ theme }) => theme.space[3]} var(--gray400);
   }
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints[4]}) {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+  }
+`
+
+const GroupContent = styled.div`
+  margin-top: ${({ theme }) => theme.space[3]};
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints[4]}) {
+    margin-top: 0;
+    padding-left: ${({ theme }) => theme.space[3]};
+  }
 `
 
 const GroupGrid = styled.div`
@@ -39,6 +52,9 @@ const GroupGrid = styled.div`
   grid-column-gap: ${({ theme}) => theme.space[3]};
   grid-row-gap: ${({ theme}) => theme.space[3]};
   grid-template-columns: repeat(3, 1fr);
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints[4]}) {
+    grid-template-columns: 1fr;
+  }
 `
 
 const Index = ({ posts, title, description, ...props }) => {
@@ -96,21 +112,23 @@ const Index = ({ posts, title, description, ...props }) => {
             groups.map(group => (
               <GroupContainer href={group.link} target="_blank" key={group.name}>
                 <img src={group.img} width="64"/>
-                <h4 style={{
-                  marginBottom: '0',
-                  marginTop: '16px'
-                }}>
-                  {group.name}
-                </h4>
-                <p style={{
-                  marginBottom: '0',
-                  lineHeight: '1.2',
-                  color: 'var(--gray600)'
-                }}>
-                  <small>
-                    {truncate(group.description)}
-                  </small>
-                </p>
+                <GroupContent>
+                  <h3 style={{
+                    marginBottom: '0',
+                    marginTop: '0'
+                  }}>
+                    {group.name}
+                  </h3>
+                  <p style={{
+                    marginBottom: '0',
+                    lineHeight: '1.2',
+                    color: 'var(--gray600)'
+                  }}>
+                    <small>
+                      {truncate(group.description)}
+                    </small>
+                  </p>
+                </GroupContent>
               </GroupContainer>
             ))
           }
