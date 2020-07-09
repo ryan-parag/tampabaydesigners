@@ -84,8 +84,8 @@ const Slack = ({ title, description, ...props }) => {
        }}>
         <h1>Slack Communities</h1>
         <p>Discuss trends, give advice, share feedback, look for new opportunities, and connect in-person inside one of the local Slack communities.</p>
-       </div>
         <h4>Find a community from the list below:</h4>
+       </div>
        <GroupGrid>
          {
            slackGroups.map(group => (

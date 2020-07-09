@@ -64,10 +64,10 @@ const Index = ({ title, description, ...props }) => {
         <p>{description}</p>
         <ul>
           <li>
-            <Link href="/slack">Join the Slack community</Link>
+            <Link href="/slack">Join a few of the Slack communities</Link>
           </li>
           <li>
-          <Link href="/meetups">Find an upcoming event</Link>
+          <Link href="/meetups">Attend an upcoming event</Link>
           </li>
         </ul>
         <h3>Our local design communities:</h3>
