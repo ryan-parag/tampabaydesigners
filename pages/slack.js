@@ -40,12 +40,16 @@ const Slack = ({ title, description, ...props }) => {
   return (
     <>
       <Layout pageTitle={`${title} | Slack`} description={description}>
+       <div style={{
+         textAlign: 'center'
+       }}>
         <h1>Slack Community</h1>
         <p>Discuss trends, give advice, share feedback, uncover insights, surface opportunities, and connect in-person using the Tampa Bay Designers Slack community.</p>
         <SignUpButton href={siteConfig.slackSignUp}>
           Join the Community!
           <span className="arrow">&rarr;</span>
         </SignUpButton>
+       </div>
         <img
           src="../static/slack-example.png"
           style={{
