@@ -26,25 +26,25 @@ const LogoContainer = styled.a`
 `
 
 const LogoIcon = styled.div`
-  width: ${({ theme }) => theme.space[8]};
-  height: ${({ theme }) => theme.space[8]};
+  width: ${({ theme }) => theme.space[7]};
+  height: ${({ theme }) => theme.space[7]};
   background: var(--orange);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: ${({ theme }) => theme.space[4]};
+  border-radius: ${({ theme }) => theme.space[3]};
   padding: ${({ theme }) => theme.space[1]};
-  box-shadow: inset 0px 0px 0px 2px rgba(255,255,255,.2);
+  box-shadow: inset 0px 0px 0px 1px rgba(255,255,255,.2);
   position: relative;
   &:after {
     content: '';
-    border-radius: ${({ theme }) => theme.space[4]};
+    border-radius: ${({ theme }) => theme.space[3]};
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(-45deg, rgba(255,255,255,0), rgba(255,255,255,0.5));
+    background: linear-gradient(-45deg, rgba(255,255,255,0),rgba(255,255,255,0), rgba(255,255,255,0.5));
   }
   @media screen and (max-width: ${({ theme }) => theme.breakpoints[4]}) {
     width: ${({ theme }) => theme.space[6]};
@@ -57,7 +57,7 @@ const LogoIcon = styled.div`
 `
 
 const LogoTitle = styled.h1`
-  font-size: ${({ theme }) => theme.fontSizes[7]};
+  font-size: ${({ theme }) => theme.fontSizes[6]};
   margin-top: ${({ theme }) => theme.space[4]};
   margin-bottom: 0;
   @media screen and (max-width: ${({ theme }) => theme.breakpoints[4]}) {
