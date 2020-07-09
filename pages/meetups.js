@@ -1,8 +1,6 @@
 import Layout from '@components/Layout'
-import Placeholder from '@components/Placeholder'
 import Airtable from 'airtable'
 import React, { useEffect,useState } from 'react'
-import styled from 'styled-components'
 import Event from '@components/Event'
 
 const Meetups = ({ title, description, ...props }) => {
@@ -64,7 +62,7 @@ const Meetups = ({ title, description, ...props }) => {
   }
 
   useEffect(() => {
-    const base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(AIRTABLE_BASE)
+    const base = new Airtable({apiKey: 'keyaoGBqnQGlNnUL8'}).base('appnhKjkS5AMvjjHx')
 
     base('events').select({
       view: 'Grid view'
