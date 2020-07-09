@@ -64,7 +64,7 @@ const Meetups = ({ title, description, ...props }) => {
   }
 
   useEffect(() => {
-    const base = new Airtable({apiKey: 'keyaoGBqnQGlNnUL8'}).base('appnhKjkS5AMvjjHx')
+    const base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base(process.env.AIRTABLE_BASE)
 
     base('events').select({
       view: 'Grid view'
