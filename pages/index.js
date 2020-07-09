@@ -1,7 +1,8 @@
 import Layout from '@components/Layout'
 import Link from 'next/link'
 import styled from 'styled-components'
-import { BoxLink } from '@components/Box'
+import { Box } from '@components/Box'
+import { ButtonLink } from '@components/Button'
 
 const GroupContent = styled.div`
   margin-top: ${({ theme }) => theme.space[3]};
@@ -19,6 +20,10 @@ const GroupGrid = styled.div`
   @media screen and (max-width: ${({ theme }) => theme.breakpoints[4]}) {
     grid-template-columns: 1fr;
   }
+`
+
+const Group = styled.div`
+  ${Box}
 `
 
 const Index = ({ title, description, ...props }) => {
@@ -74,7 +79,10 @@ const Index = ({ title, description, ...props }) => {
         <GroupGrid>
           {
             groups.map(group => (
-              <BoxLink href={group.link} target="_blank" key={group.name}>
+              <Group
+                key={group.name}
+                title={group.description}
+              >
                 <img src={group.img} width="64"/>
                 <GroupContent>
                   <h3 style={{
@@ -86,7 +94,6 @@ const Index = ({ title, description, ...props }) => {
                   <p
                     title={group.description}
                     style={{
-                      marginBottom: '0',
                       lineHeight: '1.2',
                       color: 'var(--gray600)'
                     }}
@@ -95,8 +102,12 @@ const Index = ({ title, description, ...props }) => {
                       {truncate(group.description)}
                     </small>
                   </p>
+                  <ButtonLink href={group.link} target="_blank">
+                    More Info
+                    <span className="arrow">&rarr;</span>
+                  </ButtonLink>
                 </GroupContent>
-              </BoxLink>
+              </Group>
             ))
           }
         </GroupGrid>

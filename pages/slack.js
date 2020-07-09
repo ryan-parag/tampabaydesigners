@@ -2,40 +2,8 @@ import Layout from '@components/Layout'
 import siteConfig from '../siteconfig.json'
 import styled from 'styled-components'
 import { Box } from '@components/Box'
+import { ButtonLink } from '@components/Button'
 
-const SignUpButton = styled.a`
-  display: inline-block;
-  padding: ${({ theme}) => theme.space[2]} ${({ theme}) => theme.space[4]};
-  background: var(--orange);
-  color: var(--white);
-  border-radius: ${({ theme}) => theme.space[2]};
-  font-size: ${({ theme}) => theme.fontSizes[2]};
-  text-decoration: none;
-  box-shadow: inset 0px 0px ${({ theme}) => theme.space[1]} rgba(255,255,255,1);
-  text-shadow: 0px 1px 2px rgba(0,0,0,.2);
-  transition: all 120ms ease-out 0s;
-  .arrow {
-    margin-left:${({ theme}) => theme.space[2]};
-    display: inline-block;
-    transition: all 120ms ease-out 0s;
-    opacity: .5;
-  }
-  :visited {
-    color: var(--white);
-  }
-  &:hover, &:focus {
-    background: var(--red);
-    color: var(--white);
-    .arrow {
-      transform: translateX(${({ theme}) => theme.space[2]}) scale(1.1);
-      opacity: 1;
-    }
-  }
-  &:focus {
-    box-shadow: inset 0px 0px 0px 2px var(--purple);
-    outline: none;
-  }
-`
 const GroupGrid = styled.div`
   display: grid;
   grid-column-gap: ${({ theme}) => theme.space[3]};
@@ -89,7 +57,10 @@ const Slack = ({ title, description, ...props }) => {
        <GroupGrid>
          {
            slackGroups.map(group => (
-            <SlackGroup>
+            <SlackGroup
+              title={group.description}
+              key={group.name}
+            >
               <img src={group.img} width="56"/>
               <h4 style={{
                 marginTop: '16px',
@@ -109,10 +80,10 @@ const Slack = ({ title, description, ...props }) => {
                   {truncate(group.description)}
                 </small>
               </p>
-              <SignUpButton href={group.link}>
+              <ButtonLink href={group.link}>
                 Join Group
                 <span className="arrow">&rarr;</span>
-              </SignUpButton>
+              </ButtonLink>
             </SlackGroup>
            ))
          }
