@@ -7,8 +7,7 @@ import { ButtonLink } from '@components/Button'
 const GroupContent = styled.div`
   margin-top: ${({ theme }) => theme.space[3]};
   @media screen and (max-width: ${({ theme }) => theme.breakpoints[4]}) {
-    margin-top: 0;
-    padding-left: ${({ theme }) => theme.space[3]};
+    margin-top:  ${({ theme }) => theme.space[2]};
   }
 `
 
