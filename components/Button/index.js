@@ -12,7 +12,7 @@ export const ButtonBase = css`
   text-decoration: none;
   position: relative;
   transition: all 120ms ease-out 0s;
-  .arrow {
+  .icon, .arrow {
     margin-left:${({ theme}) => theme.space[2]};
     display: inline-flex;
     align-items: center;
