@@ -61,7 +61,13 @@ const Slack = ({ title, description, ...props }) => {
               title={group.description}
               key={group.name}
             >
-              <img src={group.img} width="56"/>
+              <img
+                src={group.img}
+                width="56"
+                style={{
+                  borderRadius: '50%'
+                }}
+              />
               <h4 style={{
                 marginTop: '16px',
                 marginBottom: '8px'

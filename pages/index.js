@@ -84,12 +84,12 @@ const Index = ({ title, description, ...props }) => {
               >
                 <img src={group.img} width="64"/>
                 <GroupContent>
-                  <h3 style={{
+                  <h4 style={{
                     marginBottom: '0',
                     marginTop: '0'
                   }}>
                     {group.name}
-                  </h3>
+                  </h4>
                   <p
                     title={group.description}
                     style={{

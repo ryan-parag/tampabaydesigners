@@ -46,6 +46,9 @@ export const ButtonBase = css`
     box-shadow: inset 0px 0px 0px 2px currentColor;
     outline: none;
   }
+  &:active {
+    box-shadow: inset 0px 0px ${({ theme}) => theme.space[2]} currentColor;
+  }
 `
 
 export const ButtonLink = styled.a`
