@@ -20,7 +20,7 @@ export const BoxLink = styled.a`
     color: inherit;
   }
   &:hover, &:focus {
-    background: var(--gray200);
+    background: var(--gray100);
     border-color: var(--gray400);
     outline: none;
     color: inherit;

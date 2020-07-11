@@ -3,7 +3,8 @@ import styled, { css } from 'styled-components'
 export const ButtonBase = css`
   font-family: inherit;
   border: 0;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   padding: ${({ theme}) => theme.space[2]} ${({ theme}) => theme.space[4]};
   color: var(--blue);
   border-radius: ${({ theme}) => theme.space[2]};
@@ -13,7 +14,9 @@ export const ButtonBase = css`
   transition: all 120ms ease-out 0s;
   .arrow {
     margin-left:${({ theme}) => theme.space[2]};
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     transition: all 120ms ease-out 0s;
     opacity: .5;
   }
@@ -35,7 +38,7 @@ export const ButtonBase = css`
       opacity: .2;
     }
     .arrow {
-      transform: translateX(${({ theme}) => theme.space[2]}) scale(1.1);
+      transform: translateX(${({ theme}) => theme.space[2]});
       opacity: 1;
     }
   }
