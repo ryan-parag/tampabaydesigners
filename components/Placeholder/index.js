@@ -4,7 +4,8 @@ import styled from 'styled-components'
 const PlaceholderContainer = styled.div`
   padding: ${({ theme }) => theme.space[4]};
   text-align: center;
-  background: var(--gray200);
+  background: var(--gray300);
+  color: var(--gray700);
   margin: ${({ theme}) => theme.space[3]} auto;
 `
 
@@ -13,7 +14,7 @@ const PlaceholderIcon = styled.div`
   width: ${({ theme }) => theme.space[6]};
   height: ${({ theme }) => theme.space[6]};
   position: relative;
-  color: var(--pink);
+  color: var(--gray500);
   border-radius: 50%;
   &:before {
     content: '';

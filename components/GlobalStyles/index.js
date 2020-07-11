@@ -39,7 +39,7 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     color: var(--gray900);
-    background: var(--white);
+    background: var(--gray200);
     font-family: ${({ theme }) => theme.fonts.body};
     line-height: ${({ theme }) => theme.lineHeights.body};
     font-size: ${({ theme }) => theme.fontSizes[2]};

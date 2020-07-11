@@ -6,7 +6,7 @@ export const Box = css`
   border-radius: ${({ theme }) => theme.space[2]};
   flex-direction: column;
   align-items: center;
-  background: var(--gray100);
+  background: var(--white);
   border: 1px solid var(--gray300);
   text-align: center;
   color: inherit;
