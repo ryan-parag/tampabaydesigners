@@ -72,14 +72,17 @@ const Events = ({ title, description, ...props }) => {
       records.forEach(function(record) {
         let verified = record.get('Verified')
         if(verified) {
-          let newEvent = {
-            eventName:  record.get('Event Name'),
-            org:  record.get('Org'),
-            date: record.get('Date'),
-            description: record.get('Description'),
-            link: record.get('Link'),
+          let upcoming = new Date(record.get('Date')) >= new Date()
+          if(upcoming) {
+            let newEvent = {
+              eventName:  record.get('Event Name'),
+              org:  record.get('Org'),
+              date: record.get('Date'),
+              description: record.get('Description'),
+              link: record.get('Link'),
+            }
+            designEvents.push(newEvent)
           }
-          designEvents.push(newEvent)
         } else {
           unverifiedEvents.push(record.get('Event Name'))
         }
@@ -147,7 +150,7 @@ const Events = ({ title, description, ...props }) => {
               borderRadius: '8px',
               marginBottom: '24px'
             }}>
-              {unverified.length} event{unverified.length > 1 ? 's' : null} pending in Airtable
+              {unverified.length} event{unverified.length > 1 ? 's' : null} submitted and pending verification.
             </div>
           )
           :
