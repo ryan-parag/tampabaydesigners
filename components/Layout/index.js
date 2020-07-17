@@ -5,6 +5,7 @@ import { GlobalStyle } from '@components/GlobalStyles'
 import styled, { ThemeProvider } from 'styled-components'
 import { theme } from '@components/Theme'
 import Footer from '@components/Footer'
+import ReactGA from 'react-ga'
 
 const Main = styled.main`
 width: 100%;
@@ -14,6 +15,12 @@ margin: auto;
 `
 
 export default function Layout({ children, pageTitle, description, ...props }) {
+  
+  if (typeof window !== "undefined") {
+    ReactGA.initialize('UA-157497184-1')
+    ReactGA.pageview(window.location.pathname + window.location.search)
+  }
+
   return (
     <>
       <ThemeProvider theme={theme}>
