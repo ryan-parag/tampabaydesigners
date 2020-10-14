@@ -2,14 +2,25 @@ import Layout from '@components/Layout'
 import Airtable from 'airtable'
 import React, { useEffect,useState } from 'react'
 import Event from '@components/Event'
+import { Box } from '@components/Box'
+import styled from 'styled-components'
 
-const Events = ({ title, description, ...props }) => {
+const EmptyState = styled.div`
+  ${Box}
+  color: var(--gray500);
+  background: transparent;
+  border: 0;
+  padding-top: ${({theme}) => theme.space[7]};
+  padding-bottom: ${({theme}) => theme.space[7]};
+  .EmptyState__Icon {
+    margin-bottom: ${({theme}) => theme.space[3]};;
+  }
+`
 
-  const [state, setState] = useState([])
-  const [unverified, setUnverified] = useState([])
+
+const EventList = ({events}) => {
 
   let newDate = new Date()
-  let month = newDate.getMonth();
 
   const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
@@ -60,6 +71,46 @@ const Events = ({ title, description, ...props }) => {
     }
   }
 
+  const formatDate = date => {
+    let d = new Date(date)
+    let month = d.getMonth()
+    let year = d.getFullYear()
+    let day = d.getDay()
+    return dayNames[day] + ', ' + monthNames[month] + ' ' + d.getDate() + ' ' + year
+  }
+
+  return (
+    <div>
+      {
+        events.length > 0 ?
+          events.map(event => (
+            <Event
+              key={event.eventName}
+              link={event.link}
+              name={event.eventName}
+              img={renderImg(event.org)}
+              description={event.description}
+              date={formatDate(event.date)}
+              org={event.org}
+            />
+          )) :
+          (
+            <EmptyState>
+              <svg className="EmptyState__Icon" width="56" height="56" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              No Upcoming Events
+            </EmptyState>
+          )
+      }
+    </div>
+  )
+}
+
+const Events = ({ title, description, ...props }) => {
+  const [state, setState] = useState([])
+  const [unverified, setUnverified] = useState([])
+
   const designEvents=[]
   const unverifiedEvents=[]
 
@@ -104,19 +155,11 @@ const Events = ({ title, description, ...props }) => {
    return () => { unmounted = true }
   }, [])
 
-  const formatDate = date => {
-    let d = new Date(date)
-    let month = d.getMonth()
-    let year = d.getFullYear()
-    let day = d.getDay()
-    return dayNames[day] + ', ' + monthNames[month] + ' ' + d.getDate() + ' ' + year
-  }
-
   return (
     <>
       <Layout pageTitle={`${title} | Events`} description={description}>
         <h1>Events</h1>
-        <p>It's {monthNames[month]} and we're still in the middle of a global pandemic - to help keep everyone safe, many meetups are being held via video conference.</p>
+        <p>To help keep everyone safe, many meetups are being held via video conference.</p>
         <p>
           Attend an upcoming event from one of the local design communities:{' '}
           <strong style={{
@@ -157,19 +200,7 @@ const Events = ({ title, description, ...props }) => {
           null
         }
         <div>
-          {
-            state.map(event => (
-              <Event
-                key={event.eventName}
-                link={event.link}
-                name={event.eventName}
-                img={renderImg(event.org)}
-                description={event.description}
-                date={formatDate(event.date)}
-                org={event.org}
-              />
-            ))
-          }
+          <EventList events={state}/>
         </div>
       </Layout>
     </>
