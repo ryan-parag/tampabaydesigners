@@ -69,8 +69,8 @@ export const ChipLink = (props) => {
   }
 
   return(
-    <a target="_blank" href={props.href} className={`${ChipClass} ${props.marginLeft ? 'ml-2' : 'ml-0'} ${props.marginRight ? 'mr-2' : 'mr-0'} ${stateClass}`}>
+    <span target="_blank" href={props.href} className={`${ChipClass} ${props.marginLeft ? 'ml-2' : 'ml-0'} ${props.marginRight ? 'mr-2' : 'mr-0'} ${stateClass}`}>
       {props.children}
-    </a>
+    </span>
   )
 }
