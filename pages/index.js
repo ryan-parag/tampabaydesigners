@@ -3,21 +3,31 @@ import Link from 'next/link'
 import { BoxOutbound } from '@components/Box'
 import Title from '@components/Title'
 import { ChipLink } from '@components/Chip'
+import { motion } from 'framer-motion'
 
-const ListItem = ({link, img, title, description}) => {
+const ListItem = ({delay, link, img, title, description}) => {
+
+  const itemDelay = 0.3 * (delay + 1)
   return(
-    <BoxOutbound
-      flex
-      marginBottom={'4'}
-      target="_blank"
-      href={link}
+    <motion.div
+      className="relative top-4 opacity-0"
+      animate={{ top: 0, opacity: 1 }}
+      transition={{ duration: 0.5, delay: itemDelay }}
     >
-      <img className="h-12 w-12 rounded-full" src={img}/>
-      <div className="pl-4">
-        <p className="text-sm mb-1 font-bold">{title}</p>
-        <p className="text-xs text-black text-opacity-70 dark:text-white dark:text-opacity-70">{description}</p>
-      </div>
-    </BoxOutbound>
+      <BoxOutbound
+        flex
+        marginBottom={'4'}
+        target="_blank"
+        href={link}
+      >
+        <img className="h-12 w-12 rounded-full" src={img}/>
+        <div className="pl-4">
+          <p className="text-sm mb-1 font-bold">{title}</p>
+          <p className="text-xs text-black text-opacity-70 dark:text-white dark:text-opacity-70">{description}</p>
+        </div>
+      </BoxOutbound>
+    </motion.div>
+    
   )
 }
 
@@ -98,20 +108,28 @@ const Index = ({ title, description, ...props }) => {
         />
         <div className="flex justify-center flex-wrap mb-8">
           {
-            links.map(link => (
-              <ChipLink key={link.name} type={link.color} marginLeft marginRight>
-                <Link href={link.href}>
-                  <a>{link.name}</a>
-                </Link>
-              </ChipLink>
+            links.map((link, i) => (
+              <motion.div
+                className="top-8 transform opacity-0 scale-50 inline-block"
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.12*i }}
+                key={link.name}
+              >
+                <ChipLink type={link.color} marginLeft marginRight>
+                  <Link href={link.href}>
+                    <a>{link.name}</a>
+                  </Link>
+                </ChipLink>
+              </motion.div>
             ))
           }
         </div>
         <hr/>
         <h4 className="text-xl font-bold mt-4 mb-4" id="events">Our local design communities:</h4>
         {
-          groups.map(group => (
+          groups.map((group,i) => (
             <ListItem
+              delay={i}
               img={group.img}
               title={group.name}
               link={group.link}

@@ -57,13 +57,13 @@ export default function Layout({ children, pageTitle, description, ...props }) {
           <link rel="icon" href="/favicon/tbd.svg"></link>
         </Head>
         <Normalize />
-        <section>
+        <>
           <Header />
-          <Main>
+          <main className="w-full mx-auto p-4 max-w-3xl">
             {children}
-          </Main>
+          </main>
           <Footer/>
-        </section>
+        </>
       </ThemeProvider>
     </>
   )

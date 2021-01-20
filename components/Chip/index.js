@@ -8,7 +8,7 @@ export default function Chip(props) {
 
   switch (props.type) {
     case 'red':
-      stateClass = 'bg-red-500 bg-opacity-10 dark:bg-opacity-20 text-red-500'
+      stateClass = 'bg-red-500 bg-opacity-10 dark:bg-opacity-20 text-red-500 dark:text-red-400'
       break;
     case 'blue':
       stateClass = 'bg-blue-500 bg-opacity-10 dark:bg-opacity-20 text-blue-500 dark:text-blue-400'
@@ -23,7 +23,7 @@ export default function Chip(props) {
       stateClass = 'bg-yellow-500 bg-opacity-10 dark:bg-opacity-20 text-yellow-600 dark:text-yellow-500'
       break;
     case 'indigo':
-      stateClass = 'bg-indigo-500 bg-opacity-10 dark:bg-opacity-20 text-indigo-500'
+      stateClass = 'bg-indigo-500 bg-opacity-10 dark:bg-opacity-20 text-indigo-500 dark:text-indigo-300'
       break;
     case 'pink':
       stateClass = 'bg-pink-500 bg-opacity-10 dark:bg-opacity-20 text-pink-500'
@@ -44,7 +44,7 @@ export const ChipLink = (props) => {
 
   switch (props.type) {
     case 'red':
-      stateClass = 'bg-red-500 bg-opacity-10 dark:bg-opacity-20 text-red-500 hover:bg-opacity-100 dark:hover:bg-opacity-100 hover:text-white'
+      stateClass = 'bg-red-500 bg-opacity-10 dark:bg-opacity-20 text-red-500 dark:text-red-400 hover:bg-opacity-100 dark:hover:bg-opacity-100 hover:text-white'
       break;
     case 'blue':
       stateClass = 'bg-blue-500 bg-opacity-10 dark:bg-opacity-20 text-blue-500 dark:text-blue-400 hover:bg-opacity-100 dark:hover:bg-opacity-100 hover:text-white'
@@ -59,7 +59,7 @@ export const ChipLink = (props) => {
       stateClass = 'bg-yellow-500 bg-opacity-10 dark:bg-opacity-20 text-yellow-600 dark:text-yellow-500 hover:bg-opacity-100 dark:hover:bg-opacity-100 hover:text-white'
       break;
     case 'indigo':
-      stateClass = 'bg-indigo-500 bg-opacity-10 dark:bg-opacity-20 text-indigo-500 hover:bg-opacity-100 dark:hover:bg-opacity-100 hover:text-white'
+      stateClass = 'bg-indigo-500 bg-opacity-10 dark:bg-opacity-20 text-indigo-500 dark:text-indigo-300 hover:bg-opacity-100 dark:hover:bg-opacity-100 hover:text-white'
       break;
     case 'pink':
       stateClass = 'bg-pink-500 bg-opacity-10 dark:bg-opacity-20 text-pink-500 hover:bg-opacity-100 dark:hover:bg-opacity-100 hover:text-white'

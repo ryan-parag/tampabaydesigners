@@ -12,6 +12,7 @@
     "airtable": "^0.8.1",
     "autoprefixer": "9.8.6",
     "dotenv": "^8.2.0",
+    "framer-motion": "^3.2.1",
     "gray-matter": "^4.0.2",
     "next": "^10.0.5",
     "postcss": "^8.2.4",
