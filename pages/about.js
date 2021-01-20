@@ -43,7 +43,7 @@ const About = ({ title, description, ...props }) => {
         />
         <h3 className="font-bold text-2xl mb-2">Have a question?</h3>
         <p className="mb-2">We’d love to help! Email over a question and we'll either answer, if possible, or direct you towards someone in the community who can. We'll do our best to reply quickly 👍.</p>
-        <a className="button button--secondary mb-8" href="mailto:tampabaydesigners@gmail.com">
+        <a className="button button--primary mb-8" href="mailto:tampabaydesigners@gmail.com">
           <span className="mr-2">Send an Email</span>
           <Mail size={'20'}/>
         </a>
@@ -63,7 +63,7 @@ const About = ({ title, description, ...props }) => {
             }
           </div>
         </div>
-        <a className="button button--secondary mb-8" href="https://github.com/TampaBayDesigners/tampabaydesigners">
+        <a className="button button--primary mb-8" href="https://github.com/TampaBayDesigners/tampabaydesigners">
           <span className="mr-2">Send us a message</span>
           <GitHub size={'20'}/>
         </a>

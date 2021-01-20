@@ -1,5 +1,6 @@
 import Logo from '@components/Logo'
 import NavItem from '@components/NavItem'
+import { motion } from 'framer-motion'
 
 export default function Header() {
 
@@ -22,7 +23,13 @@ export default function Header() {
             </NavItem>
           </nav>
         </div>
-        <Logo/>
+        <motion.div
+          className="relative top-8 opacity-0"
+          animate={{ top: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <Logo/>
+        </motion.div>
       </header>
     </>
   )

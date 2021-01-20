@@ -41,8 +41,9 @@ const Slack = ({ title, description, ...props }) => {
         <div className="text-sm mb-4">Find a community from the list below:</div>
        <div>
          {
-           slackGroups.map(group => (
+           slackGroups.map((group, i) => (
              <SlackGroup
+              delay={i}
               name={group.name}
               img={group.img}
               description={group.description}

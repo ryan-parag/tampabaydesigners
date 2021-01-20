@@ -5,6 +5,7 @@ import Event from '@components/Event'
 import { Box } from '@components/Box'
 import styled from 'styled-components'
 import Title from '@components/Title'
+import { motion } from 'framer-motion'
 
 const EmptyState = styled.div`
   ${Box}
@@ -85,16 +86,16 @@ const EventList = ({events}) => {
       <div className="text-sm mb-4">Find an event to attend:</div>
       {
         events.length > 0 ?
-          events.map(event => (
-            <Event
-              key={event.eventName}
-              link={event.link}
-              name={event.eventName}
-              img={renderImg(event.org)}
-              description={event.description}
-              date={formatDate(event.date)}
-              org={event.org}
-            />
+          events.map((event, i) => (
+              <Event
+                link={event.link}
+                name={event.eventName}
+                img={renderImg(event.org)}
+                description={event.description}
+                date={formatDate(event.date)}
+                org={event.org}
+                key={event.eventName}
+              />
           )) :
           (
             <EmptyState>
@@ -179,9 +180,13 @@ const Events = ({ title, description, ...props }) => {
           :
           null
         }
-        <div>
+        <motion.div
+          className="top-8 relative opacity-0"
+          animate={{ top: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
           <EventList events={state}/>
-        </div>
+        </motion.div>
         <div className="block text-center mb-8">
           <p className="text-custom-orange dark:text-custom-yellow mb-2">
             <small>

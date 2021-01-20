@@ -6,7 +6,7 @@ import Link from 'next/link'
 export default function Logo() {
   return(
     <Link href="/">
-      <a className="inline-flex items-center rounded-lg p-4 transition hover:bg-gray-100 dark:hover:bg-white dark:hover:bg-opacity-10">
+      <a className="inline-flex items-center rounded-lg p-4 transition hover:bg-gray-100 dark:hover:bg-white dark:hover:bg-opacity-10 transform hover:scale-105 focus:scale-105">
         <div style={{ background: 'var(--orange)'}} className="w-12 h-12 transform -rotate-6 rounded-xl inline-flex items-center justify-center shadow relative border-2 border-white border-opacity-20">
           <svg xmlns="http://www.w3.org/2000/svg" width="100%" fill="none" viewBox="0 0 80 80">
             <g fill="var(--white)" clipPath="url(#clip0)">
