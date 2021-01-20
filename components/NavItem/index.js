@@ -19,7 +19,7 @@ export default ({ href, children }) => {
     <div className="w-1/4 pl-1 pr-1 inline-block">
       <Link href={href}>
         <a>
-          <div className={`transition block w-full text-center pt-3 pb-3 rounded-md pl-6 pr-6 ${isActive}`}>
+          <div className={`transition block w-full text-center pt-3 pb-3 rounded-md ${isActive}`}>
             {children}
           </div>
         </a>
