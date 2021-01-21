@@ -1,9 +1,6 @@
 import Layout from '@components/Layout'
 import siteConfig from '../siteconfig.json'
-import styled from 'styled-components'
-import { Box } from '@components/Box'
-import { ButtonLink } from '@components/Button'
-import Title from '@components/Title'
+import Title, { Subtitle } from '@components/Title'
 import SlackGroup from '@components/SlackGroup'
 
 const Slack = ({ title, description, ...props }) => {
@@ -38,7 +35,7 @@ const Slack = ({ title, description, ...props }) => {
           title={'Slack Communities'}
           subtitle={'Discuss trends, give advice, share feedback, look for new opportunities, and more inside one of the local Slack communities.'}
         />
-        <div className="text-sm mb-4">Find a community from the list below:</div>
+        <Subtitle>Find a community from the list below:</Subtitle>
        <div>
          {
            slackGroups.map((group, i) => (

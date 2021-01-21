@@ -1,8 +1,9 @@
 import Layout from '@components/Layout'
 import { motion } from 'framer-motion'
 import Chip from '@components/Chip'
-import Title from '@components/Title'
+import Title, { Subtitle } from '@components/Title'
 import { Mail, GitHub } from 'react-feather'
+import Divider from '@components/Divider'
 
 
 const About = ({ title, description, ...props }) => {
@@ -39,20 +40,20 @@ const About = ({ title, description, ...props }) => {
           animate={{ top: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.5 }}
         >
-          <h3 className="font-bold text-2xl mb-2">Have a question?</h3>
-          <p className="mb-2">We’d love to help! Email over a question and we'll either answer, if possible, or direct you towards someone in the community who can. We'll do our best to reply quickly 👍.</p>
+          <Subtitle>Have a question?</Subtitle>
+          <p className="mb-4">We’d love to help! Email over a question and we'll either answer, if possible, or direct you towards someone in the community who can. We'll do our best to reply quickly 👍.</p>
           <a className="button button--primary mb-8" href="mailto:tampabaydesigners@gmail.com">
             <span className="mr-2">Send an Email</span>
             <Mail size={'20'}/>
           </a>
         </motion.section>
-        <hr/>
+        <Divider/>
         <motion.section
           className="relative top-4 opacity-0"
           animate={{ top: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.7 }}
         >
-          <h3 className="font-bold text-2xl mb-2 mt-8">Want to contribute?</h3>
+          <Subtitle>Want to contribute?</Subtitle>
           <p className="mb-2">Are you a designer or developer? Do you have an idea to add to this site or want to chip in with design updates? Hop in on the fun if you'd like to learn as well!</p>
           <p className="mb-4">We're always looking for designers/developers to help out with wireframes / mockups / prototypes / code - send us a message through email or provide some design updates through the GitHub repo.</p>
           <div className="mb-4">

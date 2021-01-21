@@ -5,7 +5,7 @@
   }
 
   .link, p a {
-    @apply font-semibold hover:text-indigo-600 dark:hover:text-indigo-300 hover:underline;
+    @apply transition font-semibold hover:text-black dark:hover:text-white underline;
   }
 
   p {

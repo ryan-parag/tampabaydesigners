@@ -4,7 +4,7 @@ import React, { useEffect,useState } from 'react'
 import Event from '@components/Event'
 import { Box } from '@components/Box'
 import styled from 'styled-components'
-import Title from '@components/Title'
+import Title, { Subtitle } from '@components/Title'
 import { motion } from 'framer-motion'
 
 const EmptyState = styled.div`
@@ -21,14 +21,6 @@ const EmptyState = styled.div`
 
 
 const EventList = ({events}) => {
-
-  let newDate = new Date()
-
-  const monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-  ]
-
-  const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
   const designGroups = {
     tampaBayUx: {
@@ -73,17 +65,9 @@ const EventList = ({events}) => {
     }
   }
 
-  const formatDate = date => {
-    let d = new Date(date)
-    let month = d.getMonth()
-    let year = d.getFullYear()
-    let day = d.getDay()
-    return dayNames[day] + ', ' + monthNames[month] + ' ' + d.getDate() + ' ' + year
-  }
-
   return (
     <div>
-      <div className="text-sm mb-4">Find an event to attend:</div>
+      <Subtitle>Find an event to attend:</Subtitle>
       {
         events.length > 0 ?
           events.map((event, i) => (
@@ -92,7 +76,7 @@ const EventList = ({events}) => {
                 name={event.eventName}
                 img={renderImg(event.org)}
                 description={event.description}
-                date={formatDate(event.date)}
+                date={event.date}
                 org={event.org}
                 key={event.eventName}
               />

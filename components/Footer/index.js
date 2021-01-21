@@ -2,8 +2,8 @@ import React from 'react'
 
 export default function Footer() {
   return(
-    <footer className="mt-4 pt-12 pb-12 mb-4 px-4 border-t-2 border-gray-100 dark:border-white dark:border-opacity-10 text-center text-gray-500 dark:text-white dark:text-opacity-50">
-      <div className="w-10 h-10 bg-black bg-opacity-20 p-1 dark:bg-white dark:bg-opacity-20 transform -rotate-6 rounded-lg inline-flex items-center justify-center relative mb-4">
+    <footer className="mt-4 pt-20 pb-24 mb-4 px-4 border-t-2 border-gray-100 dark:border-white dark:border-opacity-10 text-center text-gray-500 dark:text-white dark:text-opacity-50">
+      <div className="w-10 h-10 bg-black bg-opacity-20 p-1 dark:bg-white dark:bg-opacity-20 transform -rotate-6 rounded-lg inline-flex items-center justify-center relative mb-8">
         <svg xmlns="http://www.w3.org/2000/svg" width="100%" fill="none" viewBox="0 0 80 80">
           <g fill="var(--white)" clipPath="url(#clip0)">
             <path fillOpacity="1" fillRule="evenodd" d="M20.796 52.265L18.65 61.35l9.085-2.146 33.48-33.48-6.94-6.938-33.479 33.48zm8.411 10.7a2 2 0 00.955-.531l35.295-35.296a2 2 0 000-2.828l-9.767-9.767a2 2 0 00-2.828 0L17.566 49.838a2 2 0 00-.532.955L14.012 63.58a2 2 0 002.407 2.407l12.788-3.022z" clipRule="evenodd"/>
@@ -12,7 +12,8 @@ export default function Footer() {
         </svg>
       </div>
       <p className="text-sm mb-2">Have a fun idea to add?</p>
-      <a className="button button--secondary button--sm" href="https://github.com/TampaBayDesigners/tampabaydesigners" target="_blank">Contribute on GitHub</a>
+      <a className="button button--secondary button--sm mb-8" href="https://github.com/TampaBayDesigners/tampabaydesigners" target="_blank">Contribute on GitHub</a>
+      <p className="text-sm mb-4">Made by <a href="https://ryanparag.com/">Ryan Parag</a>, built with <a href="https://nextjs.org/">NextJS</a> & <a href="https://tailwindcss.com/">Tailwind</a>, and hosted on <a href="https://www.netlify.com/">Netlify</a>.</p>
     </footer>
   )
 }

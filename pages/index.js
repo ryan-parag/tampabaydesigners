@@ -1,9 +1,10 @@
 import Layout from '@components/Layout'
 import Link from 'next/link'
 import { BoxOutbound } from '@components/Box'
-import Title from '@components/Title'
+import Title, { Subtitle } from '@components/Title'
 import { ChipLink } from '@components/Chip'
 import { motion } from 'framer-motion'
+import Divider from '@components/Divider'
 
 const ListItem = ({delay, link, img, title, description}) => {
 
@@ -15,15 +16,20 @@ const ListItem = ({delay, link, img, title, description}) => {
       transition={{ duration: 0.5, delay: itemDelay }}
     >
       <BoxOutbound
-        flex
         marginBottom={'4'}
         target="_blank"
         href={link}
       >
-        <img className="h-12 w-12 rounded-full" src={img}/>
-        <div className="pl-4">
-          <p className="text-sm mb-1 font-bold">{title}</p>
-          <p className="text-xs text-black text-opacity-70 dark:text-white dark:text-opacity-70">{description}</p>
+        <div className="grid grid-cols-8 md:grid-cols-12">
+          <div className="col-span-1">
+            <div className="w-full rounded-full border-2 dark:border-white dark:border-opacity-10">
+              <img className="block w-full rounded-full" src={img}/>
+            </div>
+          </div>
+          <div className="pl-4 col-span-7 md:col-span-11">
+            <p className="text-sm mb-1 font-bold">{title}</p>
+            <p className="text-xs text-black text-opacity-70 dark:text-white dark:text-opacity-70">{description}</p>
+          </div>
         </div>
       </BoxOutbound>
     </motion.div>
@@ -110,12 +116,17 @@ const Index = ({ title, description, ...props }) => {
           {
             links.map((link, i) => (
               <motion.div
-                className="top-8 transform opacity-0 scale-50 inline-block"
+                className="top-8 opacity-0 transform scale-75 inline-block"
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.12*i }}
                 key={link.name}
               >
-                <ChipLink type={link.color} marginLeft marginRight>
+                <ChipLink
+                  type={link.color}
+                  marginLeft
+                  marginRight
+                  marginBottom
+                >
                   <Link href={link.href}>
                     <a>{link.name}</a>
                   </Link>
@@ -124,8 +135,10 @@ const Index = ({ title, description, ...props }) => {
             ))
           }
         </div>
-        <hr/>
-        <h4 className="text-xl font-bold mt-4 mb-4" id="events">Our local design communities:</h4>
+        <Divider/>
+        <div id="events">
+          <Subtitle>Our local design communities:</Subtitle>
+        </div>
         {
           groups.map((group,i) => (
             <ListItem
