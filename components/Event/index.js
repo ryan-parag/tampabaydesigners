@@ -5,7 +5,7 @@ import { Calendar } from 'react-feather'
 
 const CalendarItem = ({day, num, month, year}) => {
   return(
-    <div className="rounded-lg text-center bg-gray-100 dark:bg-white overflow-hidden dark:bg-opacity-10 shadow flex flex-col w-full">
+    <div className="rounded-lg text-center bg-gray-100 dark:bg-white overflow-hidden border border-black border-opacity-5 dark:border-white dark:border-opacity-5 dark:bg-opacity-10 shadow flex flex-col w-full">
       <div className="text-xs font-semibold py-1 bg-red-500 uppercase text-white">{day.substring(0, 3)}</div>
       <div className="text-lg md:text-2xl font-extrabold py-1">{num}</div>
       <div className="text-xs pb-1 text-black text-opacity-50 dark:text-white dark:text-opacity-50">{month.substring(0, 3)}{' '}{year}</div>
@@ -42,12 +42,12 @@ export default function Event({img, org, name, description, date, link}) {
           <div className="col-span-6 md:col-span-10 flex">
             <div className="pr-4 md:pr-8">
               <p className="text-sm mb-2 font-bold">{name}</p>
+              <p className="text-xs text-pink-500 mb-2 font-semibold">Hosted by {org}</p>
               <p className="text-xs text-black text-opacity-70 mb-2 dark:text-white dark:text-opacity-70">{description}</p>
-              <p className="text-xs text-green-500">Hosted by {org}</p>
             </div>
           </div>
-          <div className="relative col-span-2 pt-4">
-            <div className="w-12 h-12 absolute transform top-0 -left-4 rounded-full border-4 border-white dark:border-black">
+          <div className="relative col-span-2 pt-1">
+            <div className="w-12 h-12 absolute transform -top-2 -left-4 rounded-full border-4 border-white dark:border-black">
               <img className="block w-full rounded-full" src={img}/>
             </div>
             <CalendarItem
