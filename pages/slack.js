@@ -45,6 +45,7 @@ const Slack = ({ title, description, ...props }) => {
               img={group.img}
               description={group.description}
               link={group.link}
+              key={group.name}
              />
            ))
          }

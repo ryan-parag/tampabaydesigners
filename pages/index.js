@@ -121,16 +121,18 @@ const Index = ({ title, description, ...props }) => {
                 transition={{ duration: 0.5, delay: 0.12*i }}
                 key={link.name}
               >
-                <ChipLink
-                  type={link.color}
-                  marginLeft
-                  marginRight
-                  marginBottom
-                >
-                  <Link href={link.href}>
-                    <a>{link.name}</a>
-                  </Link>
-                </ChipLink>
+                <Link href={link.href}>
+                  <a>
+                    <ChipLink
+                      type={link.color}
+                      marginLeft
+                      marginRight
+                      marginBottom
+                    >
+                      {link.name}
+                    </ChipLink>
+                  </a>
+                </Link>
               </motion.div>
             ))
           }
