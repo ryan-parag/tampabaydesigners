@@ -47,7 +47,7 @@ export default function Event({img, org, name, description, date, link}) {
             </div>
           </div>
           <div className="relative col-span-2 pt-1">
-            <div className="w-12 h-12 absolute transform -top-2 -left-4 rounded-full border-4 border-white dark:border-black">
+            <div className="w-10 h-10 md:w-12 md:h-12 absolute transform -top-2 -left-4 md:-left-4 rounded-full border-4 border-white dark:border-black">
               <img className="block w-full rounded-full" src={img}/>
             </div>
             <CalendarItem
