@@ -69,7 +69,7 @@ export const ChipLink = (props) => {
   }
 
   return(
-    <span target="_blank" href={props.href} className={`${ChipClass} transform hover:rotate-3 ${props.marginLeft ? 'ml-2' : 'ml-0'} ${props.marginTop ? 'mt-2' : 'mt-0'} ${props.marginBottom ? 'mb-2' : 'mb-0'} ${props.marginRight ? 'mr-2' : 'mr-0'} ${stateClass}`}>
+    <span target="_blank" href={props.href} className={`${ChipClass} transform hover:rotate-3 hover:scale-105 ${props.marginLeft ? 'ml-2' : 'ml-0'} ${props.marginTop ? 'mt-2' : 'mt-0'} ${props.marginBottom ? 'mb-2' : 'mb-0'} ${props.marginRight ? 'mr-2' : 'mr-0'} ${stateClass}`}>
       {props.children}
     </span>
   )

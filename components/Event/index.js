@@ -6,9 +6,9 @@ import { Calendar } from 'react-feather'
 const CalendarItem = ({day, num, month, year}) => {
   return(
     <div className="rounded-lg text-center bg-gray-100 dark:bg-white overflow-hidden border border-black border-opacity-5 dark:border-white dark:border-opacity-5 dark:bg-opacity-10 shadow flex flex-col w-full">
-      <div className="text-xs font-semibold py-1 bg-red-500 uppercase text-white">{day.substring(0, 3)}</div>
-      <div className="text-lg md:text-2xl font-extrabold py-1">{num}</div>
-      <div className="text-xs pb-1 text-black text-opacity-50 dark:text-white dark:text-opacity-50">{month.substring(0, 3)}{' '}{year}</div>
+      <div className="text-xs font-semibold py-1 bg-red-500 uppercase text-white font-mono">{day.substring(0, 3)}</div>
+      <div className="text-lg md:text-2xl font-extrabold py-1 font-mono">{num}</div>
+      <div className="text-xs pb-1 text-black text-opacity-50 dark:text-white dark:text-opacity-50 font-mono">{month.substring(0, 3)}{' '}{year}</div>
     </div>
   )
 }

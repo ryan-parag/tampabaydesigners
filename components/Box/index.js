@@ -58,7 +58,7 @@ export const BoxNew = (props) => {
 
 export const BoxOutbound = (props) => {
 
-  const defaultClasses = "transition rounded-md border border-gray-200 dark:border-white dark:border-opacity-10 dark:hover:bg-white dark:hover:bg-opacity-10 shadow hover:shadow-lg dark:hover:border-transparent"
+  const defaultClasses = "transition transform rounded-md border border-gray-200 dark:border-white dark:border-opacity-10 dark:hover:bg-white dark:hover:bg-opacity-10 shadow hover:shadow-lg dark:hover:border-transparent hover:scale-105"
 
   return(
     <a
