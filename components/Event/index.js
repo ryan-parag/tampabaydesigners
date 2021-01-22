@@ -1,7 +1,6 @@
 import React from 'react'
 import { BoxOutbound } from '@components/Box'
-import Chip from '@components/Chip'
-import { Calendar } from 'react-feather'
+import Image from 'next/image'
 
 const CalendarItem = ({day, num, month, year}) => {
   return(
@@ -27,10 +26,10 @@ export default function Event({img, org, name, description, date, link}) {
     let d = new Date(date)
     let month = d.getMonth()
     let year = d.getFullYear()
-    let day = d.getDay()
+    let day = d.getDay() + 1
     const dateObj = {
       dayString: dayNames[day],
-      numString: d.getDate(),
+      numString: d.getDate() + 1,
       monthString: monthNames[month],
       yearString: year
     }
@@ -43,12 +42,19 @@ export default function Event({img, org, name, description, date, link}) {
             <div className="pr-4 md:pr-8">
               <p className="text-sm mb-2 font-bold">{name}</p>
               <p className="text-xs text-pink-500 mb-2 font-semibold">Hosted by {org}</p>
-              <p className="text-xs text-black text-opacity-70 mb-2 dark:text-white dark:text-opacity-70">{description}</p>
+              <p className="text-xs mb-2 text--secondary">{description}</p>
             </div>
           </div>
           <div className="relative col-span-2 pt-1">
             <div className="w-10 h-10 md:w-12 md:h-12 absolute transform -top-2 -left-4 md:-left-4 rounded-full border-4 border-white dark:border-black">
-              <img className="block w-full rounded-full" src={img}/>
+              <Image
+                className="block w-full rounded-full"
+                src={img}
+                width={100}
+                height={100}
+                loading={'lazy'}
+                alt={name}
+              />
             </div>
             <CalendarItem
               day={formatDate(date).dayString}

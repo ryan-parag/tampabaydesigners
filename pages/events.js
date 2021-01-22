@@ -2,66 +2,39 @@ import Layout from '@components/Layout'
 import Airtable from 'airtable'
 import React, { useEffect,useState } from 'react'
 import Event from '@components/Event'
-import { Box } from '@components/Box'
-import styled from 'styled-components'
+import EmptyState from '@components/EmptyState'
 import Title, { Subtitle } from '@components/Title'
 import { motion } from 'framer-motion'
-
-const EmptyState = styled.div`
-  ${Box}
-  color: var(--gray500);
-  background: transparent;
-  border: 0;
-  padding-top: ${({theme}) => theme.space[7]};
-  padding-bottom: ${({theme}) => theme.space[7]};
-  .EmptyState__Icon {
-    margin-bottom: ${({theme}) => theme.space[3]};;
-  }
-`
+import groups from '@data/groups'
 
 
 const EventList = ({events}) => {
 
-  const designGroups = {
-    tampaBayUx: {
-      img: '/tampa-bay-ux.png'
-    },
-    designStPete: {
-      img: '/design-st-pete.png'
-    },
-    dribbbleTampa: {
-      img: 'dribbble-tampa.png'
-    },
-    sketchTampa: {
-      img: 'sketch-tampa.png'
-    },
-    figmaTampa: {
-      img: '/figma-tampa.png'
-    },
-    default: {
-      img: '/favicon/tbd.svg'
-    }
+  const getImage = (group) => {
+    let findGroup = groups.filter(obj => obj.name.includes(group))
+    return findGroup[0].img
   }
 
   const renderImg = (group) => {
+    console.log(group)
     switch (group) {
       case 'Tampa Bay UX':
-        return designGroups.tampaBayUx.img
+        return getImage(group)
         break;
       case 'Design St. Pete':
-        return designGroups.designStPete.img
+        return getImage(group)
         break;
       case 'Dribbble Tampa':
-        return designGroups.dribbbleTampa.img
+        return getImage(group)
         break;
       case 'Sketch Tampa':
-        return designGroups.sketchTampa.img
+        return getImage(group)
         break;
       case 'Figma Tampa':
-        return designGroups.figmaTampa.img
+        return getImage(group)
         break;
       default:
-        return designGroups.default.img
+        return '/favicon/tbd.svg'
     }
   }
 
@@ -83,9 +56,6 @@ const EventList = ({events}) => {
           )) :
           (
             <EmptyState>
-              <svg className="EmptyState__Icon" width="56" height="56" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
               No Upcoming Events
             </EmptyState>
           )

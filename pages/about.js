@@ -41,7 +41,7 @@ const About = ({ title, description, ...props }) => {
           transition={{ duration: 0.5, delay: 0.5 }}
         >
           <Subtitle>Have a question?</Subtitle>
-          <p className="mb-4">We’d love to help! Email over a question and we'll either answer, if possible, or direct you towards someone in the community who can. We'll do our best to reply quickly 👍.</p>
+          <p className="mb-4 text--secondary">We’d love to help! Email over a question and we'll either answer, if possible, or direct you towards someone in the community who can. We'll do our best to reply quickly 👍.</p>
           <a className="button button--primary mb-8" href="mailto:tampabaydesigners@gmail.com">
             <span className="mr-2">Send an Email</span>
             <Mail size={'20'}/>
@@ -54,8 +54,8 @@ const About = ({ title, description, ...props }) => {
           transition={{ duration: 0.5, delay: 0.7 }}
         >
           <Subtitle>Want to contribute?</Subtitle>
-          <p className="mb-2">Are you a designer or developer? Do you have an idea to add to this site or want to chip in with design updates? Hop in on the fun if you'd like to learn as well!</p>
-          <p className="mb-4">We're always looking for designers/developers to help out with wireframes / mockups / prototypes / code - send us a message through email or provide some design updates through the GitHub repo.</p>
+          <p className="mb-2 text--secondary">Are you a designer or developer? Do you have an idea to add to this site or want to chip in with design updates? Hop in on the fun if you'd like to learn as well!</p>
+          <p className="mb-4 text--secondary">We're always looking for designers/developers to help out with wireframes / mockups / prototypes / code - send us a message through email or provide some design updates through the GitHub repo.</p>
           <div className="mb-4">
             <div className="text-xs text-black text-opacity-50 dark:text-white dark:text-opacity-50 mb-2">Have skills in one or more of the following?</div>
             <div className="flex flex-wrap">

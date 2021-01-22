@@ -5,6 +5,8 @@ import Title, { Subtitle } from '@components/Title'
 import { ChipLink } from '@components/Chip'
 import { motion } from 'framer-motion'
 import Divider from '@components/Divider'
+import groups from '@data/groups'
+import Image from 'next/image'
 
 const ListItem = ({delay, link, img, title, description}) => {
 
@@ -23,7 +25,14 @@ const ListItem = ({delay, link, img, title, description}) => {
         <div className="grid grid-cols-8 md:grid-cols-12">
           <div className="col-span-1">
             <div className="w-full rounded-full border-2 dark:border-white dark:border-opacity-10">
-              <img className="block w-full rounded-full" src={img}/>
+              <Image
+                className="block w-full rounded-full"
+                src={img}
+                width={100}
+                height={100}
+                loading={'lazy'}
+                alt={title}
+              />
             </div>
           </div>
           <div className="pl-4 col-span-7 md:col-span-11">
@@ -38,40 +47,6 @@ const ListItem = ({delay, link, img, title, description}) => {
 }
 
 const Index = ({ title, description, ...props }) => {
-
-  const groups = [
-    {
-      name: 'Tampa Bay UX',
-      link: 'https://www.meetup.com/Tampabay-UX-Group/',
-      img: '/tampa-bay-ux.png',
-      description: 'The Tampa Bay User Experience Group is one of the largest volunteer led user experience professional organizations in south central Florida.'
-    },{
-      name: 'Design St. Pete',
-      link: 'https://www.meetup.com/Design-St-Pete/',
-      img: '/design-st-pete.png',
-      description: 'This group is for anyone who is interested in the craft of design. Product managers, designers, developers, marketers, business analysts, and c-level executives are welcome.'
-    },{
-      name: 'AIGA Tampa Bay',
-      link: 'https://tampabay.aiga.org/',
-      img: '/aiga.png',
-      description: 'As the largest community of design advocates, we bring together practitioners, enthusiasts, and patrons to amplify the voice of design and create the vision for a collective future'
-    },{
-      name: 'Dribbble Tampa',
-      link: 'https://dribbble.com/places/tampa',
-      img: '/dribbble-tampa.png',
-      description: 'The official Dribbble community in Tampa: connect with other designers, swap art, win swag, and take part in an analog design challenge'
-    },{
-      name: 'Sketch Tampa',
-      link: 'https://www.sketch.com/community/groups/tampa-bay/',
-      img: '/sketch-tampa.png',
-      description: 'This an official Sketch meetup for designers and developers in Tampa Bay. Join us to share knowledge, trade tips, and hear about new plugins and resources.'
-    },{
-      name: 'Figma Tampa',
-      link: 'https://www.meetup.com/Figma-Tampa-Bay/',
-      img: '/figma-tampa.png',
-      description: 'This meetup is for all Figma users in the Tampa Bay Area! Learn, share and connect with your fellow Figmanites!'
-    },
-  ]
 
   const links = [
     {
@@ -101,9 +76,6 @@ const Index = ({ title, description, ...props }) => {
     }
   ]
 
-  const truncate = str => {
-    return str.length > 74 ? str.substring(0, 74) + "..." : str;
-  }
 
   return (
     <>

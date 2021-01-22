@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 
-export default ({ href, children }) => {
+export default ({ href, children, ...props }) => {
   const router = useRouter()
 
   let isActive = null
@@ -16,14 +16,12 @@ export default ({ href, children }) => {
   }
 
   return (
-    <div className="w-1/4 pl-1 pr-1 inline-block">
       <Link href={href}>
         <a>
-          <div className={`transition block w-full text-center pt-3 pb-3 rounded-md ${isActive}`}>
+          <div className={`transition block w-full ${props.center ? 'text-center' : 'text-left px-4'} pt-3 pb-3 rounded-md ${isActive}`}>
             {children}
           </div>
         </a>
       </Link>
-    </div>
   )
 }

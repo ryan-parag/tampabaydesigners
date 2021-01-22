@@ -2,6 +2,7 @@ import React from 'react'
 import { BoxOutbound } from '@components/Box'
 import Chip from '@components/Chip'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 
 export default function SlackGroup({delay, img, name, description, link}) {
 
@@ -22,7 +23,14 @@ export default function SlackGroup({delay, img, name, description, link}) {
           <div className="col-span-1">
             <div className="w-full relative">
               <div className="w-full rounded-full border-2 dark:border-white dark:border-opacity-10">
-                <img className="block w-full rounded-full" src={img}/>
+                <Image
+                  className="block w-full rounded-full"
+                  src={img}
+                  width={100}
+                  height={100}
+                  loading={'lazy'}
+                  alt={name}
+                />
               </div>
               <div className="inline-block h-7 w-7 bg-black dark:bg-white border-2 border-white dark:border-black rounded-full p-1 absolute -right-2 -bottom-2">
                 <svg viewBox="0 0 124 124" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -40,7 +48,7 @@ export default function SlackGroup({delay, img, name, description, link}) {
           </div>
           <div className="pl-6 col-span-7 md:col-span-11">
             <p className="text-sm mb-2 font-bold">{name}</p>
-            <p className="text-xs text-black text-opacity-70 mb-4 dark:text-white dark:text-opacity-70">{description}</p>
+            <p className="text-xs mb-4 text--secondary">{description}</p>
             <Chip type="yellow">Join Group</Chip>
           </div>
         </div>
