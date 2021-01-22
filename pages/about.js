@@ -60,8 +60,8 @@ const About = ({ title, description, ...props }) => {
             <div className="text-xs text-black text-opacity-50 dark:text-white dark:text-opacity-50 mb-2">Have skills in one or more of the following?</div>
             <div className="flex flex-wrap">
               {
-                skills.map(skill => (
-                  <Chip marginRight type={skill.color}>
+                skills.map((skill, i) => (
+                  <Chip marginRight key={i} type={skill.color}>
                     {skill.name}
                   </Chip>
                 ))

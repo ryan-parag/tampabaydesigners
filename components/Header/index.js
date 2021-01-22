@@ -3,10 +3,13 @@ import Logo from '@components/Logo'
 import NavItem from '@components/NavItem'
 import { motion } from 'framer-motion'
 import { Menu, X } from 'react-feather'
+import TabItem from '@components/TabItem'
+import { useRouter } from 'next/router'
 
 export default function Header() {
 
   const [open, setOpen] = useState(false)
+  const router = useRouter()
 
   const navigation = [
     {
@@ -27,30 +30,41 @@ export default function Header() {
     }
   ]
 
+  const activeNavItem = (href) => {
+    if(router.pathname === '/' && router.pathname === href) {
+      return 'active'
+    } else if (href !== '/' && router.pathname.includes(href)) {
+      return 'active'
+    } else {
+      return 'default'
+    }
+  }
+
   return (
     <>
       <header className="flex flex-col items-center w-full mb-4">
-        <div className="flex justify-center shadow bg-white dark:bg-black border-b-2 border-gray-100 dark:border-white dark:border-opacity-10 w-full mb-8">
-          <nav className="hidden sm:block w-full sm:w-3/4 md:w-1/2 p-2" role="navigation" aria-label="main navigation">
+        <div className="flex justify-center bg-white dark:bg-black border-b border-gray-200 dark:border-white dark:border-opacity-10 w-full mb-8">
+          <nav className="hidden sm:block w-full sm:w-3/4 md:w-1/2" role="navigation" aria-label="main navigation">
             {
               navigation.map(item => (
                 <div
-                  className="w-1/5 pl-1 pr-1 inline-block"
+                  className="w-1/5 inline-block"
                   key={item.name}
                 >
-                  <NavItem
+                  <TabItem
                     href={item.href}
                     center
+                    state={activeNavItem(item.href)}
                   >
                     {item.name}
-                  </NavItem>
+                  </TabItem>
                 </div>
               ))
             }
           </nav>
           <div className="w-full block sm:hidden">
-            <div className="p-2 flex sm:hidden w-full justify-start">
-              <button onClick={() => setOpen(!open)} className="p-4 rounded-full bg-black bg-opacity-5 dark:bg-white dark:bg-opacity-10 focus:outline-none">
+            <div className="p-2 flex sm:hidden w-full justify-center">
+              <button onClick={() => setOpen(!open)} className="py-2 px-4 rounded-md bg-black bg-opacity-5 dark:bg-white dark:bg-opacity-10 focus:outline-none">
                 {
                   open ? (
                     <X
@@ -81,6 +95,7 @@ export default function Header() {
                       >
                         <NavItem
                           href={item.href}
+                          state={activeNavItem(item.href)}
                         >
                           {item.name}
                         </NavItem>
