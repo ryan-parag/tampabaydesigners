@@ -19,11 +19,11 @@ export default function Header() {
       name: 'Events',
       href: '/events'
     },{
-      name: 'About',
-      href: '/about'
-    },{
       name: 'Links',
       href: '/links'
+    },{
+      name: 'About',
+      href: '/about'
     }
   ]
 
