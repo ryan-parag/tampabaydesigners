@@ -2,7 +2,6 @@ import React from 'react'
 import { BoxOutbound } from '@components/Box'
 import Chip from '@components/Chip'
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 
 export default function SlackGroup({delay, img, name, description, link}) {
 
@@ -23,12 +22,9 @@ export default function SlackGroup({delay, img, name, description, link}) {
           <div className="col-span-1">
             <div className="w-full relative">
               <div className="w-full rounded-full border-2 dark:border-white dark:border-opacity-10">
-                <Image
+                <img
                   className="block w-full rounded-full"
                   src={img}
-                  width={100}
-                  height={100}
-                  loading={'lazy'}
                   alt={name}
                 />
               </div>

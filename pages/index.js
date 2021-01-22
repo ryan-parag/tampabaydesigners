@@ -6,7 +6,6 @@ import { ChipLink } from '@components/Chip'
 import { motion } from 'framer-motion'
 import Divider from '@components/Divider'
 import groups from '@data/groups'
-import Image from 'next/image'
 
 const ListItem = ({delay, link, img, title, description}) => {
 
@@ -25,12 +24,9 @@ const ListItem = ({delay, link, img, title, description}) => {
         <div className="grid grid-cols-8 md:grid-cols-12">
           <div className="col-span-1">
             <div className="w-full rounded-full border-2 dark:border-white dark:border-opacity-10">
-              <Image
+              <img
                 className="block w-full rounded-full"
                 src={img}
-                width={100}
-                height={100}
-                loading={'lazy'}
                 alt={title}
               />
             </div>

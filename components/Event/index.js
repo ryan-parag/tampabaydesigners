@@ -1,6 +1,5 @@
 import React from 'react'
 import { BoxOutbound } from '@components/Box'
-import Image from 'next/image'
 
 const CalendarItem = ({day, num, month, year}) => {
   return(
@@ -47,12 +46,9 @@ export default function Event({img, org, name, description, date, link}) {
           </div>
           <div className="relative col-span-2 pt-1">
             <div className="w-10 h-10 md:w-12 md:h-12 absolute transform -top-2 -left-4 md:-left-4 rounded-full border-4 border-white dark:border-black">
-              <Image
+              <img
                 className="block w-full rounded-full"
                 src={img}
-                width={100}
-                height={100}
-                loading={'lazy'}
                 alt={name}
               />
             </div>
