@@ -158,7 +158,7 @@ const LinksPage = ({ title, description, ...props }) => {
           subtitle={'Find designers in the area or checkout one of the curated resources from the list below!'}
         />
         <motion.div
-          className={`w-full mb-4 grid grid-cols-${categories.length} gap-2 p-2 rounded-md bg-black bg-opacity-5 dark:bg-white dark:bg-opacity-5 top-4 opacity-0`}
+          className={`w-full mb-4 grid grid-cols-2 gap-2 p-2 rounded-md bg-black bg-opacity-5 dark:bg-white dark:bg-opacity-5 top-4 opacity-0`}
           animate={{ top: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.5 }}
         >
