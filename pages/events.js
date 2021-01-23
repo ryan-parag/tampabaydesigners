@@ -6,6 +6,7 @@ import EmptyState from '@components/EmptyState'
 import Title, { Subtitle } from '@components/Title'
 import { motion } from 'framer-motion'
 import groups from '@data/groups'
+import Loading from '@components/Loading'
 
 
 const EventList = ({events}) => {
@@ -16,7 +17,6 @@ const EventList = ({events}) => {
   }
 
   const renderImg = (group) => {
-    console.log(group)
     switch (group) {
       case 'Tampa Bay UX':
         return getImage(group)
@@ -67,13 +67,15 @@ const EventList = ({events}) => {
 const Events = ({ title, description, ...props }) => {
   const [state, setState] = useState([])
   const [unverified, setUnverified] = useState([])
+  const [loading, setLoading] = useState(true)
 
   const designEvents=[]
   const unverifiedEvents=[]
 
   const callAirtable = () => {
-    const base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base(process.env.AIRTABLE_BASE)
+    setLoading(true)
 
+    const base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base(process.env.AIRTABLE_BASE)
     base('events').select({
       view: 'Grid view'
     }).eachPage(function page(records, fetchNextPage) {
@@ -102,14 +104,12 @@ const Events = ({ title, description, ...props }) => {
     }, function done(err) {
       if( err) { console.log(err); return; }
     })
+
+    setLoading(false)
   }
 
   useEffect(() => {
-    let unmounted = false
-
-   callAirtable()
-
-   return () => { unmounted = true }
+      callAirtable()
   }, [])
 
   return (
@@ -139,7 +139,14 @@ const Events = ({ title, description, ...props }) => {
           animate={{ top: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <EventList events={state}/>
+          {
+            loading ? (
+              <Loading>Loading</Loading>
+            )
+            : (
+              <EventList events={state}/>
+            )
+          }
         </motion.div>
         <div className="block text-center mb-8">
           <p className="text-custom-orange dark:text-custom-yellow mb-2">

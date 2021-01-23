@@ -1,9 +1,7 @@
 import React from 'react'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
 
 const NavItem = ({ href, children, ...props }) => {
-  const router = useRouter()
 
   let isActive = null
   if(props.state === 'active') {
@@ -15,7 +13,7 @@ const NavItem = ({ href, children, ...props }) => {
   return (
       <Link as={props.as} href={href}>
         <a>
-          <div className={`font-medium transition block w-full ${props.center ? 'text-center' : 'text-left px-4'} pt-3 pb-3 rounded-md ${isActive}`}>
+          <div className={`font-medium transition w-full ${props.center ? 'flex justify-center items-center' : ' block text-left px-4'} pt-3 pb-3 rounded-md ${isActive}`}>
             {children}
           </div>
         </a>

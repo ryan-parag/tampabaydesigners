@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import LinksPage from '../links/LinksPage'
 import { useRouter } from 'next/router'
-import EmptyState from '@components/EmptyState'
+import Loading from '@components/Loading'
 
 
 const Links = () => {
@@ -14,9 +14,9 @@ const Links = () => {
 
   return (
     <>
-      <EmptyState>
+      <Loading>
         Loading
-      </EmptyState>
+      </Loading>
     </>
   )
 }

@@ -7,18 +7,97 @@ import { useRouter } from 'next/router'
 import Airtable from 'airtable'
 import { BoxOutbound } from '@components/Box'
 import NavItem from '@components/NavItem'
+import Loading from '@components/Loading'
+import { User, Link } from 'react-feather'
+
+const ItemList = ({ items, type, updateList }) => {
+
+  const getColor = (type) => {
+    switch (type) {
+      case 'designers':
+        return 'bg-green-500 bg-opacity-20 text-green-500'
+        break;
+      case 'resources':
+        return 'bg-yellow-500 bg-opacity-20 text-yellow-500'
+        break;
+      default:
+        return 'bg-black bg-opacity-10 dark:bg-white'
+    }
+  }
+
+  const getIcon = (type) => {
+    switch (type) {
+      case 'designers':
+        return <User size={'20'}/>
+        break;
+      case 'resources':
+        return <Link size={'20'}/>
+        break;
+      default:
+        return <Link size={'20'}/>
+    }
+  }
+
+  if(items.length > 0) {
+    return(
+      <>
+      {
+        items.map((item, i) => (
+          <motion.div
+            className="top-8 relative opacity-0 mb-4"
+            animate={{ top: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.12*i }}
+            key={i}
+          >
+            <BoxOutbound flex href={item.href}>
+              <div className={`inline-flex h-12 w-12 items-center justify-center rounded-full ${getColor(type)}`}>
+                {getIcon(type)}
+              </div>
+              <div className="pl-4">
+                <h4 className="font-bold text-sm mb-1">{item.name}</h4>
+                <span className="text--secondary text-xs">{item.role} | {item.href}</span>
+              </div>
+            </BoxOutbound>
+          </motion.div>
+        ))
+      }
+      <div className="p-4 text-center">
+        <button
+          className="button button--secondary"
+          onClick={updateList}
+        >
+          Load more...
+        </button>
+      </div>
+      </>
+    )
+  } else {
+    return(
+      <EmptyState>
+        No{' '}{type}
+      </EmptyState>
+    )
+  }
+}
 
 
 const LinksPage = ({ title, description, ...props }) => {
+
+  const [listedItems, setListedItems] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [itemLength, setItemLength] = useState(10)
+  const updateAmount = 10
 
   const categories = [
     {
       name: "Designers",
       route: "designers",
+      icon: <User size={'16'} className="mr-2"/>
     },
     {
       name: "Resources",
       route: "resources",
+      icon: <Link size={'16'} className="mr-2"/>
     }
   ];
 
@@ -33,42 +112,42 @@ const LinksPage = ({ title, description, ...props }) => {
     }
   }
 
-
-
   const designers=[]
 
   const getData = () => {
+    setLoading(true)
     const base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base(process.env.AIRTABLE_BASE)
 
-    /*base('designers').select({
-      view: 'Grid view'
+    base(props.category).select({
+      view: 'Grid view',
+      maxRecords: itemLength
     }).eachPage(function page(records, fetchNextPage) {
       records.forEach(function(record) {
         let verified = record.get('Verified')
         if(verified) {
           let designer = {
-            name:  record.get('Name'),
-            role:  record.get('Role'),
+            name: record.get('Name'),
+            role: record.get('Description'),
             href: record.get('Link'),
+            date: record.get('Updated'),
           }
           designers.push(designer)
         }
       })
+      setListedItems(designers)
     }, function done(err) {
       if( err) { console.log(err); return; }
     })
-    //console.log(designers)*/
+    setLoading(false)
   }
 
   useEffect(() => {
     let unmounted = false
 
     getData()
-    let arr = [{name:'Ryan', stuff: 'stuff'}]
-    //console.log(arr)
 
    return () => { unmounted = true }
-  }, [designers])
+  }, [listedItems])
 
 
   return (
@@ -91,30 +170,33 @@ const LinksPage = ({ title, description, ...props }) => {
               state={activeNavItem(item.route)}
               center
             >
+              {item.icon}
               {item.name}
             </NavItem>
           ))}
         </motion.div>
         {
-          designers.map(designer => (
-            <BoxOutbound href={designer.href}>
-              <h4>{designer.name}</h4>
-              <span>{designer.role}</span>
-            </BoxOutbound>
-          ))
+          loading ? (
+            <Loading>Loading</Loading>
+          )
+          :
+          (
+            <ItemList
+              items={listedItems}
+              type={props.category}
+              updateList={() => setItemLength(itemLength + updateAmount)}
+            />
+          )
         }
         <motion.section
           className="relative top-4 opacity-0"
           animate={{ top: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.7 }}
         >
-          <EmptyState>
-            Coming soon...
-          </EmptyState>
           <div className="block text-center mb-8 mt-8">
             <p className="text-custom-orange dark:text-custom-yellow mb-2">
               <small>
-                Do you want to add a designer to the list directory? Have a link to share?
+                Have a designer or link to add to the list?
               </small>
             </p>
             <a className="button button--secondary" href="mailto:tampabaydesigners@gmail.com">Share a Link!</a>
