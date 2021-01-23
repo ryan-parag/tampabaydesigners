@@ -50,10 +50,12 @@ const ItemList = ({ items, type, updateList }) => {
             key={i}
           >
             <BoxOutbound flex href={item.href}>
-              <div className={`inline-flex h-12 w-12 items-center justify-center rounded-full ${getColor(type)}`}>
-                {getIcon(type)}
+              <div className="flex">
+                <div className={`inline-flex h-12 w-12 items-center justify-center rounded-full ${getColor(type)}`}>
+                  {getIcon(type)}
+                </div>
               </div>
-              <div className="pl-4">
+              <div className="block flex-1 pl-4">
                 <h4 className="font-bold text-sm mb-1">{item.name}</h4>
                 <span className="text--secondary text-xs">{item.role} | {item.href}</span>
               </div>
