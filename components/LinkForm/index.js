@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Subtitle } from '@components/Title'
 import Airtable from 'airtable'
-import { Check } from 'react-feather'
+import { Check, Circle, CheckCircle } from 'react-feather'
 
 const LinkForm = ({categories}) => {
 
@@ -134,14 +134,24 @@ const LinkForm = ({categories}) => {
                     <div className="flex">
                       {
                         categories.map((item, i) => (
-                          <label className={`transition p-3 bg-black dark:bg-white ${formItems.type === item.route ? 'bg-opacity-70 text-white dark:text-black' : 'bg-opacity-5 dark:bg-opacity-10 hover:bg-opacity-10 dark:hover:bg-opacity-20'} rounded-md cursor-pointer inline-flex items-center mr-2`}>
+                          <label className={`transition p-3 bg-black dark:bg-white ${formItems.type === item.route ? 'bg-opacity-80 text-white dark:text-black' : 'bg-opacity-5 dark:bg-opacity-10 hover:bg-opacity-10 dark:hover:bg-opacity-20'} rounded-md cursor-pointer inline-flex items-center mr-2`}>
                             <input
                               type="radio"
                               name="type"
                               value={item.route}
                               checked={formItems.type === item.route}
                               onChange={handleChange}
+                              className="h-0 w-0"
                             />
+                            {
+                              formItems.type === item.route ? (
+                                <CheckCircle className="text-green-500" size={'24'}/>
+                              )
+                              :
+                              (
+                                <Circle size={'24'}/>
+                              )
+                            }
                             <span className="ml-2">{item.name}</span>
                           </label>
                         ))

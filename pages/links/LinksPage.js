@@ -58,7 +58,7 @@ const ItemList = ({ items, type, updateList }) => {
               </div>
               <div className="block flex-1 pl-4">
                 <h4 className="font-bold text-sm mb-1">{item.name}</h4>
-                <span className="text--secondary text-xs">{item.role} | {item.href}</span>
+                <span className="text--secondary text-xs">{item.role}</span>
               </div>
             </BoxOutbound>
           </motion.div>
