@@ -47,7 +47,7 @@ const ItemList = ({ items, type, updateList }) => {
           <motion.div
             className="top-8 relative opacity-0 mb-4"
             animate={{ top: 0, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.12*i }}
+            transition={{ duration: 0.5, delay: 0.02*i }}
             key={i}
           >
             <BoxOutbound flex href={item.href}>
@@ -76,7 +76,7 @@ const ItemList = ({ items, type, updateList }) => {
     )
   } else {
     return(
-      <EmptyState>
+      <EmptyState type={'default'}>
         No{' '}{type}
       </EmptyState>
     )
@@ -145,17 +145,15 @@ const LinksPage = ({ title, description, ...props }) => {
   }
 
   useEffect(() => {
-    let unmounted = false
 
     getData()
 
-   return () => { unmounted = true }
-  }, [listedItems])
+  }, [props.category, itemLength])
 
 
   return (
     <>
-      <Layout pageTitle={`${title} | Links`} description={description}>
+      <Layout pageTitle={`Tampa Bay Designers | Links`} description={description}>
         <Title
           title={'Links'}
           subtitle={'Find designers in the area or checkout one of the curated resources from the list below!'}

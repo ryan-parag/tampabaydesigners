@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { Subtitle } from '@components/Title'
 import Airtable from 'airtable'
 import { Check, Circle, CheckCircle } from 'react-feather'
+import EmptyState from '@components/EmptyState'
 
 const LinkForm = ({categories}) => {
 
@@ -113,22 +114,27 @@ const LinkForm = ({categories}) => {
             }
             {
               sent ? (
-                <div className="px-4 py-8 rounded-md flex flex-col items-center bg-green-500 bg-opacity-10 text-green-700 dark:text-green-300">
-                  <Check size={'40'} />
-                  <p className="text-sm mt-4 mb-4">Thanks! Your submission will be quickly verified and added to the list</p>
+                <>
+                <EmptyState type="success">
+                  <p className="text-sm mb-4">Thanks! Your submission will be quickly verified and added to the list</p>
                   <button
                     className="button button--primary"
                     onClick={handleClose}
                   >
                     Close
                   </button>
-                </div>
+                </EmptyState>
+                </>
               )
               :
               (
-                <>
+                <motion.div
+                  className="h-0 overflow-hidden opacity-0"
+                  animate={{ height: 'auto', opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0 }}
+                >
                   <div className="mb-4">
-                    <label for="name" className="text--secondary font-semibold text-sm mb-2 inline-block">
+                    <label htmlFor="name" className="text--secondary font-semibold text-sm mb-2 inline-block">
                       Submit an item to:
                     </label>
                     <div className="flex">
@@ -158,7 +164,7 @@ const LinkForm = ({categories}) => {
                       }
                     </div>
                   </div>
-                  <label for="name" className="text--secondary font-semibold text-sm mb-2 inline-block">
+                  <label htmlFor="name" className="text--secondary font-semibold text-sm mb-2 inline-block">
                     {formItems.type === 'designers' ? 'Name' : 'Resource Name'}
                   </label>
                   <input
@@ -170,7 +176,7 @@ const LinkForm = ({categories}) => {
                     value={formItems.name}
                     onChange={handleChange}
                   />
-                  <label for="link" className="text--secondary font-semibold text-sm mb-2 inline-block">
+                  <label htmlFor="link" className="text--secondary font-semibold text-sm mb-2 inline-block">
                   {formItems.type === 'designers' ? 'Portfolio' : 'Link'}
                   </label>
                   <input
@@ -182,7 +188,7 @@ const LinkForm = ({categories}) => {
                     value={formItems.link}
                     onChange={handleChange}
                   />
-                  <label for="role" className="text--secondary font-semibold text-sm mb-2 inline-block">Description/Comment</label>
+                  <label htmlFor="role" className="text--secondary font-semibold text-sm mb-2 inline-block">Description/Comment</label>
                   <input
                     id="role"
                     name="role"
@@ -206,7 +212,7 @@ const LinkForm = ({categories}) => {
                       Send
                     </button>
                   </div>
-                </>
+                </motion.div>
               )
             }
           </div>

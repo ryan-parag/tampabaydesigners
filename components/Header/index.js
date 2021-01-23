@@ -63,7 +63,8 @@ export default function Header() {
             }
           </nav>
           <div className="w-full block sm:hidden">
-            <div className="p-2 flex sm:hidden w-full justify-center">
+            <div className="px-4 py-2 flex sm:hidden w-full items-center justify-between">
+              <Logo small/>
               <button onClick={() => setOpen(!open)} className="py-2 px-4 rounded-md bg-black bg-opacity-5 dark:bg-white dark:bg-opacity-10 focus:outline-none">
                 {
                   open ? (
@@ -110,7 +111,7 @@ export default function Header() {
           </div>
         </div>
         <motion.div
-          className="relative top-8 opacity-0"
+          className="relative top-8 opacity-0 hidden sm:block"
           animate={{ top: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >

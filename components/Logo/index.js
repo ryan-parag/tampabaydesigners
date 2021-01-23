@@ -3,11 +3,11 @@ import React from 'react'
 import siteConfig from '../../siteconfig.json'
 import Link from 'next/link'
 
-export default function Logo() {
+export default function Logo(props) {
   return(
     <Link href="/">
-      <a className="inline-flex items-center rounded-xl p-4 transition hover:bg-yellow-500 hover:bg-opacity-10 transform hover:scale-105 focus:scale-105 hover:rotate-1">
-        <div style={{ background: 'var(--orange)' }} className="w-12 h-12 transform -rotate-6 rounded-xl inline-flex items-center justify-center shadow relative border-2 border-white border-opacity-20">
+      <a className={`inline-flex items-center ${props.small ? 'p-1 rounded-lg' : 'p-4 rounded-xl'} transition hover:bg-yellow-500 hover:bg-opacity-10 transform hover:scale-105 focus:scale-105 hover:rotate-1`}>
+        <div style={{ background: 'var(--orange)' }} className={`${props.small ? 'h-8 w-8' : 'w-12 h-12'} transform -rotate-6 ${props.small ? 'rounded-lg' : 'rounded-xl'} inline-flex items-center justify-center shadow relative border-2 border-white border-opacity-20`}>
           <svg xmlns="http://www.w3.org/2000/svg" width="100%" fill="none" viewBox="0 0 80 80">
             <g fill="var(--white)" clipPath="url(#clip0)">
               <path fillOpacity="1" fillRule="evenodd" d="M20.796 52.265L18.65 61.35l9.085-2.146 33.48-33.48-6.94-6.938-33.479 33.48zm8.411 10.7a2 2 0 00.955-.531l35.295-35.296a2 2 0 000-2.828l-9.767-9.767a2 2 0 00-2.828 0L17.566 49.838a2 2 0 00-.532.955L14.012 63.58a2 2 0 002.407 2.407l12.788-3.022z" clipRule="evenodd"/>
@@ -15,8 +15,8 @@ export default function Logo() {
             </g>
           </svg>
         </div>
-        <div className="pl-4">
-          <h2 className="text-2xl font-black">{siteConfig.title}</h2>
+        <div className={`${props.small ? 'pl-2' : 'pl-4'}`}>
+          <h2 className={`${props.small ? 'text-lg' : 'text-2xl'} font-black`}>{siteConfig.title}</h2>
         </div>
       </a>
     </Link>

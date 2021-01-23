@@ -13,7 +13,7 @@ export default function Footer() {
       </div>
       <p className="text-sm mb-2">Have a fun idea to add?</p>
       <a className="button button--secondary button--sm mb-8" href="https://github.com/TampaBayDesigners/tampabaydesigners" target="_blank">Contribute on GitHub</a>
-      <p className="text-sm mb-4">Made by <a href="https://ryanparag.com/">Ryan Parag</a>, built with <a href="https://nextjs.org/">NextJS</a> & <a href="https://tailwindcss.com/">Tailwind</a>, and hosted on <a href="https://www.netlify.com/">Netlify</a>.</p>
+      <p className="text-sm mb-4">Made by <a href="https://ryanparag.com/">Ryan Parag</a>, built with <a href="https://nextjs.org/">NextJS</a>, <a href="https://tailwindcss.com/">Tailwind</a>, <a href="https://airtable.com/">Airtable</a>, and <a href="https://www.netlify.com/">Netlify</a>.</p>
     </footer>
   )
 }

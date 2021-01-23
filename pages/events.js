@@ -5,8 +5,8 @@ import Event from '@components/Event'
 import EmptyState from '@components/EmptyState'
 import Title, { Subtitle } from '@components/Title'
 import { motion } from 'framer-motion'
-import groups from '@data/groups'
 import Loading from '@components/Loading'
+import groups from '@data/groups'
 
 
 const EventList = ({events}) => {
@@ -55,7 +55,7 @@ const EventList = ({events}) => {
               />
           )) :
           (
-            <EmptyState>
+            <EmptyState type="default">
               No Upcoming Events
             </EmptyState>
           )
@@ -72,7 +72,7 @@ const Events = ({ title, description, ...props }) => {
   const designEvents=[]
   const unverifiedEvents=[]
 
-  const callAirtable = () => {
+  const getData = () => {
     setLoading(true)
 
     const base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base(process.env.AIRTABLE_BASE)
@@ -90,6 +90,7 @@ const Events = ({ title, description, ...props }) => {
               date: record.get('Date'),
               description: record.get('Description'),
               link: record.get('Link'),
+              id: record.id
             }
             designEvents.push(newEvent)
           }
@@ -109,7 +110,7 @@ const Events = ({ title, description, ...props }) => {
   }
 
   useEffect(() => {
-      callAirtable()
+    getData()
   }, [])
 
   return (

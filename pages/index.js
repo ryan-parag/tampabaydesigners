@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react'
 import Layout from '@components/Layout'
 import Link from 'next/link'
 import { BoxOutbound } from '@components/Box'
@@ -5,7 +6,7 @@ import Title, { Subtitle } from '@components/Title'
 import { ChipLink } from '@components/Chip'
 import { motion } from 'framer-motion'
 import Divider from '@components/Divider'
-import groups from '@data/groups'
+import Airtable from 'airtable'
 
 const ListItem = ({delay, link, img, title, description}) => {
 
@@ -44,6 +45,8 @@ const ListItem = ({delay, link, img, title, description}) => {
 
 const Index = ({ title, description, ...props }) => {
 
+  const [listedItems, setListedItems] = useState([])
+
   const links = [
     {
       name: 'Explore Communities',
@@ -76,6 +79,37 @@ const Index = ({ title, description, ...props }) => {
     }
   ]
 
+  const groupsArr = []
+
+  const getData = () => {
+    const base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base(process.env.AIRTABLE_BASE)
+
+    base('groups').select({
+      view: 'Grid view',
+    }).eachPage(function page(records, fetchNextPage) {
+      records.forEach(function(record) {
+        let verified = record.get('Verified')
+        if(verified) {
+          let group = {
+            name: record.get('Name'),
+            description: record.get('Description'),
+            href: record.get('Link'),
+            image: record.get('Image')[0].url,
+          }
+          groupsArr.push(group)
+        }
+      })
+      setListedItems(groupsArr)
+    }, function done(err) {
+      if( err) { console.log(err); return; }
+    })
+  }
+
+  useEffect(() => {
+
+    getData()
+
+  }, [])
 
   return (
     <>
@@ -114,12 +148,12 @@ const Index = ({ title, description, ...props }) => {
           <Subtitle>Our local design communities:</Subtitle>
         </div>
         {
-          groups.map((group,i) => (
+          listedItems.map((group,i) => (
             <ListItem
               delay={i}
-              img={group.img}
+              img={group.image}
               title={group.name}
-              link={group.link}
+              link={group.href}
               key={group.name}
               description={group.description}
             />

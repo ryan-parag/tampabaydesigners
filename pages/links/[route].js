@@ -7,7 +7,9 @@ const Route = () => {
 
   return (
     <>
-      <LinksPage category={route}/>
+      <LinksPage
+        category={route}
+      />
     </>
   );
 };

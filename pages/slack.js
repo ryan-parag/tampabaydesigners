@@ -1,10 +1,45 @@
+import React, { useState, useEffect } from 'react'
 import Layout from '@components/Layout'
 import siteConfig from '../siteconfig.json'
 import Title, { Subtitle } from '@components/Title'
 import SlackGroup from '@components/SlackGroup'
-import slack from '@data/slack'
+import Airtable from 'airtable'
 
 const Slack = ({ title, description, ...props }) => {
+
+  const [listedItems, setListedItems] = useState([])
+
+  const groupsArr = []
+
+  const getData = () => {
+    const base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base(process.env.AIRTABLE_BASE)
+
+    base('slack').select({
+      view: 'Grid view',
+    }).eachPage(function page(records, fetchNextPage) {
+      records.forEach(function(record) {
+        let verified = record.get('Verified')
+        if(verified) {
+          let group = {
+            name: record.get('Name'),
+            description: record.get('Description'),
+            href: record.get('Link'),
+            image: record.get('Attachments')[0].url,
+          }
+          groupsArr.push(group)
+        }
+      })
+      setListedItems(groupsArr)
+    }, function done(err) {
+      if( err) { console.log(err); return; }
+    })
+  }
+
+  useEffect(() => {
+
+    getData()
+
+  }, [])
 
   return (
     <>
@@ -16,13 +51,13 @@ const Slack = ({ title, description, ...props }) => {
         <Subtitle>Find a community from the list below:</Subtitle>
        <div>
          {
-           slack.map((group, i) => (
+           listedItems.map((group, i) => (
              <SlackGroup
               delay={i}
               name={group.name}
-              img={group.img}
+              img={group.image}
               description={group.description}
-              link={group.link}
+              link={group.href}
               key={group.name}
              />
            ))
