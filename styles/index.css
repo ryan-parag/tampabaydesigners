@@ -91,4 +91,8 @@
   .pinned {
     @apply top-0 fixed right-0 left-0 shadow-md border-0 border-b-2 z-20 rounded-none;
   }
+
+  .text-field {
+    @apply transition block w-full p-4 rounded-md mb-4 focus:outline-none bg-white border border-black border-opacity-20 dark:bg-black dark:border-white dark:border-opacity-20 focus:border-opacity-50 dark:focus:border-opacity-70;
+  }
 }

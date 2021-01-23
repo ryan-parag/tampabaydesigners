@@ -9,6 +9,7 @@ import { BoxOutbound } from '@components/Box'
 import NavItem from '@components/NavItem'
 import Loading from '@components/Loading'
 import { User, Link } from 'react-feather'
+import LinkForm from '@components/LinkForm'
 
 const ItemList = ({ items, type, updateList }) => {
 
@@ -159,10 +160,11 @@ const LinksPage = ({ title, description, ...props }) => {
           title={'Links'}
           subtitle={'Find designers in the area or checkout one of the curated resources from the list below!'}
         />
+        <LinkForm categories={categories}/>
         <motion.div
           className={`w-full mb-4 grid grid-cols-2 gap-2 p-2 rounded-md bg-black bg-opacity-5 dark:bg-white dark:bg-opacity-5 top-4 opacity-0`}
           animate={{ top: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
         >
           {categories.map((item, index) => (
             <NavItem
@@ -190,20 +192,6 @@ const LinksPage = ({ title, description, ...props }) => {
             />
           )
         }
-        <motion.section
-          className="relative top-4 opacity-0"
-          animate={{ top: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.7 }}
-        >
-          <div className="block text-center mb-8 mt-8">
-            <p className="text-custom-orange dark:text-custom-yellow mb-2">
-              <small>
-                Have a designer or link to add to the list?
-              </small>
-            </p>
-            <a className="button button--secondary" href="mailto:tampabaydesigners@gmail.com">Share a Link!</a>
-          </div>
-        </motion.section>
       </Layout>
     </>
   )
