@@ -21,16 +21,6 @@ const Links = ({title, description, ...props}) => {
 
 export default Links
 
-export async function getStaticPaths() {
-  return {
-    paths: [
-      { params: { id: 'designers' } },
-      { params: { id: 'resources' } }
-    ],
-    fallback: false
-  };
-}
-
 export async function getStaticProps() {
   const configData = await import(`../../siteconfig.json`)
 

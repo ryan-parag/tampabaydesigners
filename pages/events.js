@@ -71,7 +71,7 @@ const Events = ({ title, description, data, ...props }) => {
 
   
   useEffect(() => {
-    console.log(data)
+    
   }, [state])
 
   return (

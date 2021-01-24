@@ -78,7 +78,7 @@ const ItemList = ({ items, type, updateList }) => {
           </motion.div>
         ))
       }
-      <div className="p-4 text-center">
+      <div className="p-4 text-center hidden">
         <button
           className="button button--secondary"
           onClick={updateList}
