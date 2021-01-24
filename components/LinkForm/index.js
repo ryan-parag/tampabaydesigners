@@ -140,7 +140,10 @@ const LinkForm = ({categories}) => {
                     <div className="flex">
                       {
                         categories.map((item, i) => (
-                          <label className={`transition p-3 bg-black dark:bg-white ${formItems.type === item.route ? 'bg-opacity-80 text-white dark:text-black' : 'bg-opacity-5 dark:bg-opacity-10 hover:bg-opacity-10 dark:hover:bg-opacity-20'} rounded-md cursor-pointer inline-flex items-center mr-2`}>
+                          <label
+                            className={`transition p-3 bg-black dark:bg-white ${formItems.type === item.route ? 'bg-opacity-80 text-white dark:text-black' : 'bg-opacity-5 dark:bg-opacity-10 hover:bg-opacity-10 dark:hover:bg-opacity-20'} rounded-md cursor-pointer inline-flex items-center mr-2`}
+                            key={i}
+                          >
                             <input
                               type="radio"
                               name="type"

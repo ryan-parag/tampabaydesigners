@@ -26,6 +26,19 @@ const ItemList = ({ items, type, updateList }) => {
     }
   }
 
+  const getDescription = (type) => {
+    switch (type) {
+      case 'designers':
+        return 'Take a look at the portfolios/work of designers in the Tampa Bay area:'
+        break;
+      case 'resources':
+        return 'These design resources include books, blogs, podcasts, videos, newsletters, and more! Check them out, and let us know what we\'ve missed:'
+        break;
+      default:
+        return null
+    }
+  }
+
   const getIcon = (type) => {
     switch (type) {
       case 'designers':
@@ -42,6 +55,7 @@ const ItemList = ({ items, type, updateList }) => {
   if(items.length > 0) {
     return(
       <>
+      <p className="text-sm mb-4 text--secondary">{getDescription(type)}</p>
       {
         items.map((item, i) => (
           <motion.div
@@ -50,15 +64,15 @@ const ItemList = ({ items, type, updateList }) => {
             transition={{ duration: 0.5, delay: 0.02*i }}
             key={i}
           >
-            <BoxOutbound flex href={item.href}>
+            <BoxOutbound flex href={item.fields.Link}>
               <div className="flex">
                 <div className={`inline-flex h-12 w-12 items-center justify-center rounded-full ${getColor(type)}`}>
                   {getIcon(type)}
                 </div>
               </div>
               <div className="block flex-1 pl-4">
-                <h4 className="font-bold text-sm mb-1">{item.name}</h4>
-                <span className="text--secondary text-xs">{item.role}</span>
+                <h4 className="font-bold text-sm mb-1">{item.fields.Name}</h4>
+                <span className="text--secondary text-xs">{item.fields.Description}</span>
               </div>
             </BoxOutbound>
           </motion.div>
@@ -76,18 +90,27 @@ const ItemList = ({ items, type, updateList }) => {
     )
   } else {
     return(
-      <EmptyState type={'default'}>
-        No{' '}{type}
-      </EmptyState>
+      <>
+        <p className="text-sm mb-4 text--secondary">{getDescription(type)}</p>
+        <motion.div
+          className="top-8 opacity-0"
+          animate={{ top: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.7 }}
+        >
+          <EmptyState type={'default'}>
+            No{' '}{type}
+          </EmptyState>
+        </motion.div>
+      </>
     )
   }
 }
 
 
-const LinksPage = ({ title, description, ...props }) => {
+const LinksPage = ({ title, description, list, ...props }) => {
 
-  const [listedItems, setListedItems] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [listedItems, setListedItems] = useState(list)
+  const [loading, setLoading] = useState(false)
   const [itemLength, setItemLength] = useState(10)
   const updateAmount = 10
 
@@ -95,12 +118,14 @@ const LinksPage = ({ title, description, ...props }) => {
     {
       name: "Designers",
       route: "designers",
-      icon: <User size={'16'} className="mr-2"/>
+      icon: <User size={'16'} className="mr-2"/>,
+      description: 'This is sup'
     },
     {
       name: "Resources",
       route: "resources",
-      icon: <Link size={'16'} className="mr-2"/>
+      icon: <Link size={'16'} className="mr-2"/>,
+      description: 'This is fool'
     }
   ];
 
@@ -115,50 +140,20 @@ const LinksPage = ({ title, description, ...props }) => {
     }
   }
 
-  const designers=[]
-
-  const getData = () => {
-    setLoading(true)
-    const base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base(process.env.AIRTABLE_BASE)
-
-    base(props.category).select({
-      view: 'Grid view',
-      maxRecords: itemLength
-    }).eachPage(function page(records, fetchNextPage) {
-      records.forEach(function(record) {
-        let verified = record.get('Verified')
-        if(verified) {
-          let designer = {
-            name: record.get('Name'),
-            role: record.get('Description'),
-            href: record.get('Link'),
-            date: record.get('Updated'),
-          }
-          designers.push(designer)
-        }
-      })
-      setListedItems(designers)
-    }, function done(err) {
-      if( err) { console.log(err); return; }
-    })
-    setLoading(false)
-  }
-
   useEffect(() => {
 
-    getData()
+    console.log(list)
 
-  }, [props.category, itemLength])
+  }, [props.category, list])
 
 
   return (
     <>
-      <Layout pageTitle={`Tampa Bay Designers | Links`} description={description}>
+      <Layout pageTitle={`${title} | Links`} description={description}>
         <Title
           title={'Links'}
           subtitle={'Find designers in the area or checkout one of the curated resources from the list below!'}
         />
-        <LinkForm categories={categories}/>
         <motion.div
           className={`w-full mb-4 grid grid-cols-2 gap-2 p-2 rounded-md bg-black bg-opacity-5 dark:bg-white dark:bg-opacity-5 top-4 opacity-0`}
           animate={{ top: 0, opacity: 1 }}
@@ -184,26 +179,16 @@ const LinksPage = ({ title, description, ...props }) => {
           :
           (
             <ItemList
-              items={listedItems}
+              items={list}
               type={props.category}
               updateList={() => setItemLength(itemLength + updateAmount)}
             />
           )
         }
+        <LinkForm categories={categories}/>
       </Layout>
     </>
   )
 }
 
 export default LinksPage
-
-export async function getStaticProps() {
-  const configData = await import(`../../siteconfig.json`)
-
-  return {
-    props: {
-      title: configData.default.title,
-      description: configData.default.description,
-    },
-  }
-}

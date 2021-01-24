@@ -3,43 +3,16 @@ import Layout from '@components/Layout'
 import siteConfig from '../siteconfig.json'
 import Title, { Subtitle } from '@components/Title'
 import SlackGroup from '@components/SlackGroup'
-import Airtable from 'airtable'
+import { motion } from 'framer-motion'
+import AirtablePlus from 'airtable-plus'
 
-const Slack = ({ title, description, ...props }) => {
+const Slack = ({ title, description, data, ...props }) => {
 
-  const [listedItems, setListedItems] = useState([])
-
-  const groupsArr = []
-
-  const getData = () => {
-    const base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base(process.env.AIRTABLE_BASE)
-
-    base('slack').select({
-      view: 'Grid view',
-    }).eachPage(function page(records, fetchNextPage) {
-      records.forEach(function(record) {
-        let verified = record.get('Verified')
-        if(verified) {
-          let group = {
-            name: record.get('Name'),
-            description: record.get('Description'),
-            href: record.get('Link'),
-            image: record.get('Attachments')[0].url,
-          }
-          groupsArr.push(group)
-        }
-      })
-      setListedItems(groupsArr)
-    }, function done(err) {
-      if( err) { console.log(err); return; }
-    })
-  }
+  const [listedItems, setListedItems] = useState(data)
 
   useEffect(() => {
 
-    getData()
-
-  }, [])
+  }, [listedItems])
 
   return (
     <>
@@ -54,23 +27,27 @@ const Slack = ({ title, description, ...props }) => {
            listedItems.map((group, i) => (
              <SlackGroup
               delay={i}
-              name={group.name}
-              img={group.image}
-              description={group.description}
-              link={group.href}
-              key={group.name}
+              name={group.fields.Name}
+              img={group.fields.Attachments[0].url}
+              description={group.fields.Description}
+              link={group.fields.Link}
+              key={i}
              />
            ))
          }
        </div>
-        <div className="block text-center mb-8">
+        <motion.div
+          className="block text-center mb-8 opacity-0 top-8"
+          animate={{ top: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        >
           <p className="text-custom-orange dark:text-custom-yellow mb-2">
             <small>
               Want to customize your Slack theme?
             </small>
           </p>
           <a className="button button--secondary" target="_blank" href="https://slack-themes.now.sh/">Find one on Slack Themes!</a>
-        </div>
+        </motion.div>
       </Layout>
     </>
   )
@@ -81,10 +58,21 @@ export default Slack
 export async function getStaticProps() {
   const configData = await import(`../siteconfig.json`)
 
+  const airtable = new AirtablePlus({
+    baseID: process.env.AIRTABLE_BASE,
+    apiKey: process.env.AIRTABLE_API_KEY,
+    tableName: 'slack',
+  });
+
+  const data = await airtable.read({
+    filterByFormula: 'Verified'
+  });
+
   return {
     props: {
       title: configData.default.title,
-      description: configData.default.description
+      description: configData.default.description,
+      data: data,
     },
   }
 }

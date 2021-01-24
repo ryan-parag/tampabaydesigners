@@ -6,7 +6,7 @@ import Title, { Subtitle } from '@components/Title'
 import { ChipLink } from '@components/Chip'
 import { motion } from 'framer-motion'
 import Divider from '@components/Divider'
-import Airtable from 'airtable'
+import AirtablePlus from 'airtable-plus'
 
 const ListItem = ({delay, link, img, title, description}) => {
 
@@ -43,9 +43,9 @@ const ListItem = ({delay, link, img, title, description}) => {
   )
 }
 
-const Index = ({ title, description, ...props }) => {
+const Index = ({ title, description, data, ...props }) => {
 
-  const [listedItems, setListedItems] = useState([])
+  const [listedItems, setListedItems] = useState(data)
 
   const links = [
     {
@@ -79,37 +79,9 @@ const Index = ({ title, description, ...props }) => {
     }
   ]
 
-  const groupsArr = []
-
-  const getData = () => {
-    const base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base(process.env.AIRTABLE_BASE)
-
-    base('groups').select({
-      view: 'Grid view',
-    }).eachPage(function page(records, fetchNextPage) {
-      records.forEach(function(record) {
-        let verified = record.get('Verified')
-        if(verified) {
-          let group = {
-            name: record.get('Name'),
-            description: record.get('Description'),
-            href: record.get('Link'),
-            image: record.get('Image')[0].url,
-          }
-          groupsArr.push(group)
-        }
-      })
-      setListedItems(groupsArr)
-    }, function done(err) {
-      if( err) { console.log(err); return; }
-    })
-  }
-
   useEffect(() => {
-
-    getData()
-
-  }, [])
+    console.log(data)
+  }, [listedItems])
 
   return (
     <>
@@ -151,11 +123,11 @@ const Index = ({ title, description, ...props }) => {
           listedItems.map((group,i) => (
             <ListItem
               delay={i}
-              img={group.image}
-              title={group.name}
-              link={group.href}
-              key={group.name}
-              description={group.description}
+              img={group.fields.Image[0].url}
+              title={group.fields.Name}
+              link={group.fields.Link}
+              key={i}
+              description={group.fields.Description}
             />
           ))
         }
@@ -177,10 +149,21 @@ export default Index
 export async function getStaticProps() {
   const configData = await import(`../siteconfig.json`)
 
+  const airtable = new AirtablePlus({
+    baseID: process.env.AIRTABLE_BASE,
+    apiKey: process.env.AIRTABLE_API_KEY,
+    tableName: 'groups',
+  });
+
+  const data = await airtable.read({
+    filterByFormula: 'Verified'
+  });
+
   return {
     props: {
       title: configData.default.title,
       description: configData.default.description,
+      data: data,
     },
   }
 }

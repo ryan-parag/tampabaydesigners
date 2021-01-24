@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "airtable": "^0.8.1",
+    "airtable-json": "^1.3.0",
+    "airtable-plus": "^1.0.4",
     "autoprefixer": "9.8.6",
     "dotenv": "^8.2.0",
     "framer-motion": "^3.2.1",
