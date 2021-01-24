@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import LinksPage from '@components/LinksPage/LinksPage'
+import LinksPage from '@components/LinksPage'
 import AirtablePlus from 'airtable-plus'
 
 const Route = ({title, description, list}) => {
