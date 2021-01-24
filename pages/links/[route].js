@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import LinksPage from '../links/LinksPage'
+import LinksPage from '@components/LinksPage/LinksPage'
 import AirtablePlus from 'airtable-plus'
 
 const Route = ({title, description, list}) => {
@@ -44,8 +44,7 @@ export async function getStaticProps({ params: {route} }) {
     props: {
       title: configData.default.title,
       description: configData.default.description,
-      list: data,
-      test: route
+      list: data
     },
   }
 }
