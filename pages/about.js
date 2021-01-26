@@ -82,7 +82,7 @@ const About = ({ title, description, ...props }) => {
             <Mail size={'20'}/>
           </a>
         </motion.section>
-        <Divider marginTop={'12'} marginBottom={'8'}/>
+        <Divider/>
         <motion.section
           className="relative top-4 opacity-0"
           animate={{ top: 0, opacity: 1 }}
@@ -108,7 +108,7 @@ const About = ({ title, description, ...props }) => {
             <GitHub size={'20'}/>
           </a>
         </motion.section>
-        <Divider marginTop={'12'} marginBottom={'8'}/>
+        <Divider/>
         <motion.section
           className="relative top-4 opacity-0"
           animate={{ top: 0, opacity: 1 }}

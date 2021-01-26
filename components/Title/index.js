@@ -9,11 +9,11 @@ export default function Title({title, subtitle}) {
       animate={{ top: 0, opacity: 1 }}
       transition={{ duration: 0.5, delay: 0.4 }}
     >
-      <div className="text-center mb-8">
+      <div className="text-center">
         <h1 className="font-black text-3xl md:text-5xl">{title}</h1>
         <p className="font-mono text-sm md:text-lg text--secondary">{subtitle}</p>
       </div>
-      <Divider/>
+      <Divider marginTop={'4'}/>
     </motion.div>
   )
 }

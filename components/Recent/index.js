@@ -53,7 +53,7 @@ const Recent = () => {
 
   if(recent.length > 0) {
     return(
-      <div className="pt-2">
+      <div>
         <motion.div
           className="pb-4 opacity-0 top-8"
           animate={{ top: 0, opacity: 1 }}
@@ -75,7 +75,7 @@ const Recent = () => {
             ))
           }
         </motion.div>
-        <Divider paddingBottom={'12'} marginTop={'8'}/>
+        <Divider/>
       </div>
     )
   } else {
