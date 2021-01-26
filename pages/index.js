@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import Layout from '@components/Layout'
 import Link from 'next/link'
-import { BoxOutbound } from '@components/Box'
+import { BoxOutbound, BoxNew } from '@components/Box'
 import Title, { Subtitle } from '@components/Title'
 import { ChipLink } from '@components/Chip'
 import { motion } from 'framer-motion'
 import Divider from '@components/Divider'
 import AirtablePlus from 'airtable-plus'
+import Recent from '@components/Recent'
 
 const ListItem = ({delay, link, img, title, description}) => {
 
@@ -80,7 +81,7 @@ const Index = ({ title, description, data, ...props }) => {
   ]
 
   useEffect(() => {
-    console.log(data)
+   
   }, [listedItems])
 
   return (
@@ -90,7 +91,9 @@ const Index = ({ title, description, data, ...props }) => {
           title={'Discover design communities in the Tampa Bay area!'}
           subtitle={'New to the Tampa Bay/St. Pete design community?'}
         />
-        <div className="flex justify-center flex-wrap mb-8">
+        <Recent/>
+        <Subtitle>Looking for something in particular?</Subtitle>
+        <div className="flex flex-wrap pb-4">
           {
             links.map((link, i) => (
               <motion.div
@@ -103,7 +106,6 @@ const Index = ({ title, description, data, ...props }) => {
                   <a>
                     <ChipLink
                       type={link.color}
-                      marginLeft
                       marginRight
                       marginBottom
                     >

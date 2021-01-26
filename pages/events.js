@@ -8,6 +8,7 @@ import { motion } from 'framer-motion'
 import Loading from '@components/Loading'
 import groups from '@data/groups'
 import AirtablePlus from 'airtable-plus'
+import EventForm from '@components/EventForm'
 
 
 const EventList = ({events}) => {
@@ -71,7 +72,7 @@ const Events = ({ title, description, data, ...props }) => {
 
   
   useEffect(() => {
-    
+
   }, [state])
 
   return (
@@ -95,18 +96,7 @@ const Events = ({ title, description, data, ...props }) => {
             )
           }
         </motion.div>
-        <motion.div
-          className="block text-center mb-8 top-8 opacity-0"
-          animate={{ top: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-        >
-          <p className="text-custom-orange dark:text-custom-yellow mb-2">
-            <small>
-              Don't see an event listed or want to submit one?{' '}
-            </small>
-          </p>
-          <a className="button button--secondary" target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfXiL1a1f70HFyf0uXmQLscm30vMUxzgRoO1pnV8dz2PGBttA/viewform?usp=sf_link">Submit an event to be listed</a>
-        </motion.div>
+        <EventForm/>
       </Layout>
     </>
   )

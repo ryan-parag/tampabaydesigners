@@ -6,26 +6,33 @@ import { Check, Circle, CheckCircle } from 'react-feather'
 import EmptyState from '@components/EmptyState'
 import Alert from '@components/Alert'
 
-const LinkForm = ({categories}) => {
+const EventForm = () => {
+
+  const today = new Date();
+  const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
   const [formOpen, setFormOpen] = useState(false)
   const [error, setError] = useState(false)
   const [sent, setSent] = useState(false)
   const [formItems, setFormItems] = useState({
-    type: 'designers',
+    org: 'Other',
     name: '',
-    role: '',
-    link: ''
+    description: '',
+    link: '',
+    date: null
   })
+
+  const orgs = ["Tampa Bay UX", "Figma Tampa", "Dribbble Tampa", "Sketch Tampa", "Design St. Pete", "Other"]
 
   const handleClose = () => {
     setError(false)
     setSent(false)
     setFormItems({
-      type: 'designers',
+      org: 'Other',
       name: '',
-      role: '',
-      link: ''
+      description: '',
+      link: '',
+      date: null
     });
     setFormOpen(false)
   }
@@ -36,7 +43,7 @@ const LinkForm = ({categories}) => {
       ...formItems,
       [name]: value
     });
-    if(formItems.name.length > 0 && formItems.role.length > 0 && formItems.link.length > 0) {
+    if(formItems.name.length > 0 && formItems.description.length > 0 && formItems.link.length > 0) {
       setError(false)
     }
   }
@@ -44,19 +51,17 @@ const LinkForm = ({categories}) => {
   const sendItem = () => {
     const base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base(process.env.AIRTABLE_BASE)
 
-    const today = new Date();
-    const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-
-    if(formItems.name.length > 0 && formItems.role.length > 0 && formItems.link.length > 0) {
+    if(formItems.name.length > 0 && formItems.description.length > 0 && formItems.link.length > 0) {
       setError(false)
-      base(formItems.type).create([
+      base('events').create([
         {
           "fields": {
             "Name": formItems.name,
             "Link": formItems.link,
-            "Description": formItems.role,
+            "Description": formItems.description,
             "Verified": false,
-            "Updated": date
+            "Date": formItems.date,
+            "Org": formItems.org
           }
         }
       ], function(err, records) {
@@ -86,14 +91,14 @@ const LinkForm = ({categories}) => {
           <div className="block text-center mb-8 mt-8">
             <p className="text-custom-orange dark:text-custom-yellow mb-2">
               <small>
-                Have a designer or link to add to the list?
+              Don't see an event listed or want to submit one?
               </small>
             </p>
             <button
               className="button button--secondary"
               onClick={() => setFormOpen(!formOpen)}
             >
-              Add something or someone!
+              Submit an event to be listed
             </button>
           </div>
         )
@@ -101,8 +106,8 @@ const LinkForm = ({categories}) => {
         (
           <div className="block rounded-md mb-8 mt-8 p-4 border border-black border-opacity-10 dark:border-white dark:border-opacity-10">
             <div className="pb-4 flex flex-col items-center border-b border-black border-opacity-10 dark:border-white dark:border-opacity-10 mb-8">
-              <Subtitle>🎉 Add something to the list!</Subtitle>
-              <p className="text--secondary text-sm text-center">Are you a designer or or know someone who would make a great addition to the list? Do you know of any design resources that could be helpful? Add someone or something below:</p>
+              <Subtitle>📆 Add an Event!</Subtitle>
+              <p className="text--secondary text-sm text-center">Submit an upcoming event by entering the details in the info below:</p>
             </div>
             {
               error ? (
@@ -119,7 +124,7 @@ const LinkForm = ({categories}) => {
               sent ? (
                 <>
                 <EmptyState type="success">
-                  <p className="text-sm mb-4">Thanks! Your submission will be quickly verified and added to the list</p>
+                  <p className="text-sm mb-4">Thanks! Your event will be quickly verified and added to the list</p>
                   <button
                     className="button button--primary"
                     onClick={handleClose}
@@ -138,25 +143,25 @@ const LinkForm = ({categories}) => {
                 >
                   <div className="mb-4">
                     <label htmlFor="name" className="text--secondary font-semibold text-sm mb-2 inline-block">
-                      Submit an item to:
+                      Hosted by:
                     </label>
-                    <div className="flex">
+                    <div className="flex flex-wrap">
                       {
-                        categories.map((item, i) => (
+                        orgs.map((item, i) => (
                           <label
-                            className={`transition p-3 bg-black dark:bg-white ${formItems.type === item.route ? 'bg-opacity-80 text-white dark:text-black' : 'bg-opacity-5 dark:bg-opacity-10 hover:bg-opacity-10 dark:hover:bg-opacity-20'} rounded-md cursor-pointer inline-flex items-center mr-2`}
+                            className={`transition mb-2 p-3 bg-black dark:bg-white ${formItems.org === item ? 'bg-opacity-80 text-white dark:text-black' : 'bg-opacity-5 dark:bg-opacity-10 hover:bg-opacity-10 dark:hover:bg-opacity-20'} rounded-md cursor-pointer inline-flex items-center mr-2`}
                             key={i}
                           >
                             <input
                               type="radio"
-                              name="type"
-                              value={item.route}
-                              checked={formItems.type === item.route}
+                              name="org"
+                              value={item}
+                              checked={formItems.type === item}
                               onChange={handleChange}
                               className="h-0 w-0"
                             />
                             {
-                              formItems.type === item.route ? (
+                              formItems.org === item ? (
                                 <CheckCircle className="text-green-500" size={'24'}/>
                               )
                               :
@@ -164,44 +169,58 @@ const LinkForm = ({categories}) => {
                                 <Circle size={'24'}/>
                               )
                             }
-                            <span className="ml-2">{item.name}</span>
+                            <span className="ml-2 text-sm">{item}</span>
                           </label>
                         ))
                       }
                     </div>
                   </div>
                   <label htmlFor="name" className="text--secondary font-semibold text-sm mb-2 inline-block">
-                    {formItems.type === 'designers' ? 'Name' : 'Resource Name'}
+                    Event Name
                   </label>
                   <input
                     id="name"
                     name="name"
                     className="text-field"
                     type="text"
-                    placeholder={formItems.type === 'designers' ? 'Ryan Parag' : 'Tampa Bay Designers'}
+                    placeholder={''}
                     value={formItems.name}
                     onChange={handleChange}
                   />
+                  <label htmlFor="description" className="text--secondary font-semibold text-sm mb-2 inline-block">
+                    Event Description
+                  </label>
+                  <input
+                    id="description"
+                    name="description"
+                    className="text-field"
+                    type="text"
+                    placeholder={''}
+                    value={formItems.description}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="date" className="text--secondary font-semibold text-sm mb-2 inline-block">
+                    Event Date
+                  </label>
+                  <input
+                    id="date"
+                    name="date"
+                    className="text-field"
+                    type="date"
+                    placeholder={''}
+                    value={formItems.date}
+                    onChange={handleChange}
+                  />
                   <label htmlFor="link" className="text--secondary font-semibold text-sm mb-2 inline-block">
-                  {formItems.type === 'designers' ? 'Portfolio' : 'Link'}
+                    Event URL
                   </label>
                   <input
                     id="link"
                     name="link"
                     className="text-field"
-                    type="url"
-                    placeholder="https://tampabay.design"
-                    value={formItems.link}
-                    onChange={handleChange}
-                  />
-                  <label htmlFor="role" className="text--secondary font-semibold text-sm mb-2 inline-block">Description/Comment</label>
-                  <input
-                    id="role"
-                    name="role"
-                    className="text-field"
                     type="text"
-                    placeholder={formItems.type === 'designers' ? 'Product Designer' : 'Discover design communities in the Tampa Bay area!'}
-                    value={formItems.role}
+                    placeholder={'Where can people register for the event?'}
+                    value={formItems.link}
                     onChange={handleChange}
                   />
                   <div className="grid grid-cols-2 gap-4 mt-8">
@@ -228,4 +247,4 @@ const LinkForm = ({categories}) => {
   )
 }
 
-export default LinkForm
+export default EventForm

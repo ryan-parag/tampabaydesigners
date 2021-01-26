@@ -5,7 +5,6 @@ import AirtablePlus from 'airtable-plus'
 const Route = ({title, description, list}) => {
   const router = useRouter();
   const { route } = router.query;
-
   return (
     <>
       <LinksPage

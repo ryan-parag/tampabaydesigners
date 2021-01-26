@@ -55,7 +55,13 @@ const ItemList = ({ items, type, updateList }) => {
   if(items.length > 0) {
     return(
       <>
-      <p className="text-sm mb-4 text--secondary">{getDescription(type)}</p>
+      <motion.p
+        className="text-sm mb-4 text--secondary top-8 opacity-0"
+        animate={{ top: 0, opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+      >
+        {getDescription(type)}
+      </motion.p>
       {
         items.map((item, i) => (
           <motion.div
@@ -91,7 +97,13 @@ const ItemList = ({ items, type, updateList }) => {
   } else {
     return(
       <>
-        <p className="text-sm mb-4 text--secondary">{getDescription(type)}</p>
+        <motion.p
+          className="text-sm mb-4 text--secondary top-8 opacity-0"
+          animate={{ top: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+        >
+          {getDescription(type)}
+        </motion.p>
         <motion.div
           className="top-8 opacity-0"
           animate={{ top: 0, opacity: 1 }}
