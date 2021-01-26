@@ -75,7 +75,7 @@ const Recent = () => {
             ))
           }
         </motion.div>
-        <Divider marginBottom={'12'} marginTop={'8'}/>
+        <Divider paddingBottom={'12'} marginTop={'8'}/>
       </div>
     )
   } else {

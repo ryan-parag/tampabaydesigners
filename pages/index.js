@@ -119,7 +119,7 @@ const Index = ({ title, description, data, ...props }) => {
             }
           </div>
         </div>
-        <Divider marginTop={'12'} marginBottom={'12'}/>
+        <Divider paddingTop={'12'} paddingBottom={'12'}/>
         <div id="events">
           <Subtitle>Our local design communities:</Subtitle>
         </div>
