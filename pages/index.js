@@ -94,7 +94,7 @@ const Index = ({ title, description, data, ...props }) => {
         <Recent/>
         <div>
           <Subtitle>Looking for something in particular?</Subtitle>
-          <div className="flex flex-wrap">
+          <div className="flex flex-wrap pb-2">
             {
               links.map((link, i) => (
                 <motion.div

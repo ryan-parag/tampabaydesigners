@@ -5,7 +5,7 @@ import Divider from '@components/Divider'
 export default function Title({title, subtitle}) {
   return (
     <motion.div
-      className="mb-8 relative opacity-0 top-8"
+      className="relative opacity-0 top-8"
       animate={{ top: 0, opacity: 1 }}
       transition={{ duration: 0.5, delay: 0.4 }}
     >
