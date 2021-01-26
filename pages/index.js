@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Layout from '@components/Layout'
 import Link from 'next/link'
-import { BoxOutbound, BoxNew } from '@components/Box'
+import { BoxOutbound } from '@components/Box'
 import Title, { Subtitle } from '@components/Title'
 import { ChipLink } from '@components/Chip'
 import { motion } from 'framer-motion'
@@ -64,7 +64,7 @@ const Index = ({ title, description, data, ...props }) => {
     }, {
       name: 'Search for Open Roles',
       color: 'green',
-      href: '/slack'
+      href: '/jobs'
     }, {
       name: 'Share Feedback',
       color: 'red',
@@ -92,32 +92,34 @@ const Index = ({ title, description, data, ...props }) => {
           subtitle={'New to the Tampa Bay/St. Pete design community?'}
         />
         <Recent/>
-        <Subtitle>Looking for something in particular?</Subtitle>
-        <div className="flex flex-wrap pb-4">
-          {
-            links.map((link, i) => (
-              <motion.div
-                className="top-8 opacity-0 transform scale-75 inline-block"
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.12*i }}
-                key={link.name}
-              >
-                <Link href={link.href}>
-                  <a>
-                    <ChipLink
-                      type={link.color}
-                      marginRight
-                      marginBottom
-                    >
-                      {link.name}
-                    </ChipLink>
-                  </a>
-                </Link>
-              </motion.div>
-            ))
-          }
+        <div>
+          <Subtitle>Looking for something in particular?</Subtitle>
+          <div className="flex flex-wrap">
+            {
+              links.map((link, i) => (
+                <motion.div
+                  className="top-8 opacity-0 transform scale-75 inline-block"
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.12*i }}
+                  key={link.name}
+                >
+                  <Link href={link.href}>
+                    <a>
+                      <ChipLink
+                        type={link.color}
+                        marginRight
+                        marginBottom
+                      >
+                        {link.name}
+                      </ChipLink>
+                    </a>
+                  </Link>
+                </motion.div>
+              ))
+            }
+          </div>
         </div>
-        <Divider/>
+        <Divider marginTop={'12'} marginBottom={'12'}/>
         <div id="events">
           <Subtitle>Our local design communities:</Subtitle>
         </div>

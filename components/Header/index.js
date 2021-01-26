@@ -25,6 +25,9 @@ export default function Header() {
       name: 'Links',
       href: '/links'
     },{
+      name: 'Jobs',
+      href: '/jobs'
+    },{
       name: 'About',
       href: '/about'
     }
@@ -48,7 +51,7 @@ export default function Header() {
             {
               navigation.map(item => (
                 <div
-                  className="w-1/5 inline-block"
+                  className="w-1/6 inline-block"
                   key={item.name}
                 >
                   <TabItem

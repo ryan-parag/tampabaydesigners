@@ -71,18 +71,18 @@ const About = ({ title, description, ...props }) => {
           subtitle={'This space is used to organize the information about all of the events and groups from each of the design organizations in the Tampa Bay/St. Pete area!'}
         />
         <motion.section
-          className="relative top-4 opacity-0"
+          className="relative top-4 opacity-0 pt-2"
           animate={{ top: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.5 }}
         >
           <Subtitle>Have a question?</Subtitle>
           <p className="mb-4 text--secondary">We’d love to help! Email over a question and we'll either answer, if possible, or direct you towards someone in the community who can. We'll do our best to reply quickly 👍.</p>
-          <a className="button button--primary mb-8" href="mailto:tampabaydesigners@gmail.com">
+          <a className="button button--primary" href="mailto:tampabaydesigners@gmail.com">
             <span className="mr-2">Send an Email</span>
             <Mail size={'20'}/>
           </a>
         </motion.section>
-        <Divider/>
+        <Divider paddingTop={'12'} paddingBottom={'8'}/>
         <motion.section
           className="relative top-4 opacity-0"
           animate={{ top: 0, opacity: 1 }}
@@ -103,12 +103,12 @@ const About = ({ title, description, ...props }) => {
               }
             </div>
           </div>
-          <a className="button button--primary mb-8" href="https://github.com/TampaBayDesigners/tampabaydesigners">
+          <a className="button button--primary" href="https://github.com/TampaBayDesigners/tampabaydesigners">
             <span className="mr-2">Send us a message</span>
             <GitHub size={'20'}/>
           </a>
         </motion.section>
-        <Divider/>
+        <Divider paddingTop={'12'} paddingBottom={'8'}/>
         <motion.section
           className="relative top-4 opacity-0"
           animate={{ top: 0, opacity: 1 }}

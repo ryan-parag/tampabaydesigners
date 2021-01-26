@@ -12,7 +12,7 @@ const Slack = ({ title, description, data, ...props }) => {
 
   useEffect(() => {
 
-  }, [listedItems])
+  }, [])
 
   return (
     <>
