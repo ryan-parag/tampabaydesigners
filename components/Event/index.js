@@ -32,8 +32,10 @@ export default function Event({img, org, name, description, date, link}) {
       monthString: monthNames[month],
       yearString: year
     }
+    console.log(dateObj)
     return dateObj
   }
+
   return(
       <BoxOutbound marginBottom={'4'} href={link} target="_blank">
         <div className="grid grid-cols-8 md:grid-cols-12">
