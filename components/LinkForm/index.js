@@ -255,6 +255,7 @@ const LinkForm = ({categories}) => {
                             id="open"
                             onChange={changeOpen}
                             className="h-0 w-0"
+                            checked={formItems.open}
                           />
                           {
                             formItems.open ? (

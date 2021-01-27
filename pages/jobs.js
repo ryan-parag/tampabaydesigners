@@ -9,6 +9,7 @@ import { BoxOutbound } from '@components/Box'
 import { Briefcase } from 'react-feather'
 import moment from 'moment'
 import Link from 'next/link'
+import JobForm from '@components/JobForm'
 
 const Jobs = ({ title, description, data, ...props }) => {
 
@@ -84,6 +85,7 @@ const Jobs = ({ title, description, data, ...props }) => {
           🎉Submit your portfolio to the Designer Directory to help get matched to open roles{' '}
           <Link href="/links/designers">Submit your portfolio</Link>
         </p>
+        <JobForm/>
       </Layout>
     </>
   )
