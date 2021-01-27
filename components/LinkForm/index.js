@@ -15,7 +15,8 @@ const LinkForm = ({categories}) => {
     type: 'designers',
     name: '',
     role: '',
-    link: ''
+    link: '',
+    open: true
   })
 
   const handleClose = () => {
@@ -25,9 +26,17 @@ const LinkForm = ({categories}) => {
       type: 'designers',
       name: '',
       role: '',
-      link: ''
+      link: '',
+      open: true
     });
     setFormOpen(false)
+  }
+
+  const changeOpen = () => {
+    setFormItems({
+      ...formItems,
+      open: !formItems.open
+    })
   }
 
   const handleChange = (event) => {
@@ -41,25 +50,43 @@ const LinkForm = ({categories}) => {
     }
   }
 
-  const sendItem = () => {
-    const base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base(process.env.AIRTABLE_BASE)
+  const createObj = () => {
 
     const today = new Date();
     const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
+    if(formItems.type === 'designers') {
+      const obj = {
+        "fields": {
+          "Name": formItems.name,
+          "Link": formItems.link,
+          "Description": formItems.role,
+          "Verified": false,
+          "Updated": date,
+          "Open": formItems.open
+        }
+      }
+      return obj
+    } else {
+      const obj = {
+        "fields": {
+          "Name": formItems.name,
+          "Link": formItems.link,
+          "Description": formItems.role,
+          "Verified": false,
+          "Updated": date
+        }
+      }
+      return obj
+    }
+  }
+
+  const sendItem = () => {
+    const base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base(process.env.AIRTABLE_BASE)
+
     if(formItems.name.length > 0 && formItems.role.length > 0 && formItems.link.length > 0) {
       setError(false)
-      base(formItems.type).create([
-        {
-          "fields": {
-            "Name": formItems.name,
-            "Link": formItems.link,
-            "Description": formItems.role,
-            "Verified": false,
-            "Updated": date
-          }
-        }
-      ], function(err, records) {
+      base(formItems.type).create([createObj()], function(err, records) {
         if (err) {
           console.error(err);
           return;
@@ -101,8 +128,17 @@ const LinkForm = ({categories}) => {
         (
           <div className="block rounded-md mb-8 mt-8 p-4 border border-black border-opacity-10 dark:border-white dark:border-opacity-10">
             <div className="pb-4 flex flex-col items-center border-b border-black border-opacity-10 dark:border-white dark:border-opacity-10 mb-8">
-              <Subtitle>🎉 Add something to the list!</Subtitle>
-              <p className="text--secondary text-sm text-center">Are you a designer or or know someone who would make a great addition to the list? Do you know of any design resources that could be helpful? Add someone or something below:</p>
+              <Subtitle>🎉 {formItems.type === 'designers' ? 'Submit your portfolio' : 'Add something to the list'}!</Subtitle>
+              <p className="text--secondary text-sm text-center">
+                {
+                  formItems.type === 'designers' ? (
+                    'Submit your information to be added to a portfolio database that will be shared with companies who are hiring designers. Add your info below:'
+                  )
+                  : (
+                    'Do you know of any design resources that could be helpful? Add a new resource below:'
+                  )
+                }
+              </p>
             </div>
             {
               error ? (
@@ -204,6 +240,41 @@ const LinkForm = ({categories}) => {
                     value={formItems.role}
                     onChange={handleChange}
                   />
+                  {
+                    formItems.type === 'designers' ? (
+                      <>
+                        <label className="text--secondary block font-semibold text-sm mb-2">
+                          Job search:
+                        </label>
+                        <label
+                          htmlFor="open"
+                          className={`transition p-3 bg-black dark:bg-white ${formItems.open ? 'bg-opacity-80 text-white dark:text-black' : 'bg-opacity-5 dark:bg-opacity-10 hover:bg-opacity-10 dark:hover:bg-opacity-20'} rounded-md cursor-pointer flex items-center`}
+                        >
+                          <input
+                            type="checkbox"
+                            id="open"
+                            onChange={changeOpen}
+                            className="h-0 w-0"
+                          />
+                          {
+                            formItems.open ? (
+                              <CheckCircle className="text-green-500" size={'24'}/>
+                            )
+                            :
+                            (
+                              <Circle size={'24'}/>
+                            )
+                          }
+                          <div className="pl-4 flex-1">
+                            <div className="text-sm">Open to Offers</div>
+                            <div className="text-xs mt-1">You're open to hear about new opportunities or are actively looking</div>
+                          </div>
+                        </label>
+                      </>
+                    )
+                    :
+                    null
+                  }
                   <div className="grid grid-cols-2 gap-4 mt-8">
                     <button
                       className="button button--secondary flex w-full"
