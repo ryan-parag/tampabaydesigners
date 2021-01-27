@@ -116,7 +116,7 @@ const JobForm = () => {
           <div className="block rounded-md mb-8 mt-8 p-4 border border-black border-opacity-10 dark:border-white dark:border-opacity-10">
             <div className="pb-4 flex flex-col items-center border-b border-black border-opacity-10 dark:border-white dark:border-opacity-10 mb-8">
               <Subtitle>💼 Add an open job!</Subtitle>
-              <p className="text--secondary text-sm text-center">Submit an upcoming event by entering the details in the info below:</p>
+              <p className="text--secondary text-sm text-center">Submit an open role and we'll help match a designer for you:</p>
             </div>
             {
               error ? (
