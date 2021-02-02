@@ -72,11 +72,11 @@ const Index = ({ title, description, data, ...props }) => {
     }, {
       name: 'Learn About Design',
       color: 'indigo',
-      href: '/links'
+      href: '/links/resources'
     }, {
       name: 'Find Other Designers',
       color: 'purple',
-      href: '/links'
+      href: '/links/designers'
     }
   ]
 
