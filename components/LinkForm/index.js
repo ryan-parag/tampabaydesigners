@@ -189,7 +189,7 @@ const LinkForm = ({categories}) => {
                               value={item.route}
                               checked={formItems.type === item.route}
                               onChange={handleChange}
-                              className="h-0 w-0"
+                              className="h-0 w-0 invisible"
                             />
                             {
                               formItems.type === item.route ? (
@@ -219,14 +219,14 @@ const LinkForm = ({categories}) => {
                     onChange={handleChange}
                   />
                   <label htmlFor="link" className="text--secondary font-semibold text-sm mb-2 inline-block">
-                  {formItems.type === 'designers' ? 'Portfolio' : 'Link'}
+                  {formItems.type === 'designers' ? 'Portfolio/Personal Site' : 'Link'}
                   </label>
                   <input
                     id="link"
                     name="link"
                     className="text-field"
                     type="url"
-                    placeholder="https://tampabay.design"
+                    placeholder="https://ryanparag.com"
                     value={formItems.link}
                     onChange={handleChange}
                   />
@@ -254,7 +254,7 @@ const LinkForm = ({categories}) => {
                             type="checkbox"
                             id="open"
                             onChange={changeOpen}
-                            className="h-0 w-0"
+                            className="h-0 w-0 invisible"
                             checked={formItems.open}
                           />
                           {

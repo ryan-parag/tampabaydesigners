@@ -12,6 +12,8 @@ const NotFound = () => {
   return(
     <div className="h-screen w-full flex items-center justify-center">
       <Loading>
+        <strong>Hmmm... this page doesn't exist</strong>
+        <br/>
         Redirecting
       </Loading>
     </div>

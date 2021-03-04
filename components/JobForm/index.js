@@ -209,7 +209,7 @@ const JobForm = () => {
                       type="checkbox"
                       id="open"
                       onChange={changeRemote}
-                      className="h-0 w-0"
+                      className="h-0 w-0 invisible"
                       checked={formItems.remote}
                     />
                     {

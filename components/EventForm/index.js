@@ -158,7 +158,7 @@ const EventForm = () => {
                               value={item}
                               checked={formItems.type === item}
                               onChange={handleChange}
-                              className="h-0 w-0"
+                              className="h-0 w-0 invisible"
                             />
                             {
                               formItems.org === item ? (

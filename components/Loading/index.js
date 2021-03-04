@@ -14,7 +14,7 @@ export default function Loading({children}) {
           size={'40'}
         />
       </motion.div>
-      <p className="mt-4 text-sm">
+      <p className="mt-4 text-center text-sm">
         {children}
       </p>
     </div>
