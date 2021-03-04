@@ -3,6 +3,7 @@ import Divider from '@components/Divider'
 import Airtable from 'airtable'
 import { Subtitle } from '@components/Title'
 import { motion } from 'framer-motion'
+import SurveyForm from '@components/SurveyForm'
 
 const Recent = () => {
 
@@ -59,6 +60,7 @@ const Recent = () => {
           animate={{ top: 0, opacity: 1 }}
           transition={{ duration: 0.4, delay: 0.3 }}
         >
+          <SurveyForm/>
           <Subtitle>Recent Updates</Subtitle>
           {
             recent.map((item, i) => (
