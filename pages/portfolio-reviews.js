@@ -8,7 +8,7 @@ import { BoxOutbound, BoxNew } from '@components/Box'
 import { Bookmark } from 'react-feather'
 
 
-const About = ({ title, description, ...props }) => {
+const Page = ({ title, description, ...props }) => {
 
   const resources = [
     {
@@ -72,7 +72,7 @@ const About = ({ title, description, ...props }) => {
   )
 }
 
-export default About
+export default Page
 
 export async function getStaticProps() {
   const configData = await import(`../siteconfig.json`)
