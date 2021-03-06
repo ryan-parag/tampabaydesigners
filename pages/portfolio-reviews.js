@@ -47,7 +47,8 @@ const About = ({ title, description, ...props }) => {
           transition={{ duration: 0.5, delay: 0.7 }}
         >
           <Subtitle>Helpful Resources</Subtitle>
-          <p className="text--secondary text-sm mb-4">Find a few resources about portfolios below, or even lurk on a few portfolios of <Link href="/links/designers"><a>other local designers</a></Link></p>
+          <p className="text--secondary text-sm mb-4">🎉 Lurk on other local designer portfolios or submit your own portfolio to the Designer Directory to help get matched to open roles - {' '}
+            <Link href="/links/designers">Check it out</Link>!</p>
           {
             resources.map((item, i) => (
               <div key={i} className="mb-4">
@@ -65,10 +66,6 @@ const About = ({ title, description, ...props }) => {
               </div>
             ))
           }
-          <p className="mt-4 text--secondary text-sm">
-          🎉 Lurk on other local designer portfolios or submit your own portfolio to the Designer Directory to help get matched to open roles - {' '}
-            <Link href="/links/designers">Check it out</Link>!
-        </p>
         </motion.section>
       </Layout>
     </>
