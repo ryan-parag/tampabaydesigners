@@ -44,6 +44,26 @@
     @apply text-4xl font-black;
   }
 
+  article h1, article h2 article h3 {
+    @apply font-black
+  }
+
+  .interview p {
+    @apply mb-4 text-black text-opacity-80 dark:text-white dark:text-opacity-80;
+  }
+
+  .interview h1, .interview h2, .interview h3 {
+    @apply font-black;
+  }
+
+  .interview h1 {
+    @apply text-3xl mb-4;
+  }
+
+  .interview h2 {
+    @apply text-2xl mb-4;
+  }
+
   .text--secondary {
     @apply text-black text-opacity-70 dark:text-white dark:text-opacity-70
   }

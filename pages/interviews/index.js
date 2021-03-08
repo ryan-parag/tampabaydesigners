@@ -1,11 +1,13 @@
 import Layout from '@components/Layout'
 import { motion } from 'framer-motion'
 import Title, { Subtitle } from '@components/Title'
-import { BoxNew } from '@components/Box'
-import { MessageSquare } from 'react-feather'
+import getPosts from '@utils/getPosts'
+import InterviewList from '@components/InterviewList'
 
 
-const Page = ({ title, description, ...props }) => {
+const Page = ({ posts, title, description, ...props }) => {
+
+  const sortedPosts = posts.slice().sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date))
 
   return (
     <>
@@ -19,14 +21,7 @@ const Page = ({ title, description, ...props }) => {
           animate={{ top: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.5 }}
         >
-          <BoxNew center>
-            <div className="text-center mb-4">
-              <div className={`inline-flex h-12 w-12 items-center justify-center rounded-full bg-black bg-opacity-10 dark:bg-opacity-20 dark:bg-white text-black dark:text-white`}>
-                <MessageSquare size="20"/>
-              </div>
-            </div>
-            Coming Soon
-          </BoxNew>
+          <InterviewList interviews={sortedPosts}/>
         </motion.section>
       </Layout>
     </>
@@ -38,8 +33,13 @@ export default Page
 export async function getStaticProps() {
   const configData = await import(`../../siteconfig.json`)
 
+  const posts = ((context) => {
+    return getPosts(context)
+  })(require.context('../../interviews', true, /\.md$/))
+
   return {
     props: {
+      posts,
       title: configData.default.title,
       description: configData.default.description,
     },

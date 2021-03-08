@@ -13,33 +13,6 @@ export const Box = css`
   text-decoration: none;
 `
 
-export const BoxLink = styled.a`
-  ${Box}
-  transition: all 120ms ease-out 0s;
-  &:visited {
-    color: inherit;
-  }
-  &:hover, &:focus {
-    background: var(--gray100);
-    border-color: var(--gray400);
-    outline: none;
-    color: inherit;
-  }
-  &:focus {
-    border-color: var(--orange);
-  }
-  &:active {
-    border-color: var(--gray400);
-    color: var(--gray700);
-    box-shadow: inset 0px 0px ${({ theme }) => theme.space[3]} var(--gray400);
-  }
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints[4]}) {
-    flex-direction: row;
-    align-items: flex-start;
-    text-align: left;
-  }
-`
-
 export const BoxNew = (props) => {
 
   const defaultClasses = "border border-gray-200 bg-gray-100 dark:border-white dark:border-opacity-10 dark:bg-white dark:bg-opacity-10"
@@ -68,5 +41,20 @@ export const BoxOutbound = (props) => {
     >
       {props.children}
     </a>
+  )
+}
+
+export const BoxLink = (props) => {
+
+  const defaultClasses = "transition transform rounded-md border border-gray-200 dark:border-white dark:border-opacity-10 dark:hover:bg-white dark:hover:bg-opacity-10 shadow hover:shadow-lg dark:hover:border-transparent hover:scale-105"
+
+  return(
+    <div
+      className={`${props.center ? 'text-center' : 'text-left'} ${props.flex ? 'flex' : 'block'} ${props.marginBottom ? 'mb-' + props.marginBottom : 'mb-0'} ${props.marginTop ? 'mt-' + props.marginTop : 'mt-0'} ${props.padding ? 'p-' + props.padding : 'p-4'} rounded-md ${defaultClasses}`}
+      href={props.href}
+      target="_blank"
+    >
+      {props.children}
+    </div>
   )
 }
