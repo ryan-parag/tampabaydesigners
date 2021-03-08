@@ -22,6 +22,9 @@ export default function Header() {
       name: 'Events',
       href: '/events'
     },{
+      name: 'Interviews',
+      href: '/interviews'
+    },{
       name: 'Links',
       href: '/links'
     },{
@@ -47,11 +50,11 @@ export default function Header() {
     <>
       <header className="flex flex-col items-center w-full mb-4">
         <div className="flex justify-center bg-white dark:bg-black border-b border-gray-200 dark:border-white dark:border-opacity-10 w-full mb-8">
-          <nav className="hidden sm:block w-full sm:w-3/4 md:w-1/2" role="navigation" aria-label="main navigation">
+          <nav className="hidden sm:flex w-full sm:w-full md:w-3/4 lg:w-1/2" role="navigation" aria-label="main navigation">
             {
               navigation.map(item => (
                 <div
-                  className="w-1/6 inline-block"
+                  className="w-full flex"
                   key={item.name}
                 >
                   <TabItem

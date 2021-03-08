@@ -14,7 +14,7 @@ const TabItem = ({ href, children, ...props }) => {
 
   return (
     <Link href={href}>
-      <a>
+      <a className="flex w-full">
         <div className={`text-sm text-center transition block w-full ${props.center ? 'text-center' : 'text-left px-4'} pt-3 pb-3 ${isActive}`}>
           {children}
         </div>

@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { BoxLink } from '@components/Box'
+import { BoxLink, BoxNew } from '@components/Box'
 import moment from 'moment'
 
 const InterviewList = ({interviews}) => {
   return(
     <div>
-      {!interviews && <div>No posts!</div>}
+      {!interviews && <BoxNew center>No interviews!</BoxNew>}
       {
         interviews && interviews.map((item,i) => (
           <motion.div
@@ -26,7 +26,7 @@ const InterviewList = ({interviews}) => {
                       <div>
                         <div className="font-bold mb-2">{item.frontmatter.name}</div>
                         <div className="mb-2 sm:mb-0 text-sm text--secondary">{item.frontmatter.description}</div>
-                        <div className="mt-2 text-xs text--secondary">{moment(item.frontmatter.date).format('dddd, MMMM, Do YYYY')}</div>
+                        <div className="mt-2 text-xs text--secondary font-mono">{moment(item.frontmatter.date, 'YYYY-MM-DD').format('dddd, MMMM, Do YYYY')}</div>
                       </div>
                     </div>
                   </div>

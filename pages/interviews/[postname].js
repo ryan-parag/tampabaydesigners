@@ -8,20 +8,25 @@ import moment from 'moment'
 import Divider from '@components/Divider'
 import Chip from '@components/Chip'
 import { Globe, Twitter } from 'react-feather'
+import { motion } from 'framer-motion'
 
 const Title = ({photo, name, description, role, link, twitter, date}) => {
   return (
     <>
       <div className="flex">
-        <Link href="/interviews"><a className="link text--secondary">Interviews</a></Link>
+        <Link href="/interviews"><a className="link text--secondary">&larr; Interviews</a></Link>
         <span className="mx-2 text--secondary">/</span>
         <span className="font-bold">{name}</span>
       </div>
       <Divider/>
-      <div className="flex flex-col md:flex-row items-start">
+      <motion.div
+        className="top-8 opacity-0 relative flex flex-col md:flex-row items-start"
+        animate={{ top: 0, opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+      >
         <img src={photo} className="w-24 h-24 rounded-full mb-4 md:mb-0"/>
         <div className="flex-1 md:pl-4">
-          <div className="mb-4 text-sm text--secondary font-mono">{moment(date).format('dddd, MMMM, Do YYYY')}</div>
+          <div className="mb-4 text-sm text--secondary font-mono">{moment(date, 'YYYY-MM-DD').format('dddd, MMMM, Do YYYY')}</div>
           <h1 className="text-3xl md:text-5xl font-black mt-0 mb-4">{name}</h1>
           <div className="flex items-center">
             <Chip type="yellow">{role}</Chip>
@@ -46,7 +51,7 @@ const Title = ({photo, name, description, role, link, twitter, date}) => {
           </div>
           <p className="font-mono text-sm md:text-lg mt-4 mb-4 text--secondary">{description}</p>
         </div>
-      </div>
+      </motion.div>
       <Divider/>
     </>
   )
@@ -58,22 +63,26 @@ export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
   return (
     <>
       <Layout pageTitle={`${frontmatter.name} | ${siteTitle}`} description={frontmatter.description}>
-        <article className="interview">
-          <Title
-           name={frontmatter.name}
-           description={frontmatter.description}
-           role={frontmatter.role}
-           link={frontmatter.url}
-           photo={frontmatter.photo}
-           twitter={frontmatter.twitter}
-           date={frontmatter.date}
-           />
+        <Title
+          name={frontmatter.name}
+          description={frontmatter.description}
+          role={frontmatter.role}
+          link={frontmatter.url}
+          photo={frontmatter.photo}
+          twitter={frontmatter.twitter}
+          date={frontmatter.date}
+        />
+        <motion.article
+          className="interview top-8 opacity-0 relative"
+          animate={{ top: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        >
           <div>
             <ReactMarkdown
               source={markdownBody}
             />
           </div>
-        </article>
+        </motion.article>
         <hr/>
       </Layout>
     </>

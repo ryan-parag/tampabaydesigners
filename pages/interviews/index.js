@@ -3,7 +3,9 @@ import { motion } from 'framer-motion'
 import Title, { Subtitle } from '@components/Title'
 import getPosts from '@utils/getPosts'
 import InterviewList from '@components/InterviewList'
-
+import { BoxNew } from '@components/Box'
+import { Star } from 'react-feather'
+import Link from 'next/link'
 
 const Page = ({ posts, title, description, ...props }) => {
 
@@ -21,7 +23,23 @@ const Page = ({ posts, title, description, ...props }) => {
           animate={{ top: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.5 }}
         >
-          <InterviewList interviews={sortedPosts}/>
+          {
+            sortedPosts.length < 2 ? (
+              <BoxNew center>
+                <div className={`inline-flex h-12 w-12 items-center justify-center rounded-full bg-green-500 bg-opacity-20 text-green-500 mb-4`}>
+                  <Star size={'24'}/>
+                </div>
+                <div>Coming Soon!</div>
+              </BoxNew>
+            )
+            :
+            (
+              <InterviewList interviews={sortedPosts}/>
+            )
+          }
+          <div className="text-center mt-8">
+            <Link href={'/interviews/nominate'}><a className="button button--primary">Want to be interviewed?</a></Link>
+          </div>
         </motion.section>
       </Layout>
     </>

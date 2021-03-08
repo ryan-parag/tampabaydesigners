@@ -48,8 +48,16 @@
     @apply font-black
   }
 
-  .interview p {
+  .interview p, .interview ul, .interview li {
     @apply mb-4 text-black text-opacity-80 dark:text-white dark:text-opacity-80;
+  }
+
+  .interview ul {
+    @apply list-inside list-disc
+  }
+
+  .interview ol {
+    @apply list-inside list-decimal
   }
 
   .interview h1, .interview h2, .interview h3 {
