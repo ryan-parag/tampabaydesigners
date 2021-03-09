@@ -26,7 +26,7 @@ export default [
     description: 'This an official Sketch meetup for designers and developers in Tampa Bay. Join us to share knowledge, trade tips, and hear about new plugins and resources.'
   },{
     name: 'Figma Tampa',
-    link: 'https://www.meetup.com/Figma-Tampa-Bay/',
+    link: 'https://friends.figma.com/tampa-bay/',
     img: '/figma-tampa.png',
     description: 'This meetup is for all Figma users in the Tampa Bay Area! Learn, share and connect with your fellow Figmanites!'
   }
