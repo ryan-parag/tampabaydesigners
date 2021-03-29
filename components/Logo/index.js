@@ -6,6 +6,7 @@ import Link from 'next/link'
 const LogoInner = styled.div`
   display: inline-flex;
   align-items: center;
+  padding: ${(props) => props.padding === 'sm' ? '0.25rem' : '1rem'};
   .icon {
     display: inline-flex;
   }
@@ -25,8 +26,8 @@ const LogoInner = styled.div`
 export default function Logo(props) {
   return(
     <Link href="/">
-      <a className={`inline-flex items-center ${props.small ? 'p-1 rounded-lg' : 'p-4 rounded-xl'} transition hover:bg-yellow-500 hover:bg-opacity-10 transform hover:scale-105 focus:scale-105 hover:rotate-1`}>
-        <LogoInner>
+      <a className={`inline-flex items-center ${props.small ? 'rounded-lg' : 'rounded-xl'} transition hover:bg-yellow-500 hover:bg-opacity-10 transform hover:scale-105 focus:scale-105 hover:rotate-1`}>
+        <LogoInner padding={props.small ? 'sm' : 'lg'}>
           <div style={{ background: 'var(--orange)' }} className={`${props.small ? 'h-8 w-8' : 'w-12 h-12'} transform -rotate-6 ${props.small ? 'rounded-lg' : 'rounded-xl'} icon items-center justify-center shadow relative border-2 border-white border-opacity-20`}>
             <svg xmlns="http://www.w3.org/2000/svg" width="100%" fill="none" viewBox="0 0 80 80">
               <g fill="var(--white)" clipPath="url(#clip0)">
