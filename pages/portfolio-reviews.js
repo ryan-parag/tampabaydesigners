@@ -28,7 +28,7 @@ const Page = ({ title, description, ...props }) => {
 
   return (
     <>
-      <Layout pageTitle={`${title} | Portfolio Reviews`} description={description}>
+      <Layout ogImage={'/tbd-sm.png'} pageTitle={`${title} | Portfolio Reviews`} description={description}>
         <Title
           title={'Portfolio Reviews'}
           subtitle={'Are you looking to receive feedback on your portfolio or chat with other local designers about their portfolios? Fill out the form!'}

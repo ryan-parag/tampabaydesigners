@@ -77,7 +77,7 @@ const Events = ({ title, description, data, ...props }) => {
 
   return (
     <>
-      <Layout pageTitle={`${title} | Events`} description={description}>
+      <Layout ogImage={'/tbd-sm.png'} pageTitle={`${title} | Events`} description={description}>
         <Title
           title={'Upcoming Events'}
           subtitle={'Find an upcoming event to attend from the list below:'}

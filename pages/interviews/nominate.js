@@ -8,7 +8,7 @@ const Page = ({ title, description, ...props }) => {
 
   return (
     <>
-      <Layout pageTitle={`${title} | Want to be interviewed?`} description={description}>
+      <Layout ogImage={'/tbd-sm.png'} pageTitle={`${title} | Want to be interviewed?`} description={description}>
         <div className="flex justify-center">
           <Link href="/interviews"><a className="link text--secondary">&larr; Interviews</a></Link>
           <span className="mx-2 text--secondary">/</span>

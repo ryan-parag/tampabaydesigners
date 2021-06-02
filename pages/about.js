@@ -65,7 +65,7 @@ const About = ({ title, description, ...props }) => {
 
   return (
     <>
-      <Layout pageTitle={`${title} | About`} description={description}>
+      <Layout ogImage={'/tbd-sm.png'} pageTitle={`${title} | About`} description={description}>
         <Title
           title={'About'}
           subtitle={'This space is used to organize the information about all of the events and groups from each of the design organizations in the Tampa Bay/St. Pete area!'}

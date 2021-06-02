@@ -28,10 +28,10 @@ const Page = ({ title, description, ...props }) => {
 
   return (
     <>
-      <Layout pageTitle={`${title} | Portfolio Reviews`} description={description}>
+      <Layout ogImage={'/tbd-hangouts.png'} pageTitle={`${title} | Portfolio Reviews`} description={description}>
         <Title
           title={'Design Hangouts'}
-          subtitle={'Getting designers together is a guaranteed good time. You’ll be able to mingle and meet other designers in your area!'}
+          subtitle={'Getting designers together is a guaranteed good time. You’ll be able to mingle and meet other designers in Tampa/St. Pete area!'}
         />
         <motion.section
           className="relative top-4 opacity-0 pt-2"
