@@ -86,7 +86,7 @@ const Index = ({ title, description, data, ...props }) => {
 
   return (
     <>
-      <Layout ogImage={'./tbd-sm.png'} pageTitle={title} description={description}>
+      <Layout ogImage={'/tbd-sm.png'} pageTitle={title} description={description}>
         <Title
           title={'Discover design communities in the Tampa Bay area!'}
           subtitle={'New to the Tampa Bay/St. Pete design community?'}

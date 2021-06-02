@@ -160,7 +160,7 @@ const LinksPage = ({ title, description, list, ...props }) => {
 
   return (
     <>
-      <Layout ogImage={'./tbd-sm.png'} pageTitle={`${title} | Links`} description={description}>
+      <Layout ogImage={'/tbd-sm.png'} pageTitle={`${title} | Links`} description={description}>
         <Title
           title={'Links'}
           subtitle={'Find designers in the area or checkout one of the curated resources from the list below!'}

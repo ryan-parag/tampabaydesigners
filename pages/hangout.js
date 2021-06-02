@@ -28,7 +28,7 @@ const Page = ({ title, description, ...props }) => {
 
   return (
     <>
-      <Layout ogImage={'./hangout-sm.png'} pageTitle={`${title} | Design Hangouts`} description={description}>
+      <Layout ogImage={'/hangout-sm.png'} pageTitle={`${title} | Design Hangouts`} description={description}>
         <Title
           title={'Design Hangouts'}
           subtitle={'Getting designers together is a guaranteed good time. You’ll be able to mingle and meet other designers in Tampa/St. Pete area!'}
