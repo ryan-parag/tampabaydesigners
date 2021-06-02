@@ -41,7 +41,7 @@ const Form = ({cancelForm}) => {
   const sendItem = () => {
     const base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base(process.env.AIRTABLE_BASE)
 
-    if(formItems.name.length > 0 && formItems.email.length > 0 && formItems.portfolio.length > 0) {
+    if(formItems.name.length > 0 && formItems.email.length > 0) {
       setError(false)
       const today = new Date();
       const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
@@ -80,8 +80,8 @@ const Form = ({cancelForm}) => {
               <div className={`inline-flex h-12 w-12 items-center justify-center rounded-full bg-yellow-500 bg-opacity-20 text-yellow-500`}>
                 <Mail size={'24'}/>
               </div>
-              <Subtitle>Sign up to be notified about portfolio reviews</Subtitle>
-              <p className="text--secondary text-sm">Want feedback on your portfolio or personal site? Sign up to be notified when we gather next! Ask for critique, no matter what phase you're in as you're creating your portfolio!</p>
+              <Subtitle>Sign up to be notified about the next hangout</Subtitle>
+              <p className="text--secondary text-sm">🙏 Please join us</p>
             </div>
             {
               error ? (
@@ -95,27 +95,7 @@ const Form = ({cancelForm}) => {
               :
               null
             }
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <strong>Topics covered:</strong>
-                <ul className="mt-2">
-                  <li className="text-green-700 dark:text-green-300 text-sm mb-2">
-                    + What employers look for when hiring a designer
-                  </li>
-                  <li className="text-green-700 dark:text-green-300 text-sm mb-2">
-                    + What you should include in your portfolio
-                  </li>
-                  <li className="text-green-700 dark:text-green-300 text-sm mb-2">
-                    + Get feedback to improve your portfolio
-                  </li>
-                  <li className="text-green-700 dark:text-green-300 text-sm mb-2">
-                    + How to make your portfolio stand out
-                  </li>
-                  <li className="text-green-700 dark:text-green-300 text-sm mb-2">
-                    + Get inspiration from other portfolio examples
-                  </li>
-                </ul>
-              </div>
+            <div>
               {
                 sent ? (
                   <>
@@ -164,15 +144,6 @@ const Form = ({cancelForm}) => {
                     <label htmlFor="link" className="text--secondary font-semibold text-sm mb-2 inline-block">
                       Portfolio
                     </label>
-                    <input
-                      id="portfolio"
-                      name="portfolio"
-                      className="text-field"
-                      type="url"
-                      placeholder={'https://ryanparag.com'}
-                      value={formItems.portfolio}
-                      onChange={handleChange}
-                    />
                     <div className={`grid ${cancelForm ? 'grid-cols-2' : 'grid-cols-1'} gap-4 mt-8`}>
                       {
                         cancelForm ? (

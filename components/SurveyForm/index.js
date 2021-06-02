@@ -17,17 +17,18 @@ const SurveyForm = () => {
       {
         !formOpen ? (
           <div className="block text-center mb-8 mt-8 px-4 py-8 rounded-md bg-green-100 dark:bg-green-500 dark:bg-opacity-20">
-            <Edit2 size={'32'} className="inline-block mb-4 text-green-500"/>
+            <h2 className="text-center text-5xl mb-8">🎉</h2>
             <p className="text-green-700 dark:text-green-300 mb-2">
+              <h3 className="font-bold text-xl mb-2">Meet designers in the area!</h3>
               <small>
-              Are you looking to receive feedback on your portfolio or chat with other local designers about their portfolios? Fill out the form!
+              Let's get together on the first Tuesday of every month somewhere around the Tampa/St. Pete area - join your fellow designers as we grab some drinks, talk shop, or whatever else comes to mind.
               </small>
             </p>
-            <Link href="/portfolio-reviews">
+            <Link href="/hangout">
               <a
                 className="button mt-4 button--secondary"
               >
-                Interested in Portfolio Reviews?
+                Sign up to be notified!
               </a>
             </Link>
           </div>
