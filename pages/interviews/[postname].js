@@ -62,7 +62,7 @@ export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
 
   return (
     <>
-      <Layout ogImage={'/tbd-sm.png'} pageTitle={`${frontmatter.name} | ${siteTitle}`} description={frontmatter.description}>
+      <Layout ogImage={'./tbd-sm.png'} pageTitle={`${frontmatter.name} | ${siteTitle}`} description={frontmatter.description}>
         <Title
           name={frontmatter.name}
           description={frontmatter.description}

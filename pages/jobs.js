@@ -25,7 +25,7 @@ const Jobs = ({ title, description, data, ...props }) => {
 
   return (
     <>
-      <Layout ogImage={'/tbd-sm.png'} pageTitle={`${title} | Slack`} description={description}>
+      <Layout ogImage={'./tbd-sm.png'} pageTitle={`${title} | Slack`} description={description}>
         <Title
           title={'Jobs'}
           subtitle={'Having trouble finding a design opportunity in Florida? Look through the list of open positions.'}

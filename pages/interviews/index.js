@@ -13,7 +13,7 @@ const Page = ({ posts, title, description, ...props }) => {
 
   return (
     <>
-      <Layout ogImage={'/tbd-sm.png'} pageTitle={`${title} | Interviews`} description={description}>
+      <Layout ogImage={'./tbd-sm.png'} pageTitle={`${title} | Interviews`} description={description}>
         <Title
           title={'Interviews'}
           subtitle={'Taking a look into the craft, passions, and backgrounds of designers in the Tampa Bay area'}

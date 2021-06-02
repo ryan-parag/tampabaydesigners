@@ -16,7 +16,7 @@ const Slack = ({ title, description, data, ...props }) => {
 
   return (
     <>
-      <Layout ogImage={'/tbd-sm.png'} pageTitle={`${title} | Slack`} description={description}>
+      <Layout ogImage={'./tbd-sm.png'} pageTitle={`${title} | Slack`} description={description}>
         <Title
           title={'Slack Communities'}
           subtitle={'Discuss trends, give advice, share feedback, look for new opportunities, and more inside one of the local Slack communities.'}
