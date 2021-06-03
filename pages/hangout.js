@@ -5,26 +5,39 @@ import Divider from '@components/Divider'
 import Form from '@components/SurveyForm/Form'
 import Link from 'next/link'
 import { BoxOutbound, BoxNew } from '@components/Box'
-import { Bookmark } from 'react-feather'
+import AirtablePlus from 'airtable-plus'
+import Event from '@components/Event'
+import EmptyState from '@components/EmptyState'
 
 
-const Page = ({ title, description, ...props }) => {
+const Page = ({ title, description, data, ...props }) => {
 
-  const resources = [
-    {
-      link: 'https://medium.com/flowhack/how-to-create-a-ux-portfolio-without-any-work-experience-fb23236e3b1e',
-      description: 'A mentor’s guide to creating a portfolio that gets your first UI/UX designer job',
-      name: 'How to create a UX design portfolio without work experience'
-    },{
-      link: 'https://blog.uxfol.io/ux-portfolio-presentation/',
-      description: 'How to Structure and Present Your UX Portfolio on a Job Interview',
-      name: 'UX Portfolio Presentation'
-    },{
-      link: 'https://www.invisionapp.com/inside-design/review-ux-portfolio/',
-      description: 'If the first time you ask for feedback about your UX portfolio is after a job interview, then you’re doing it wrong. ',
-      name: 'Why you need someone to review your UX portfolio'
+  const getImage = (group) => {
+    let findGroup = groups.filter(obj => obj.name.includes(group))
+    return findGroup[0].img
+  }
+
+  const renderImg = (group) => {
+    switch (group) {
+      case 'Tampa Bay UX':
+        return getImage(group)
+        break;
+      case 'Design St. Pete':
+        return getImage(group)
+        break;
+      case 'Dribbble Tampa':
+        return getImage(group)
+        break;
+      case 'Sketch Tampa':
+        return getImage(group)
+        break;
+      case 'Figma Tampa':
+        return getImage(group)
+        break;
+      default:
+        return '/favicon/tbd.svg'
     }
-  ]
+  }
 
   return (
     <>
@@ -40,8 +53,32 @@ const Page = ({ title, description, ...props }) => {
         >
           <Subtitle>Hey, we're doing this at the beginning of every month!</Subtitle>
           <p className="mb-4 text-sm">
-            Let's get together on the first Tuesday of every month somewhere around the Tampa/St. Pete area - join your fellow designers as we grab some drinks, talk shop, or whatever else comes to mind.
+            Let's get together on the first Tuesday of every month somewhere around the Tampa/St. Pete area:
           </p>
+          <div className="mb-4">
+            {
+              data.length > 0 ? (
+                <>
+                  <p className="text-sm text--secondary mb-2">Next event:</p>
+                  <Event
+                    link={data[0].fields.Link}
+                    name={data[0].fields.Name}
+                    img={renderImg(data[0].fields.Org)}
+                    description={data[0].fields.Description}
+                    date={data[0].fields.Date}
+                    org={data[0].fields.Org}
+                    key={data[0].fields.Name}
+                  />
+                </>
+              )
+              :
+              (
+                <EmptyState>
+                  Keep a lookout for the next scheduled hangout!
+                </EmptyState>
+              )
+            }
+          </div>
           <Subtitle>Here’s what you can expect:</Subtitle>
           <div className="grid gap-4 grid-col-1 sm:grid-cols-2">
             <BoxNew>
@@ -99,10 +136,22 @@ export default Page
 export async function getStaticProps() {
   const configData = await import(`../siteconfig.json`)
 
+  const airtable = new AirtablePlus({
+    baseID: process.env.AIRTABLE_BASE,
+    apiKey: process.env.AIRTABLE_API_KEY,
+    tableName: 'events',
+  });
+
+  const data = await airtable.read({
+    filterByFormula: `AND(Verified,Duration < 1,Name = "Design Hangout")`,
+    sort: [{field: 'Date', direction: 'asc'}]
+  });
+
   return {
     props: {
       title: configData.default.title,
       description: configData.default.description,
+      data: data
     },
   }
 }
