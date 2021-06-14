@@ -141,9 +141,6 @@ const Form = ({cancelForm}) => {
                       value={formItems.email}
                       onChange={handleChange}
                     />
-                    <label htmlFor="link" className="text--secondary font-semibold text-sm mb-2 inline-block">
-                      Portfolio
-                    </label>
                     <div className={`grid ${cancelForm ? 'grid-cols-2' : 'grid-cols-1'} gap-4 mt-8`}>
                       {
                         cancelForm ? (
