@@ -1,60 +1,30 @@
-import styled, { css } from 'styled-components'
+import React from 'react'
+import Link from 'next/link'
 
-export const Box = css`
-  padding: ${({ theme }) => theme.space[4]};
-  display: flex;
-  border-radius: ${({ theme }) => theme.space[2]};
-  flex-direction: column;
-  align-items: center;
-  background: var(--white);
-  border: 1px solid var(--gray300);
-  text-align: center;
-  color: inherit;
-  text-decoration: none;
-`
-
-export const BoxNew = (props) => {
-
-  const defaultClasses = "border border-gray-200 bg-gray-100 dark:border-white dark:border-opacity-10 dark:bg-white dark:bg-opacity-10"
-  const transparentClasses = "bg-gray-100 dark:bg-transparent border border-gray-200 dark:border-white dark:border-opacity-20"
-
-  const errorClasses = "bg-red-100 dark:bg-red-500 dark:bg-opacity-20 border border-red-500 border-opacity-20"
-
+const Box = ({ children, mb, mt, mr, ml, p }) => {
   return(
-    <div
-      className={`${props.center ? 'text-center' : 'text-left'} ${props.flex ? 'flex' : 'block'} ${props.marginBottom ? 'mb-' + props.marginBottom : 'mb-0'} ${props.marginTop ? 'mt-' + props.marginTop : 'mt-0'} ${props.paddingAll ? 'p-' + props.paddingAll : 'p-4'} rounded-md ${props.transparent ? transparentClasses : props.state === 'error' ? errorClasses : defaultClasses}`}
-    >
-      {props.children}
+    <div className={`w-full mb-${mb ? mb : '4'} mt-${mt ? mt : '4'} mr-${mr ? mr : '0'} ml-${ml ? ml : '0'} bg-gray-400 bg-opacity-10 rounded border border-gray-400 border-opacity-10 dark:bg-gray-500 dark:bg-opacity-10 dark:border-gray-400 dark:border-opacity-30 p-${p ? p : '4'} backdrop-filter backdrop-blur-2xl`}>
+      {children}
     </div>
   )
 }
 
-export const BoxOutbound = (props) => {
-
-  const defaultClasses = "transition transform rounded-md border border-gray-200 dark:border-white dark:border-opacity-10 dark:hover:bg-white dark:hover:bg-opacity-10 shadow hover:shadow-lg dark:hover:border-transparent hover:scale-105"
-
+export const BoxLink = ({ children, href, mb, mt, mr, ml, p }) => {
   return(
-    <a
-      className={`${props.center ? 'text-center' : 'text-left'} ${props.flex ? 'flex' : 'block'} ${props.marginBottom ? 'mb-' + props.marginBottom : 'mb-0'} ${props.marginTop ? 'mt-' + props.marginTop : 'mt-0'} ${props.padding ? 'p-' + props.padding : 'p-4'} rounded-md ${defaultClasses}`}
-      href={props.href}
-      target="_blank"
-    >
-      {props.children}
+    <Link href={href}>
+      <a className={`transform overflow-hidden block mb-${mb ? mb : '4'} mt-${mt ? mt : '4'} mr-${mr ? mr : '0'} ml-${ml ? ml : '0'} bg-gray-400 bg-opacity-10 rounded border border-gray-400 border-opacity-10 dark:bg-gray-500 dark:bg-opacity-10 dark:border-gray-400 dark:border-opacity-30 p-${p ? p : '4'} backdrop-filter backdrop-blur-2xl transition dark:hover:bg-gray-400 dark:hover:bg-opacity-20 hover:bg-gray-300 hover:bg-opacity-30 hover:scale-105 focus:scale-105`}>
+        {children}
+      </a>
+    </Link>
+  )
+}
+
+export const BoxAnchor = ({ children, href, mb, mt, mr, ml, p, title }) => {
+  return(
+    <a title={title} href={href} className={`transform overflow-hidden block mb-${mb ? mb : '4'} mt-${mt ? mt : '4'} mr-${mr ? mr : '0'} ml-${ml ? ml : '0'} bg-gray-400 bg-opacity-10 rounded border border-gray-400 border-opacity-10 dark:bg-gray-500 dark:bg-opacity-10 dark:border-gray-400 dark:border-opacity-30 p-${p ? p : '4'} backdrop-filter backdrop-blur-2xl transition dark:hover:bg-gray-400 dark:hover:bg-opacity-20 hover:bg-gray-300 hover:bg-opacity-30 hover:scale-105 focus:scale-105`}>
+      {children}
     </a>
   )
 }
 
-export const BoxLink = (props) => {
-
-  const defaultClasses = "transition transform rounded-md border border-gray-200 dark:border-white dark:border-opacity-10 dark:hover:bg-white dark:hover:bg-opacity-10 shadow hover:shadow-lg dark:hover:border-transparent hover:scale-105"
-
-  return(
-    <div
-      className={`${props.center ? 'text-center' : 'text-left'} ${props.flex ? 'flex' : 'block'} ${props.marginBottom ? 'mb-' + props.marginBottom : 'mb-0'} ${props.marginTop ? 'mt-' + props.marginTop : 'mt-0'} ${props.padding ? 'p-' + props.padding : 'p-4'} rounded-md ${defaultClasses}`}
-      href={props.href}
-      target="_blank"
-    >
-      {props.children}
-    </div>
-  )
-}
+export default Box

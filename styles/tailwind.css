@@ -2,29 +2,29 @@
 @tailwind base;
 @tailwind components;
 
-.text-custom-orange {
-  color: var(--orange);
+h1,h2,h3,h4,h5,h6 {
+  font-family: 'Forum', serif;
 }
 
-.text-custom-yellow {
-  color: var(--yellow);
+body {
+  font-family: 'Work Sans', sans-serif;
 }
 
-.text-custom-purple {
-  color: var(--purple);
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 
-.text-custom-blue {
-  color: var(--blue);
-}
-
-.text-custom-gradient {
-  background-color: var(--orange);
-  background-image: linear-gradient(90deg, var(--orange), var(--yellow));
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent; 
-  -moz-text-fill-color: transparent;
-}
 /* purgecss end ignore */

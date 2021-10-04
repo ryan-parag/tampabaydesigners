@@ -1,13 +1,15 @@
+import React from 'react'
 import Layout from '@components/Layout'
+import Box from '@components/Box'
+import useSWR from 'swr';
+import fetcher from '@utils/fetcher';
+import { Loading, Error } from '@components/DataStates'
 import { motion } from 'framer-motion'
-import Chip from '@components/Chip'
-import Title, { Subtitle } from '@components/Title'
-import { Mail, GitHub } from 'react-feather'
-import Divider from '@components/Divider'
-import { BoxOutbound } from '@components/Box'
-
+import { Credit } from '@components/ListItem'
 
 const About = ({ title, description, ...props }) => {
+
+  const { data, error } = useSWR('/api/credits', fetcher);
 
   const skills = [
     {
@@ -15,135 +17,89 @@ const About = ({ title, description, ...props }) => {
       color: 'red'
     }, {
       name: 'UX Design',
-      color: 'blue'
-    }, {
-      name: 'Illustration',
       color: 'pink'
     }, {
-      name: 'Front-end Development',
+      name: 'Illustration',
       color: 'green'
+    }, {
+      name: 'Front-end Development',
+      color: 'blue'
     }, {
       name: 'Copywriting',
       color: 'indigo'
     }
   ]
 
-  const tools = [
-    {
-      name: 'Airtable',
-      description: 'Used as a database for all of the information displayed on the site - design organizations, slack groups, designer directory, etc.',
-      href: 'https://nextjs.org/',
-      image: '/tools/airtable.png'
-    }, {
-      name: 'Next.js',
-      description: 'Used for building an server-side rendered site on top of React',
-      href: 'https://nextjs.org/',
-      image: '/tools/nextjs.png'
-    }, {
-      name: 'TailwindCSS',
-      description: 'A utility-first CSS framework for rapidly designing websites',
-      href: 'https://tailwindcss.com/',
-      image: '/tools/tailwind.png'
-    }, {
-      name: 'Feather Icons',
-      description: 'Simply beautiful open source icons',
-      href: 'https://feathericons.com/',
-      image: '/tools/feather.png'
-    }, {
-      name: 'Netlify',
-      description: 'A serverless platform to automate deployments from the GitHub repository',
-      href: 'https://www.netlify.com/',
-      image: '/tools/netlify.png'
-    }, {
-      name: 'Framer Motion',
-      description: 'A production-ready, open-source motion library for React.',
-      href: 'https://www.framer.com/motion/',
-      image: '/tools/framer-motion.png'
-    }
-  ]
-
-
   return (
-    <>
-      <Layout ogImage={'/tbd-sm.png'} pageTitle={`${title} | About`} description={description}>
-        <Title
-          title={'About'}
-          subtitle={'This space is used to organize the information about all of the events and groups from each of the design organizations in the Tampa Bay/St. Pete area!'}
-        />
-        <motion.section
-          className="relative top-4 opacity-0 pt-2"
-          animate={{ top: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-        >
-          <Subtitle>Have a question?</Subtitle>
-          <p className="mb-4 text--secondary">We’d love to help! Email over a question and we'll either answer, if possible, or direct you towards someone in the community who can. We'll do our best to reply quickly 👍.</p>
-          <a className="button button--primary" href="mailto:tampabaydesigners@gmail.com">
-            <span className="mr-2">Send an Email</span>
-            <Mail size={'20'}/>
-          </a>
-        </motion.section>
-        <Divider/>
-        <motion.section
-          className="relative top-4 opacity-0"
-          animate={{ top: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.7 }}
-        >
-          <Subtitle>Want to contribute?</Subtitle>
-          <p className="mb-2 text--secondary">Are you a designer or developer? Do you have an idea to add to this site or want to chip in with design updates? Hop in on the fun if you'd like to learn as well!</p>
-          <p className="mb-4 text--secondary">We're always looking for designers/developers to help out with wireframes / mockups / prototypes / code - send us a message through email or provide some design updates through the GitHub repo.</p>
-          <div className="mb-4">
-            <div className="text-xs text-black text-opacity-50 dark:text-white dark:text-opacity-50 mb-2">Have skills in one or more of the following?</div>
-            <div className="flex flex-wrap">
+    <Layout pageTitle={title} description={description} >
+      <section
+        className="pt-24 pb-24 flex items-start lg:items-center w-full overflow-x-hidden"
+        style={{
+          backgroundImage: "url('/static/blur-bg.png')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="container p-3 mx-auto lg:w-1/2">
+          <h1>About</h1>
+          <p className="lead mb-12">
+          This space is used to organize the information about all of the events and groups from each of the design organizations in the Tampa Bay/St. Pete area!
+          </p>
+          <Box mb={'12'}>
+            <h3>Have a question?</h3>
+            <p>We’d love to help! Email over a question and we'll either answer, if possible, or direct you towards someone in the community who can. We'll do our best to reply quickly 👍.</p>
+            <a className="button" href="mailto:tampabaydesigners@gmail.com">Send an Email</a>
+          </Box>
+          <Box mb={'12'}>
+            <h3>Want to contribute?</h3>
+            <p>Are you a designer or developer? Do you have an idea to add to this site or want to chip in with design updates? Hop in on the fun if you'd like to learn as well!</p>
+            <p>We're always looking for designers/developers to help out with wireframes / mockups / prototypes / code - send us a message through email or provide some design updates through the GitHub repo.</p>
+            <p>
+              <small>Have skills in one or more of the following?</small>
+            </p>
+            <ul className="flex flex-wrap">
               {
-                skills.map((skill, i) => (
-                  <Chip marginRight key={i} type={skill.color}>
-                    {skill.name}
-                  </Chip>
+                skills.map((item,i) => (
+                  <li key={i}>
+                    <span
+                      className={`mr-1 my-2 rounded-full inline-flex text-xs uppercase tracking-wide py-1 px-3 bg-${item.color}-500 bg-opacity-10 border border-${item.color}-500 border-opacity-20 text-${item.color}-700 dark:text-${item.color}-300`}
+                    >
+                      {item.name}
+                    </span>
+                  </li>
                 ))
               }
-            </div>
-          </div>
-          <a className="button button--primary" href="https://github.com/TampaBayDesigners/tampabaydesigners">
-            <span className="mr-2">Send us a message</span>
-            <GitHub size={'20'}/>
-          </a>
-        </motion.section>
-        <Divider/>
-        <motion.section
-          className="relative top-4 opacity-0"
-          animate={{ top: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.9 }}
-        >
-          <Subtitle>Credits</Subtitle>
-          <p className="mb-4 text--secondary">If you'd like to look under the hood, this site is stored on <a href="https://github.com/TampaBayDesigners/tampabaydesigners" target="_blank">open GitHub repository</a> and built using the following tools:</p>
-          {
-            tools.map(tool => (
-              <BoxOutbound
-                href={tool.href}
-                target="_blank"
-                marginBottom={'4'}
-                flex
-                key={tool.name}
-              >
-                <div className="flex">
-                  <div className="w-12 h-12 rounded-full border-2 dark:border-white dark:border-opacity-10">
-                    <img
-                      className="block w-full rounded-full"
-                      src={tool.image}
-                      alt={tool.name}
-                    />
-                  </div>
-                </div>
-                <div className="pl-4 flex-1">
-                  <p className="text-sm font-bold mb-2">{tool.name}</p>
-                  <p className="text--secondary mb-0 text-xs">{tool.description}</p>
-                </div>
-              </BoxOutbound>
-            ))
-          }
-        </motion.section>
-      </Layout>
-    </>
+            </ul>
+            <a className="mt-4 button" href="https://github.com/TampaBayDesigners/tampabaydesigners">Send us a message</a>
+          </Box>
+          <h3>Credits</h3>
+          <ul>
+            {
+              error && (<Error/>)
+            }
+            {
+              data ? (
+                data.credits.map((item,i) => (
+                  <motion.li
+                    key={item.id}
+                    className="opacity-0 top-4 relative"
+                    animate={{ top: 0, opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.3*i }}
+                  >
+                    <Credit data={item}/>
+                  </motion.li>
+                ))
+              )
+              :
+              (
+                <Loading/>
+              )
+            }
+          </ul>
+        </div>
+      </section>
+    </Layout>
   )
 }
 
