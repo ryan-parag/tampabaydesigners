@@ -129,7 +129,7 @@ export const Form = () => {
                 )
               }
               <motion.div
-                className="opacity-0 filter blur-3xl bg-gradient-to-r from-red-500 via-pink-500 to-yellow-500 absolute top-0 bottom-0 right-0 left-0"
+                className="overflow-visbile opacity-0 filter blur-3xl bg-gradient-to-r from-red-500 via-pink-500 to-yellow-500 absolute top-0 bottom-0 right-0 left-0"
                 animate={{ opacity: .3 }}
                 transition={{ duration: 1, delay: 0.7 }}
               ></motion.div>

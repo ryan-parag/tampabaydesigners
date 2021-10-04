@@ -12,17 +12,11 @@ const AbsoluteImages = () => {
       type: 'pentagon',
       classes: 'w-32 z-10 -top-16 -right-16'
     }, {
-      type: 'triangle',
-      classes: 'w-32 -z-5 top-16 -left-12'
-    }, {
       type: 'quarter',
       classes: 'w-32 -z-5 filter blur-sm -top-12 left-48'
     }, {
-      type: 'diamond',
-      classes: 'w-32 z-10 -bottom-14 right-24'
-    }, {
       type: 'oval',
-      classes: 'w-56 -z-3 filter blur-sm -bottom-24 left-16'
+      classes: 'w-48 -z-3 filter blur-sm -bottom-20 -left-20'
     }
   ]
   return(
@@ -57,7 +51,6 @@ const Index = ({ title, description, ...props }) => {
       >
         <div className="container p-3 mx-auto lg:w-1/2">
           <div className="relative">
-            <AbsoluteImages/>
             <div className="card w-50">
               <h1>Discover design communities in the Tampa Bay area!</h1>
               <p>New to the Tampa Bay/St. Pete design community?</p>
