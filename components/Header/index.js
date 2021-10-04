@@ -1,38 +1,56 @@
 import React, { useState } from 'react'
 import Logo from '@components/Logo'
-import NavItem from '@components/NavItem'
-import { motion } from 'framer-motion'
+import Link from 'next/link'
 import { Menu, X } from 'react-feather'
-import TabItem from '@components/TabItem'
+import { motion } from 'framer-motion'
 import { useRouter } from 'next/router'
 
-export default function Header() {
+const NavItem = ({ href, name, mobile, state }) => {
 
-  const [open, setOpen] = useState(false)
+  const getClasses = (x) => {
+    if(x === 'Hangouts') {
+      return `border-b-2 inline-flex p-4 text-yellow-600 dark:text-yellow-500 transition hover:bg-yellow-500 hover:bg-opacity-10 hover:text-yellow-700 dark:hover:bg-yellow-500 dark:hover:text-yellow-300 dark:hover:bg-opacity-10 ${state === 'active' ? 'border-yellow-500' : 'border-transparent'}`
+    } else {
+      return `border-b-2 inline-flex p-4 transition text-black dark:text-white text-opacity-50 dark:text-opacity-50 hover:bg-yellow-500 hover:bg-opacity-10 dark:hover:bg-yellow-500 dark:hover:bg-opacity-10 hover:text-opacity-100 dark:hover:text-opacity-100 ${state === 'active' ? 'border-yellow-500' : 'border-transparent'}`
+    }
+  }
+
+  const getMobileClasses = (x) => {
+    if(x === 'Hangouts') {
+      return `block transition px-4 py-8 text-center text-2xl hover:bg-black hover:text-opacity-100 dark:hover:bg-white dark:hover:text-opacity-100 hover:bg-opacity-10 dark:hover:bg-opacity-10 ${state === 'active' ? 'text-yellow-700 dark:text-yellow-300' : 'text-black dark:text-white text-opacity-50 dark:text-opacity-50'}`
+    } else {
+      return `block transition px-4 py-8 text-center text-2xl hover:bg-black hover:text-opacity-100 dark:hover:bg-white dark:hover:text-opacity-100 hover:bg-opacity-10 dark:hover:bg-opacity-10 ${state === 'active' ? 'text-yellow-700 dark:text-yellow-300' : 'text-black dark:text-white text-opacity-50 dark:text-opacity-50'}`
+    }
+  }
+
+  return(
+    <Link href={href}>
+      <a
+        className={mobile ? getMobileClasses(name) : getClasses(name)}
+      >
+        {name}
+      </a>
+    </Link>
+  )
+}
+
+const Header = () => {
+
   const router = useRouter()
 
-  const navigation = [
+  const navItems = [
     {
-      name: 'Home',
-      href: '/'
-    },{
+      name: 'Groups',
+      link: 'groups'
+    }, {
       name: 'Slack',
-      href: '/slack'
-    },{
+      link: 'slack'
+    }, {
       name: 'Events',
-      href: '/events'
-    },{
-      name: 'Interviews',
-      href: '/interviews'
-    },{
-      name: 'Links',
-      href: '/links'
-    },{
-      name: 'Jobs',
-      href: '/jobs'
-    },{
-      name: 'About',
-      href: '/about'
+      link: 'events'
+    }, {
+      name: 'Hangouts',
+      link: 'hangouts'
     }
   ]
 
@@ -46,84 +64,76 @@ export default function Header() {
     }
   }
 
-  return (
+  const [ open, setOpen ] = useState(false)
+
+  return(
     <>
-      <header className="flex flex-col items-center w-full mb-4">
-        <div className="flex justify-center bg-white dark:bg-black border-b border-gray-200 dark:border-white dark:border-opacity-10 w-full mb-8">
-          <nav className="hidden sm:flex w-full sm:w-full md:w-3/4 lg:w-1/2" role="navigation" aria-label="main navigation">
+      <div className="border-b border-gray-500 border-opacity-10 dark:bg-gray-600 dark:bg-opacity-10 dark:border-gray-700 dark:border-opacity-30 px-4 backdrop-filter backdrop-blur-2xl">
+        <div className="container mx-auto py-2 md:py-0 flex justify-between items-center">
+          <button
+            className="inline-flex md:hidden transition dark:hover:bg-black hover:bg-gray-100 text-black dark:text-white hover:text-opacity-100 dark:hover:text-opacity-100 text-opacity-50 dark:text-opacity-50 rounded-full p-2"
+            onClick={() => setOpen(true)}
+          >
+            <Menu size={20}/>
+          </button>
+          <Logo small />
+          <button className="opacity-0 p-2 invisible">
+            <Menu size={20}/>
+          </button>
+          <ul className="hidden md:flex">
             {
-              navigation.map(item => (
-                <div
-                  className="w-full flex"
-                  key={item.name}
-                >
-                  <TabItem
-                    href={item.href}
-                    center
-                    state={activeNavItem(item.href)}
-                  >
-                    {item.name}
-                  </TabItem>
-                </div>
+              navItems.map((item, i) => (
+                <li key={i}>
+                  <NavItem
+                    name={item.name}
+                    href={item.link}
+                    state={activeNavItem(item.link)}
+                  />
+                </li>
               ))
             }
-          </nav>
-          <div className="w-full block sm:hidden">
-            <div className="px-4 py-2 flex sm:hidden w-full items-center justify-between">
-              <Logo small/>
-              <button onClick={() => setOpen(!open)} className="py-2 px-4 rounded-md bg-black bg-opacity-5 dark:bg-white dark:bg-opacity-10 focus:outline-none">
-                {
-                  open ? (
-                    <X
-                      size={'20'}
-                    />
-                  )
-                  :
-                  (
-                    <Menu
-                      size={'20'}
-                    />
-                  )
-                }
-              </button>
-            </div>
-            {
-              open ? (
-                <motion.nav
-                  className="flex sm:hidden flex-col p-2 pt-4 bg-gray-100 dark:bg-white dark:bg-opacity-5 h-0 overflow-hidden"
-                  animate={{ height: 'auto' }}
-                  transition={{ duration: 0.5, delay: 0 }}
-                >
-                  {
-                    navigation.map(item => (
-                      <div
-                        className="w-full mb-2"
-                        key={item.name}
-                      >
-                        <NavItem
-                          href={item.href}
-                          state={activeNavItem(item.href)}
-                        >
-                          {item.name}
-                        </NavItem>
-                      </div>
-                    ))
-                  }
-                </motion.nav>
-              )
-              :
-              null
-            }
-          </div>
+          </ul>
         </div>
-        <motion.div
-          className="relative top-8 opacity-0 hidden sm:block"
-          animate={{ top: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <Logo/>
-        </motion.div>
-      </header>
+      </div>
+      {
+        open && (
+          <div className="fixed backdrop-filter backdrop-blur-2xl bg-white bg-opacity-30 dark:bg-black dark:bg-opacity-70 top-0 bottom-0 right-0 left-0 z-40">
+            <div className="flex justify-between px-4 py-2">
+              <button
+                className="inline-flex md:hidden transition dark:hover:bg-black hover:bg-gray-100 text-black dark:text-white hover:text-opacity-100 dark:hover:text-opacity-100 text-opacity-50 dark:text-opacity-50 rounded-full p-2"
+                onClick={() => setOpen(false)}
+              >
+                <X size={20}/>
+              </button>
+              <Logo small mono />
+              <span className="p-2 invisible">
+                <X size={20}/>
+              </span>
+            </div>
+            <ul>
+              {
+                navItems.map((item, i) => (
+                  <motion.li
+                    className="transition block top-4 opacity-0"
+                    key={i}
+                    animate={{ top: 0, opacity: 1 }}
+                    transition={{ duration: 0.24, delay: 0.1*i }}
+                  >
+                    <NavItem
+                      mobile
+                      name={item.name}
+                      href={item.link}
+                      state={activeNavItem(item.link)}
+                    />
+                  </motion.li>
+                ))
+              }
+            </ul>
+          </div>
+        )
+      }
     </>
   )
 }
+
+export default Header

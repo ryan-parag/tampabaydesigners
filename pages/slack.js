@@ -1,55 +1,74 @@
-import React, { useState, useEffect } from 'react'
-import Layout from '@components/Layout'
-import siteConfig from '../siteconfig.json'
-import Title, { Subtitle } from '@components/Title'
-import SlackGroup from '@components/SlackGroup'
+import React from 'react'
 import { motion } from 'framer-motion'
-import AirtablePlus from 'airtable-plus'
+import Layout from '@components/Layout'
+import useSWR from 'swr';
+import fetcher from '@utils/fetcher';
+import { SlackGroup } from '@components/ListItem'
+import { Error, Loading } from '@components/DataStates'
 
-const Slack = ({ title, description, data, ...props }) => {
+const Slack = ({ title, description, ...props }) => {
 
-  const [listedItems, setListedItems] = useState(data)
-
-  useEffect(() => {
-
-  }, [])
+  const { data, error } = useSWR('/api/slack', fetcher);
 
   return (
-    <>
-      <Layout ogImage={'/tbd-sm.png'} pageTitle={`${title} | Slack`} description={description}>
-        <Title
-          title={'Slack Communities'}
-          subtitle={'Discuss trends, give advice, share feedback, look for new opportunities, and more inside one of the local Slack communities.'}
-        />
-        <Subtitle>Find a community from the list below:</Subtitle>
-       <div>
-         {
-           listedItems.map((group, i) => (
-             <SlackGroup
-              delay={i}
-              name={group.fields.Name}
-              img={group.fields.Attachments[0].url}
-              description={group.fields.Description}
-              link={group.fields.Link}
-              key={i}
-             />
-           ))
-         }
-       </div>
-        <motion.div
-          className="block text-center mb-8 opacity-0 top-8"
-          animate={{ top: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-        >
-          <p className="text-custom-orange dark:text-custom-yellow mb-2">
-            <small>
-              Want to customize your Slack theme?
-            </small>
+    <Layout pageTitle={title} description={description} >
+      <section
+        className="pt-24 flex items-start lg:items-center w-full overflow-x-hidden"
+        style={{
+          backgroundImage: "url('/static/blur-bg.png')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="container p-3 mx-auto lg:w-1/2">
+          <h1>Slack Groups</h1>
+          <p className="lead">
+            Discuss trends, give advice, share feedback, look for new opportunities, and more inside one of the local Slack or Discord communities.
           </p>
-          <a className="button button--secondary" target="_blank" href="https://slack-themes.now.sh/">Find one on Slack Themes!</a>
-        </motion.div>
-      </Layout>
-    </>
+          <ul className="pt-4">
+            <li>
+              <h5>Find a community from the list below:</h5>
+            </li>
+            {
+              error && (<Error/>)
+            }
+            {
+              data ? (
+                data.groups.map((item,i) => (
+                  <motion.li
+                    key={item.id}
+                    className="opacity-0 top-4 relative"
+                    animate={{ top: 0, opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.3*i }}
+                  >
+                    <SlackGroup data={item} />
+                  </motion.li>
+                ))
+              )
+              :
+              (
+                <Loading/>
+              )
+            }
+          </ul>
+        </div>
+      </section>
+      <section
+        className="py-16 flex items-start lg:items-center w-full overflow-x-hidden"
+      >
+        <div className="container text-center p-3 mx-auto lg:w-1/2">
+          <p>Want to customize your Slack theme?</p>
+          <a
+            href="https://slack-themes.now.sh/"
+            target="_blank"
+            className="button button--yellow"
+          >
+            Find one on Slack Themes
+          </a>
+        </div>
+      </section>
+    </Layout>
   )
 }
 
@@ -58,21 +77,10 @@ export default Slack
 export async function getStaticProps() {
   const configData = await import(`../siteconfig.json`)
 
-  const airtable = new AirtablePlus({
-    baseID: process.env.AIRTABLE_BASE,
-    apiKey: process.env.AIRTABLE_API_KEY,
-    tableName: 'slack',
-  });
-
-  const data = await airtable.read({
-    filterByFormula: 'Verified'
-  });
-
   return {
     props: {
       title: configData.default.title,
       description: configData.default.description,
-      data: data,
     },
   }
 }

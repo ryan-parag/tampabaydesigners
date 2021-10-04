@@ -9,12 +9,18 @@ module.exports = {
       screens: {
         light: { raw: "(prefers-color-scheme: light)" },
         dark: { raw: "(prefers-color-scheme: dark)" }
-      }
+      },
+      zIndex: {
+        '-1': '-1',
+        '-3': '-3',
+        '-5': '-5',
+        '-10': '-10'
+       }
     }
   },
   variants: {
     extend: {
-      scale: ['active'],
+      scale: ['active']
     }
   },
   plugins: [

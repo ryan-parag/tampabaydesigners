@@ -1,104 +1,69 @@
+import React from 'react'
 import Layout from '@components/Layout'
-import Airtable from 'airtable'
-import React, { useEffect,useState } from 'react'
-import Event from '@components/Event'
-import EmptyState from '@components/EmptyState'
-import Title, { Subtitle } from '@components/Title'
+import useSWR from 'swr';
+import fetcher from '@utils/fetcher';
+import { Event } from '@components/ListItem'
+import { Error, Loading, Empty } from '@components/DataStates'
 import { motion } from 'framer-motion'
-import Loading from '@components/Loading'
-import groups from '@data/groups'
-import AirtablePlus from 'airtable-plus'
-import EventForm from '@components/EventForm'
 
+const Events = ({ title, description, ...props }) => {
 
-const EventList = ({events}) => {
-
-  const getImage = (group) => {
-    let findGroup = groups.filter(obj => obj.name.includes(group))
-    return findGroup[0].img
-  }
-
-  const renderImg = (group) => {
-    switch (group) {
-      case 'Tampa Bay UX':
-        return getImage(group)
-        break;
-      case 'Design St. Pete':
-        return getImage(group)
-        break;
-      case 'Dribbble Tampa':
-        return getImage(group)
-        break;
-      case 'Sketch Tampa':
-        return getImage(group)
-        break;
-      case 'Figma Tampa':
-        return getImage(group)
-        break;
-      default:
-        return '/favicon/tbd.svg'
-    }
-  }
+  const { data, error } = useSWR('/api/events', fetcher);
 
   return (
-    <div>
-      <Subtitle>Find an event to attend:</Subtitle>
-      {
-        events.length > 0 ?
-          events.map((event, i) => (
-              <Event
-                link={event.fields.Link}
-                name={event.fields.Name}
-                img={renderImg(event.fields.Org)}
-                description={event.fields.Description}
-                date={event.fields.Date}
-                org={event.fields.Org}
-                key={event.fields.Name}
-              />
-          )) :
-          (
-            <EmptyState type="default">
-              No Upcoming Events
-            </EmptyState>
-          )
-      }
-    </div>
-  )
-}
-
-const Events = ({ title, description, data, ...props }) => {
-  const [state, setState] = useState(data)
-  const [loading, setLoading] = useState(false)
-
-  
-  useEffect(() => {
-
-  }, [state])
-
-  return (
-    <>
-      <Layout ogImage={'/tbd-sm.png'} pageTitle={`${title} | Events`} description={description}>
-        <Title
-          title={'Upcoming Events'}
-          subtitle={'Find an upcoming event to attend from the list below:'}
-        />
-        <motion.div
-          className="top-8 relative opacity-0"
-          animate={{ top: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
-          {
-            loading ? (
-              <Loading>Loading</Loading>
-            )
-            : (
-              <EventList events={state}/>
-            )
-          }
-        </motion.div>
-        <EventForm/>
-      </Layout>
-    </>
+    <Layout pageTitle={title} description={description} >
+      <section
+        className="pt-24 pb-24 flex items-start lg:items-center w-full overflow-x-hidden"
+        style={{
+          backgroundImage: "url('/static/blur-bg.png')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="container p-3 mx-auto lg:w-1/2">
+          <h1>Upcoming Events</h1>
+          <p className="lead">
+          Find an upcoming event to attend from the list below:
+          </p>
+          <ul className="pt-4">
+            {
+              error && (<Error/>)
+            }
+            {
+              data ? (
+                <>
+                  {
+                    data.events.length > 0 ? (
+                      data.events.map((item,i) => (
+                        <motion.li
+                          key={item.id}
+                          className="opacity-0 top-4 relative"
+                          animate={{ top: 0, opacity: 1 }}
+                          transition={{ duration: 0.3, delay: 0.3*i }}
+                        >
+                          <Event data={item} />
+                        </motion.li>
+                      ))
+                    )
+                    :
+                    (
+                      <Empty>
+                        No events - check back soon
+                      </Empty>
+                    )
+                  }
+                </>
+              )
+              :
+              (
+                <Loading/>
+              )
+            }
+          </ul>
+        </div>
+      </section>
+    </Layout>
   )
 }
 
@@ -107,22 +72,10 @@ export default Events
 export async function getStaticProps() {
   const configData = await import(`../siteconfig.json`)
 
-  const airtable = new AirtablePlus({
-    baseID: process.env.AIRTABLE_BASE,
-    apiKey: process.env.AIRTABLE_API_KEY,
-    tableName: 'events',
-  });
-
-  const data = await airtable.read({
-    filterByFormula: `AND(Verified,Duration < 1)`,
-    sort: [{field: 'Date', direction: 'asc'}]
-  });
-
   return {
     props: {
       title: configData.default.title,
       description: configData.default.description,
-      data: data,
     },
   }
 }
