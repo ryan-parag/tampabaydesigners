@@ -102,7 +102,7 @@ export const Form = () => {
             <div
               className="py-4 lg:py-8 lg:px-8 w-full relative"
             >
-              <div className="relative z-10 flex w-full shadow-lg">
+              <div className="relative z-10 flex w-full shadow-lg overflow-visible">
                 <input
                   type="text"
                   placeholder="Enter email..."
@@ -129,7 +129,7 @@ export const Form = () => {
                 )
               }
               <motion.div
-                className="overflow-visbile opacity-0 filter blur-3xl bg-gradient-to-r from-red-500 via-pink-500 to-yellow-500 absolute top-0 bottom-0 right-0 left-0"
+                className="overflow-visible opacity-0 filter blur-3xl bg-gradient-to-r from-red-500 via-pink-500 to-yellow-500 absolute top-0 bottom-0 right-0 left-0"
                 animate={{ opacity: .3 }}
                 transition={{ duration: 1, delay: 0.7 }}
               ></motion.div>

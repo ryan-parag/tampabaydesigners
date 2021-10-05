@@ -11,7 +11,7 @@ const Groups = ({ title, description, ...props }) => {
   const { data, error } = useSWR('/api/groups', fetcher);
 
   return (
-    <Layout pageTitle={title} description={description} >
+    <Layout pageTitle={title} description={description} ogImage={'/tbd-sm.png'}>
       <section
         className="pt-24 pb-24 flex items-start lg:items-center w-full overflow-x-hidden"
         style={{

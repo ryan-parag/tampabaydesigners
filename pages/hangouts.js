@@ -34,7 +34,7 @@ const Hangouts = ({ title, description, ...props }) => {
   const { data, error } = useSWR('/api/groups', fetcher);
 
   return (
-    <Layout pageTitle={title} description={description} >
+    <Layout pageTitle={title} description={description} ogImage={'/hangout-sm.png'}>
       <section
         className="pt-8 pb-24 lg:pt-24 flex flex-col items-start lg:items-center w-full overflow-x-hidden"
         style={{

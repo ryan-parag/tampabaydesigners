@@ -25,7 +25,7 @@ export default function Layout({ children, pageTitle, description, ogImage, ...p
         <meta property="og:type" content="website"></meta>
         <meta property="og:title" content={pageTitle}></meta>
         <meta property="og:description" content={description}></meta>
-        <meta property="og:image" content={`https://tampabay.design${ogImage}`}></meta>
+        <meta property="og:image" content={`${ogImage}`}></meta>
         <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png"></link>
         <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png"></link>
         <link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png"></link>
