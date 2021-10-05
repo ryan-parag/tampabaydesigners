@@ -46,12 +46,12 @@ const About = ({ title, description, ...props }) => {
           <p className="lead mb-12">
           This space is used to organize the information about all of the events and groups from each of the design organizations in the Tampa Bay/St. Pete area!
           </p>
-          <Box mb={'12'}>
+          <Box mb={'12'} p={'6'}>
             <h3>Have a question?</h3>
             <p>We’d love to help! Email over a question and we'll either answer, if possible, or direct you towards someone in the community who can. We'll do our best to reply quickly 👍.</p>
             <a className="button" href="mailto:tampabaydesigners@gmail.com">Send an Email</a>
           </Box>
-          <Box mb={'12'}>
+          <Box mb={'12'} p={'6'}>
             <h3>Want to contribute?</h3>
             <p>Are you a designer or developer? Do you have an idea to add to this site or want to chip in with design updates? Hop in on the fun if you'd like to learn as well!</p>
             <p>We're always looking for designers/developers to help out with wireframes / mockups / prototypes / code - send us a message through email or provide some design updates through the GitHub repo.</p>

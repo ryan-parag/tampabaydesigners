@@ -93,14 +93,14 @@ export const Form = () => {
       {
         !sent ? (
           <motion.div
-            className="relative top-4 opacity-0 w-full text-center flex h-full flex-col justify-center items-center py-16 lg:py-24"
+            className="relative top-4 opacity-0 w-full text-center flex h-full flex-col justify-center items-center py-16 lg:py-24 overflow-visible"
             animate={{ opacity: 1, top: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
             <span className="uppercase text-xs tracking-widest">🙏 Please join us</span>
             <h3 className="text-black dark:text-white mt-4 mb-0">Sign up to be notified about the next hangout</h3>
             <div
-              className="py-4 lg:py-8 lg:px-8 w-full relative"
+              className="py-4 lg:py-8 lg:px-8 w-full relative overflow-visible"
             >
               <div className="relative z-10 flex w-full shadow-lg overflow-visible">
                 <input

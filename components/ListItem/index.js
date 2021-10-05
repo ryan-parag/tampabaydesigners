@@ -4,7 +4,7 @@ import { BoxAnchor } from '@components/Box'
 import { truncateString } from '@utils/text'
 import moment from 'moment';
 
-const ListItem = ({ children, title, description, href }) => {
+const ListItem = ({ children, title, description, href, awaiting }) => {
   return(
     <BoxLink p={'0'} href={href}>
       <div className="flex items-center">
@@ -19,7 +19,18 @@ const ListItem = ({ children, title, description, href }) => {
         }
         {
           title && (
-            <h4 className="mr-4">{ title }</h4>
+            <h4 className="mr-4">
+              { title }
+              {
+                awaiting && (
+                  <span
+                    className="ml-2 inline-flex items-center tracking-wider text-xs uppercase font-sans bg-yellow-500 bg-opacity-10 text-yellow-700 dark:text-yellow-300 rounded-full px-2 py-0.5"
+                  >
+                    🚀 Coming Soon
+                  </span>
+                )
+              }
+            </h4>
           )
         }
         {
@@ -44,7 +55,7 @@ export const ListGroupItem = ({ data }) => {
           />
           {
             data.type && (
-              <div className="w-6 h-6 rounded-full bg-white dark:bg-black absolute -bottom-1 -right-1 z-20">
+              <div className="w-6 h-6 shadow-lg rounded-full bg-white dark:bg-black absolute -bottom-1 -right-1 z-20">
                 {
                   data.type === 'Slack' && (
                     <svg className="relative z-10" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -80,12 +91,14 @@ export const ListGroupItem = ({ data }) => {
           <div className="flex">
             {
               data.type && (
-                <span className="mr-2 text-xs uppercase text-black text-opacity-50 dark:text-white dark:text-opacity-50">
+                <span className="mr-2 inline-flex shadow-xl items-center tracking-wider text-xs uppercase font-sans bg-white dark:bg-white dark:bg-opacity-10 text-black text-opacity-70 dark:text-white dark:text-opacity-70 backdrop-blur rounded-full px-2 py-0.5">
                   {data.type}
                 </span>
               )
             }
-            <span className="text-xs uppercase text-black text-opacity-50 dark:text-white dark:text-opacity-50">Join Group</span>
+            <span className="inline-flex shadow-xl items-center tracking-wider text-xs uppercase font-sans bg-white dark:bg-white dark:bg-opacity-10 text-black text-opacity-70 dark:text-white dark:text-opacity-70 backdrop-blur rounded-full px-2 py-0.5">
+              Join Group
+            </span>
           </div>
         </div>
       </div>
@@ -156,7 +169,12 @@ export const Event = ({ data }) => {
             <div className="text-sm mb-2 text-black text-opacity-50 dark:text-white dark:text-opacity-50">
               {data.description}
             </div>
-            <small>Hosted by {data.org}</small>
+            <small>
+              Hosted by
+                <span className="ml-2 shadow-xl inline-flex items-center tracking-wider text-xs uppercase font-sans bg-white dark:bg-white dark:bg-opacity-10 text-black text-opacity-70 dark:text-white dark:text-opacity-70 backdrop-blur rounded-full px-2 py-0.5">
+                {data.org}
+              </span>
+            </small>
           </div>
         </div>
       </div>

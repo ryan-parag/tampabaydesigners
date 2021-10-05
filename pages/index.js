@@ -1,5 +1,4 @@
 import React from 'react'
-import Link from 'next/link'
 import { motion } from 'framer-motion'
 import Layout from '@components/Layout'
 import ListItem from '@components/ListItem'
@@ -9,14 +8,20 @@ const AbsoluteImages = () => {
 
   const images = [
     {
-      type: 'pentagon',
-      classes: 'w-32 z-10 -top-16 -right-16'
+      type: 'triangle',
+      classes: 'w-28 -z-3 rotate-45 filter blur-sm -top-12 left-48'
     }, {
-      type: 'quarter',
-      classes: 'w-32 -z-5 filter blur-sm -top-12 left-48'
+      type: 'diamond',
+      classes: 'w-32 md:w-48 -z-3 filter blur-sm top-1/3 -left-14 md:-left-20'
     }, {
       type: 'oval',
-      classes: 'w-48 -z-3 filter blur-sm -bottom-20 -left-20'
+      classes: 'w-32 md:w-40 z-10 -top-16 md:-top-20 left-28'
+    }, {
+      type: 'pentagon',
+      classes: 'w-32 md:w-40 z-10 -top-16 -right-16'
+    }, {
+      type: 'quarter',
+      classes: 'rotate-12 w-24 -z-3 filter blur-sm -bottom-12 right-36'
     }
   ]
   return(
@@ -26,7 +31,7 @@ const AbsoluteImages = () => {
           <motion.img
             key={i}
             src={`static/${item.type}.png`}
-            className={`absolute opacity-0 select-none ${item.classes}`}
+            className={`transform absolute opacity-0 select-none ${item.classes}`}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.3*i }}
           />
@@ -41,7 +46,7 @@ const Index = ({ title, description, ...props }) => {
   return (
     <Layout pageTitle={title} description={description} ogImage={'/tbd-sm.png'}>
       <section
-      className="pt-24 lg:pt-40 pb-24 flex items-start lg:items-center w-full overflow-x-hidden"
+      className="relative pt-24 lg:pt-40 pb-24 flex items-start lg:items-center w-full overflow-x-hidden"
         style={{
           backgroundImage: "url('/static/blur-bg.png')",
           backgroundSize: 'cover',
@@ -51,12 +56,17 @@ const Index = ({ title, description, ...props }) => {
       >
         <div className="container p-3 mx-auto lg:w-1/2">
           <div className="relative">
-            <div className="card w-50">
-              <h1>Discover design communities in the Tampa Bay area!</h1>
+            <AbsoluteImages/>
+            <motion.div
+              className="transform card w-50 opacity-0 top-4"
+              animate={{ top: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <h1 className="text-3xl md:text-4xl xl:text-5xl mt-0">Discover design communities in the Tampa Bay area!</h1>
               <p>New to the Tampa Bay/St. Pete design community?</p>
               <p>This space is used to organize the information about all of the events and groups from each of the design organizations in the Tampa Bay/St. Pete area!</p>
               <p>Find a slack group, check out upcoming events, look for ways to get feedback, and much more using one of the links below.</p>
-            </div>
+            </motion.div>
           </div>
           <div className="pt-16">
             <LatestHangout/>
@@ -98,6 +108,18 @@ const Index = ({ title, description, ...props }) => {
                 <svg className="relative z-10" width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <rect width="48" height="48" rx="12" fill="currentColor" className="text-white dark:text-black"/>
                   <path d="M35.875 31.375V19H16.625V31.375H35.875ZM35.875 12.125C36.6043 12.125 37.3038 12.4147 37.8195 12.9305C38.3353 13.4462 38.625 14.1457 38.625 14.875V31.375C38.625 32.1043 38.3353 32.8038 37.8195 33.3195C37.3038 33.8353 36.6043 34.125 35.875 34.125H16.625C15.0987 34.125 13.875 32.8875 13.875 31.375V14.875C13.875 14.1457 14.1647 13.4462 14.6805 12.9305C15.1962 12.4147 15.8957 12.125 16.625 12.125H18V9.375H20.75V12.125H31.75V9.375H34.5V12.125H35.875ZM31.1038 23.2075L24.9988 29.3125L21.3137 25.6275L22.7713 24.17L24.9988 26.3975L29.6462 21.75L31.1038 23.2075ZM11.125 36.875H30.375V39.625H11.125C9.59875 39.625 8.375 38.3875 8.375 36.875V20.375H11.125V36.875Z" fill="currentColor" className="text-black dark:text-white"/>
+                </svg>
+              </ListItem>
+            </motion.li>
+            <motion.li
+              className={`relative opacity-0 top-4`}
+              animate={{ top: 0, opacity: 1 }}
+              transition={{ duration: 0.3, delay: 0.7 }}
+            >
+              <ListItem title={'Designer Interviews'} href={'/interviews'} awaiting>
+                <svg className="relative z-10" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="40" height="40" rx="10" fill="currentColor" className="text-white dark:text-black"/>
+                  <path d="M20 6.84204C11.959 6.84204 5.38 12.076 5.38 18.538C5.4531 21.6814 6.92972 24.6345 9.4005 26.579C9.4005 27.4562 8.78646 29.7516 5.38 33.158C8.84494 32.9972 12.1637 31.696 14.8392 29.503C16.5059 29.9854 18.2602 30.2341 20 30.2341C28.041 30.2341 34.62 25.0001 34.62 18.538C34.62 12.076 28.041 6.84204 20 6.84204ZM20 27.31C13.5379 27.31 8.304 23.3772 8.304 18.538C8.304 13.6988 13.5379 9.766 20 9.766C26.4621 9.766 31.6959 13.6988 31.6959 18.538C31.6959 23.3772 26.4621 27.31 20 27.31ZM27.3099 20V17.0761H24.386V20H27.3099ZM21.462 20V17.0761H18.538V20H21.462ZM15.614 20V17.0761H12.69V20H15.614Z" fill="currentColor" className="text-black dark:text-white"/>
                 </svg>
               </ListItem>
             </motion.li>

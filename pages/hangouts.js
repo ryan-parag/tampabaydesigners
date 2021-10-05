@@ -45,7 +45,7 @@ const Hangouts = ({ title, description, ...props }) => {
         }}
       >
         <div
-          className="container p-3 mx-auto lg:w-1/2"
+          className="container p-3 mx-auto lg:w-1/2 text-center"
         >
           <div className="w-full">
             <h1>Design Hangouts</h1>
@@ -54,7 +54,7 @@ const Hangouts = ({ title, description, ...props }) => {
             </p>
             <Form/>
             <h4>Here’s what you can expect:</h4>
-            <ul className="grid grid-cols-2 gap-4 py-4">
+            <ul className="flex flex-wrap py-4 items-center justify-center">
               {
                 descriptions.map((item,i) => (
                   <motion.li
@@ -63,14 +63,12 @@ const Hangouts = ({ title, description, ...props }) => {
                     animate={{ opacity: 1, top: 0 }}
                     transition={{ duration: 0.3, delay: `${0.7 + 0.12*i}` }}
                   >
-                    <Box mb={'0'} mt={'0'} p={'2'}>
-                      <div className="flex items-center">
-                        <h3 className="my-0">{item.icon}</h3>
-                        <div className="flex-1 text-sm pl-3">
-                          {item.label}
-                        </div>
-                      </div>
-                    </Box>
+                    <span className="mx-2 my-2 inline-flex shadow items-center tracking-wider text-xs uppercase font-sans bg-white bg-opacity-50 dark:bg-white dark:bg-opacity-10 text-black text-opacity-70 dark:text-white dark:text-opacity-70 backdrop-blur rounded-full px-4 py-1">
+                      <span className="mr-2 text-lg">
+                        {item.icon}
+                      </span>
+                      {item.label}
+                    </span>
                   </motion.li>
                 ))
               }

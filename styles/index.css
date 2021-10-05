@@ -21,7 +21,7 @@
   }
 
   h1,h2,h3,h4,h5,h6 {
-    @apply font-normal text-gray-900 dark:text-white text-opacity-75 dark:text-opacity-75 leading-tight;
+    @apply font-normal text-black dark:text-white text-opacity-100 dark:text-opacity-100 leading-tight;
   }
 
   h6 {
@@ -51,7 +51,7 @@
 
 @layer components {
   .card {
-    @apply bg-gray-400 bg-opacity-10 rounded border border-gray-400 border-opacity-10 dark:bg-gray-500 dark:bg-opacity-10 dark:border-gray-400 dark:border-opacity-30 p-8 lg:p-14 backdrop-filter backdrop-blur-2xl
+    @apply bg-gray-400 bg-opacity-10 rounded border border-gray-400 border-opacity-10 dark:bg-gray-500 dark:bg-opacity-10 dark:border-gray-400 dark:border-opacity-10 p-8 lg:p-14 backdrop-filter backdrop-blur-2xl
   }
 
   .button {
