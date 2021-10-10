@@ -2,7 +2,8 @@ import React from 'react'
 import { BoxLink } from '@components/Box'
 import { BoxAnchor } from '@components/Box'
 import { truncateString } from '@utils/text'
-import moment from 'moment';
+import moment from 'moment'
+import Link from 'next/link'
 
 const ListItem = ({ children, title, description, href, awaiting }) => {
   return(
@@ -19,18 +20,20 @@ const ListItem = ({ children, title, description, href, awaiting }) => {
         }
         {
           title && (
-            <h4 className="mr-4">
-              { title }
+            <div className="flex flex-1 flex-col md:flex-row items-start md:items-center md:justify-between pr-4">
+              <h4 className="mr-4">
+                { title }
+              </h4>
               {
                 awaiting && (
                   <span
-                    className="ml-2 inline-flex items-center tracking-wider text-xs uppercase font-sans bg-yellow-500 bg-opacity-10 text-yellow-700 dark:text-yellow-300 rounded-full px-2 py-0.5"
+                    className="md:ml-2 mt-1 md:mt-0 inline-flex items-center tracking-wider text-xs uppercase font-sans bg-yellow-500 bg-opacity-10 text-yellow-700 dark:text-yellow-300 rounded-full px-2 py-0.5"
                   >
                     🚀 Coming Soon
                   </span>
                 )
               }
-            </h4>
+            </div>
           )
         }
         {
@@ -206,6 +209,52 @@ export const Credit = ({ data }) => {
         </div>
       </div>
     </BoxAnchor>
+  )
+}
+
+export const Interview = ({item}) => {
+
+  const getRandomGradient = (arr) => {
+    const randomIndex = Math.floor(Math.random() * arr.length)
+    const item = arr[randomIndex]
+    return item
+  }
+
+  const colors = ['yellow', 'pink', 'red', 'indigo', 'green', 'blue', 'green', 'purple']
+
+
+  return(
+    <Link
+      href={`interviews/${item.slug}`}
+    >
+      <a
+        className="bg-gray-400 bg-opacity-10 rounded border border-gray-400 border-opacity-10 dark:bg-gray-500 dark:bg-opacity-10 dark:border-gray-400 dark:border-opacity-10 backdrop-filter backdrop-blur-2xl relative flex flex-col-reverse justify-items-start items-start p-4 mb-4 w-full h-96 transform transition shadow-sm hover:shadow-xl hover:scale-105"
+      >
+        <div className="relative z-10">
+          <h4 className="block mt-0 mb-0">{item.frontmatter.name}</h4>
+          <span className="text-sm">{moment(item.frontmatter.date).format('MMM DD, YYYY')}</span>
+        </div>
+        <div
+          className="absolute -z-5 top-0 bottom-0 left-0 right-0 rounded opacity-50"
+          style={{
+            backgroundImage: `url(${item.frontmatter.hero})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        >
+        </div>
+        <div
+          className="absolute z-5 top-0 bottom-0 left-0 right-0 rounded bg-gradient-to-t from-white to-transparent dark:from-black"
+        ></div>
+        <div
+          className={`absolute z-0 opacity-20 bg-blend-multiply top-0 bottom-0 left-0 right-0 rounded bg-${getRandomGradient(colors)}-500`}
+        ></div>
+        <div
+          className={`absolute transform -z-5 top-0 bottom-0 left-0 filter blur opacity-10 right-0 rounded bg-gradient-to-t from-${getRandomGradient(colors)}-500 via-${getRandomGradient(colors)}-500 to-${getRandomGradient(colors)}-500`}
+        ></div>
+      </a>
+    </Link>
   )
 }
 

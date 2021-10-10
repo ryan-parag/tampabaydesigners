@@ -74,8 +74,8 @@ export async function getStaticProps() {
 
   return {
     props: {
-      title: configData.default.title,
-      description: configData.default.description,
+      title: configData.title,
+      description: configData.description,
     },
   }
 }
