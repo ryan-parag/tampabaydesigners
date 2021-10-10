@@ -41,16 +41,16 @@ const Header = () => {
   const navItems = [
     {
       name: 'Groups',
-      link: 'groups'
+      link: '/groups'
     }, {
       name: 'Slack',
-      link: 'slack'
+      link: '/slack'
     }, {
       name: 'Events',
-      link: 'events'
+      link: '/events'
     }, {
       name: 'Hangouts',
-      link: 'hangouts'
+      link: '/hangouts'
     }
   ]
 
