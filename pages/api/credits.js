@@ -16,8 +16,8 @@ export default async (req,res) => {
       id: item.id,
       name: item.properties.Name.title[0].plain_text,
       description: item.properties.Description.rich_text[0].plain_text,
-      logo: item.properties.Logo.files[0].file.url,
-      link: item.properties.Link.url
+      link: item.properties.Link.url,
+      logo: item.properties.Logo.files[0].name
     }
 
     if(item.properties.Verified.checkbox) {

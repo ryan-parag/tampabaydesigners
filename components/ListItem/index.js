@@ -192,7 +192,7 @@ export const Credit = ({ data }) => {
       <div className="flex items-start">
         <div className="relative inline-flex py-1 px-0">
           <img
-            src={data.logo}
+            src={`/static/credits/${data.logo}`}
             width={'48'}
             className="relative z-10 rounded-full"
           />

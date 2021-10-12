@@ -16,7 +16,7 @@ export default async (req,res) => {
       id: item.id,
       name: item.properties.Name.title[0].plain_text,
       description: item.properties.Description.rich_text[0].plain_text,
-      logo: item.properties.Logo.files[0].file.url,
+      logo: `/static/groups/${item.properties.Logo.files[0].name}`,
       link: item.properties.Link.url,
       type: null
     }
