@@ -110,7 +110,7 @@ const Header = () => {
                 <X size={20}/>
               </span>
             </div>
-            <ul>
+            <ul className="pt-20 flex flex-col">
               {
                 navItems.map((item, i) => (
                   <motion.li

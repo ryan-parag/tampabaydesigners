@@ -12,19 +12,19 @@ const AbsoluteImages = () => {
   const images = [
     {
       type: 'triangle',
-      classes: 'w-28 -z-3 rotate-45 filter blur-sm -top-12 left-48'
+      classes: 'w-28 -z-3 rotate-45 filter blur -top-12 left-48'
     }, {
       type: 'diamond',
-      classes: 'w-32 md:w-48 -z-3 filter blur-sm top-1/3 -left-14 md:-left-20'
+      classes: 'w-20 md:w-36 -z-3 filter blur -bottom-2/3 -left-16 md:-left-20'
     }, {
       type: 'oval',
-      classes: 'w-32 md:w-40 z-10 -top-16 md:-top-20 left-28'
+      classes: 'w-32 md:w-40 -z-3 filter blur z-10 -bottom-96 right-48'
     }, {
       type: 'pentagon',
-      classes: 'w-32 md:w-40 z-10 -top-16 -right-16'
+      classes: 'w-20 md:w-32 z-10 filter blur -bottom-full left-32'
     }, {
       type: 'quarter',
-      classes: 'rotate-12 w-24 -z-3 filter blur-sm -bottom-12 right-36'
+      classes: 'rotate-12 w-24 -z-3 filter blur -bottom-12 right-36'
     }
   ]
   return(
@@ -35,7 +35,7 @@ const AbsoluteImages = () => {
             key={i}
             src={`static/${item.type}.png`}
             className={`transform absolute opacity-0 select-none ${item.classes}`}
-            animate={{ opacity: 1 }}
+            animate={{ opacity: .5 }}
             transition={{ duration: 0.8, delay: 0.3*i }}
           />
         ))
@@ -84,10 +84,11 @@ const Index = ({ title, description, ...props }) => {
         <div className="container p-3 mx-auto lg:w-1/2">
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8">
             <motion.div
-              className="transition transform col-span-2 lg:col-span-3 top-4 opacity-0"
+              className="transition relative transform col-span-2 lg:col-span-3 top-4 opacity-0"
               animate={{ opacity: 1, top: 0 }}
               transition={{ duration: 0.24 }}
             >
+              <AbsoluteImages/>
               <Box p={'0'} mb={'0'} mt={'0'}>
                 <div className="p-8">
                   <h1 className="text-3xl md:text-4xl xl:text-5xl mt-0">Discover design communities in the Tampa Bay area!</h1>
