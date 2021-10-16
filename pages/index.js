@@ -64,10 +64,12 @@ const Index = ({ title, description, ...props }) => {
               animate={{ opacity: 1, top: 0 }}
               transition={{ duration: 0.24 }}
             >
-              <Box p={'8'} mb={'0'} mt={'0'}>
-                <h1 className="text-3xl md:text-4xl xl:text-5xl mt-0">Discover design communities in the Tampa Bay area!</h1>
-                <p>New to the Tampa Bay/St. Pete design community?</p>
-                <p>Find a slack group, check out upcoming events, look for ways to get feedback, and much more using one of the links below.</p>
+              <Box p={'0'} mb={'0'} mt={'0'}>
+                <div className="p-8">
+                  <h1 className="text-3xl md:text-4xl xl:text-5xl mt-0">Discover design communities in the Tampa Bay area!</h1>
+                  <p>New to the Tampa Bay/St. Pete design community?</p>
+                  <p>Find a slack group, check out upcoming events, look for ways to get feedback, and much more using one of the links below.</p>
+                </div>
               </Box>
             </motion.div>
             <div className="col-span-1 sm:col-span-2 lg:col-span-3">
