@@ -59,29 +59,49 @@ const Index = ({ title, description, ...props }) => {
       >
         <div className="container p-3 mx-auto lg:w-1/2">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8">
-            <div className="col-span-1 sm:col-span-2 lg:col-span-3">
+            <motion.div
+              className="transition transform col-span-1 sm:col-span-2 lg:col-span-3 top-4 opacity-0"
+              animate={{ opacity: 1, top: 0 }}
+              transition={{ duration: 0.24 }}
+            >
               <Box p={'8'} mb={'0'} mt={'0'}>
                 <h1 className="text-3xl md:text-4xl xl:text-5xl mt-0">Discover design communities in the Tampa Bay area!</h1>
                 <p>New to the Tampa Bay/St. Pete design community?</p>
                 <p>Find a slack group, check out upcoming events, look for ways to get feedback, and much more using one of the links below.</p>
               </Box>
-            </div>
+            </motion.div>
             <div className="col-span-1 sm:col-span-2 lg:col-span-3">
               <LatestHangout/>
             </div>
-            <BoxLink href="/slack" p={'0'} mb={'0'} mt={'0'} tint={'yellow'}>
-              <div className="flex flex-col text-center items-center py-8 px-4">
-                <Avatar type="slack" mb={'4'} />
-                <h5>Join Slack Groups</h5>
-              </div>
-            </BoxLink>
-            <BoxLink href="/groups" p={'0'} mb={'0'} mt={'0'} tint={'red'}>
-              <div className="flex flex-col text-center items-center py-8 px-4">
-               <Avatar type="groups" mb={'4'} />
-                <h5>Explore Communities</h5>
-              </div>
-            </BoxLink>
-            <div className="flex row-span-1 lg:row-span-2">
+            <motion.div
+              className="transition relative transform top-4 opacity-0"
+              animate={{ opacity: 1, top: 0 }}
+              transition={{ duration: 0.24, delay: 0.4 }}
+            >
+              <BoxLink href="/slack" p={'0'} mb={'0'} mt={'0'} tint={'yellow'}>
+                <div className="flex flex-col text-center items-center py-8 px-4">
+                  <Avatar type="slack" mb={'4'} />
+                  <h5>Join Slack Groups</h5>
+                </div>
+              </BoxLink>
+            </motion.div>
+            <motion.div
+              className="transition relative transform top-4 opacity-0"
+              animate={{ opacity: 1, top: 0 }}
+              transition={{ duration: 0.24, delay: 0.7 }}
+            >
+              <BoxLink href="/groups" p={'0'} mb={'0'} mt={'0'} tint={'red'}>
+                <div className="flex flex-col text-center items-center py-8 px-4">
+                <Avatar type="groups" mb={'4'} />
+                  <h5>Explore Communities</h5>
+                </div>
+              </BoxLink>
+            </motion.div>
+            <motion.div
+              className="transition relative transform top-4 opacity-0 flex row-span-1 lg:row-span-2"
+              animate={{ opacity: 1, top: 0 }}
+              transition={{ duration: 0.24, delay: 0.9 }}
+            >
               <BoxLink href="/about" p={'0'} mb={'0'} mt={'0'}>
                 <div className="flex relative flex-col-reverse h-full py-8 px-4">
                   <div className="relative z-10 text-white dark:text-white">
@@ -101,19 +121,31 @@ const Index = ({ title, description, ...props }) => {
                   <div className="bg-gradient-to-b z-5 from-transparent to-black via-black opacity-50 absolute top-0 left-0 bottom-0 right-0"></div>
                 </div>
               </BoxLink>
-            </div>
-            <BoxLink href="/events" p={'0'} mb={'0'} mt={'0'} tint={'blue'}>
-              <div className="flex flex-col text-center items-center py-8 px-4">
-                <Avatar type="events" mb={'4'} />
-                <h5>Find an event</h5>
-              </div>
-            </BoxLink>
-            <BoxLink href="/interviews" p={'0'} mb={'0'} mt={'0'} tint={'indigo'}>
-              <div className="flex flex-col text-center items-center py-8 px-4">
-                <Avatar type="interviews" mb={'4'}/>
-                <h5>Designer Interviews</h5>
-              </div>
-            </BoxLink>
+            </motion.div>
+            <motion.div
+              className="transition relative transform top-4 opacity-0"
+              animate={{ opacity: 1, top: 0 }}
+              transition={{ duration: 0.24, delay: 1 }}
+            >
+              <BoxLink href="/events" p={'0'} mb={'0'} mt={'0'} tint={'blue'}>
+                <div className="flex flex-col text-center items-center py-8 px-4">
+                  <Avatar type="events" mb={'4'} />
+                  <h5>Find an event</h5>
+                </div>
+              </BoxLink>
+            </motion.div>
+            <motion.div
+              className="transition relative transform top-4 opacity-0"
+              animate={{ opacity: 1, top: 0 }}
+              transition={{ duration: 0.24, delay: 1.2 }}
+            >
+              <BoxLink href="/interviews" p={'0'} mb={'0'} mt={'0'} tint={'indigo'}>
+                <div className="flex flex-col text-center items-center py-8 px-4">
+                  <Avatar type="interviews" mb={'4'}/>
+                  <h5>Designer Interviews</h5>
+                </div>
+              </BoxLink>
+            </motion.div>
           </div>
         </div>
       </section>

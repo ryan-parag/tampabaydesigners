@@ -18,7 +18,7 @@ export const LatestHangout = () => {
           <motion.div
             className="relative opacity-0 top-4"
             animate={{ top: 0, opacity: 1 }}
-            duration={{ duration: 0.3, delay: 0.7 }}
+            transition={{ duration: 0.3, delay: 0.24 }}
           >
             {
               data.latest.upcoming ? (
