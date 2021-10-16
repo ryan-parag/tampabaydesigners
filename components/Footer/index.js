@@ -27,7 +27,7 @@ const Footer = () => {
     <footer className="border-t border-gray-500 border-opacity-10 dark:bg-gray-600 dark:bg-opacity-10 dark:border-gray-700 dark:border-opacity-30 px-4 py-16">
       <div className="flex flex-col items-center">
         <Logo small mono />
-        <ul className="flex py-4">
+        <ul className="flex flex-wrap py-4 px-4 justify-center">
           {
             navItems.map((item, i) => (
               <li
@@ -35,7 +35,7 @@ const Footer = () => {
                 className="my-2"
               >
                 <Link href={item.link}>
-                  <a className="transition text-black dark:text-white text-opacity-50 dark:text-opacity-50 hover:text-opacity-100 dark:hover:text-opacity-100 py-1 px-3 hover:bg-black hover:bg-opacity-5 dark:hover:bg-white dark:hover:bg-opacity-10 rounded-full">
+                  <a className="my-1 inline-flex transition text-black dark:text-white text-opacity-50 dark:text-opacity-50 hover:text-opacity-100 dark:hover:text-opacity-100 py-1 px-3 hover:bg-black hover:bg-opacity-5 dark:hover:bg-white dark:hover:bg-opacity-10 rounded-full">
                     { item.name }
                   </a>
                 </Link>

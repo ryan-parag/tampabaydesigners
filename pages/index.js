@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Layout from '@components/Layout'
-import ListItem from '@components/ListItem'
+import { LinkCard } from '@components/ListItem'
 import { LatestHangout } from '@components/Hangouts'
 import styled from 'styled-components'
 import Box, { BoxLink } from '@components/Box'
-import { Avatar } from '@components/PageIcon'
+import useHover from '@utils/useHover'
 
 const AbsoluteImages = () => {
 
@@ -65,6 +65,7 @@ const Index = ({ title, description, ...props }) => {
   }
 
   const [isRandom, setIsRandom] = useState('')
+  const [hoverRef, isHovered] = useHover()
 
   useEffect(() => {
     setIsRandom(randomFact())
@@ -105,24 +106,24 @@ const Index = ({ title, description, ...props }) => {
               animate={{ opacity: 1, top: 0 }}
               transition={{ duration: 0.24, delay: 0.4 }}
             >
-              <BoxLink href="/slack" p={'0'} mb={'0'} mt={'0'} tint={'yellow'}>
-                <div className="flex flex-col text-center items-center py-8 px-4">
-                  <Avatar type="slack" mb={'4'} />
-                  <h5 className='text-base md:text-base xl:text-xl'>Join Slack Groups</h5>
-                </div>
-              </BoxLink>
+              <LinkCard
+                href={'/slack'}
+                tint={'yellow'}
+                label={'Join Slack Groups'}
+                type={'slack'}
+              />
             </motion.div>
             <motion.div
               className="transition relative transform top-4 opacity-0"
               animate={{ opacity: 1, top: 0 }}
               transition={{ duration: 0.24, delay: 0.7 }}
             >
-              <BoxLink href="/groups" p={'0'} mb={'0'} mt={'0'} tint={'red'}>
-                <div className="flex flex-col text-center items-center py-8 px-4">
-                <Avatar type="groups" mb={'4'} />
-                  <h5 className='text-base md:text-base xl:text-xl'>Explore Communities</h5>
-                </div>
-              </BoxLink>
+              <LinkCard
+                href={'/groups'}
+                tint={'red'}
+                label={'Explore Communities'}
+                type={'groups'}
+              />
             </motion.div>
             <motion.div
               className="transition relative transform top-4 opacity-0 flex row-span-2 col-span-2 sm:col-span-1"
@@ -131,18 +132,18 @@ const Index = ({ title, description, ...props }) => {
             >
               <BoxLink href="/about" p={'0'} mb={'0'} mt={'0'}>
                 <span
-                  className="transition text-white py-1 px-2 bg-black bg-opacity-60 rounded text-xs absolute top-2 right-2 z-10"
-                  target="_blank"
+                  className="inline-flex items-center transition text-white py-1 px-2 bg-black bg-opacity-60 rounded-full text-xs absolute top-2 right-2 z-10 select-none"
                 >
+                  <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse mr-1"></span>
                   {isRandom.artist}
                 </span>
-                <div className="flex relative flex-col-reverse h-full pt-16 pb-8 sm:pt-8 px-4">
+                <div ref={hoverRef} className="select-none flex relative flex-col-reverse h-full pt-16 pb-8 sm:pt-8 px-4">
                   <div className="relative z-10 text-white dark:text-white">
                     <h5 className='text-base md:text-base xl:text-xl text-white'>About</h5>
                     <p className="text-xs md:text-sm mt-0 mb-0">Learn more about this project</p>
                   </div>
                   <div
-                    className="absolute top-0 left-0 bottom-0 right-0 z-0"
+                    className={`absolute transition top-0 left-0 bottom-0 right-0 z-0 filter ${isHovered ? 'blur-sm brightness-75 contrast-125' : 'blur-none'}`}
                     style={{
                       backgroundImage: `url('/static/${isRandom.img}')`,
                       backgroundSize: 'cover',
@@ -151,7 +152,7 @@ const Index = ({ title, description, ...props }) => {
                     }}
                   >
                   </div>
-                  <div className="bg-gradient-to-b z-5 from-transparent to-black via-black opacity-50 absolute top-0 left-0 bottom-0 right-0"></div>
+                  <div className="select-none bg-gradient-to-b z-5 from-transparent to-black opacity-90 absolute top-1/4 left-0 bottom-0 right-0"></div>
                 </div>
               </BoxLink>
             </motion.div>
@@ -160,24 +161,24 @@ const Index = ({ title, description, ...props }) => {
               animate={{ opacity: 1, top: 0 }}
               transition={{ duration: 0.24, delay: 1 }}
             >
-              <BoxLink href="/events" p={'0'} mb={'0'} mt={'0'} tint={'blue'}>
-                <div className="flex flex-col text-center items-center py-8 px-4">
-                  <Avatar type="events" mb={'4'} />
-                  <h5 className='text-base md:text-base xl:text-xl'>Find an event</h5>
-                </div>
-              </BoxLink>
+              <LinkCard
+                href={'/events'}
+                tint={'blue'}
+                label={'Find an event'}
+                type={'events'}
+              />
             </motion.div>
             <motion.div
               className="transition relative transform top-4 opacity-0"
               animate={{ opacity: 1, top: 0 }}
               transition={{ duration: 0.24, delay: 1.2 }}
             >
-              <BoxLink href="/interviews" p={'0'} mb={'0'} mt={'0'} tint={'indigo'}>
-                <div className="flex flex-col text-center items-center py-8 px-4">
-                  <Avatar type="interviews" mb={'4'}/>
-                  <h5 className='text-base md:text-base xl:text-xl'>Designer Interviews</h5>
-                </div>
-              </BoxLink>
+              <LinkCard
+                href={'/interviews'}
+                tint={'indigo'}
+                label={'Designer Interviews'}
+                type={'interviews'}
+              />
             </motion.div>
           </div>
         </div>

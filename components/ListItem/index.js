@@ -2,6 +2,7 @@ import React from 'react'
 import { BoxLink } from '@components/Box'
 import { BoxAnchor } from '@components/Box'
 import { truncateString } from '@utils/text'
+import { Avatar } from '@components/PageIcon'
 import moment from 'moment'
 import Link from 'next/link'
 
@@ -253,6 +254,17 @@ export const Interview = ({item}) => {
         ></div>
       </a>
     </Link>
+  )
+}
+
+export const LinkCard = ({href, tint, type, label}) => {
+  return(
+    <BoxLink href={href} p={'0'} mb={'0'} mt={'0'} tint={tint}>
+      <div className="flex flex-col text-center items-center py-8 px-4">
+      <Avatar type={type} mb={'4'} />
+        <h5 className='text-base md:text-base xl:text-xl'>{label}</h5>
+      </div>
+    </BoxLink>
   )
 }
 

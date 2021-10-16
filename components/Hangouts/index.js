@@ -30,11 +30,11 @@ export const LatestHangout = () => {
               (
                 <BoxLink href={'hangouts'} mt={'0'} mb={'0'} p={'0'} tint={'green'}>
                   <div
-                    className="flex flex-row w-full px-4 py-6 rounded backdrop-filter backdrop-blur-2xl"
+                    className="flex flex-row w-full px-4 py-6 rounded backdrop-filter backdrop-blur-2xl dark:bg-green-900 dark:bg-opacity-30 bg-green-100 bg-opacity-80"
                   >
                     <Avatar type={'🎉'} mt={'3'} />
                     <div className="flex-1 pl-4">
-                      <h4 className="mt-2 mb-2 dark:text-green-300 text-green-900">Meet designers in the area!</h4>
+                      <h4 className="mt-2 mb-2">Meet designers in the area!</h4>
                       <p className="text-xs md:text-sm mb-4 mt-0">Let's get together on the first Tuesday of every month somewhere around the Tampa/St. Pete area - join your fellow designers as we grab some drinks, talk shop, or whatever else comes to mind.</p>
                     </div>
                   </div>
