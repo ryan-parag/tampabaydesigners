@@ -7,6 +7,46 @@ import { Loading, Error } from '@components/DataStates'
 import { motion } from 'framer-motion'
 import { Credit } from '@components/ListItem'
 
+const Tag = ({color, label}) => {
+
+  const getType = type => {
+    switch(type) {
+      case 'red':
+        return 'bg-red-500'
+        break;
+      case 'blue':
+        return 'bg-red-500'
+        break;
+      case 'green':
+        return 'bg-red-500'
+        break;
+      case 'purple':
+        return 'bg-red-500'
+        break;
+      case 'yellow':
+        return 'bg-red-500'
+        break;
+      case 'indigo':
+        return 'bg-red-500'
+        break;
+      default:
+        return 'bg-white'
+    }
+  }
+
+  return(
+    <span
+      className={`mr-1 my-2 rounded-full inline-flex items-center text-xs tracking-wide py-1 px-3 border bg-white bg-opacity-100 shadow dark:bg-white dark:bg-opacity-10 dark:border-opacity-10 text-black text-opacity-100 dark:text-white dark:text-opacity-100`}
+    >
+      <span class="flex h-2 w-2 relative items-center justify-center mr-2">
+        <span class={`animate-ping absolute inline-flex h-full w-full rounded-full ${getType(color)} opacity-30`}></span>
+        <span class={`relative inline-flex rounded-full h-2 w-2 ${getType(color)}`}></span>
+      </span>
+      {label}
+    </span>
+  )
+}
+
 const About = ({ title, description, ...props }) => {
 
   const { data, error } = useSWR('/api/credits', fetcher);
@@ -62,15 +102,10 @@ const About = ({ title, description, ...props }) => {
               {
                 skills.map((item,i) => (
                   <li key={i}>
-                    <span
-                      className={`mr-1 my-2 rounded-full inline-flex items-center text-xs tracking-wide py-1 px-3 border bg-white bg-opacity-100 shadow dark:bg-white dark:bg-opacity-10 dark:border-opacity-10 text-black text-opacity-100 dark:text-white dark:text-opacity-100`}
-                    >
-                      <span class="flex h-2 w-2 relative items-center justify-center mr-2">
-                        <span class={`animate-ping absolute inline-flex h-full w-full rounded-full bg-${item.color}-500 opacity-30`}></span>
-                        <span class={`relative inline-flex rounded-full h-2 w-2 bg-${item.color}-500`}></span>
-                      </span>
-                      {item.name}
-                    </span>
+                    <Tag
+                      color={item.color}
+                      label={item.name}
+                    />
                   </li>
                 ))
               }
