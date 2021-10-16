@@ -35,7 +35,7 @@ const AbsoluteImages = () => {
             key={i}
             src={`static/${item.type}.png`}
             className={`transform absolute opacity-0 select-none ${item.classes}`}
-            animate={{ opacity: .5 }}
+            animate={{ opacity: .1 }}
             transition={{ duration: 0.8, delay: 0.3*i }}
           />
         ))
