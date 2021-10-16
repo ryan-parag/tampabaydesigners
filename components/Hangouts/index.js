@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import Box from '@components/Box'
+import Box, { BoxLink } from '@components/Box'
 import { Check } from 'react-feather'
 import useSWR from 'swr';
 import fetcher from '@utils/fetcher';
 import { Event } from '@components/ListItem'
-import Link from 'next/link'
+import { Avatar } from '@components/PageIcon'
 
 export const LatestHangout = () => {
 
@@ -28,20 +28,17 @@ export const LatestHangout = () => {
               )
               :
               (
+                <BoxLink href={'hangouts'} mt={'0'} mb={'0'} p={'0'} tint={'green'}>
                   <div
-                    className="flex flex-col text-center items-center w-full px-4 py-6 bg-green-500 bg-opacity-10 rounded border border-green-500 border-opacity-20 dark:text-green-300 text-green-900 backdrop-filter backdrop-blur-2xl"
+                    className="flex flex-row w-full px-4 py-6 rounded backdrop-filter backdrop-blur-2xl"
                   >
-                    <span className="inline-block text-4xl">
-                    🎉
-                    </span>
-                    <h4 className="mt-2 mb-2 dark:text-green-300 text-green-900">Meet designers in the area!</h4>
-                    <p className="text-sm mb-4 mt-0">Let's get together on the first Tuesday of every month somewhere around the Tampa/St. Pete area - join your fellow designers as we grab some drinks, talk shop, or whatever else comes to mind.</p>
-                    <Link href={'hangouts'}>
-                      <a className="button button--green">
-                        Sign up to be notified
-                      </a>
-                    </Link>
+                    <Avatar type={'🎉'} mt={'3'} />
+                    <div className="flex-1 pl-4">
+                      <h4 className="mt-2 mb-2 dark:text-green-300 text-green-900">Meet designers in the area!</h4>
+                      <p className="text-xs md:text-sm mb-4 mt-0">Let's get together on the first Tuesday of every month somewhere around the Tampa/St. Pete area - join your fellow designers as we grab some drinks, talk shop, or whatever else comes to mind.</p>
+                    </div>
                   </div>
+                </BoxLink>
               )
             }
           </motion.div>
