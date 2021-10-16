@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Layout from '@components/Layout'
 import { Interview } from '@components/ListItem'
 import Box from '@components/Box'
@@ -6,12 +6,13 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import { motion } from 'framer-motion'
+import moment from 'moment'
 
 const Interviews = ({ interviews, title, description, ...props }) => {
 
-  const comingSoon = true
+  const filtered = interviews.filter(item => moment(item.frontmatter.date).isBefore(moment().format('YYYY-MM-DD')))
 
-  const sorted = interviews.slice().sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date))
+  const sorted = filtered.slice().sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date))
 
   return (
     <Layout pageTitle={title} description={description} ogImage={'/tbd-sm.png'}>
@@ -31,19 +32,6 @@ const Interviews = ({ interviews, title, description, ...props }) => {
               Taking a look into the craft, passions, and backgrounds of designers in the Tampa Bay area
             </p>
           </div>
-          {
-            comingSoon && (
-              <Box>
-                <div className="text-center py-4">
-                  <h1 className="mt-0 mb-2">🚀</h1>
-                  <p className="mt-0 mb-4 uppercase tracking-widest text-sm">Coming Soon</p>
-                  <a href="mailto:tampabaydesigners@gmail.com" className="button">
-                    Want to be interviewed?
-                  </a>
-                </div>
-              </Box>
-            )
-          }
           {
             sorted.length > 0 ? (
               <div>
@@ -74,7 +62,20 @@ const Interviews = ({ interviews, title, description, ...props }) => {
               </div>
             )
             :
-            null
+            (
+              <>
+                <hr className="mt-8 mb-8 border-black dark:border-white border-opacity-20 dark:border-opacity-10"/>
+                <Box>
+                  <div className="text-center py-4">
+                    <h1 className="text-6xl mt-0 mb-4">🚀</h1>
+                    <p className="mt-0 mb-4 uppercase tracking-widest text-sm">Coming Soon</p>
+                    <a href="mailto:tampabaydesigners@gmail.com" className="button">
+                      Want to be interviewed?
+                    </a>
+                  </div>
+                </Box>
+              </>
+            )
           }
         </div>
       </section>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Layout from '@components/Layout'
 import matter from 'gray-matter'
 import getSlugs from '@utils/getSlugs'
@@ -6,7 +6,6 @@ import moment from 'moment'
 import Link from 'next/link'
 import ReactMarkdown from 'react-markdown'
 import { motion } from 'framer-motion'
-import { Twitter, Link2 } from 'react-feather'
 
 const ButtonLink = ({href, children}) => {
   return(
