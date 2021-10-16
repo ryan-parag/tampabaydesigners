@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Layout from '@components/Layout'
 import ListItem from '@components/ListItem'
@@ -46,6 +46,30 @@ const AbsoluteImages = () => {
 
 const Index = ({ title, description, ...props }) => {
 
+  const gifs = [
+    {
+      img: 'bg.gif',
+      artist: 'KidMograph'
+    }, {
+      img: 'bg-2.gif',
+      artist: 'KidMograph'
+    }, {
+      img: 'bg-3.gif',
+      artist: 'VisualDon'
+    }
+  ]
+
+  const randomFact = () => {
+    let random = gifs[Math.floor(Math.random() * gifs.length)]
+    return random
+  }
+
+  const [isRandom, setIsRandom] = useState('')
+
+  useEffect(() => {
+    setIsRandom(randomFact())
+  }, [])
+
   return (
     <Layout pageTitle={title} description={description} ogImage={'/tbd-sm.png'}>
       <section
@@ -58,9 +82,9 @@ const Index = ({ title, description, ...props }) => {
         }}
       >
         <div className="container p-3 mx-auto lg:w-1/2">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8">
             <motion.div
-              className="transition transform col-span-1 sm:col-span-2 lg:col-span-3 top-4 opacity-0"
+              className="transition transform col-span-2 lg:col-span-3 top-4 opacity-0"
               animate={{ opacity: 1, top: 0 }}
               transition={{ duration: 0.24 }}
             >
@@ -72,7 +96,7 @@ const Index = ({ title, description, ...props }) => {
                 </div>
               </Box>
             </motion.div>
-            <div className="col-span-1 sm:col-span-2 lg:col-span-3">
+            <div className="col-span-2 lg:col-span-3">
               <LatestHangout/>
             </div>
             <motion.div
@@ -83,7 +107,7 @@ const Index = ({ title, description, ...props }) => {
               <BoxLink href="/slack" p={'0'} mb={'0'} mt={'0'} tint={'yellow'}>
                 <div className="flex flex-col text-center items-center py-8 px-4">
                   <Avatar type="slack" mb={'4'} />
-                  <h5>Join Slack Groups</h5>
+                  <h5 className='text-base md:text-base xl:text-xl'>Join Slack Groups</h5>
                 </div>
               </BoxLink>
             </motion.div>
@@ -95,25 +119,31 @@ const Index = ({ title, description, ...props }) => {
               <BoxLink href="/groups" p={'0'} mb={'0'} mt={'0'} tint={'red'}>
                 <div className="flex flex-col text-center items-center py-8 px-4">
                 <Avatar type="groups" mb={'4'} />
-                  <h5>Explore Communities</h5>
+                  <h5 className='text-base md:text-base xl:text-xl'>Explore Communities</h5>
                 </div>
               </BoxLink>
             </motion.div>
             <motion.div
-              className="transition relative transform top-4 opacity-0 flex row-span-1 lg:row-span-2"
+              className="transition relative transform top-4 opacity-0 flex row-span-2 col-span-2 sm:col-span-1"
               animate={{ opacity: 1, top: 0 }}
               transition={{ duration: 0.24, delay: 0.9 }}
             >
               <BoxLink href="/about" p={'0'} mb={'0'} mt={'0'}>
-                <div className="flex relative flex-col-reverse h-full py-8 px-4">
+                <span
+                  className="transition text-white py-1 px-2 bg-black bg-opacity-60 rounded text-xs absolute top-2 right-2 z-10"
+                  target="_blank"
+                >
+                  {isRandom.artist}
+                </span>
+                <div className="flex relative flex-col-reverse h-full pt-16 pb-8 sm:pt-8 px-4">
                   <div className="relative z-10 text-white dark:text-white">
-                    <h5 className="text-white">About</h5>
-                    <p className="text-xs md:text-sm mt-0 mb-0">This space is used to organize the information about all of the events and groups from each of the design organizations in the Tampa Bay/St. Pete area!</p>
+                    <h5 className='text-base md:text-base xl:text-xl text-white'>About</h5>
+                    <p className="text-xs md:text-sm mt-0 mb-0">Learn more about this project</p>
                   </div>
                   <div
                     className="absolute top-0 left-0 bottom-0 right-0 z-0"
                     style={{
-                      backgroundImage: "url('/static/bg.gif')",
+                      backgroundImage: `url('/static/${isRandom.img}')`,
                       backgroundSize: 'cover',
                       backgroundPosition: 'center',
                       backgroundRepeat: 'no-repeat'
@@ -132,7 +162,7 @@ const Index = ({ title, description, ...props }) => {
               <BoxLink href="/events" p={'0'} mb={'0'} mt={'0'} tint={'blue'}>
                 <div className="flex flex-col text-center items-center py-8 px-4">
                   <Avatar type="events" mb={'4'} />
-                  <h5>Find an event</h5>
+                  <h5 className='text-base md:text-base xl:text-xl'>Find an event</h5>
                 </div>
               </BoxLink>
             </motion.div>
@@ -144,7 +174,7 @@ const Index = ({ title, description, ...props }) => {
               <BoxLink href="/interviews" p={'0'} mb={'0'} mt={'0'} tint={'indigo'}>
                 <div className="flex flex-col text-center items-center py-8 px-4">
                   <Avatar type="interviews" mb={'4'}/>
-                  <h5>Designer Interviews</h5>
+                  <h5 className='text-base md:text-base xl:text-xl'>Designer Interviews</h5>
                 </div>
               </BoxLink>
             </motion.div>
