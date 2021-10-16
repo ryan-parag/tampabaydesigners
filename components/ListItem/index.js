@@ -133,8 +133,6 @@ const CalendarItem = ({day, num, month, year}) => {
 
 export const Event = ({ data }) => {
 
-  let newDate = new Date()
-
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
   ]
@@ -154,7 +152,7 @@ export const Event = ({ data }) => {
   }
 
   return(
-    <BoxAnchor href={data.link} title={`${data.name} - ${data.description}`}>
+    <BoxAnchor href={data.link} title={`${data.name} - ${data.description}`} mt={'0'} mb={'0'}>
       <div className="flex items-start">
         <div className="relative items-start flex-col inline-flex py-1 px-0 w-20">
           <CalendarItem
