@@ -69,7 +69,7 @@ const Interviews = ({ interviews, title, description, ...props }) => {
                   <div className="text-center py-4">
                     <h1 className="text-6xl mt-0 mb-4">🚀</h1>
                     <p className="mt-0 mb-4 uppercase tracking-widest text-sm">Coming Soon</p>
-                    <a href="mailto:tampabaydesigners@gmail.com" className="button">
+                    <a href="mailto:tampabaydesigners@gmail.com" className="button button--primary">
                       Want to be interviewed?
                     </a>
                   </div>
