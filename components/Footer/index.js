@@ -35,7 +35,7 @@ const Footer = () => {
                 className="my-2"
               >
                 <Link href={item.link}>
-                  <a className="my-1 inline-flex transition text-black dark:text-white text-opacity-50 dark:text-opacity-50 hover:text-opacity-100 dark:hover:text-opacity-100 py-1 px-3 hover:bg-black hover:bg-opacity-5 dark:hover:bg-white dark:hover:bg-opacity-10 rounded-full">
+                  <a className="my-1 inline-flex transition text-black dark:text-white text-opacity-50 dark:text-opacity-50 hover:text-opacity-100 dark:hover:text-opacity-100 py-1 px-3 hover:bg-black hover:bg-opacity-5 dark:hover:bg-white dark:hover:bg-opacity-10 rounded-full mx-2">
                     { item.name }
                   </a>
                 </Link>

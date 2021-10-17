@@ -5,6 +5,7 @@ import { truncateString } from '@utils/text'
 import { Avatar } from '@components/PageIcon'
 import moment from 'moment'
 import Link from 'next/link'
+import Tag from '@components/Tag'
 
 const ListItem = ({ children, title, description, href, awaiting }) => {
   return(
@@ -95,14 +96,17 @@ export const ListGroupItem = ({ data }) => {
           <div className="flex">
             {
               data.type && (
-                <span className="mr-2 inline-flex shadow-xl items-center tracking-wider text-xs uppercase font-sans bg-white dark:bg-white dark:bg-opacity-10 text-black text-opacity-70 dark:text-white dark:text-opacity-70 backdrop-blur rounded-full px-2 py-0.5">
+                <Tag
+                  mr={'2'}
+                  color={data.type.toLowerCase() === 'discord' ? 'purple' : 'yellow'}
+                >
                   {data.type}
-                </span>
+                </Tag>
               )
             }
-            <span className="inline-flex shadow-xl items-center tracking-wider text-xs uppercase font-sans bg-white dark:bg-white dark:bg-opacity-10 text-black text-opacity-70 dark:text-white dark:text-opacity-70 backdrop-blur rounded-full px-2 py-0.5">
+            <Tag>
               Join Group
-            </span>
+            </Tag>
           </div>
         </div>
       </div>
@@ -173,9 +177,9 @@ export const Event = ({ data }) => {
             </div>
             <small>
               Hosted by
-                <span className="ml-2 shadow-xl inline-flex items-center tracking-wider text-xs uppercase font-sans bg-white dark:bg-white dark:bg-opacity-10 text-black text-opacity-70 dark:text-white dark:text-opacity-70 backdrop-blur rounded-full px-2 py-0.5">
-                {data.org}
-              </span>
+                <Tag ml={'2'}>
+                  {data.org}
+                </Tag>
             </small>
           </div>
         </div>

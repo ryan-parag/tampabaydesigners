@@ -6,53 +6,7 @@ import fetcher from '@utils/fetcher';
 import { Loading, Error } from '@components/DataStates'
 import { motion } from 'framer-motion'
 import { Credit } from '@components/ListItem'
-
-const Tag = ({color, label}) => {
-
-  const getType = color => {
-    switch(color) {
-      case 'red':
-        return 'bg-red-500'
-        break;
-      case 'blue':
-        return 'bg-blue-500'
-        break;
-      case 'green':
-        return 'bg-green-500'
-        break;
-      case 'purple':
-        return 'bg-purple-500'
-        break;
-      case 'yellow':
-        return 'bg-yellow-500'
-        break;
-      case 'indigo':
-        return 'bg-indigo-500'
-        break;
-      case 'pink':
-        return 'bg-pink-500'
-        break;
-      default:
-        return 'bg-white'
-    }
-  }
-
-  return(
-    <span
-      className={`mr-1 my-2 rounded-full inline-flex items-center text-xs tracking-wide py-1 px-3 border bg-white bg-opacity-100 shadow dark:bg-white dark:bg-opacity-10 dark:border-opacity-10 text-black text-opacity-100 dark:text-white dark:text-opacity-100`}
-    >
-      {
-        color && (
-          <span class="flex h-2 w-2 relative items-center justify-center mr-2">
-            <span class={`animate-ping absolute inline-flex h-full w-full rounded-full ${getType(color)} opacity-30`}></span>
-            <span class={`relative inline-flex rounded-full h-2 w-2 ${getType(color)}`}></span>
-          </span>
-        )
-      }
-      {label}
-    </span>
-  )
-}
+import Tag from '@components/Tag'
 
 const About = ({ title, description, ...props }) => {
 
@@ -96,7 +50,7 @@ const About = ({ title, description, ...props }) => {
           <Box mb={'12'} p={'6'}>
             <h3>Have a question?</h3>
             <p>We’d love to help! Email over a question and we'll either answer, if possible, or direct you towards someone in the community who can. We'll do our best to reply quickly 👍.</p>
-            <a className="button" href="mailto:tampabaydesigners@gmail.com">Send an Email</a>
+            <a className="button button--primary mt-4" href="mailto:tampabaydesigners@gmail.com">Send an Email</a>
           </Box>
           <Box mb={'12'} p={'6'}>
             <h3>Want to contribute?</h3>
@@ -105,19 +59,21 @@ const About = ({ title, description, ...props }) => {
             <p>
               <small>Have skills in one or more of the following?</small>
             </p>
-            <ul className="flex flex-wrap">
+            <ul className="flex flex-wrap mb-4">
               {
                 skills.map((item,i) => (
                   <li key={i}>
                     <Tag
                       color={item.color}
-                      label={item.name}
-                    />
+                      mr={'2'}
+                    >
+                      {item.name}
+                    </Tag>
                   </li>
                 ))
               }
             </ul>
-            <a className="mt-4 button" href="https://github.com/TampaBayDesigners/tampabaydesigners">Send us a message</a>
+            <a className="button button--primary" href="https://github.com/TampaBayDesigners/tampabaydesigners">Send us a message</a>
           </Box>
           <h3>Credits</h3>
           <ul>

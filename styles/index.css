@@ -59,27 +59,31 @@
   }
 
   .button {
-    @apply mb-2 inline-flex items-center transition tracking-widest uppercase text-sm py-1 px-3 rounded-full leading-none border border-gray-100 dark:border-gray-800 bg-gradient-to-t dark:from-black dark:to-gray-800 from-white to-gray-100 hover:border-gray-200 dark:hover:border-gray-700 hover:from-gray-100 dark:hover:from-gray-800 text-black dark:text-white transform hover:scale-105;
+    @apply transition px-4 cursor-pointer py-3 my-2 inline-flex justify-center items-center border bg-black bg-opacity-0 border-black border-opacity-20 dark:bg-white dark:bg-opacity-10 dark:border-white dark:border-opacity-20 rounded dark:hover:bg-opacity-20 hover:bg-opacity-5;
   }
 
-  .button--indigo {
-    @apply border-indigo-100 dark:border-indigo-800 bg-gradient-to-t dark:from-indigo-900 dark:to-indigo-800 from-white to-indigo-100 hover:border-indigo-200 dark:hover:border-indigo-700 hover:from-indigo-100 dark:hover:from-indigo-800;
-  }
-
-  .button--yellow {
-    @apply text-yellow-700 dark:text-yellow-400;
+  .button--primary {
+    @apply bg-black bg-opacity-80 text-white hover:bg-opacity-70 dark:bg-white dark:bg-opacity-90 dark:text-black dark:hover:bg-opacity-80;
   }
 
   .button--red {
-    @apply border-red-100 dark:border-red-800 bg-gradient-to-t dark:from-red-900 dark:to-red-800 from-white to-red-100 hover:border-red-200 dark:hover:border-red-700 hover:from-red-100 dark:hover:from-red-800;
-  }
-
-  .button--green {
-    @apply text-green-700 dark:text-green-400;
+    @apply bg-red-100 bg-opacity-100 border-red-500 border-opacity-20 dark:bg-red-900 dark:bg-opacity-50 dark:border-red-500 dark:border-opacity-20 dark:hover:bg-opacity-30 dark:hover:bg-red-900 hover:bg-red-200 text-red-900 dark:text-yellow-100;
   }
 
   .button--blue {
-    @apply border-blue-100 dark:border-blue-800 bg-gradient-to-t dark:from-blue-900 dark:to-blue-800 from-white to-blue-100 hover:border-blue-200 dark:hover:border-blue-700 hover:from-blue-100 dark:hover:from-blue-800;
+    @apply bg-blue-100 bg-opacity-100 border-blue-500 border-opacity-20 dark:bg-blue-900 dark:bg-opacity-50 dark:border-blue-500 dark:border-opacity-20 dark:hover:bg-opacity-30 dark:hover:bg-blue-900 hover:bg-blue-200 text-blue-900 dark:text-blue-100;
+  }
+
+  .button--green {
+    @apply bg-green-100 bg-opacity-100 border-green-500 border-opacity-20 dark:bg-green-900 dark:bg-opacity-50 dark:border-green-500 dark:border-opacity-20 dark:hover:bg-opacity-30 dark:hover:bg-green-900 hover:bg-green-200 text-green-900 dark:text-green-100;
+  }
+
+  .button--indigo {
+    @apply bg-indigo-100 bg-opacity-100 border-indigo-500 border-opacity-20 dark:bg-indigo-900 dark:bg-opacity-50 dark:border-indigo-500 dark:border-opacity-20 dark:hover:bg-opacity-30 dark:hover:bg-indigo-900 hover:bg-indigo-200 text-indigo-900 dark:text-indigo-100;
+  }
+
+  .button--yellow {
+    @apply bg-yellow-100 bg-opacity-100 border-yellow-500 border-opacity-20 dark:bg-yellow-900 dark:bg-opacity-50 dark:border-yellow-500 dark:border-opacity-20 dark:hover:bg-opacity-30 dark:hover:bg-yellow-900 hover:bg-yellow-200 text-yellow-900 dark:text-yellow-100;
   }
   
   .prose blockquote {
