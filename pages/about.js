@@ -66,6 +66,7 @@ const About = ({ title, description, ...props }) => {
                     <Tag
                       color={item.color}
                       mr={'2'}
+                      mt={'2'}
                     >
                       {item.name}
                     </Tag>
