@@ -171,7 +171,7 @@ export const Event = ({ data }) => {
         </div>
         <div className="pl-4 flex-1">
           <div className="mb-2 flex-col flex items-start">
-            <h4>{data.upcoming && 'Upcoming - '}{data.name}</h4>
+            <h4>{data.upcoming && 'Upcoming - '}{data.name} @ {moment(data.date).format('LT')}</h4>
             <div className="text-sm mb-2 text-black text-opacity-50 dark:text-white dark:text-opacity-50">
               {data.description}
             </div>
