@@ -135,7 +135,7 @@ export const Form = () => {
                   <>
                     {
                       data.latest.upcoming && (
-                        <div className="text-left">
+                        <div className="text-left mt-4">
                           <Event data={data.latest}/>
                         </div>
                       )
