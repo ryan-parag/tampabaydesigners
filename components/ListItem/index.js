@@ -56,6 +56,7 @@ export const ListGroupItem = ({ data }) => {
           <img
             src={data.logo}
             width={'48'}
+            height={'48'}
             className="relative z-10 rounded-full"
           />
           {
