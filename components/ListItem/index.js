@@ -176,8 +176,8 @@ export const Event = ({ data }) => {
               {data.description}
             </div>
             <small>
-              Hosted by
-                <Tag ml={'2'}>
+              Hosted by&nbsp;&nbsp;
+                <Tag>
                   {data.org}
                 </Tag>
             </small>
