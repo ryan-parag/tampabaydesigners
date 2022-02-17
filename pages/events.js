@@ -35,7 +35,7 @@ const Events = ({ title, description, ...props }) => {
                 <>
                   {
                     data.events.length > 0 ? (
-                      data.events.map((item,i) => (
+                      data.events.reverse().map((item,i) => (
                         <motion.li
                           key={item.id}
                           className="opacity-0 top-4 relative"
