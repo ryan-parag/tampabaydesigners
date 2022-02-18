@@ -22,7 +22,7 @@ export default async (req,res) => {
     }
 
     if(item.properties.Verified.checkbox) {
-      events.push(lineItem)
+      events.unshift(lineItem)
     }
 
   })
