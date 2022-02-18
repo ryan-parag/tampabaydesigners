@@ -10,6 +10,8 @@ export default async (req,res) => {
 
   const events = []
 
+  const today = new Date().toISOString()
+
   response.results.map(item => {
 
     const lineItem = {
@@ -22,7 +24,9 @@ export default async (req,res) => {
     }
 
     if(item.properties.Verified.checkbox) {
-      events.unshift(lineItem)
+      if(item.properties.Date.date.start >= today) {
+        events.unshift(lineItem)
+      }
     }
 
   })
