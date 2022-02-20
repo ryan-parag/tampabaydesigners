@@ -52,12 +52,12 @@ export const ListGroupItem = ({ data }) => {
   return(
     <BoxAnchor href={data.link} title={`${data.name} - ${data.description}`}>
       <div className="flex items-start">
-        <div className="relative inline-flex py-1 px-0">
+        <div className="relative inline-flex py-1 px-0" style={{ width: '48', height: '48'}}>
           <img
             src={data.logo}
             width={'48'}
             height={'48'}
-            className="relative z-10 rounded-full"
+            className="relative z-10 rounded-full block"
           />
           {
             data.type && (

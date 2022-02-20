@@ -8,7 +8,10 @@ import { Error, Loading, Empty } from '@components/DataStates'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import moment from 'moment'
-import { Form, SignUp } from '@components/Hangouts'
+import { SignUp } from '@components/Hangouts'
+import Tag from '@components/Tag'
+import { ArrowLeft } from 'react-feather'
+import FAQ from '@components/Hangouts/FAQ'
 
 const Events = ({ title, description, ...props }) => {
 
@@ -51,9 +54,14 @@ const Events = ({ title, description, ...props }) => {
         <div className="container p-3 mx-auto lg:w-1/2">
           <div className="flex mb-8">
             <Link href="/events">
-              <a className="hover:underline">Events</a>
+              <a className="hover:underline inline-flex items-center">
+                <ArrowLeft
+                  size={'20'}
+                  className="mr-1"
+                />
+                Back
+              </a>
             </Link>
-            <span className="mx-2">/</span>
           </div>
           {
             error && (<Error/>)
@@ -66,7 +74,7 @@ const Events = ({ title, description, ...props }) => {
                     <>
                       <div className="flex flex-col md:flex-row items-center md:items-start">
                         <motion.div
-                          className="relative w-36 mr-8 opacity-0"
+                          className="relative w-36 mr-0 md:mr-8 mb-4 md:mb-0 opacity-0"
                           animate={{ opacity: 1 }}
                           transition={{ duration: 0.3 }}
                         >
@@ -83,11 +91,18 @@ const Events = ({ title, description, ...props }) => {
                           transition={{ duration: 0.3, delay: 0.3 }}
                         >
                           <h1 className="my-0">{data.item.name}</h1>
-                          <p className="mt-2 mb-4 text-sm">{data.item.description}</p>
+                          <p className="mt-2 mb-2 text-sm">{data.item.description}</p>
+                          <p className="mb-4 text-sm">
+                            <Tag color="green">
+                              {moment(data.item.date).format('LLLL')}
+                            </Tag>
+                          </p>
                         </motion.div>
                       </div>
                       <hr className="my-8 border-black dark:border-white border-opacity-20 dark:border-opacity-10"/>
                       <SignUp/>
+                      <hr className="my-8 border-black dark:border-white border-opacity-20 dark:border-opacity-10"/>
+                      <FAQ/>
                     </>
                   )
                   :
