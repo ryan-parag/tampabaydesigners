@@ -127,7 +127,7 @@ export const Group = ({ data }) => {
   )
 }
 
-const CalendarItem = ({day, num, month, year}) => {
+export const CalendarItem = ({day, num, month, year}) => {
   return(
     <div className="relative z-10 rounded-lg text-center bg-white dark:bg-black bg-opacity-70 dark:bg-opacity-70 backdrop-blur-sm overflow-hidden shadow flex flex-col w-full">
       <div className="text-xs font-semibold py-1 bg-red-500 uppercase text-white font-mono tracking-widest">{day}</div>
@@ -157,36 +157,69 @@ export const Event = ({ data }) => {
     return dateObj
   }
 
-  return(
-    <BoxAnchor href={data.link} title={`${data.name} - ${data.description}`} mt={'0'} mb={'4'}>
-      <div className="flex items-start">
-        <div className="relative items-start flex-col inline-flex py-1 px-0 w-20">
-          <CalendarItem
-            day={formatDate(data.date).dayString}
-            num={formatDate(data.date).numString}
-            month={formatDate(data.date).monthString}
-            year={formatDate(data.date).yearString}
-          />
-          <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-red-500 to-blue-500 top-0 bottom-0 left-0 right-0 rounded-full z-0"></div>
-          <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-yellow-500 to-purple-500 top-0 bottom-0 left-0 right-0 rounded-full z-0 transform rotate-6"></div>
-        </div>
-        <div className="pl-4 flex-1">
-          <div className="mb-2 flex-col flex items-start">
-            <h4>{data.upcoming && 'Upcoming - '}{data.name} @ {moment(data.date).format('LT')}</h4>
-            <div className="text-sm mb-2 text-black text-opacity-50 dark:text-white dark:text-opacity-50">
-              {data.description}
+  if(data.name === 'Design Hangout') {
+    return(
+      <BoxLink href={`/events/${data.id}`} title={`${data.name} - ${data.description}`} mt={'0'} mb={'4'}>
+        <div className="flex items-start">
+          <div className="relative items-start flex-col inline-flex py-1 px-0 w-20">
+            <CalendarItem
+              day={formatDate(data.date).dayString}
+              num={formatDate(data.date).numString}
+              month={formatDate(data.date).monthString}
+              year={formatDate(data.date).yearString}
+            />
+            <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-red-500 to-blue-500 top-0 bottom-0 left-0 right-0 rounded-full z-0"></div>
+            <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-yellow-500 to-purple-500 top-0 bottom-0 left-0 right-0 rounded-full z-0 transform rotate-6"></div>
+          </div>
+          <div className="pl-4 flex-1">
+            <div className="mb-2 flex-col flex items-start">
+              <h4>{data.upcoming && 'Upcoming - '}{data.name} @ {moment(data.date).format('LT')}</h4>
+              <div className="text-sm mb-2 text-black text-opacity-50 dark:text-white dark:text-opacity-50">
+                {data.description}
+              </div>
+              <small>
+                Hosted by&nbsp;&nbsp;
+                  <Tag>
+                    {data.org}
+                  </Tag>
+              </small>
             </div>
-            <small>
-              Hosted by&nbsp;&nbsp;
-                <Tag>
-                  {data.org}
-                </Tag>
-            </small>
           </div>
         </div>
-      </div>
-    </BoxAnchor>
-  )
+      </BoxLink>
+    )
+  } else {
+    return(
+      <BoxAnchor href={data.link} title={`${data.name} - ${data.description}`} mt={'0'} mb={'4'}>
+        <div className="flex items-start">
+          <div className="relative items-start flex-col inline-flex py-1 px-0 w-20">
+            <CalendarItem
+              day={formatDate(data.date).dayString}
+              num={formatDate(data.date).numString}
+              month={formatDate(data.date).monthString}
+              year={formatDate(data.date).yearString}
+            />
+            <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-red-500 to-blue-500 top-0 bottom-0 left-0 right-0 rounded-full z-0"></div>
+            <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-yellow-500 to-purple-500 top-0 bottom-0 left-0 right-0 rounded-full z-0 transform rotate-6"></div>
+          </div>
+          <div className="pl-4 flex-1">
+            <div className="mb-2 flex-col flex items-start">
+              <h4>{data.upcoming && 'Upcoming - '}{data.name} @ {moment(data.date).format('LT')}</h4>
+              <div className="text-sm mb-2 text-black text-opacity-50 dark:text-white dark:text-opacity-50">
+                {data.description}
+              </div>
+              <small>
+                Hosted by&nbsp;&nbsp;
+                  <Tag>
+                    {data.org}
+                  </Tag>
+              </small>
+            </div>
+          </div>
+        </div>
+      </BoxAnchor>
+    )
+  }
 }
 
 export const Credit = ({ data }) => {
