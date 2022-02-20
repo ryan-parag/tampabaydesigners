@@ -10,7 +10,8 @@ module.exports = {
     NOTION_CONTACTS: process.env.NOTION_CONTACTS,
     NOTION_EVENTS: process.env.NOTION_ENENTS,
     NOTION_CREDITS: process.env.NOTION_CREDITS,
-    NOTION_INTERVIEWS: process.env.NOTION_INTERVIEWS
+    NOTION_INTERVIEWS: process.env.NOTION_INTERVIEWS,
+    NOTION_LOCATIONS: process.env.NOTION_LOCATIONS
   },
   target: 'serverless',
   webpack: function (config) {
