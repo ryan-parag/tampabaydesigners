@@ -16,7 +16,8 @@ export default async (req,res) => {
     description: response.properties.Description.rich_text[0].plain_text,
     org: response.properties.Org.select.name,
     link: response.properties.Link.url,
-    date: response.properties.Date.date.start
+    date: response.properties.Date.date.start,
+    location: response.properties.Location.relation[0].id
   }
 
   res.status(200).json({ item });

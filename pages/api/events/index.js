@@ -20,7 +20,8 @@ export default async (req,res) => {
       description: item.properties.Description.rich_text[0].plain_text,
       org: item.properties.Org.select.name,
       link: item.properties.Link.url,
-      date: item.properties.Date.date.start
+      date: item.properties.Date.date.start,
+      location: item.properties.Location.relation[0].id
     }
 
     if(item.properties.Verified.checkbox) {

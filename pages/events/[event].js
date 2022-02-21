@@ -9,9 +9,80 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import moment from 'moment'
 import { SignUp } from '@components/Hangouts'
-import Tag from '@components/Tag'
-import { ArrowLeft } from 'react-feather'
+import { ArrowLeft, MapPin, Clock } from 'react-feather'
 import FAQ from '@components/Hangouts/FAQ'
+import Box from '@components/Box'
+
+const EventInfo = ({ date, location }) => {
+
+  const { data, error } = useSWR(`/api/hangout-locations/${location}`, fetcher);
+
+  return(
+    <>
+      <div className="w-full">
+        <motion.div
+          className="relative w-full opacity-0 top-4"
+          animate={{ opacity: 1, top: 0 }}
+          transition={{ duration: 0.3, delay: 0.5 }}
+        >
+          <Box p={'0'}>
+            <div className="flex">
+              <div className="h-full items-start p-2 hidden md:inline-flex">
+                <Clock size={'20'}/>
+              </div>
+              <div className="flex flex-col w-full flex-1">
+                <span className="text-xs block mb-1 p-2 pb-1">When</span>
+                <span className="font-bold px-2 pb-2">{date}</span>
+              </div>
+            </div>
+          </Box>
+        </motion.div>
+        <motion.div
+          className="relative w-full opacity-0 top-4"
+          animate={{ opacity: 1, top: 0 }}
+          transition={{ duration: 0.3, delay: 0.7 }}
+        >
+          <Box p={'0'}>
+            <div className="flex">
+              <div className="h-full items-start p-2 hidden md:inline-flex">
+                <MapPin size={'20'}/>
+              </div>
+              <div className="flex flex-col w-full flex-1">
+                <span className="text-xs block mb-1 p-2 pb-1">Where</span>
+                {
+                  data ? (
+                    <>
+                      {
+                        data.item ? (
+                          <div className="px-2 pb-2">
+                            <span className="font-bold block mb-1">{data.item.name}</span>
+                            <span className="text-sm">{data.item.address}</span>
+                          </div>
+                        )
+                        :
+                        (
+                          <div className="px-2 pb-2">
+                            <span>No location</span>
+                          </div>
+                        )
+                      }
+                    </>
+                  )
+                  :
+                  (
+                    <div className="px-2 pb-2">
+                      <span>Loading...</span>
+                    </div>
+                  )
+                }
+              </div>
+            </div>
+          </Box>
+        </motion.div>
+      </div>
+    </>
+  )
+}
 
 const Events = ({ title, description, ...props }) => {
 
@@ -20,7 +91,6 @@ const Events = ({ title, description, ...props }) => {
 
   const { data, error } = useSWR(`/api/events/${event}`, fetcher);
   
-
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
   ]
@@ -74,7 +144,7 @@ const Events = ({ title, description, ...props }) => {
                     <>
                       <div className="flex flex-col md:flex-row items-center md:items-start">
                         <motion.div
-                          className="relative w-36 mr-0 md:mr-8 mb-4 md:mb-0 opacity-0"
+                          className="relative w-24 mr-0 md:mr-8 mb-4 md:mb-0 opacity-0 border border-black rounded-lg border-opacity-10 dark:border-white dark:border-opacity-20 shadow"
                           animate={{ opacity: 1 }}
                           transition={{ duration: 0.3 }}
                         >
@@ -92,11 +162,10 @@ const Events = ({ title, description, ...props }) => {
                         >
                           <h1 className="my-0">{data.item.name}</h1>
                           <p className="mt-2 mb-2 text-sm">{data.item.description}</p>
-                          <p className="mb-4 text-sm">
-                            <Tag color="green">
-                              {moment(data.item.date).format('LLLL')}
-                            </Tag>
-                          </p>
+                          <EventInfo
+                            date={moment(data.item.date).format('LLLL')}
+                            location={data.item.location}
+                          />
                         </motion.div>
                       </div>
                       <hr className="my-8 border-black dark:border-white border-opacity-20 dark:border-opacity-10"/>
