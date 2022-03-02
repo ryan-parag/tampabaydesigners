@@ -109,3 +109,61 @@ const FAQ = () => {
 }
 
 export default FAQ
+
+export const CoworkFAQ = () => {
+
+  const descriptions = [
+    {
+      icon: '👯‍♀️',
+      label: 'Networking'
+    }, {
+      icon: '☕️',
+      label: 'Coffee-break chats'
+    }, {
+      icon: '🪄',
+      label: 'Tips & Tricks'
+    }, {
+      icon: '‍💼',
+      label: 'Job Stuff'
+    }, {
+      icon: '‍🎉',
+      label: 'Great Atmosphere'
+    }, {
+      icon: '‍🤷‍♀️',
+      label: 'Group Discussions'
+    }
+  ]
+
+  return(
+    <>
+      <h3>Frequently Asked Questions</h3>
+      <Collapse title="What can I expect?">
+        <ul className="flex flex-wrap items-center">
+          {
+            descriptions.map((item,i) => (
+              <motion.li
+                className="relative opacity-0 top-4"
+                key={i}
+                animate={{ opacity: 1, top: 0 }}
+                transition={{ duration: 0.3, delay: `${0.2 + 0.12*i}` }}
+              >
+                <span className="mx-2 my-2 inline-flex shadow items-center tracking-wider text-xs uppercase font-sans bg-white bg-opacity-50 dark:bg-white dark:bg-opacity-10 text-black text-opacity-70 dark:text-white dark:text-opacity-70 backdrop-blur rounded-full px-4 py-1">
+                  <span className="mr-2 text-lg">
+                    {item.icon}
+                  </span>
+                  {item.label}
+                </span>
+              </motion.li>
+            ))
+          }
+        </ul>
+      </Collapse>
+      <Collapse title="When are coworking sessions scheduled?">
+        <p className="leading-normal">Coworking sessions are held monthly, typically on the last Friday of each month.</p>
+      </Collapse>
+      <Collapse title="What if I'm unable to stay or am running late?">
+        <p className="leading-normal">Feel free to pop in whenever and however long you please - even to just to say hi!</p>
+      </Collapse>
+    </>
+  )
+}

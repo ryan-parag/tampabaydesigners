@@ -10,7 +10,7 @@ import Link from 'next/link'
 import moment from 'moment'
 import { SignUp } from '@components/Hangouts'
 import { ArrowLeft, MapPin, Clock } from 'react-feather'
-import FAQ from '@components/Hangouts/FAQ'
+import FAQ, { CoworkFAQ } from '@components/Hangouts/FAQ'
 import Box from '@components/Box'
 
 const EventInfo = ({ date, location }) => {
@@ -171,7 +171,16 @@ const Events = ({ title, description, ...props }) => {
                       <hr className="my-8 border-black dark:border-white border-opacity-20 dark:border-opacity-10"/>
                       <SignUp/>
                       <hr className="my-8 border-black dark:border-white border-opacity-20 dark:border-opacity-10"/>
-                      <FAQ/>
+                      {
+                        data.item.name === 'Design Hangout' && (
+                          <FAQ/>
+                        )
+                      }
+                      {
+                        data.item.name === 'Designer Cowork' && (
+                          <CoworkFAQ/>
+                        )
+                      }
                     </>
                   )
                   :
