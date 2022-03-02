@@ -109,97 +109,188 @@ const Events = ({ title, description, ...props }) => {
     return dateObj
   }
 
+  const metaURLs = ['/tbd-sm.png', '/hangout-sm.png', '/cowork-social-media.png']
+
+  const getMeta = (name) => {
+    if(name === 'Design Hangout') {
+      return metaURLs[1]
+    } else if(name === 'Designer Cowork') {
+      return metaURLs[2]
+    } else {
+      return metaURLs[0]
+    }
+  }
+
 
   return (
-    <Layout pageTitle={title} description={description} ogImage={'/tbd-sm.png'}>
-      <section
-        className="pt-24 pb-24 flex flex-col"
-        style={{
-          backgroundImage: "url('/static/blur-bg.png')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
-      >
-        <div className="container p-3 mx-auto lg:w-1/2">
-          <div className="flex mb-8">
-            <Link href="/events">
-              <a className="hover:underline inline-flex items-center">
-                <ArrowLeft
-                  size={'20'}
-                  className="mr-1"
-                />
-                Back
-              </a>
-            </Link>
-          </div>
-          {
-            error && (<Error/>)
-          }
-          {
-            data ? (
-              <>
-                {
-                  data.item ? (
-                    <>
-                      <div className="flex flex-col md:flex-row items-center md:items-start">
-                        <motion.div
-                          className="relative w-24 mr-0 md:mr-8 mb-4 md:mb-0 opacity-0 border border-black rounded-lg border-opacity-10 dark:border-white dark:border-opacity-20 shadow"
-                          animate={{ opacity: 1 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <CalendarItem
-                            day={formatDate(data.item.date).dayString}
-                            num={formatDate(data.item.date).numString}
-                            month={formatDate(data.item.date).monthString}
-                            year={formatDate(data.item.date).yearString}
-                          />
-                        </motion.div>
-                        <motion.div
-                          className="relative flex flex-1 flex-col items-center md:items-start opacity-0 -left-4 mt-4 md:mt-0 text-center md:text-left"
-                          animate={{ opacity: 1, left: 0}}
-                          transition={{ duration: 0.3, delay: 0.3 }}
-                        >
-                          <h1 className="my-0">{data.item.name}</h1>
-                          <p className="mt-2 mb-2 text-sm">{data.item.description}</p>
-                          <EventInfo
-                            date={moment(data.item.date).format('LLLL')}
-                            location={data.item.location}
-                          />
-                        </motion.div>
+    <>
+      {
+        error && (
+          <Layout pageTitle={title} description={description} ogImage={'/tbd-sm.png'}>
+            <section
+              className="pt-24 pb-24 flex flex-col"
+              style={{
+                backgroundImage: "url('/static/blur-bg.png')",
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat'
+              }}
+            >
+              <div className="container p-3 mx-auto lg:w-1/2">
+                <div className="flex mb-8">
+                  <Link href="/events">
+                    <a className="hover:underline inline-flex items-center">
+                      <ArrowLeft
+                        size={'20'}
+                        className="mr-1"
+                      />
+                      Back
+                    </a>
+                  </Link>
+                </div>
+                <Error/>
+              </div>
+            </section>
+          </Layout>
+        )
+      }
+      {
+        data ? (
+          <>
+            {
+              data.item ? (
+                <>
+                  <Layout pageTitle={title} description={description} ogImage={getMeta(data.item.name)}>
+                    <section
+                      className="pt-24 pb-24 flex flex-col"
+                      style={{
+                        backgroundImage: "url('/static/blur-bg.png')",
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat'
+                      }}
+                    >
+                      <div className="container p-3 mx-auto lg:w-1/2">
+                        <div className="flex mb-8">
+                          <Link href="/events">
+                            <a className="hover:underline inline-flex items-center">
+                              <ArrowLeft
+                                size={'20'}
+                                className="mr-1"
+                              />
+                              Back
+                            </a>
+                          </Link>
+                        </div>
+                        <div className="flex flex-col md:flex-row items-center md:items-start">
+                          <motion.div
+                            className="relative w-24 mr-0 md:mr-8 mb-4 md:mb-0 opacity-0 border border-black rounded-lg border-opacity-10 dark:border-white dark:border-opacity-20 shadow"
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            <CalendarItem
+                              day={formatDate(data.item.date).dayString}
+                              num={formatDate(data.item.date).numString}
+                              month={formatDate(data.item.date).monthString}
+                              year={formatDate(data.item.date).yearString}
+                            />
+                          </motion.div>
+                          <motion.div
+                            className="relative flex flex-1 flex-col items-center md:items-start opacity-0 -left-4 mt-4 md:mt-0 text-center md:text-left"
+                            animate={{ opacity: 1, left: 0}}
+                            transition={{ duration: 0.3, delay: 0.3 }}
+                          >
+                            <h1 className="my-0">{data.item.name}</h1>
+                            <p className="mt-2 mb-2 text-sm">{data.item.description}</p>
+                            <EventInfo
+                              date={moment(data.item.date).format('LLLL')}
+                              location={data.item.location}
+                            />
+                          </motion.div>
+                        </div>
+                        <hr className="my-8 border-black dark:border-white border-opacity-20 dark:border-opacity-10"/>
+                        <SignUp/>
+                        <hr className="my-8 border-black dark:border-white border-opacity-20 dark:border-opacity-10"/>
+                        {
+                          data.item.name === 'Design Hangout' && (
+                            <FAQ/>
+                          )
+                        }
+                        {
+                          data.item.name === 'Designer Cowork' && (
+                            <CoworkFAQ/>
+                          )
+                        }
                       </div>
-                      <hr className="my-8 border-black dark:border-white border-opacity-20 dark:border-opacity-10"/>
-                      <SignUp/>
-                      <hr className="my-8 border-black dark:border-white border-opacity-20 dark:border-opacity-10"/>
-                      {
-                        data.item.name === 'Design Hangout' && (
-                          <FAQ/>
-                        )
-                      }
-                      {
-                        data.item.name === 'Designer Cowork' && (
-                          <CoworkFAQ/>
-                        )
-                      }
-                    </>
-                  )
-                  :
-                  (
-                    <Empty>
-                      This event does not exist
-                    </Empty>
-                  )
-                }
-              </>
-            )
-            :
-            (
-              <Loading/>
-            )
-          }
-        </div>
-      </section>
-    </Layout>
+                    </section>
+                  </Layout>
+                </>
+              )
+              :
+              (
+                <Layout pageTitle={title} description={description} ogImage={'/tbd-sm.png'}>
+                  <section
+                    className="pt-24 pb-24 flex flex-col"
+                    style={{
+                      backgroundImage: "url('/static/blur-bg.png')",
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      backgroundRepeat: 'no-repeat'
+                    }}
+                  >
+                    <div className="container p-3 mx-auto lg:w-1/2">
+                      <div className="flex mb-8">
+                        <Link href="/events">
+                          <a className="hover:underline inline-flex items-center">
+                            <ArrowLeft
+                              size={'20'}
+                              className="mr-1"
+                            />
+                            Back
+                          </a>
+                        </Link>
+                      </div>
+                      <Empty>
+                        This event does not exist
+                      </Empty>
+                    </div>
+                  </section>
+                </Layout>
+              )
+            }
+          </>
+        )
+        :
+        (
+          <Layout pageTitle={title} description={description} ogImage={'/tbd-sm.png'}>
+            <section
+              className="pt-24 pb-24 flex flex-col"
+              style={{
+                backgroundImage: "url('/static/blur-bg.png')",
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat'
+              }}
+            >
+              <div className="container p-3 mx-auto lg:w-1/2">
+                <div className="flex mb-8">
+                  <Link href="/events">
+                    <a className="hover:underline inline-flex items-center">
+                      <ArrowLeft
+                        size={'20'}
+                        className="mr-1"
+                      />
+                      Back
+                    </a>
+                  </Link>
+                </div>
+                <Loading/>
+              </div>
+            </section>
+          </Layout>
+        )
+      }
+    </>
   )
 }
 
