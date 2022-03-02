@@ -188,6 +188,37 @@ export const Event = ({ data }) => {
         </div>
       </BoxLink>
     )
+  } else if(data.name === 'Designer Cowork') {
+    return(
+      <BoxLink href={`/events/${data.id}`} title={`${data.name} - ${data.description}`} mt={'0'} mb={'4'}>
+        <div className="flex items-start">
+          <div className="relative items-start flex-col inline-flex py-1 px-0 w-20">
+            <CalendarItem
+              day={formatDate(data.date).dayString}
+              num={formatDate(data.date).numString}
+              month={formatDate(data.date).monthString}
+              year={formatDate(data.date).yearString}
+            />
+            <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-red-500 to-blue-500 top-0 bottom-0 left-0 right-0 rounded-full z-0"></div>
+            <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-yellow-500 to-purple-500 top-0 bottom-0 left-0 right-0 rounded-full z-0 transform rotate-6"></div>
+          </div>
+          <div className="pl-4 flex-1">
+            <div className="mb-2 flex-col flex items-start">
+              <h4>{data.upcoming && 'Upcoming - '}{data.name} @ {moment(data.date).format('LT')}</h4>
+              <div className="text-sm mb-2 text-black text-opacity-50 dark:text-white dark:text-opacity-50">
+                {data.description}
+              </div>
+              <small>
+                Hosted by&nbsp;&nbsp;
+                  <Tag>
+                    {data.org}
+                  </Tag>
+              </small>
+            </div>
+          </div>
+        </div>
+      </BoxLink>
+    )
   } else {
     return(
       <BoxAnchor href={data.link} title={`${data.name} - ${data.description}`} mt={'0'} mb={'4'}>
