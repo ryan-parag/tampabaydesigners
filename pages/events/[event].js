@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Layout from '@components/Layout'
 import useSWR from 'swr';
 import fetcher from '@utils/fetcher';
-import { Event, CalendarItem } from '@components/ListItem'
+import { CalendarItem } from '@components/ListItem'
 import { Error, Loading, Empty } from '@components/DataStates'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
@@ -11,11 +11,13 @@ import moment from 'moment'
 import { SignUp } from '@components/Hangouts'
 import { ArrowLeft, MapPin, Clock } from 'react-feather'
 import FAQ, { CoworkFAQ } from '@components/Hangouts/FAQ'
-import Box from '@components/Box'
+import Box, { BoxAnchor } from '@components/Box'
+import Geocode from "react-geocode"
 
 const EventInfo = ({ date, location }) => {
 
   const { data, error } = useSWR(`/api/hangout-locations/${location}`, fetcher);
+  const link = 'https://maps.google.com/?q='
 
   return(
     <>
@@ -42,42 +44,41 @@ const EventInfo = ({ date, location }) => {
           animate={{ opacity: 1, top: 0 }}
           transition={{ duration: 0.3, delay: 0.7 }}
         >
-          <Box p={'0'}>
-            <div className="flex">
-              <div className="h-full items-start p-2 hidden md:inline-flex">
-                <MapPin size={'20'}/>
+          {
+            data ? (
+              <BoxAnchor p={'0'} href={`https://maps.google.com/?q=${data.item.name}`} target="_blank">
+                <div className="flex">
+                  <div className="h-full items-start p-2 hidden md:inline-flex">
+                    <MapPin size={'20'}/>
+                  </div>
+                  <div className="flex flex-col w-full flex-1">
+                    <span className="text-xs block mb-1 p-2 pb-1">Where</span>
+                    {
+                      data.item ? (
+                        <div className="px-2 pb-2">
+                          <span className="font-bold block mb-1">{data.item.name}</span>
+                          <span className="text-sm">{data.item.address}</span>
+                          <span className="block text-xs mt-2 underline">View on Map</span>
+                        </div>
+                      )
+                      :
+                      (
+                        <div className="px-2 pb-2">
+                          <span>No location</span>
+                        </div>
+                      )
+                    }
+                  </div>
+                </div>
+              </BoxAnchor>
+            )
+            :
+            (
+              <div className="px-2 pb-2">
+                <span>Loading...</span>
               </div>
-              <div className="flex flex-col w-full flex-1">
-                <span className="text-xs block mb-1 p-2 pb-1">Where</span>
-                {
-                  data ? (
-                    <>
-                      {
-                        data.item ? (
-                          <div className="px-2 pb-2">
-                            <span className="font-bold block mb-1">{data.item.name}</span>
-                            <span className="text-sm">{data.item.address}</span>
-                          </div>
-                        )
-                        :
-                        (
-                          <div className="px-2 pb-2">
-                            <span>No location</span>
-                          </div>
-                        )
-                      }
-                    </>
-                  )
-                  :
-                  (
-                    <div className="px-2 pb-2">
-                      <span>Loading...</span>
-                    </div>
-                  )
-                }
-              </div>
-            </div>
-          </Box>
+            )
+          }
         </motion.div>
       </div>
     </>

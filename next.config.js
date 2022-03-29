@@ -11,7 +11,8 @@ module.exports = {
     NOTION_EVENTS: process.env.NOTION_ENENTS,
     NOTION_CREDITS: process.env.NOTION_CREDITS,
     NOTION_INTERVIEWS: process.env.NOTION_INTERVIEWS,
-    NOTION_LOCATIONS: process.env.NOTION_LOCATIONS
+    NOTION_LOCATIONS: process.env.NOTION_LOCATIONS,
+    GOOGLE_CLOUD: process.env.GOOGLE_CLOUD
   },
   target: 'serverless',
   webpack: function (config) {
