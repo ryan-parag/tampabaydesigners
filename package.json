@@ -9,29 +9,29 @@
     "export": "next export"
   },
   "dependencies": {
-    "@notionhq/client": "^0.4.0",
-    "autoprefixer": "9.8.6",
-    "dotenv": "^8.2.0",
-    "framer-motion": "^3.2.1",
+    "@notionhq/client": "^1.0.4",
+    "autoprefixer": "^10.4.4",
+    "dotenv": "^16.0.0",
+    "framer-motion": "^6.2.8",
     "fs": "^0.0.1-security",
-    "gray-matter": "^4.0.2",
+    "gray-matter": "^4.0.3",
     "json2md": "^1.12.0",
     "moment": "^2.29.1",
-    "next": "^12.1.0",
+    "next": "^12.1.2",
     "path": "^0.12.7",
-    "postcss": "^8.2.10",
-    "raw-loader": "^4.0.1",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0",
+    "postcss": "^8.4.12",
+    "raw-loader": "^4.0.2",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
     "react-feather": "^2.0.9",
-    "react-ga": "^3.1.2",
-    "react-markdown": "^4.3.1",
-    "styled-components": "^5.1.1",
+    "react-ga": "^3.3.0",
+    "react-markdown": "^8.0.1",
+    "styled-components": "^5.3.5",
     "styled-normalize": "^8.0.7",
-    "swr": "^1.0.1",
-    "tailwindcss": "^2.0.2"
+    "swr": "^1.2.2",
+    "tailwindcss": "^3.0.23"
   },
   "devDependencies": {
-    "yarn-upgrade-all": "^0.6.1"
+    "yarn-upgrade-all": "^0.7.0"
   }
 }
