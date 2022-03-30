@@ -98,7 +98,7 @@ export const SignUp = () => {
                 <input
                   type="text"
                   placeholder="Enter email..."
-                  className="block border border-transparent transition w-full rounded-lg bg-transparent p-6 bg-white bg-opacity-80 dark:bg-black dark:bg-opacity-80 backdrop-blur-md focus:bg-opacity-100 dark:focus:bg-opacity-100 focus:outline-none focus:border-black focus:border-opacity-20 dark:focus:border-white dark:focus:border-opacity-20"
+                  className="block border border-transparent transition w-full rounded-lg p-6 bg-white bg-opacity-80 dark:bg-black dark:bg-opacity-80 backdrop-blur-md focus:bg-opacity-100 dark:focus:bg-opacity-100 focus:outline-none focus:border-black focus:border-opacity-20 dark:focus:border-white dark:focus:border-opacity-20"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                 />
@@ -204,7 +204,7 @@ export const Form = () => {
                 <input
                   type="text"
                   placeholder="Enter email..."
-                  className="block border border-transparent transition w-full rounded-lg bg-transparent p-6 bg-white bg-opacity-80 dark:bg-black dark:bg-opacity-80 backdrop-blur-md focus:bg-opacity-100 dark:focus:bg-opacity-100 focus:outline-none focus:border-black focus:border-opacity-20 dark:focus:border-white dark:focus:border-opacity-20"
+                  className="block border border-transparent transition w-full rounded-lg p-6 bg-white bg-opacity-80 dark:bg-black dark:bg-opacity-80 backdrop-blur-md focus:bg-opacity-100 dark:focus:bg-opacity-100 focus:outline-none focus:border-black focus:border-opacity-20 dark:focus:border-white dark:focus:border-opacity-20"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                 />
