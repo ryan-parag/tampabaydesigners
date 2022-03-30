@@ -44,31 +44,64 @@ const EventInfo = ({ date, location }) => {
         >
           {
             data ? (
-              <BoxAnchor p={'0'} href={`https://maps.google.com/?q=${data.item.name}`} target="_blank">
-                <div className="flex">
-                  <div className="h-full items-start p-2 hidden md:inline-flex">
-                    <MapPin size={'20'}/>
-                  </div>
-                  <div className="flex flex-col w-full flex-1">
-                    <span className="text-xs block mb-1 p-2 pb-1">Where</span>
-                    {
-                      data.item ? (
-                        <div className="px-2 pb-2">
-                          <span className="font-bold block mb-1">{data.item.name}</span>
-                          <span className="text-sm">{data.item.address}</span>
-                          <span className="block text-xs mt-2 underline">View on Map</span>
+              <>
+                {
+                  data.item.name === 'TBA' ? (
+                    <Box p={'0'}>
+                      <div className="flex">
+                        <div className="h-full items-start p-2 hidden md:inline-flex">
+                          <MapPin size={'20'}/>
                         </div>
-                      )
-                      :
-                      (
-                        <div className="px-2 pb-2">
-                          <span>No location</span>
+                        <div className="flex flex-col w-full flex-1">
+                          <span className="text-xs block mb-1 p-2 pb-1">Where</span>
+                          {
+                            data.item ? (
+                              <div className="px-2 pb-2">
+                                <span className="font-bold block mb-1">{data.item.name}</span>
+                                <span className="text-sm">{data.item.address}</span>
+                              </div>
+                            )
+                            :
+                            (
+                              <div className="px-2 pb-2">
+                                <span>No location</span>
+                              </div>
+                            )
+                          }
                         </div>
-                      )
-                    }
-                  </div>
-                </div>
-              </BoxAnchor>
+                      </div>
+                    </Box>
+                  )
+                  :
+                  (
+                    <BoxAnchor p={'0'} href={`https://maps.google.com/?q=${data.item.name}`} target="_blank">
+                      <div className="flex">
+                        <div className="h-full items-start p-2 hidden md:inline-flex">
+                          <MapPin size={'20'}/>
+                        </div>
+                        <div className="flex flex-col w-full flex-1">
+                          <span className="text-xs block mb-1 p-2 pb-1">Where</span>
+                          {
+                            data.item ? (
+                              <div className="px-2 pb-2">
+                                <span className="font-bold block mb-1">{data.item.name}</span>
+                                <span className="text-sm">{data.item.address}</span>
+                                <span className="block text-xs mt-2 underline">View on Map</span>
+                              </div>
+                            )
+                            :
+                            (
+                              <div className="px-2 pb-2">
+                                <span>No location</span>
+                              </div>
+                            )
+                          }
+                        </div>
+                      </div>
+                    </BoxAnchor>
+                  )
+                }
+              </>
             )
             :
             (
