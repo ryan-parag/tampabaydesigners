@@ -228,7 +228,7 @@ const Events = ({ title, description, ...props }) => {
                             />
                           </motion.div>
                           <motion.div
-                            className="relative flex flex-1 flex-col items-center md:items-start opacity-0 -left-4 mt-4 md:mt-0 text-center md:text-left"
+                            className="w-full relative flex flex-1 flex-col items-center md:items-start opacity-0 -left-4 mt-4 md:mt-0 text-center md:text-left"
                             animate={{ opacity: 1, left: 0}}
                             transition={{ duration: 0.3, delay: 0.3 }}
                           >
