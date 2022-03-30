@@ -12,12 +12,10 @@ import { SignUp } from '@components/Hangouts'
 import { ArrowLeft, MapPin, Clock } from 'react-feather'
 import FAQ, { CoworkFAQ } from '@components/Hangouts/FAQ'
 import Box, { BoxAnchor } from '@components/Box'
-import Geocode from "react-geocode"
 
 const EventInfo = ({ date, location }) => {
 
   const { data, error } = useSWR(`/api/hangout-locations/${location}`, fetcher);
-  const link = 'https://maps.google.com/?q='
 
   return(
     <>
