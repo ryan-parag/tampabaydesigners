@@ -9,6 +9,7 @@
     "export": "next export"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^1.7.0",
     "@notionhq/client": "^1.0.4",
     "autoprefixer": "^10.4.4",
     "dotenv": "^16.0.0",

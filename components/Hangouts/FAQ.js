@@ -59,6 +59,11 @@ const FAQ = () => {
       <Collapse title="When are hangouts scheduled?">
         <p className="leading-normal">Hangouts are held monthly, typically on the 2nd Thursday of each month (+ or - a week if it's looking stormy ⛈).</p>
       </Collapse>
+      <Collapse title="What if I can't find anyone at the hangout spot?">
+        <p className="leading-normal">
+          Many of us are constantly checking the Slack group - send a message and one or many of us will start a scavenger hunt in your honor. Use the link above to join if you haven't already.
+        </p>
+      </Collapse>
       <Collapse title="Where do hangouts usually take place?">
       <p className="leading-normal">We typically get together at one of the following spots in the Tampa / St. Pete area:</p>
         {
