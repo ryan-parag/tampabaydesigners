@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Layout from '@components/Layout'
 import useSWR from 'swr';
 import fetcher from '@utils/fetcher';
-import { CalendarItem } from '@components/ListItem'
+import { CalendarItem, SlackGroup } from '@components/ListItem'
 import { Error, Loading, Empty } from '@components/DataStates'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
@@ -12,6 +12,46 @@ import { SignUp } from '@components/Hangouts'
 import { ArrowLeft, MapPin, Clock } from 'react-feather'
 import FAQ, { CoworkFAQ } from '@components/Hangouts/FAQ'
 import Box, { BoxAnchor } from '@components/Box'
+
+const SlackLink = () => {
+
+  const { data, error } = useSWR('/api/slack', fetcher);
+
+  return(
+    <ul className="pt-4">
+      <li>
+        <h5>Want more updates or want to chat with us before/after? Send a message in the Slack group!</h5>
+      </li>
+      {
+        error && (<Error/>)
+      }
+      {
+        data ? (
+          data.groups.map((item,i) => (
+            <>
+              {
+                item.name === 'Tampa Bay Designers' && item.type.toLowerCase() === 'slack' && (
+                  <motion.li
+                    key={item.id}
+                    className="opacity-0 top-4 relative"
+                    animate={{ top: 0, opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <SlackGroup data={item} />
+                  </motion.li>
+                )
+              }
+            </>
+          ))
+        )
+        :
+        (
+          <Loading/>
+        )
+      }
+    </ul>
+  )
+}
 
 const EventInfo = ({ date, location }) => {
 
@@ -238,6 +278,7 @@ const Events = ({ title, description, ...props }) => {
                               date={moment(data.item.date).format('LLLL')}
                               location={data.item.location}
                             />
+                            <SlackLink/>
                           </motion.div>
                         </div>
                         <hr className="my-8 border-black dark:border-white border-opacity-20 dark:border-opacity-10"/>

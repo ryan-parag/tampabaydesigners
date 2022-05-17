@@ -6,6 +6,12 @@ export default async (req,res) => {
 
   const response = await notion.databases.query({ 
     database_id: process.env.NOTION_EVENTS,
+    filter: {
+      property: "Verified",
+      checkbox: {
+        equals: true
+      }
+    },
     sorts: [
       {
           "property": "Date",

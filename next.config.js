@@ -12,7 +12,11 @@ module.exports = {
     NOTION_CREDITS: process.env.NOTION_CREDITS,
     NOTION_INTERVIEWS: process.env.NOTION_INTERVIEWS,
     NOTION_LOCATIONS: process.env.NOTION_LOCATIONS,
-    GOOGLE_CLOUD: process.env.GOOGLE_CLOUD
+    AUTH0_SECRET: process.env.AUTH0_SECRET,
+    AUTH0_BASE_URL: process.env.AUTH0_BASE_URL,
+    AUTH0_ISSUER_BASE_URL: process.env.AUTH0_ISSUER_BASE_URL,
+    AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID,
+    AUTH0_CLIENT_SECRET: process.env.AUTH0_CLIENT_SECRET,
   },
   target: 'serverless',
   webpack: function (config) {
@@ -21,5 +25,14 @@ module.exports = {
       use: 'raw-loader',
     })
     return config
-  }
+  },
+  async redirects() {
+    return [
+      {
+        source: '/events',
+        destination: '/',
+        permanent: true,
+      },
+    ]
+  },
 }
