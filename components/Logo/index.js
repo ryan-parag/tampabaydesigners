@@ -1,7 +1,7 @@
-import styled from 'styled-components'
 import React from 'react'
 import siteConfig from '../../siteconfig.json'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Logo(props) {
   return(
@@ -44,5 +44,39 @@ export default function Logo(props) {
         </div>
       </a>
     </Link>
+  )
+}
+
+export const GroupLogo = ({ group }) => {
+
+  const baseUrl = '/static/groups/'
+
+  const getGroup = el => {
+    switch(el) {
+      case 'Design St. Pete':
+        return 'design-st-pete.png'
+        break;
+      case 'Tampa Bay UX':
+        return 'tampa-bay-ux.png'
+        break;
+      case 'Figma Tampa':
+        return 'figma-tampa.png'
+        break;
+      case 'AIGA Tampa Bay':
+        return 'aiga.png'
+        break;
+      case 'Dribbble Tampa':
+        return 'dribbble-tampa.png'
+        break;
+      case 'Sketch Tampa':
+        return 'sketch-tampa.png'
+        break;
+      default:
+        return 'tbd.png'
+    }
+  }
+
+  return(
+    <img className="block w-full" src={`${baseUrl}${getGroup(group)}`}/> 
   )
 }

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Layout from '@components/Layout'
-import { LinkCard } from '@components/ListItem'
+import { LinkCard, AnchorCard } from '@components/ListItem'
 import { LatestHangout } from '@components/Hangouts'
-import styled from 'styled-components'
 import Box, { BoxLink } from '@components/Box'
 import useHover from '@utils/useHover'
 
@@ -130,7 +129,7 @@ const Index = ({ title, description, ...props }) => {
               animate={{ opacity: 1, top: 0 }}
               transition={{ duration: 0.24, delay: 0.9 }}
             >
-              <BoxLink href="/about" p={'0'} mb={'0'} mt={'0'}>
+              <BoxLink href="/about" p={'0'} mb={'0'} mt={'0'} rotate={2}>
                 <span
                   className="inline-flex items-center transition text-white py-1 px-2 bg-black bg-opacity-60 rounded-full text-xs absolute top-2 right-2 z-10 select-none"
                 >
@@ -173,10 +172,10 @@ const Index = ({ title, description, ...props }) => {
               animate={{ opacity: 1, top: 0 }}
               transition={{ duration: 0.24, delay: 1.2 }}
             >
-              <LinkCard
-                href={'/interviews'}
+              <AnchorCard
+                href={'https://github.com'}
                 tint={'indigo'}
-                label={'Designer Interviews'}
+                label={'Contribute to the site'}
                 type={'interviews'}
               />
             </motion.div>

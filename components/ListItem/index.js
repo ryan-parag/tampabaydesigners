@@ -6,6 +6,10 @@ import { Avatar } from '@components/PageIcon'
 import moment from 'moment'
 import Link from 'next/link'
 import Tag from '@components/Tag'
+import { GroupLogo } from '@components/Logo'
+import { ArrowRight, ExternalLink } from 'react-feather'
+
+const textTruncateLength = 120
 
 const ListItem = ({ children, title, description, href, awaiting }) => {
   return(
@@ -52,12 +56,10 @@ export const ListGroupItem = ({ data }) => {
   return(
     <BoxAnchor href={data.link} title={`${data.name} - ${data.description}`}>
       <div className="flex items-start">
-        <div className="relative inline-flex py-1 px-0" style={{ width: '48', height: '48'}}>
+        <div className="relative block py-1 px-0 h-14 w-14">
           <img
             src={data.logo}
-            width={'48'}
-            height={'48'}
-            className="relative z-10 rounded-full block"
+            className="relative w-full z-10 rounded-full block"
           />
           {
             data.type && (
@@ -91,7 +93,7 @@ export const ListGroupItem = ({ data }) => {
           <div className="mb-2 flex-col flex items-start">
             <h4>{data.name}</h4>
             <div className="text-sm text-black text-opacity-50 dark:text-white dark:text-opacity-50">
-              {truncateString(data.description, 100)}
+              {truncateString(data.description, textTruncateLength)}
             </div>
           </div>
           <div className="flex">
@@ -137,7 +139,7 @@ export const CalendarItem = ({day, num, month, year}) => {
   )
 }
 
-export const Event = ({ data }) => {
+const EventInterior = ({ data }) => {
 
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -157,97 +159,57 @@ export const Event = ({ data }) => {
     return dateObj
   }
 
+  return(
+    <div className="flex items-start">
+      <div className="relative items-start flex-col inline-flex py-1 px-0 w-20">
+        <CalendarItem
+          day={formatDate(data.date).dayString}
+          num={formatDate(data.date).numString}
+          month={formatDate(data.date).monthString}
+          year={formatDate(data.date).yearString}
+        />
+        <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-red-500 to-blue-500 top-0 bottom-0 left-0 right-0 rounded-full z-0"></div>
+        <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-yellow-500 to-purple-500 top-0 bottom-0 left-0 right-0 rounded-full z-0 transform rotate-6"></div>
+      </div>
+      <div className="pl-4 flex-1">
+        <div className="mb-2 flex-col flex items-start">
+          <h4>{data.upcoming && 'Upcoming - '}{data.name} @ {moment(data.date).format('LT')}</h4>
+          <div className="text-sm mb-2 text-black text-opacity-50 dark:text-white dark:text-opacity-50">
+            {truncateString(data.description, textTruncateLength)}
+          </div>
+          <small className="inline-flex items-center">
+            Hosted by
+            <div className="inline-flex items-center ml-2">
+              <div className="h-6 w-6 mr-2">
+                <GroupLogo group={data.org}/>
+              </div>
+              <strong>{data.org}</strong>
+            </div>
+          </small>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Event = ({ data }) => {
+
   if(data.name === 'Design Hangout') {
     return(
       <BoxLink href={`/events/${data.id}`} title={`${data.name} - ${data.description}`} mt={'0'} mb={'4'}>
-        <div className="flex items-start">
-          <div className="relative items-start flex-col inline-flex py-1 px-0 w-20">
-            <CalendarItem
-              day={formatDate(data.date).dayString}
-              num={formatDate(data.date).numString}
-              month={formatDate(data.date).monthString}
-              year={formatDate(data.date).yearString}
-            />
-            <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-red-500 to-blue-500 top-0 bottom-0 left-0 right-0 rounded-full z-0"></div>
-            <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-yellow-500 to-purple-500 top-0 bottom-0 left-0 right-0 rounded-full z-0 transform rotate-6"></div>
-          </div>
-          <div className="pl-4 flex-1">
-            <div className="mb-2 flex-col flex items-start">
-              <h4>{data.upcoming && 'Upcoming - '}{data.name} @ {moment(data.date).format('LT')}</h4>
-              <div className="text-sm mb-2 text-black text-opacity-50 dark:text-white dark:text-opacity-50">
-                {data.description}
-              </div>
-              <small>
-                Hosted by&nbsp;&nbsp;
-                  <Tag>
-                    {data.org}
-                  </Tag>
-              </small>
-            </div>
-          </div>
-        </div>
+        <EventInterior data={data}/>
       </BoxLink>
     )
   } else if(data.name === 'Designer Cowork') {
     return(
       <BoxLink href={`/events/${data.id}`} title={`${data.name} - ${data.description}`} mt={'0'} mb={'4'}>
-        <div className="flex items-start">
-          <div className="relative items-start flex-col inline-flex py-1 px-0 w-20">
-            <CalendarItem
-              day={formatDate(data.date).dayString}
-              num={formatDate(data.date).numString}
-              month={formatDate(data.date).monthString}
-              year={formatDate(data.date).yearString}
-            />
-            <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-red-500 to-blue-500 top-0 bottom-0 left-0 right-0 rounded-full z-0"></div>
-            <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-yellow-500 to-purple-500 top-0 bottom-0 left-0 right-0 rounded-full z-0 transform rotate-6"></div>
-          </div>
-          <div className="pl-4 flex-1">
-            <div className="mb-2 flex-col flex items-start">
-              <h4>{data.upcoming && 'Upcoming - '}{data.name} @ {moment(data.date).format('LT')}</h4>
-              <div className="text-sm mb-2 text-black text-opacity-50 dark:text-white dark:text-opacity-50">
-                {data.description}
-              </div>
-              <small>
-                Hosted by&nbsp;&nbsp;
-                  <Tag>
-                    {data.org}
-                  </Tag>
-              </small>
-            </div>
-          </div>
-        </div>
+        <EventInterior data={data}/>
       </BoxLink>
     )
   } else {
     return(
       <BoxAnchor href={data.link} title={`${data.name} - ${data.description}`} mt={'0'} mb={'4'}>
-        <div className="flex items-start">
-          <div className="relative items-start flex-col inline-flex py-1 px-0 w-20">
-            <CalendarItem
-              day={formatDate(data.date).dayString}
-              num={formatDate(data.date).numString}
-              month={formatDate(data.date).monthString}
-              year={formatDate(data.date).yearString}
-            />
-            <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-red-500 to-blue-500 top-0 bottom-0 left-0 right-0 rounded-full z-0"></div>
-            <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-yellow-500 to-purple-500 top-0 bottom-0 left-0 right-0 rounded-full z-0 transform rotate-6"></div>
-          </div>
-          <div className="pl-4 flex-1">
-            <div className="mb-2 flex-col flex items-start">
-              <h4>{data.upcoming && 'Upcoming - '}{data.name} @ {moment(data.date).format('LT')}</h4>
-              <div className="text-sm mb-2 text-black text-opacity-50 dark:text-white dark:text-opacity-50">
-                {data.description}
-              </div>
-              <small>
-                Hosted by&nbsp;&nbsp;
-                  <Tag>
-                    {data.org}
-                  </Tag>
-              </small>
-            </div>
-          </div>
-        </div>
+        <EventInterior data={data}/>
       </BoxAnchor>
     )
   }
@@ -328,12 +290,27 @@ export const Interview = ({item}) => {
 
 export const LinkCard = ({href, tint, type, label}) => {
   return(
-    <BoxLink href={href} p={'0'} mb={'0'} mt={'0'} tint={tint}>
-      <div className="flex flex-col text-center items-center py-8 px-4">
-      <Avatar type={type} mb={'4'} />
-        <h5 className='text-base md:text-base xl:text-xl'>{label}</h5>
+    <BoxLink href={href} p={'0'} mb={'0'} mt={'0'} tint={tint} rotate={2}>
+      <div className="flex flex-col items-between justify-end py-8 px-4 h-40">
+        <div className="flex justify-between items-center">
+          <span className='text-xs md:text-sm xl:text-base'>{label}</span>
+          <ArrowRight size={20} />
+        </div>
       </div>
     </BoxLink>
+  )
+}
+
+export const AnchorCard = ({href, tint, type, label}) => {
+  return(
+    <BoxAnchor href={href} p={'0'} mb={'0'} mt={'0'} tint={tint} rotate={2}>
+      <div className="flex flex-col items-between justify-end py-8 px-4 h-40">
+        <div className="flex justify-between items-center">
+          <span className='text-xs md:text-sm xl:text-base'>{label}</span>
+          <ExternalLink size={20} />
+        </div>
+      </div>
+    </BoxAnchor>
   )
 }
 
