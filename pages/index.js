@@ -101,26 +101,26 @@ const Index = ({ title, description, ...props }) => {
               <LatestHangout/>
             </div>
             <motion.div
-              className="transition relative transform top-4 opacity-0"
+              className="col-span-2 md:col-span-1 transition relative transform top-4 opacity-0"
               animate={{ opacity: 1, top: 0 }}
               transition={{ duration: 0.24, delay: 0.4 }}
             >
               <LinkCard
                 href={'/slack'}
                 tint={'yellow'}
-                label={'Join Slack Groups'}
+                label={'Chat on Slack'}
                 type={'slack'}
               />
             </motion.div>
             <motion.div
-              className="transition relative transform top-4 opacity-0"
+              className="col-span-2 md:col-span-1 transition relative transform top-4 opacity-0"
               animate={{ opacity: 1, top: 0 }}
               transition={{ duration: 0.24, delay: 0.7 }}
             >
               <LinkCard
                 href={'/groups'}
                 tint={'red'}
-                label={'Explore Communities'}
+                label={'Explore Groups'}
                 type={'groups'}
               />
             </motion.div>
@@ -156,7 +156,7 @@ const Index = ({ title, description, ...props }) => {
               </BoxLink>
             </motion.div>
             <motion.div
-              className="transition relative transform top-4 opacity-0"
+              className="col-span-2 md:col-span-1 transition relative transform top-4 opacity-0"
               animate={{ opacity: 1, top: 0 }}
               transition={{ duration: 0.24, delay: 1 }}
             >
@@ -168,14 +168,14 @@ const Index = ({ title, description, ...props }) => {
               />
             </motion.div>
             <motion.div
-              className="transition relative transform top-4 opacity-0"
+              className="col-span-2 md:col-span-1 transition relative transform top-4 opacity-0"
               animate={{ opacity: 1, top: 0 }}
               transition={{ duration: 0.24, delay: 1.2 }}
             >
               <AnchorCard
                 href={'https://github.com'}
                 tint={'indigo'}
-                label={'Contribute to the site'}
+                label={'Contribute'}
                 type={'interviews'}
               />
             </motion.div>

@@ -2,7 +2,7 @@ import React from 'react'
 import { BoxLink } from '@components/Box'
 import { BoxAnchor } from '@components/Box'
 import { truncateString } from '@utils/text'
-import { Avatar } from '@components/PageIcon'
+import { motion } from 'framer-motion'
 import moment from 'moment'
 import Link from 'next/link'
 import Tag from '@components/Tag'
@@ -129,27 +129,7 @@ export const Group = ({ data }) => {
   )
 }
 
-export const CalendarItem = ({day, num, month, year}) => {
-  return(
-    <div className="relative z-10 rounded-lg text-center bg-white dark:bg-black bg-opacity-70 dark:bg-opacity-70 backdrop-blur-sm overflow-hidden shadow flex flex-col w-full">
-      <div className="text-xs font-semibold py-1 bg-red-500 uppercase text-white font-mono tracking-widest">{day}</div>
-      <div className="text-lg text-black dark:text-white md:text-2xl font-extrabold py-1 font-mono">{num}</div>
-      <div className="text-xs pb-1 text-black text-opacity-50 dark:text-white dark:text-opacity-50 font-mono">{month}{' '}{year}</div>
-    </div>
-  )
-}
-
-export const CalendarMobile = ({day, num, month, year}) => {
-  return(
-    <div className="absolute top-0 right-0 left-0 w-full flex bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-10">
-      <div className="text-xs font-semibold py-2 px-4 uppercase font-mono tracking-widest">
-        <span className="text-red-700 dark:text-red-500">{day}</span>, {month} {num}{' '}{year}
-      </div>
-    </div>
-  )
-}
-
-const EventInterior = ({ data }) => {
+export const CalendarItem = ({date}) => {
 
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -170,22 +150,62 @@ const EventInterior = ({ data }) => {
   }
 
   return(
+    <div className="relative z-10 rounded-lg text-center bg-white dark:bg-black bg-opacity-70 dark:bg-opacity-70 backdrop-blur-sm overflow-hidden shadow flex flex-col w-full">
+      <div className="text-xs font-semibold py-1 bg-red-500 uppercase text-white font-mono tracking-widest">{formatDate(date).dayString}</div>
+      <div className="text-lg text-black dark:text-white md:text-2xl font-extrabold py-1 font-mono">{formatDate(date).numString}</div>
+      <div className="text-xs pb-1 text-black text-opacity-50 dark:text-white dark:text-opacity-50 font-mono">{formatDate(date).monthString}{' '}{formatDate(date).yearString}</div>
+    </div>
+  )
+}
+
+export const CalendarMobile = ({date}) => {
+
+  const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+  ]
+
+  const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
+  const formatDate = date => {
+    let d = new Date(date)
+    let year = d.getFullYear()
+    const dateObj = {
+      dayString: dayNames[moment(date).day()],
+      numString: moment(date).date(),
+      monthString: monthNames[moment(date).month()],
+      yearString: year
+    }
+    return dateObj
+  }
+
+  return(
+    <div className="absolute top-0 right-0 left-0 w-full flex bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-10">
+      <div className="text-xs font-semibold py-2 px-4 uppercase font-mono tracking-widest">
+        <span className="bg-white text-red-500 dark:bg-black dark:text-red-500 py-0.5 px-2 rounded-sm">
+        {formatDate(date).dayString}</span>
+        <span className="mx-2 opacity-50">/</span>
+        {formatDate(date).monthString} {formatDate(date).numString}{' '}{formatDate(date).yearString}
+      </div>
+    </div>
+  )
+}
+
+const EventInterior = ({ data }) => {
+
+  return(
     <div className="flex items-start pt-8 md:pt-0">
       <div className="block md:hidden">
-        <CalendarMobile
-          day={formatDate(data.date).dayString}
-          num={formatDate(data.date).numString}
-          month={formatDate(data.date).monthString}
-          year={formatDate(data.date).yearString}
-        />
+        <CalendarMobile date={data.date} />
       </div>
+      <motion.div
+        className="h-32 w-32 absolute -right-16 top-1/2 transform -translate-y-1/2 opacity-0 blur-sm rotate-6"
+        animate={{ opacity: .1 }}
+        transition={{ duration: .75, delay: 0.3 }}
+      >
+        <GroupLogo group={data.org}/>
+      </motion.div>
       <div className="hidden md:inline-flex relative items-start flex-col py-1 px-0 w-20">
-        <CalendarItem
-          day={formatDate(data.date).dayString}
-          num={formatDate(data.date).numString}
-          month={formatDate(data.date).monthString}
-          year={formatDate(data.date).yearString}
-        />
+        <CalendarItem date={data.date} />
         <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-red-500 to-blue-500 top-0 bottom-0 left-0 right-0 rounded-full z-0"></div>
         <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-yellow-500 to-purple-500 top-0 bottom-0 left-0 right-0 rounded-full z-0 transform rotate-6"></div>
       </div>
@@ -308,10 +328,10 @@ export const Interview = ({item}) => {
 
 export const LinkCard = ({href, tint, type, label}) => {
   return(
-    <BoxLink href={href} p={'0'} mb={'0'} mt={'0'} tint={tint} rotate={2}>
+    <BoxLink href={href} p={'0'} mb={'0'} mt={'0'} tint={tint} rotate={'3'}>
       <div className="flex flex-col items-between justify-end py-8 px-4 h-40">
         <div className="flex justify-between items-center">
-          <span className='text-xs md:text-sm xl:text-base'>{label}</span>
+          <h5>{label}</h5>
           <ArrowRight size={20} />
         </div>
       </div>
@@ -321,10 +341,10 @@ export const LinkCard = ({href, tint, type, label}) => {
 
 export const AnchorCard = ({href, tint, type, label}) => {
   return(
-    <BoxAnchor href={href} p={'0'} mb={'0'} mt={'0'} tint={tint} rotate={2}>
+    <BoxAnchor href={href} p={'0'} mb={'0'} mt={'0'} tint={tint} rotate={'3'}>
       <div className="flex flex-col items-between justify-end py-8 px-4 h-40">
         <div className="flex justify-between items-center">
-          <span className='text-xs md:text-sm xl:text-base'>{label}</span>
+          <h5>{label}</h5>
           <ExternalLink size={20} />
         </div>
       </div>

@@ -77,6 +77,6 @@ export const GroupLogo = ({ group }) => {
   }
 
   return(
-    <img className="block w-full" src={`${baseUrl}${getGroup(group)}`}/> 
+    <img className="block w-full" src={`${baseUrl}${getGroup(group)}`} alt={group} /> 
   )
 }

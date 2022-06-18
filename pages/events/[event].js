@@ -261,10 +261,7 @@ const Events = ({ title, description, ...props }) => {
                             transition={{ duration: 0.3 }}
                           >
                             <CalendarItem
-                              day={formatDate(data.item.date).dayString}
-                              num={formatDate(data.item.date).numString}
-                              month={formatDate(data.item.date).monthString}
-                              year={formatDate(data.item.date).yearString}
+                              date={data.item.date}
                             />
                           </motion.div>
                           <motion.div
