@@ -139,6 +139,16 @@ export const CalendarItem = ({day, num, month, year}) => {
   )
 }
 
+export const CalendarMobile = ({day, num, month, year}) => {
+  return(
+    <div className="absolute top-0 right-0 left-0 w-full flex bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-10">
+      <div className="text-xs font-semibold py-2 px-4 uppercase font-mono tracking-widest">
+        <span className="text-red-700 dark:text-red-500">{day}</span>, {month} {num}{' '}{year}
+      </div>
+    </div>
+  )
+}
+
 const EventInterior = ({ data }) => {
 
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -160,8 +170,16 @@ const EventInterior = ({ data }) => {
   }
 
   return(
-    <div className="flex items-start">
-      <div className="relative items-start flex-col inline-flex py-1 px-0 w-20">
+    <div className="flex items-start pt-8 md:pt-0">
+      <div className="block md:hidden">
+        <CalendarMobile
+          day={formatDate(data.date).dayString}
+          num={formatDate(data.date).numString}
+          month={formatDate(data.date).monthString}
+          year={formatDate(data.date).yearString}
+        />
+      </div>
+      <div className="hidden md:inline-flex relative items-start flex-col py-1 px-0 w-20">
         <CalendarItem
           day={formatDate(data.date).dayString}
           num={formatDate(data.date).numString}
@@ -171,7 +189,7 @@ const EventInterior = ({ data }) => {
         <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-red-500 to-blue-500 top-0 bottom-0 left-0 right-0 rounded-full z-0"></div>
         <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-yellow-500 to-purple-500 top-0 bottom-0 left-0 right-0 rounded-full z-0 transform rotate-6"></div>
       </div>
-      <div className="pl-4 flex-1">
+      <div className="pl-0 md:pl-4 flex-1">
         <div className="mb-2 flex-col flex items-start">
           <h4>{data.upcoming && 'Upcoming - '}{data.name} @ {moment(data.date).format('LT')}</h4>
           <div className="text-sm mb-2 text-black text-opacity-50 dark:text-white dark:text-opacity-50">
