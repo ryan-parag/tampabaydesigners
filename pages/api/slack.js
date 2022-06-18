@@ -6,6 +6,12 @@ export default async (req,res) => {
 
   const response = await notion.databases.query({ 
     database_id: process.env.NOTION_SLACK,
+    sorts: [
+      {
+        property: 'Last Modified',
+        direction: 'descending',
+      },
+    ],
   });
 
   const groups = []

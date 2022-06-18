@@ -60,7 +60,7 @@ const Slack = ({ title, description, ...props }) => {
         <div className="container text-center p-3 mx-auto lg:w-1/2">
           <p>Want to customize your Slack theme?</p>
           <a
-            href="https://slack-themes.now.sh/"
+            href="https://slack-themes.vercel.app/"
             target="_blank"
             className="button button--yellow"
           >
