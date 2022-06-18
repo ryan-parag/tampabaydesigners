@@ -36,9 +36,9 @@ const Tag = ({color, children, ml, mt, mb, mr}) => {
     >
       {
         color && (
-          <span class="flex h-2 w-2 relative items-center justify-center mr-2">
-            <span class={`animate-ping absolute inline-flex h-full w-full rounded-full ${getType(color)} opacity-30`}></span>
-            <span class={`relative inline-flex rounded-full h-2 w-2 ${getType(color)}`}></span>
+          <span className="flex h-2 w-2 relative items-center justify-center mr-2">
+            <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${getType(color)} opacity-30`}></span>
+            <span className={`relative inline-flex rounded-full h-2 w-2 ${getType(color)}`}></span>
           </span>
         )
       }
