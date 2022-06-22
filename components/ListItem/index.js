@@ -7,9 +7,9 @@ import moment from 'moment'
 import Link from 'next/link'
 import Tag from '@components/Tag'
 import { GroupLogo } from '@components/Logo'
-import { ArrowRight, ExternalLink } from 'react-feather'
+import { ArrowRight, ExternalLink, MapPin, Clock } from 'react-feather'
 
-const textTruncateLength = 120
+const textTruncateLength = 70
 
 const ListItem = ({ children, title, description, href, awaiting }) => {
   return(
@@ -158,7 +158,7 @@ export const CalendarItem = ({date}) => {
   )
 }
 
-export const CalendarMobile = ({date}) => {
+export const CalendarMobile = ({date, time}) => {
 
   const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
@@ -179,13 +179,14 @@ export const CalendarMobile = ({date}) => {
   }
 
   return(
-    <div className="absolute top-0 right-0 left-0 w-full flex bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-10">
-      <div className="text-xs font-semibold py-2 px-4 uppercase font-mono tracking-widest">
+    <div className="absolute top-0 right-0 left-0 w-full flex justify-between items-center py-2 px-4 bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-10">
+      <div className="text-xs font-semibold uppercase font-mono tracking-widest">
         <span className="bg-white text-red-500 dark:bg-black dark:text-red-500 py-0.5 px-2 rounded-sm">
         {formatDate(date).dayString}</span>
         <span className="mx-2 opacity-50">/</span>
         {formatDate(date).monthString} {formatDate(date).numString}{' '}{formatDate(date).yearString}
       </div>
+      <span className="font-bold font-mono text-sm">{time}</span>
     </div>
   )
 }
@@ -195,7 +196,7 @@ const EventInterior = ({ data }) => {
   return(
     <div className="flex items-start pt-8 md:pt-0">
       <div className="block md:hidden">
-        <CalendarMobile date={data.date} />
+        <CalendarMobile date={data.date} time={moment(data.date).format('LT')} />
       </div>
       <motion.div
         className="h-32 w-32 absolute -right-16 top-1/2 transform -translate-y-1/2 opacity-0 blur-sm rotate-6"
@@ -211,7 +212,17 @@ const EventInterior = ({ data }) => {
       </div>
       <div className="pl-0 md:pl-4 flex-1">
         <div className="mb-2 flex-col flex items-start">
-          <h4>{data.upcoming && 'Upcoming - '}{data.name} @ {moment(data.date).format('LT')}</h4>
+          <h4>{data.upcoming && 'Upcoming - '}{data.name}</h4>
+          <div className="my-2 flex flex-col items-start">
+            <div className="mb-1 text-sm inline-flex items-center">
+              <MapPin size={'16'} className="mr-2 text-black text-opacity-50 dark:text-white dark:text-opacity-50"/>
+              <span>{data.locationName}</span>
+            </div>
+            <div className="text-sm items-center hidden lg:inline-flex">
+              <Clock size={'16'} className="mr-2 text-black text-opacity-50 dark:text-white dark:text-opacity-50"/>
+              <span>{moment(data.date).format('LT')}</span>
+            </div>
+          </div>
           <div className="text-sm mb-2 text-black text-opacity-50 dark:text-white dark:text-opacity-50">
             {truncateString(data.description, textTruncateLength)}
           </div>
@@ -328,8 +339,8 @@ export const Interview = ({item}) => {
 
 export const LinkCard = ({href, tint, type, label}) => {
   return(
-    <BoxLink href={href} p={'0'} mb={'0'} mt={'0'} tint={tint} rotate={'3'}>
-      <div className="flex flex-col items-between justify-end py-8 px-4 h-40">
+    <BoxLink href={href} p={'0'} mb={'0'} mt={'0'} tint={tint} rotate={'1'}>
+      <div className="transition flex flex-col items-between justify-end pt-8 pb-8 h-40 px-4 hover:px-6">
         <div className="flex justify-between items-center">
           <h5>{label}</h5>
           <ArrowRight size={20} />
@@ -341,8 +352,8 @@ export const LinkCard = ({href, tint, type, label}) => {
 
 export const AnchorCard = ({href, tint, type, label}) => {
   return(
-    <BoxAnchor href={href} p={'0'} mb={'0'} mt={'0'} tint={tint} rotate={'3'}>
-      <div className="flex flex-col items-between justify-end py-8 px-4 h-40">
+    <BoxAnchor href={href} p={'0'} mb={'0'} mt={'0'} tint={tint} rotate={'1'}>
+      <div className="transition flex flex-col items-between justify-end pt-8 pb-8 h-40 pr-4 pl-4 hover:pr-6 focus:pr-6">
         <div className="flex justify-between items-center">
           <h5>{label}</h5>
           <ExternalLink size={20} />
