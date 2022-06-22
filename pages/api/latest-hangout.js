@@ -11,10 +11,6 @@ export default async (req,res) => {
 
   const hangouts = []
 
-  const isUpcoming = (data) => {
-    moment(data).isAfter(moment().format('YYYY-MM-DD'))
-  }
-
   response.results.map(item => {
 
     const events = []
@@ -27,7 +23,8 @@ export default async (req,res) => {
         org: item.properties.Org.select.name,
         link: item.properties.Link.url,
         date: item.properties.Date.date.start,
-        upcoming: moment(item.properties.Date.date.start).isAfter(moment().format('YYYY-MM-DD'))
+        upcoming: moment(item.properties.Date.date.start).isAfter(moment().format('YYYY-MM-DD')),
+        locationName: item.properties.LocationName.formula.string
       }
       events.push(event)
     }
