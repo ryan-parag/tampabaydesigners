@@ -8,6 +8,7 @@ import Link from 'next/link'
 import Tag from '@components/Tag'
 import { GroupLogo } from '@components/Logo'
 import { ArrowRight, ExternalLink, MapPin, Clock } from 'react-feather'
+import { Avatar } from '@components/PageIcon'
 
 const textTruncateLength = 120
 
@@ -342,6 +343,13 @@ export const LinkCard = ({href, tint, type, label}) => {
   return(
     <BoxLink href={href} p={'0'} mb={'0'} mt={'0'} tint={tint} rotate={'1'}>
       <div className="transition flex flex-col items-between justify-end pt-8 pb-8 h-40 px-4 hover:px-6">
+        {
+          type && (
+            <div className="opacity-70 mb-4">
+              <Avatar type={type}/>
+            </div>
+          )
+        }
         <div className="flex justify-between items-center">
           <h5>{label}</h5>
           <ArrowRight size={20} />
@@ -355,6 +363,13 @@ export const AnchorCard = ({href, tint, type, label}) => {
   return(
     <BoxAnchor href={href} p={'0'} mb={'0'} mt={'0'} tint={tint} rotate={'1'}>
       <div className="transition flex flex-col items-between justify-end pt-8 pb-8 h-40 pr-4 pl-4 hover:pr-6 focus:pr-6">
+        {
+          type && (
+            <div className="opacity-70 mb-4">
+              <Avatar type={type}/>
+            </div>
+          )
+        }
         <div className="flex justify-between items-center">
           <h5>{label}</h5>
           <ExternalLink size={20} />
