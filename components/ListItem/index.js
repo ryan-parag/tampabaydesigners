@@ -89,7 +89,7 @@ export const ListGroupItem = ({ data }) => {
           <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-red-500 to-blue-500 top-0 bottom-0 left-0 right-0 rounded-full z-0"></div>
           <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-yellow-500 to-purple-500 top-0 bottom-0 left-0 right-0 rounded-full z-0 transform rotate-6"></div>
         </div>
-        <div className="pl-4 flex-1">
+        <div className="pl-4 flex-1 text-left">
           <div className="mb-2 flex-col flex items-start">
             <h4>{data.name}</h4>
             <div className="text-sm text-black text-opacity-50 dark:text-white dark:text-opacity-50">
