@@ -214,7 +214,7 @@ const EventInterior = ({ data }) => {
         <div className="mb-2 flex-col flex items-start">
           <h4>{data.upcoming && 'Upcoming - '}{data.name}</h4>
           <div className="my-2 flex items-center text-left">
-            <div className="text-sm items-center hidden lg:inline-flex">
+            <div className="text-sm items-center hidden md:inline-flex">
               <Clock size={'16'} className="mr-2 text-black text-opacity-50 dark:text-white dark:text-opacity-50"/>
               <span>{moment(data.date).format('LT')}</span>
               <span className="h-3 w-0.5 bg-current mx-3 opacity-50" />
