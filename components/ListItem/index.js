@@ -165,7 +165,7 @@ export const CalendarMobile = ({date, time}) => {
   "July", "August", "September", "October", "November", "December"
   ]
 
-  const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
   const formatDate = date => {
     let d = new Date(date)
