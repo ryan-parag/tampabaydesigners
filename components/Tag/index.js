@@ -32,7 +32,7 @@ const Tag = ({color, children, ml, mt, mb, mr}) => {
 
   return(
     <span
-      className={`mb-${mb ? mb : '0'} mt-${mt ? mt : '0'} mr-${mr ? mr : '0'} ml-${ml ? ml : '0'} rounded-full inline-flex items-center text-xs tracking-wide py-1 px-3 border bg-white bg-opacity-100 shadow dark:bg-white dark:bg-opacity-10 dark:border-opacity-10 text-black text-opacity-100 dark:text-white dark:text-opacity-100`}
+      className={`mb-${mb ? mb : '0'} mt-${mt ? mt : '0'} mr-${mr ? mr : '0'} ml-${ml ? ml : '0'} rounded-full inline-flex items-center text-xs tracking-wide py-1 px-3 border bg-white bg-opacity-100 shadow dark:bg-white dark:bg-opacity-5 dark:border-white dark:border-opacity-10 text-black text-opacity-100 dark:text-white dark:text-opacity-100`}
     >
       {
         color && (

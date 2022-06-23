@@ -101,7 +101,7 @@ const Index = ({ title, description, ...props }) => {
               <LatestHangout/>
             </div>
             <motion.div
-              className="col-span-2 md:col-span-1 transition relative transform top-4 opacity-0"
+              className="transition relative transform top-4 opacity-0"
               animate={{ opacity: 1, top: 0 }}
               transition={{ duration: 0.24, delay: 0.4 }}
             >
@@ -113,7 +113,7 @@ const Index = ({ title, description, ...props }) => {
               />
             </motion.div>
             <motion.div
-              className="col-span-2 md:col-span-1 transition relative transform top-4 opacity-0"
+              className="transition relative transform top-4 opacity-0"
               animate={{ opacity: 1, top: 0 }}
               transition={{ duration: 0.24, delay: 0.7 }}
             >
@@ -156,7 +156,7 @@ const Index = ({ title, description, ...props }) => {
               </BoxLink>
             </motion.div>
             <motion.div
-              className="col-span-2 md:col-span-1 transition relative transform top-4 opacity-0"
+              className="transition relative transform top-4 opacity-0"
               animate={{ opacity: 1, top: 0 }}
               transition={{ duration: 0.24, delay: 1 }}
             >
@@ -168,7 +168,7 @@ const Index = ({ title, description, ...props }) => {
               />
             </motion.div>
             <motion.div
-              className="col-span-2 md:col-span-1 transition relative transform top-4 opacity-0"
+              className="transition relative transform top-4 opacity-0"
               animate={{ opacity: 1, top: 0 }}
               transition={{ duration: 0.24, delay: 1.2 }}
             >
