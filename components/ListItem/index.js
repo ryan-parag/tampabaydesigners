@@ -130,7 +130,7 @@ export const Group = ({ data }) => {
   )
 }
 
-export const CalendarItem = ({date}) => {
+export const CalendarItem = ({date, diff}) => {
 
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -159,7 +159,7 @@ export const CalendarItem = ({date}) => {
   )
 }
 
-export const CalendarMobile = ({date, time}) => {
+export const CalendarMobile = ({date, time, diff}) => {
 
   const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
@@ -182,9 +182,19 @@ export const CalendarMobile = ({date, time}) => {
   return(
     <div className="absolute top-0 right-0 left-0 w-full flex justify-between items-center py-2 px-4 bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-10">
       <div className="text-xs font-semibold uppercase font-mono tracking-widest">
-        <Tag color={'red'}><span className="font-bold font-mono leading-tight">{formatDate(date).dayString}</span></Tag>
+        <Tag color={'green'}><span className="font-bold font-mono leading-tight">{formatDate(date).dayString}</span></Tag>
         <span className="mx-2 opacity-50">/</span>
-        {formatDate(date).monthString} {formatDate(date).numString}{' '}{formatDate(date).yearString}
+        {
+          diff && diff < 7 ? (
+            <span className="text-green-700 dark:text-green-500">In {diff} days</span>
+          )
+          :
+          (
+            <>
+              {formatDate(date).monthString} {formatDate(date).numString}{' '}{formatDate(date).yearString}
+            </>
+          )
+        }
       </div>
       <Tag><span className="font-bold font-mono leading-tight">{time}</span></Tag>
     </div>
@@ -196,7 +206,11 @@ const EventInterior = ({ data }) => {
   return(
     <div className="flex items-start pt-8 md:pt-0">
       <div className="block md:hidden">
-        <CalendarMobile date={data.date} time={moment(data.date).format('LT')} />
+        <CalendarMobile
+          date={data.date}
+          time={moment(data.date).format('LT')}
+          diff={data.diff}
+        />
       </div>
       <motion.div
         className="h-32 w-32 absolute -right-16 top-1/2 transform -translate-y-1/2 opacity-0 blur-lg rotate-6"
@@ -219,6 +233,14 @@ const EventInterior = ({ data }) => {
               <span>{moment(data.date).format('LT')}</span>
               <span className="h-3 w-0.5 bg-current mx-3 opacity-50" />
             </div>
+            {
+              data.diff && data.diff < 7 && (
+                <div className="text-sm items-center hidden md:inline-flex">
+                  <span className="font-semibold text-yellow-700 dark:text-yellow-500">In {data.diff} Days</span>
+                  <span className="h-3 w-0.5 bg-current mx-3 opacity-50" />
+                </div>
+              )
+            }
             <div className="text-sm inline-flex items-center">
               <MapPin size={'16'} className="mr-2 text-black text-opacity-50 dark:text-white dark:text-opacity-50"/>
               <span>{data.locationName}</span>

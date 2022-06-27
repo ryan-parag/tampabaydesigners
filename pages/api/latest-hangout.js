@@ -11,6 +11,8 @@ export default async (req,res) => {
 
   const hangouts = []
 
+  const today = new Date().toISOString()
+
   response.results.map(item => {
 
     const events = []
@@ -24,7 +26,8 @@ export default async (req,res) => {
         link: item.properties.Link.url,
         date: item.properties.Date.date.start,
         upcoming: moment(item.properties.Date.date.start).isAfter(moment().format('YYYY-MM-DD')),
-        locationName: item.properties.LocationName.formula.string
+        locationName: item.properties.LocationName.formula.string,
+        diff: moment(item.properties.Date.date.start).diff(moment(today), 'days')
       }
       events.push(event)
     }

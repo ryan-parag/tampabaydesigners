@@ -6,6 +6,7 @@ import useSWR from 'swr';
 import fetcher from '@utils/fetcher';
 import { Event } from '@components/ListItem'
 import { Avatar } from '@components/PageIcon'
+import Tag from '@components/Tag'
 
 export const LatestHangout = () => {
 
@@ -35,7 +36,7 @@ export const LatestHangout = () => {
                     <Avatar type={'🎉'} mt={'3'} />
                     <div className="flex-1 pl-4">
                       <h4 className="mt-2 mb-2">Meet designers in the area!</h4>
-                      <p className="text-xs md:text-sm mb-4 mt-0">Let's get together on the first Tuesday of every month somewhere around the Tampa/St. Pete area - join your fellow designers as we grab some drinks, talk shop, or whatever else comes to mind.</p>
+                      <p className="text-xs md:text-sm mb-4 mt-0">Let's get together on the first Thursday of every month somewhere around the Tampa/St. Pete area - join your fellow designers as we grab some drinks, talk shop, or whatever else comes to mind.</p>
                     </div>
                   </div>
                 </BoxLink>

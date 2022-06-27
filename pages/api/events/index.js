@@ -1,11 +1,14 @@
 const { Client } = require('@notionhq/client');
+import moment from 'moment';
 
 const notion = new Client({ auth: process.env.NOTION_SECRET });
 
 export default async (req,res) => {
 
   const today = new Date().toISOString()
-
+  const tomorrow = new Date(today)
+  tomorrow.setDate(tomorrow.getDate() - 1)
+  
   const response = await notion.databases.query({ 
     database_id: process.env.NOTION_EVENTS,
     filter: {
@@ -19,7 +22,7 @@ export default async (req,res) => {
         {
           "property": "Date",
           "date": {
-            "on_or_after": today
+            "on_or_after": tomorrow
           }
         }
       ]
@@ -44,7 +47,8 @@ export default async (req,res) => {
       link: item.properties.Link.url,
       date: item.properties.Date.date.start,
       location: item.properties.Location.relation[0].id,
-      locationName: item.properties.LocationName.formula.string
+      locationName: item.properties.LocationName.formula.string,
+      diff: moment(item.properties.Date.date.start).diff(moment(today), 'days')
     }
 
     events.unshift(lineItem)
