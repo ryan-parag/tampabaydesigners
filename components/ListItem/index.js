@@ -186,7 +186,7 @@ export const CalendarMobile = ({date, time, diff}) => {
         <span className="mx-2 opacity-50">/</span>
         {
           diff && diff < 7 ? (
-            <span className="text-green-700 dark:text-green-500">In {diff} days</span>
+            <span className="text-green-700 dark:text-green-500">In {diff} day{diff !== 1 && 's'}</span>
           )
           :
           (
@@ -236,7 +236,7 @@ const EventInterior = ({ data }) => {
             {
               data.diff && data.diff < 7 && (
                 <div className="text-sm items-center hidden md:inline-flex">
-                  <span className="font-semibold text-yellow-700 dark:text-yellow-500">In {data.diff} Days</span>
+                  <span className="font-semibold text-yellow-700 dark:text-yellow-500">In {data.diff} Day{data.diff !== 1 && 's'}</span>
                   <span className="h-3 w-0.5 bg-current mx-3 opacity-50" />
                 </div>
               )
