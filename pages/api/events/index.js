@@ -22,7 +22,7 @@ export default async (req,res) => {
         {
           "property": "Date",
           "date": {
-            "on_or_after": tomorrow
+            "after": today
           }
         }
       ]

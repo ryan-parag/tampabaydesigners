@@ -234,12 +234,14 @@ const EventInterior = ({ data }) => {
               <span className="h-3 w-0.5 bg-current mx-3 opacity-50" />
             </div>
             {
-              data.diff && data.diff < 7 && (
+              data.diff && data.diff !== 0 && data.diff < 7 ? (
                 <div className="text-sm items-center hidden md:inline-flex">
                   <span className="font-semibold text-yellow-700 dark:text-yellow-500">In {data.diff} Day{data.diff !== 1 && 's'}</span>
                   <span className="h-3 w-0.5 bg-current mx-3 opacity-50" />
                 </div>
               )
+              :
+              null
             }
             <div className="text-sm inline-flex items-center">
               <MapPin size={'16'} className="mr-2 text-black text-opacity-50 dark:text-white dark:text-opacity-50"/>
