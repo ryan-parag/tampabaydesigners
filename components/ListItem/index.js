@@ -227,22 +227,25 @@ const EventInterior = ({ data }) => {
       <div className="pl-0 md:pl-4 flex-1">
         <div className="mb-2 flex-col flex items-start">
           <h4>{data.upcoming && 'Upcoming - '}{data.name}</h4>
-          <div className="my-2 flex items-center text-left">
-            <div className="text-sm items-center hidden md:inline-flex">
-              <Clock size={'16'} className="mr-2 text-black text-opacity-50 dark:text-white dark:text-opacity-50"/>
-              <span>{moment(data.date).format('LT')}</span>
-              <span className="h-3 w-0.5 bg-current mx-3 opacity-50" />
-            </div>
-            {
-              data.diff && data.diff !== 0 && data.diff < 7 ? (
-                <div className="text-sm items-center hidden md:inline-flex">
-                  <span className="font-semibold text-yellow-700 dark:text-yellow-500">In {data.diff} Day{data.diff !== 1 && 's'}</span>
-                  <span className="h-3 w-0.5 bg-current mx-3 opacity-50" />
+          <div className="my-2 flex flex-col text-left">
+            <div className="text-sm items-start hidden md:inline-flex mb-2">
+              <Clock size={'16'} className="mr-2 mt-1 text-black text-opacity-50 dark:text-white dark:text-opacity-50"/>
+              <div>
+                <div>
+                  {moment(data.date).format('dddd, MMMM D, YYYY')}
+                  {
+                    data.diff && data.diff !== 0 && data.diff < 7 ? (
+                      <span className="ml-2 font-semibold text-yellow-700 dark:text-yellow-500">In {data.diff} Day{data.diff !== 1 && 's'}</span>
+                    )
+                    :
+                    null
+                  }
                 </div>
-              )
-              :
-              null
-            }
+                <div>
+                  Starts at {moment(data.date).format('LT')}
+                </div>
+              </div>
+            </div>
             <div className="text-sm inline-flex items-center">
               <MapPin size={'16'} className="mr-2 text-black text-opacity-50 dark:text-white dark:text-opacity-50"/>
               <span>{data.locationName}</span>
