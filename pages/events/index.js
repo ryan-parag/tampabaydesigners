@@ -5,6 +5,7 @@ import fetcher from '@utils/fetcher';
 import { Event } from '@components/ListItem'
 import { Error, Loading, Empty } from '@components/DataStates'
 import { motion } from 'framer-motion'
+import Link from 'next/link';
 
 const Events = ({ title, description, ...props }) => {
 
@@ -61,6 +62,13 @@ const Events = ({ title, description, ...props }) => {
               )
             }
           </ul>
+          <p className="text-sm">
+            Can't decide on a hangout spot?&nbsp;
+            <Link href="/random">
+              <a className="underline">Use the randomizer</a>
+            </Link>
+            !
+          </p>
         </div>
       </section>
     </Layout>

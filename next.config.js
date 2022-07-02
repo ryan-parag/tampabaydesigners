@@ -29,8 +29,8 @@ module.exports = {
   async redirects() {
     return [
       {
-        source: '/events',
-        destination: '/',
+        source: '/random',
+        destination: '/events/randomizer',
         permanent: true,
       },
     ]
