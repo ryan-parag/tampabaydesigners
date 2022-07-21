@@ -75,8 +75,8 @@ const EventInfo = ({ date, location }) => {
   const { data, error } = useSWR(`/api/hangout-locations/${location}`, fetcher);
 
   return(
-    <>
-      <Box>
+    <div className="grid grid-cols-1">
+      <Box mt={'0'}>
         <motion.div
           className="relative w-full opacity-0 top-4"
           animate={{ opacity: 1, top: 0 }}
@@ -125,7 +125,7 @@ const EventInfo = ({ date, location }) => {
           }
         </motion.div>
       </Box>
-    </>
+    </div>
   )
 }
 
@@ -251,9 +251,7 @@ const Events = ({ title, description, ...props }) => {
                           </motion.div>
                         </div>
                       </div>
-                    </div>
-                    <div>
-                      <div className={`container px-3 pt-4 mx-auto lg:w-1/2 grid grid-cols-${!data.item.link.includes('tampabay.design') ? '2' : '1'} gap-4`}>
+                      <div className={`container px-3 pb-8 mx-auto lg:w-1/2 grid grid-cols-${!data.item.link.includes('tampabay.design') ? '2' : '1'} gap-4`}>
                         {
                           !data.item.link.includes('tampabay.design') && (
                             <a href={data.item.link} target="_blank" rel="noreferrer" className="button button--primary my-0">Attend</a>
@@ -274,7 +272,7 @@ const Events = ({ title, description, ...props }) => {
                       </div>
                     </div>
                     <section
-                      className="pt-0 lg:pt-12 pb-12 flex flex-col"
+                      className="pt-0 xl:pt-12 pb-12 flex flex-col"
                       style={{
                         backgroundImage: "url('/static/blur-bg.png')",
                         backgroundSize: 'cover',
@@ -282,8 +280,8 @@ const Events = ({ title, description, ...props }) => {
                         backgroundRepeat: 'no-repeat'
                       }}
                     >
-                      <div className="container p-3 mx-auto lg:w-1/2 grid grid-cols-1 lg:grid-cols-3 gap-4">
-                        <div className="mb-6 mt-4 block lg:hidden">
+                      <div className="container p-3 mx-auto lg:w-1/2 grid grid-cols-1 xl:grid-cols-3 gap-y-6 lg:gap-x-6">
+                        <div className="mb-6 mt-4 block xl:hidden">
                           <h5 className="mt-0 mb-2">Event Details</h5>
                           <EventInfo
                             date={moment(data.item.date).format('LLLL')}
@@ -295,7 +293,7 @@ const Events = ({ title, description, ...props }) => {
                           <p className="mt-0 mb-6">{data.item.description}</p>
                           <SlackLink group={data.item.org} />
                         </div>
-                        <div className="hidden lg:block">
+                        <div className="hidden xl:block">
                           <h5 className="mt-0 mb-2">Event Details</h5>
                           <EventInfo
                             date={moment(data.item.date).format('LLLL')}
