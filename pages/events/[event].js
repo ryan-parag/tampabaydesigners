@@ -1,26 +1,43 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from "next/router";
 import Layout from '@components/Layout'
 import useSWR from 'swr';
 import fetcher from '@utils/fetcher';
-import { CalendarItem, SlackGroup } from '@components/ListItem'
+import { SlackGroup } from '@components/ListItem'
 import { Error, Loading, Empty } from '@components/DataStates'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import moment from 'moment'
 import { SignUp } from '@components/Hangouts'
-import { ArrowLeft, MapPin, Clock } from 'react-feather'
+import { ArrowLeft, MapPin, Clock, Check } from 'react-feather'
 import FAQ, { CoworkFAQ } from '@components/Hangouts/FAQ'
-import Box, { BoxAnchor } from '@components/Box'
+import Box from '@components/Box'
+import { GroupLogo } from '@components/Logo'
 
-const SlackLink = () => {
+const SlackLink = ({ group }) => {
 
   const { data, error } = useSWR('/api/slack', fetcher);
+
+  const getGroup = el => {
+    switch(el) {
+      case 'Design St. Pete':
+        return 'Design St. Pete'
+        break;
+      case 'Tampa Bay UX':
+        return 'Tampa Bay UX'
+        break;
+      default:
+        return 'Tampa Bay Designers'
+    }
+  }
 
   return(
     <ul className="pt-4">
       <li>
-        <h5>Want more updates or want to chat with us before/after? Send a message in the Slack group!</h5>
+        <h5>Chat with us!</h5>
+      </li>
+      <li>
+        <p className="text-xs lg:text-sm">Want more updates or want to chat with us before/after? Send a message in the Slack group!</p>
       </li>
       {
         error && (<Error/>)
@@ -30,7 +47,7 @@ const SlackLink = () => {
           data.groups.map((item,i) => (
             <>
               {
-                item.name === 'Tampa Bay Designers' && item.type.toLowerCase() === 'slack' && (
+                item.name === getGroup(group) && item.type.toLowerCase() === 'slack' && (
                   <motion.li
                     key={item.id}
                     className="opacity-0 top-4 relative"
@@ -59,24 +76,19 @@ const EventInfo = ({ date, location }) => {
 
   return(
     <>
-      <div className="w-full">
+      <Box>
         <motion.div
           className="relative w-full opacity-0 top-4"
           animate={{ opacity: 1, top: 0 }}
           transition={{ duration: 0.3, delay: 0.5 }}
         >
-          <Box p={'0'}>
-            <div className="flex">
-              <div className="h-full items-start p-2 hidden md:inline-flex">
-                <Clock size={'20'}/>
-              </div>
-              <div className="flex flex-col w-full flex-1">
-                <span className="text-xs block mb-1 p-2 pb-1">When</span>
-                <span className="font-bold px-2 pb-2">{date}</span>
-              </div>
-            </div>
-          </Box>
+          <div className="flex items-center mb-2 text-black text-opacity-60 dark:text-white dark:text-opacity-50">
+            <span className="pr-2 mt-0 mb-0 text-sm">Date and time</span>
+            <Clock size={'16'}/>
+          </div>
+          <p className="text-sm my-0">{date}</p>
         </motion.div>
+        <hr className="my-4 border-b border-gray-400 border-opacity-10 dark:border-gray-400 dark:border-opacity-10"/>
         <motion.div
           className="relative w-full opacity-0 top-4"
           animate={{ opacity: 1, top: 0 }}
@@ -85,62 +97,23 @@ const EventInfo = ({ date, location }) => {
           {
             data ? (
               <>
-                {
-                  data.item.name === 'TBA' ? (
-                    <Box p={'0'}>
-                      <div className="flex">
-                        <div className="h-full items-start p-2 hidden md:inline-flex">
-                          <MapPin size={'20'}/>
-                        </div>
-                        <div className="flex flex-col w-full flex-1">
-                          <span className="text-xs block mb-1 p-2 pb-1">Where</span>
-                          {
-                            data.item ? (
-                              <div className="px-2 pb-2">
-                                <span className="font-bold block mb-1">{data.item.name}</span>
-                                <span className="text-sm">{data.item.address}</span>
-                              </div>
-                            )
-                            :
-                            (
-                              <div className="px-2 pb-2">
-                                <span>No location</span>
-                              </div>
-                            )
-                          }
-                        </div>
-                      </div>
-                    </Box>
-                  )
-                  :
-                  (
-                    <BoxAnchor p={'0'} href={`https://maps.google.com/?q=${data.item.name}`} target="_blank">
-                      <div className="flex">
-                        <div className="h-full items-start p-2 hidden md:inline-flex">
-                          <MapPin size={'20'}/>
-                        </div>
-                        <div className="flex flex-col w-full flex-1">
-                          <span className="text-xs block mb-1 p-2 pb-1">Where</span>
-                          {
-                            data.item ? (
-                              <div className="px-2 pb-2">
-                                <span className="font-bold block mb-1">{data.item.name}</span>
-                                <span className="text-sm">{data.item.address}</span>
-                                <span className="block text-xs mt-2 underline">View on Map</span>
-                              </div>
-                            )
-                            :
-                            (
-                              <div className="px-2 pb-2">
-                                <span>No location</span>
-                              </div>
-                            )
-                          }
-                        </div>
-                      </div>
-                    </BoxAnchor>
-                  )
-                }
+                <div className="flex items-center mb-2 text-black text-opacity-60 dark:text-white dark:text-opacity-50">
+                  <span className="pr-2 mt-0 mb-0 text-sm">Location</span>
+                  <MapPin size={'16'}/>
+                </div>
+                <div>
+                  <p className="text-sm font-bold my-0">{data.item.name}</p>
+                  <span className="text-xs">{data.item.address}</span>
+                  {
+                    data.item.name === 'TBA' ? (
+                      <span className="block text-sm mt-2">Location TBA</span>
+                    )
+                    :
+                    (
+                      <a className="block text-xs mt-2 underline" href={`https://maps.google.com/?q=${data.item.name}`} target="_blank" rel="noreferrer">View on Map</a>
+                    )
+                  }
+                </div>
               </>
             )
             :
@@ -151,7 +124,7 @@ const EventInfo = ({ date, location }) => {
             )
           }
         </motion.div>
-      </div>
+      </Box>
     </>
   )
 }
@@ -162,6 +135,29 @@ const Events = ({ title, description, ...props }) => {
   const { event } = router.query;
 
   const { data, error } = useSWR(`/api/events/${event}`, fetcher);
+
+  const [copy, setCopy] = useState(false)
+
+  async function copyTextToClipboard(text) {
+    if ('clipboard' in navigator) {
+      return await navigator.clipboard.writeText(text);
+    } else {
+      return document.execCommand('copy', true, text);
+    }
+  }
+
+  const copyLink = (string) => {
+    copyTextToClipboard(string)
+    .then(() => {
+      setCopy(true)
+    })
+  }
+
+  useEffect(() => {
+    setTimeout(() => {
+      setCopy(false)
+    }, 3000)
+  },[copy])
   
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -233,8 +229,52 @@ const Events = ({ title, description, ...props }) => {
               data.item ? (
                 <>
                   <Layout pageTitle={title} description={description} ogImage={getMeta(data.item.name)}>
+                    <div className="bg-white dark:bg-zinc-900 dark:bg-opacity-50 w-full border-b border-gray-400 border-opacity-10 dark:border-gray-400 dark:border-opacity-10 shadow-lg">
+                      <div className="container px-3 py-8 mx-auto lg:w-1/2 flex">
+                        <div className="flex-1 pr-4">
+                          <span className="text-xs lg:text-sm">{moment(data.item.date).format('LLLL')}</span>
+                          <h1 className="my-3 text-2xl lg:text-4xl">{data.item.name}</h1>
+                          <motion.div
+                            className="relative flex items-center opacity-0"
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            <span>
+                              Hosted by
+                            </span>
+                            <div className="inline-flex items-center ml-2 dark:text-white text-black">
+                              <div className="h-6 w-6">
+                                <GroupLogo group={data.item.org}/>
+                              </div>
+                              <strong className="ml-2">{data.item.org}</strong>
+                            </div>
+                          </motion.div>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div className={`container px-3 pt-4 mx-auto lg:w-1/2 grid grid-cols-${!data.item.link.includes('tampabay.design') ? '2' : '1'} gap-4`}>
+                        {
+                          !data.item.link.includes('tampabay.design') && (
+                            <a href={data.item.link} target="_blank" rel="noreferrer" className="button button--primary my-0">Attend</a>
+                          )
+                        }
+                        {
+                          copy ? (
+                            <div className="text-center px-4 cursor-pointer py-3 my-0 inline-flex justify-center items-center border border-transparent">
+                              <Check size={'16'} className="text-green-500 mr-2"/>
+                              Copied
+                            </div>
+                          )
+                          :
+                          (
+                            <button onClick={() => copyLink(`https://tampabay.design/events/${data.item.id}`)} className="button my-0">Copy Link</button>
+                          )
+                        }
+                      </div>
+                    </div>
                     <section
-                      className="pt-24 pb-24 flex flex-col"
+                      className="pt-0 lg:pt-12 pb-12 flex flex-col"
                       style={{
                         backgroundImage: "url('/static/blur-bg.png')",
                         backgroundSize: 'cover',
@@ -242,45 +282,28 @@ const Events = ({ title, description, ...props }) => {
                         backgroundRepeat: 'no-repeat'
                       }}
                     >
-                      <div className="container p-3 mx-auto lg:w-1/2">
-                        <div className="flex mb-8">
-                          <Link href="/events">
-                            <a className="hover:underline inline-flex items-center">
-                              <ArrowLeft
-                                size={'20'}
-                                className="mr-1"
-                              />
-                              Back
-                            </a>
-                          </Link>
+                      <div className="container p-3 mx-auto lg:w-1/2 grid grid-cols-1 lg:grid-cols-3 gap-4">
+                        <div className="mb-6 mt-4 block lg:hidden">
+                          <h5 className="mt-0 mb-2">Event Details</h5>
+                          <EventInfo
+                            date={moment(data.item.date).format('LLLL')}
+                            location={data.item.location}
+                          />
                         </div>
-                        <div className="flex flex-col md:flex-row items-center md:items-start">
-                          <motion.div
-                            className="relative w-24 mr-0 md:mr-8 mb-4 md:mb-0 opacity-0 border border-black rounded-lg border-opacity-10 dark:border-white dark:border-opacity-20 shadow"
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.3 }}
-                          >
-                            <CalendarItem
-                              date={data.item.date}
-                            />
-                          </motion.div>
-                          <motion.div
-                            className="w-full relative flex flex-1 flex-col items-center md:items-start opacity-0 -left-4 mt-4 md:mt-0 text-center md:text-left"
-                            animate={{ opacity: 1, left: 0}}
-                            transition={{ duration: 0.3, delay: 0.3 }}
-                          >
-                            <h1 className="my-0">{data.item.name}</h1>
-                            <p className="mt-2 mb-2 text-sm">{data.item.description}</p>
-                            <EventInfo
-                              date={moment(data.item.date).format('LLLL')}
-                              location={data.item.location}
-                            />
-                            <SlackLink/>
-                          </motion.div>
+                        <div className="col-span-2">
+                          <h5 className="mt-0 mb-2">About this event</h5>
+                          <p className="mt-0 mb-6">{data.item.description}</p>
+                          <SlackLink group={data.item.org} />
                         </div>
-                        <hr className="my-8 border-black dark:border-white border-opacity-20 dark:border-opacity-10"/>
-                        <SignUp/>
-                        <hr className="my-8 border-black dark:border-white border-opacity-20 dark:border-opacity-10"/>
+                        <div className="hidden lg:block">
+                          <h5 className="mt-0 mb-2">Event Details</h5>
+                          <EventInfo
+                            date={moment(data.item.date).format('LLLL')}
+                            location={data.item.location}
+                          />
+                        </div>
+                      </div>
+                      <div className="container p-3 mx-auto lg:w-1/2 pt-12">
                         {
                           data.item.name === 'Design Hangout' && (
                             <FAQ/>
@@ -291,6 +314,9 @@ const Events = ({ title, description, ...props }) => {
                             <CoworkFAQ/>
                           )
                         }
+                        <div className="relative">
+                          <SignUp/>
+                        </div>
                       </div>
                     </section>
                   </Layout>

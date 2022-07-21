@@ -270,8 +270,13 @@ const EventInterior = ({ data }) => {
 }
 
 export const Event = ({ data }) => {
+  return(
+    <BoxLink href={`/events/${data.id}`} title={`${data.name} - ${data.description}`} mt={'0'} mb={'4'}>
+      <EventInterior data={data}/>
+    </BoxLink>
+  )
 
-  if(data.name === 'Design Hangout') {
+  /*if(data.name === 'Design Hangout') {
     return(
       <BoxLink href={`/events/${data.id}`} title={`${data.name} - ${data.description}`} mt={'0'} mb={'4'}>
         <EventInterior data={data}/>
@@ -289,7 +294,7 @@ export const Event = ({ data }) => {
         <EventInterior data={data}/>
       </BoxAnchor>
     )
-  }
+  }*/
 }
 
 export const Credit = ({ data }) => {

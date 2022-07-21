@@ -34,7 +34,7 @@ const FAQ = () => {
 
   return(
     <>
-      <h3>Frequently Asked Questions</h3>
+      <h5 className="mb-2 mt-0">Frequently Asked Questions</h5>
       <Collapse title="What can I expect?">
         <ul className="flex flex-wrap items-center">
           {
