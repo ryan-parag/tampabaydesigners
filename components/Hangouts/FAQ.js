@@ -5,6 +5,7 @@ import useSWR from 'swr';
 import fetcher from '@utils/fetcher';
 import { motion } from 'framer-motion'
 import { Error, Loading } from '@components/DataStates'
+import Box from '@components/Box';
 
 const FAQ = () => {
 

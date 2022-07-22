@@ -7,11 +7,11 @@ const Collapse = ({title, children}) => {
   const [open, setOpen] = useState(false)
 
   return(
-    <Box p={'0'}>
+    <div className={`border-b border-black border-opacity-10 dark:border-white dark:border-opacity-10`}>
       <div
         role="button"
         onClick={() => setOpen(!open)}
-        className="select-none p-4 font-bold text-left transition bg-transparent hover:bg-white hover:bg-opacity-5 flex items-center justify-between"
+        className="select-none py-6 font-bold text-left transition bg-transparent hover:text-black dark:hover:text-white flex text-lg items-center justify-between"
       >
         {title}
         <div className={`transform relative transition opacity-60 ${open && 'rotate-180'}`}>
@@ -20,12 +20,12 @@ const Collapse = ({title, children}) => {
       </div>
       {
         open && (
-          <div className="p-4 text-left border-t border-black border-opacity-10 dark:border-white dark:border-opacity-10">
+          <div className="pb-4 text-left">
             {children}
           </div>
         )
       }
-    </Box>
+    </div>
   )
 }
 
