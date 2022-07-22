@@ -9,10 +9,53 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import moment from 'moment'
 import { SignUp } from '@components/Hangouts'
-import { ArrowLeft, MapPin, Clock, Check } from 'react-feather'
+import { ArrowLeft, MapPin, Clock, Check, Loader } from 'react-feather'
 import FAQ, { CoworkFAQ } from '@components/Hangouts/FAQ'
 import Box from '@components/Box'
 import { GroupLogo } from '@components/Logo'
+import { atcb_action } from "add-to-calendar-button";
+import 'add-to-calendar-button/assets/css/atcb.css';
+
+const AddToCalendar = ({ name, description, dateTime, location}) => {
+
+  const { data, error } = useSWR(`/api/hangout-locations/${location}`, fetcher);
+
+  return (
+    <>
+      {
+        data ? (
+          <button
+            className="button button--primary my-0"
+            onClick={(e) => {
+              e.preventDefault();
+              atcb_action({
+                name: `${name} at ${data.item.name}`,
+                description: description,
+                startDate: moment(dateTime).format('YYYY-MM-DD'),
+                endDate: moment(dateTime).format('YYYY-MM-DD'),
+                startTime: moment(dateTime).format('HH:mm'),
+                endTime: moment(dateTime).format('HH:mm'),
+                location: data.item.address,
+                options: ['Apple', 'Google', 'iCal', 'Microsoft365', 'Outlook.com'],
+                timeZone: "America/New_York",
+                iCalFileName: "TBD-Event",
+              });
+            }}
+          >
+            Add to Calendar
+          </button>
+        )
+        :
+        (
+          <div className="inline-flex justify-center items-center text-sm py-3">
+            Loading <Loader size={'16'} className="animate-spin ml-2" />
+          </div>
+        )
+      }
+    </>
+  );
+
+}
 
 const SlackLink = ({ group }) => {
 
@@ -251,9 +294,18 @@ const Events = ({ title, description, ...props }) => {
                           </motion.div>
                         </div>
                       </div>
-                      <div className={`container px-3 pb-8 mx-auto lg:w-1/2 grid grid-cols-${!data.item.link.includes('tampabay.design') ? '2' : '1'} gap-4`}>
+                      <div className={`container px-3 pb-8 mx-auto lg:w-1/2 grid grid-cols-2 gap-4`}>
                         {
-                          !data.item.link.includes('tampabay.design') && (
+                          data.item.link.includes('tampabay.design') ? (
+                            <AddToCalendar
+                              name={data.item.name}
+                              description={data.item.description}
+                              location={data.item.location}
+                              dateTime={data.item.date}
+                            />
+                          )
+                          :
+                          (
                             <a href={data.item.link} target="_blank" rel="noreferrer" className="button button--primary my-0">Attend</a>
                           )
                         }
