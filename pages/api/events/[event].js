@@ -1,4 +1,5 @@
 const { Client } = require('@notionhq/client');
+import moment from 'moment';
 
 const notion = new Client({ auth: process.env.NOTION_SECRET });
 
@@ -7,6 +8,8 @@ export default async (req,res) => {
   const {
     query: { event },
   } = req
+
+  const today = new Date().toISOString()
 
   const response = await notion.pages.retrieve({ page_id: event });
 
@@ -17,7 +20,8 @@ export default async (req,res) => {
     org: response.properties.Org.select.name,
     link: response.properties.Link.url,
     date: response.properties.Date.date.start,
-    location: response.properties.Location.relation[0].id
+    location: response.properties.Location.relation[0].id,
+    diff: moment(response.properties.Date.date.start).diff(moment(today), 'days')
   }
 
   res.status(200).json({ item });

@@ -2,13 +2,12 @@ import React from 'react'
 import { BoxLink } from '@components/Box'
 import { BoxAnchor } from '@components/Box'
 import { truncateString } from '@utils/text'
-import { motion } from 'framer-motion'
 import moment from 'moment'
 import Link from 'next/link'
 import Tag from '@components/Tag'
-import { GroupLogo } from '@components/Logo'
-import { ArrowRight, ExternalLink, MapPin, Clock } from 'react-feather'
+import { ArrowRight, ExternalLink } from 'react-feather'
 import { Avatar } from '@components/PageIcon'
+import EventInterior from '@components/Event/EventInterior'
 
 const textTruncateLength = 120
 
@@ -130,171 +129,12 @@ export const Group = ({ data }) => {
   )
 }
 
-export const CalendarItem = ({date, diff}) => {
-
-  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-  ]
-
-  const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-
-  const formatDate = date => {
-    let d = new Date(date)
-    let year = d.getFullYear()
-    const dateObj = {
-      dayString: dayNames[moment(date).day()],
-      numString: moment(date).date(),
-      monthString: monthNames[moment(date).month()],
-      yearString: year
-    }
-    return dateObj
-  }
-
-  return(
-    <div className="relative z-10 rounded-lg text-center bg-white dark:bg-black bg-opacity-70 dark:bg-opacity-70 backdrop-blur-sm overflow-hidden shadow flex flex-col w-full">
-      <div className="text-xs font-semibold py-1 bg-red-500 uppercase text-white font-mono tracking-widest">{formatDate(date).dayString}</div>
-      <div className="text-lg text-black dark:text-white md:text-2xl font-extrabold py-1 font-mono">{formatDate(date).numString}</div>
-      <div className="text-xs pb-1 text-black text-opacity-50 dark:text-white dark:text-opacity-50 font-mono">{formatDate(date).monthString}{' '}{formatDate(date).yearString}</div>
-    </div>
-  )
-}
-
-export const CalendarMobile = ({date, time, diff}) => {
-
-  const monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-  ]
-
-  const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-
-  const formatDate = date => {
-    let d = new Date(date)
-    let year = d.getFullYear()
-    const dateObj = {
-      dayString: dayNames[moment(date).day()],
-      numString: moment(date).date(),
-      monthString: monthNames[moment(date).month()],
-      yearString: year
-    }
-    return dateObj
-  }
-
-  return(
-    <div className="absolute top-0 right-0 left-0 w-full flex justify-between items-center py-2 px-4 bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-10">
-      <div className="text-xs font-semibold uppercase font-mono tracking-widest">
-        <Tag color={'green'}><span className="font-bold font-mono leading-tight">{formatDate(date).dayString}</span></Tag>
-        <span className="mx-2 opacity-50">/</span>
-        {
-          diff && diff < 7 ? (
-            <span className="text-green-700 dark:text-green-500">In {diff} day{diff !== 1 && 's'}</span>
-          )
-          :
-          (
-            <>
-              {formatDate(date).monthString} {formatDate(date).numString}{' '}{formatDate(date).yearString}
-            </>
-          )
-        }
-      </div>
-      <Tag><span className="font-bold font-mono leading-tight">{time}</span></Tag>
-    </div>
-  )
-}
-
-const EventInterior = ({ data }) => {
-
-  return(
-    <div className="flex items-start pt-8 md:pt-0">
-      <div className="block md:hidden">
-        <CalendarMobile
-          date={data.date}
-          time={moment(data.date).format('LT')}
-          diff={data.diff}
-        />
-      </div>
-      <motion.div
-        className="h-32 w-32 absolute -right-16 top-1/2 transform -translate-y-1/2 opacity-0 blur-lg rotate-6"
-        animate={{ opacity: .10 }}
-        transition={{ duration: .75, delay: 0.3 }}
-      >
-        <GroupLogo group={data.org}/>
-      </motion.div>
-      <div className="hidden md:inline-flex relative items-start flex-col py-1 px-0 w-20">
-        <CalendarItem date={data.date} />
-        <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-red-500 to-blue-500 top-0 bottom-0 left-0 right-0 rounded-full z-0"></div>
-        <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-yellow-500 to-purple-500 top-0 bottom-0 left-0 right-0 rounded-full z-0 transform rotate-6"></div>
-      </div>
-      <div className="pl-0 md:pl-4 flex-1">
-        <div className="mb-2 flex-col flex items-start">
-          <h4>{data.upcoming && 'Upcoming - '}{data.name}</h4>
-          <div className="my-2 flex flex-col text-left">
-            <div className="text-sm items-start hidden md:inline-flex mb-2">
-              <Clock size={'16'} className="mr-2 mt-1 text-black text-opacity-50 dark:text-white dark:text-opacity-50"/>
-              <div>
-                <div>
-                  {moment(data.date).format('dddd, MMMM D, YYYY')}
-                  {
-                    data.diff && data.diff !== 0 && data.diff < 7 ? (
-                      <span className="ml-2 font-semibold text-yellow-700 dark:text-yellow-500">In {data.diff} Day{data.diff !== 1 && 's'}</span>
-                    )
-                    :
-                    null
-                  }
-                </div>
-                <div>
-                  Starts at {moment(data.date).format('LT')}
-                </div>
-              </div>
-            </div>
-            <div className="text-sm inline-flex items-center">
-              <MapPin size={'16'} className="mr-2 text-black text-opacity-50 dark:text-white dark:text-opacity-50"/>
-              <span>{data.locationName}</span>
-            </div>
-          </div>
-          <div className="text-sm mb-2 text-black text-opacity-50 dark:text-white dark:text-opacity-50">
-            {truncateString(data.description, textTruncateLength)}
-          </div>
-          <small className="inline-flex items-center">
-            Hosted by
-            <div className="inline-flex items-center ml-2">
-              <div className="h-6 w-6 mr-2">
-                <GroupLogo group={data.org}/>
-              </div>
-              <strong>{data.org}</strong>
-            </div>
-          </small>
-        </div>
-      </div>
-    </div>
-  )
-}
-
 export const Event = ({ data }) => {
   return(
     <BoxLink href={`/events/${data.id}`} title={`${data.name} - ${data.description}`} mt={'0'} mb={'4'}>
       <EventInterior data={data}/>
     </BoxLink>
   )
-
-  /*if(data.name === 'Design Hangout') {
-    return(
-      <BoxLink href={`/events/${data.id}`} title={`${data.name} - ${data.description}`} mt={'0'} mb={'4'}>
-        <EventInterior data={data}/>
-      </BoxLink>
-    )
-  } else if(data.name === 'Designer Cowork') {
-    return(
-      <BoxLink href={`/events/${data.id}`} title={`${data.name} - ${data.description}`} mt={'0'} mb={'4'}>
-        <EventInterior data={data}/>
-      </BoxLink>
-    )
-  } else {
-    return(
-      <BoxAnchor href={data.link} title={`${data.name} - ${data.description}`} mt={'0'} mb={'4'}>
-        <EventInterior data={data}/>
-      </BoxAnchor>
-    )
-  }*/
 }
 
 export const Credit = ({ data }) => {

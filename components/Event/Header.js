@@ -4,6 +4,7 @@ import { Check } from 'react-feather'
 import moment from 'moment'
 import { motion } from 'framer-motion'
 import { GroupLogo } from '@components/Logo'
+import { CalendarMobile } from './CalendarItem'
 
 const Header = ({ event }) => {
 
@@ -31,10 +32,17 @@ const Header = ({ event }) => {
   },[copy])
 
   return(
-    <div className="bg-white dark:bg-zinc-900 dark:bg-opacity-50 w-full border-b border-gray-400 border-opacity-10 dark:border-gray-400 dark:border-opacity-10 shadow-lg">
-      <div className="container px-3 py-8 mx-auto lg:w-1/2 flex">
+    <div className="bg-white dark:bg-zinc-900 dark:bg-opacity-50 w-full border-b border-gray-400 border-opacity-10 dark:border-gray-400 dark:border-opacity-10 shadow-lg relative">
+      <div className="w-full md:hidden">
+        <CalendarMobile
+          date={event.date}
+          time={moment(event.date).format('LT')}
+          diff={event.diff}
+        />
+      </div>
+      <div className="container px-3 pb-8 pt-12 md:pt-8 mx-auto lg:w-1/2 flex">
         <div className="flex-1 pr-4">
-          <span className="text-xs lg:text-sm">{moment(event.date).format('LLLL')}</span>
+          <span className="text-xs lg:text-sm hidden md:block">{moment(event.date).format('LLLL')}</span>
           <h1 className="my-3 text-2xl lg:text-4xl">{event.name}</h1>
           <motion.div
             className="relative flex items-center opacity-0"
