@@ -25,49 +25,35 @@ const Events = ({ title, description, ...props }) => {
 
   const { data, error } = useSWR(`/api/events/${event}`, fetcher);
 
-  const metaURLs = ['/tbd-sm.png', '/hangout-sm.png', '/cowork-social-media.png']
-
-  const getMeta = (name) => {
-    if(name === 'Design Hangout') {
-      return metaURLs[1]
-    } else if(name === 'Designer Cowork') {
-      return metaURLs[2]
-    } else {
-      return metaURLs[0]
-    }
-  }
-
 
   return (
-    <>
+    <Layout pageTitle={title} description={description} ogImage={'/tbd-events.png'}>
       {
         error && (
-          <Layout pageTitle={title} description={description} ogImage={'/tbd-sm.png'}>
-            <section
-              className="pt-24 pb-24 flex flex-col"
-              style={{
-                backgroundImage: "url('/static/blur-bg.png')",
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat'
-              }}
-            >
-              <div className="container p-3 mx-auto lg:w-1/2">
-                <div className="flex mb-8">
-                  <Link href="/events">
-                    <a className="hover:underline inline-flex items-center">
-                      <ArrowLeft
-                        size={'20'}
-                        className="mr-1"
-                      />
-                      Back
-                    </a>
-                  </Link>
-                </div>
-                <Error/>
+          <section
+            className="pt-24 pb-24 flex flex-col"
+            style={{
+              backgroundImage: "url('/static/blur-bg.png')",
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat'
+            }}
+          >
+            <div className="container p-3 mx-auto lg:w-1/2">
+              <div className="flex mb-8">
+                <Link href="/events">
+                  <a className="hover:underline inline-flex items-center">
+                    <ArrowLeft
+                      size={'20'}
+                      className="mr-1"
+                    />
+                    Back
+                  </a>
+                </Link>
               </div>
-            </section>
-          </Layout>
+              <Error/>
+            </div>
+          </section>
         )
       }
       {
@@ -76,66 +62,60 @@ const Events = ({ title, description, ...props }) => {
             {
               data.item ? (
                 <>
-                  <Layout pageTitle={title} description={description} ogImage={getMeta(data.item.name)}>
-                    <Header event={data.item} />
-                    <Body event={data.item}/>
-                  </Layout>
+                  <Header event={data.item} />
+                  <Body event={data.item}/>
                 </>
               )
               :
               (
-                <Layout pageTitle={title} description={description} ogImage={'/tbd-sm.png'}>
-                  <section
-                    className="pt-24 pb-24 flex flex-col"
-                    style={{
-                      backgroundImage: "url('/static/blur-bg.png')",
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                      backgroundRepeat: 'no-repeat'
-                    }}
-                  >
-                    <div className="container p-3 mx-auto lg:w-1/2">
-                      <div className="flex mb-8">
-                        <Link href="/events">
-                          <a className="hover:underline inline-flex items-center">
-                            <ArrowLeft
-                              size={'20'}
-                              className="mr-1"
-                            />
-                            Back
-                          </a>
-                        </Link>
-                      </div>
-                      <Empty>
-                        This event does not exist
-                      </Empty>
+                <section
+                  className="pt-24 pb-24 flex flex-col"
+                  style={{
+                    backgroundImage: "url('/static/blur-bg.png')",
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat'
+                  }}
+                >
+                  <div className="container p-3 mx-auto lg:w-1/2">
+                    <div className="flex mb-8">
+                      <Link href="/events">
+                        <a className="hover:underline inline-flex items-center">
+                          <ArrowLeft
+                            size={'20'}
+                            className="mr-1"
+                          />
+                          Back
+                        </a>
+                      </Link>
                     </div>
-                  </section>
-                </Layout>
+                    <Empty>
+                      This event does not exist
+                    </Empty>
+                  </div>
+                </section>
               )
             }
           </>
         )
         :
         (
-          <Layout pageTitle={title} description={description} ogImage={'/tbd-sm.png'}>
-            <section
-              className="pt-24 pb-24 flex flex-col"
-              style={{
-                backgroundImage: "url('/static/blur-bg.png')",
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat'
-              }}
-            >
-              <div className="container p-3 mx-auto lg:w-1/2">
-                <Loading/>
-              </div>
-            </section>
-          </Layout>
+          <section
+            className="pt-24 pb-24 flex flex-col"
+            style={{
+              backgroundImage: "url('/static/blur-bg.png')",
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat'
+            }}
+          >
+            <div className="container p-3 mx-auto lg:w-1/2">
+              <Loading/>
+            </div>
+          </section>
         )
       }
-    </>
+    </Layout>
   )
 }
 
