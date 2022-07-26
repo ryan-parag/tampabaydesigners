@@ -11,12 +11,13 @@ const textTruncateLength = 120
 const EventInterior = ({ data }) => {
 
   return(
-    <div className="flex items-start pt-8 md:pt-0">
+    <div className="flex items-start pt-10 md:pt-0">
       <div className="block md:hidden">
         <CalendarMobile
           date={data.date}
           time={moment(data.date).format('LT')}
           diff={data.diff}
+          padding={'4'}
         />
       </div>
       <motion.div

@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { MapPin, Clock } from 'react-feather'
 import Box from '@components/Box'
 
-const EventInfo = ({ date, location }) => {
+const EventInfo = ({ date, location, diff }) => {
 
   const { data, error } = useSWR(`/api/hangout-locations/${location}`, fetcher);
 
@@ -17,11 +17,20 @@ const EventInfo = ({ date, location }) => {
           animate={{ opacity: 1, top: 0 }}
           transition={{ duration: 0.3, delay: 0.5 }}
         >
+          {
+            diff && diff !== 0 && diff < 7 ? (
+              <span className="px-2 py-2 border border-green-500 border-opacity-10 mb-2 bg-green-500 bg-opacity-10 flex text-center items-center justify-center w-full rounded text-sm font-semibold text-green-700 dark:text-green-500">Starts in {diff} day{diff !== 1 && 's'}</span>
+            )
+            :
+            null
+          }
           <div className="flex items-center mb-2 text-black text-opacity-60 dark:text-white dark:text-opacity-50">
             <span className="pr-2 mt-0 mb-0 text-sm">Date and time</span>
             <Clock size={'16'}/>
           </div>
-          <p className="text-sm my-0">{date}</p>
+          <p className="text-sm my-0">
+            {date}
+          </p>
         </motion.div>
         <hr className="my-4 border-b border-gray-400 border-opacity-10 dark:border-gray-400 dark:border-opacity-10"/>
         <motion.div

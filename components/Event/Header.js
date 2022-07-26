@@ -32,12 +32,13 @@ const Header = ({ event }) => {
   },[copy])
 
   return(
-    <div className="bg-white dark:bg-zinc-900 dark:bg-opacity-50 w-full border-b border-gray-400 border-opacity-10 dark:border-gray-400 dark:border-opacity-10 shadow-lg relative">
+    <div className="bg-white dark:bg-zinc-900 dark:bg-opacity-70 w-full border-b border-gray-400 border-opacity-10 dark:border-gray-400 dark:border-opacity-10 shadow-lg relative">
       <div className="w-full md:hidden">
         <CalendarMobile
           date={event.date}
           time={moment(event.date).format('LT')}
           diff={event.diff}
+          padding={'3'}
         />
       </div>
       <div className="container px-3 pb-8 pt-12 md:pt-8 mx-auto lg:w-1/2 flex">

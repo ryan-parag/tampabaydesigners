@@ -22,6 +22,7 @@ const Body = ({ event }) => {
           <EventInfo
             date={moment(event.date).format('LLLL')}
             location={event.location}
+            diff={event.diff}
           />
         </div>
         <div className="col-span-2">
@@ -34,6 +35,7 @@ const Body = ({ event }) => {
           <EventInfo
             date={moment(event.date).format('LLLL')}
             location={event.location}
+            diff={event.diff}
           />
         </div>
       </div>

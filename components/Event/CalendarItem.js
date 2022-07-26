@@ -31,7 +31,7 @@ const CalendarItem = ({date, diff}) => {
   )
 }
 
-export const CalendarMobile = ({date, time, diff}) => {
+export const CalendarMobile = ({date, time, diff, padding}) => {
 
   const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
@@ -52,7 +52,7 @@ export const CalendarMobile = ({date, time, diff}) => {
   }
 
   return(
-    <div className="absolute top-0 right-0 left-0 w-full flex justify-between items-center py-2 px-4 bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-10">
+    <div className={`absolute top-0 right-0 left-0 w-full flex justify-between items-center py-2 px-${padding} border-b border-black border-opacity-10 dark:border-white dark:border-opacity-10`}>
       <div className="text-xs font-semibold uppercase font-mono tracking-widest">
         <Tag color={'green'}><span className="font-bold font-mono leading-tight">{formatDate(date).dayString}</span></Tag>
         <span className="mx-2 opacity-50">/</span>
