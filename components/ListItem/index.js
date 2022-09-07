@@ -222,7 +222,7 @@ export const LinkCard = ({href, tint, type, label}) => {
           )
         }
         <div className="flex justify-between items-center">
-          <h5>{label}</h5>
+          <h6>{label}</h6>
           <ArrowRight size={20} />
         </div>
       </div>
@@ -242,7 +242,7 @@ export const AnchorCard = ({href, tint, type, label}) => {
           )
         }
         <div className="flex justify-between items-center">
-          <h5>{label}</h5>
+          <h6>{label}</h6>
           <ExternalLink size={20} />
         </div>
       </div>
