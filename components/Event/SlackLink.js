@@ -36,11 +36,10 @@ const SlackLink = ({ group }) => {
       {
         data ? (
           data.groups.map((item,i) => (
-            <>
+            <React.Fragment key={item.id}>
               {
                 item.name === getGroup(group) && item.type.toLowerCase() === 'slack' && (
                   <motion.li
-                    key={item.id}
                     className="opacity-0 top-4 relative"
                     animate={{ top: 0, opacity: 1 }}
                     transition={{ duration: 0.3 }}
@@ -49,7 +48,7 @@ const SlackLink = ({ group }) => {
                   </motion.li>
                 )
               }
-            </>
+            </React.Fragment>
           ))
         )
         :

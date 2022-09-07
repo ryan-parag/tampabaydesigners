@@ -5,6 +5,10 @@ module.exports = {
   ],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
+    fontFamily: {
+      sans: ['Fragment-Sans', 'sans-serif'],
+      serif: ['Fragment-Serif', 'serif'],
+    },
     extend: {
       screens: {
         light: { raw: "(prefers-color-scheme: light)" },

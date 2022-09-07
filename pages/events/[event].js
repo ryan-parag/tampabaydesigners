@@ -4,17 +4,8 @@ import Layout from '@components/Layout'
 import useSWR from 'swr';
 import fetcher from '@utils/fetcher';
 import { Error, Loading, Empty } from '@components/DataStates'
-import { motion } from 'framer-motion'
 import Link from 'next/link'
-import moment from 'moment'
-import { SignUp } from '@components/Hangouts'
 import { ArrowLeft, MapPin, Clock, Check, Loader } from 'react-feather'
-import FAQ, { CoworkFAQ } from '@components/Hangouts/FAQ'
-import Box from '@components/Box'
-import { GroupLogo } from '@components/Logo'
-import AddToCalendar from '@components/Event/AddToCalendar';
-import SlackLink from '@components/Event/SlackLink';
-import EventInfo from '@components/Event/EventInfo';
 import Header from '@components/Event/Header'
 import Body from '@components/Event/Body'
 

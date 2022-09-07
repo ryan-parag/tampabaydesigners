@@ -39,7 +39,7 @@ export default function Logo(props) {
             )
           }
           <div className={`${props.small ? 'pl-2' : 'pl-4'}`}>
-            <h2 className={`${props.small ? 'text-sm' : 'text-lg'} ${props.mono ? 'text-black dark:text-white dark:text-opacity-50 text-opacity-50' : 'text-black dark:text-white dark:text-opacity-100 text-opacity-100'} tracking-wider uppercase font-sans font-bold`}>{siteConfig.title}</h2>
+            <h2 className={`${props.small ? 'text-sm' : 'text-lg'} ${props.mono ? 'text-black dark:text-white dark:text-opacity-50 text-opacity-50' : 'text-black dark:text-white dark:text-opacity-100 text-opacity-100'} tracking-wider uppercase font-sans font-black`}>{siteConfig.title}</h2>
           </div>
         </div>
       </a>

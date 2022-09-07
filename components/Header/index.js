@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Menu, X } from 'react-feather'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/router'
+import Profile from '@components/Profile'
 
 const NavItem = ({ href, name, mobile, state }) => {
 
@@ -92,6 +93,9 @@ const Header = () => {
                 </li>
               ))
             }
+            <li className="px-2 inline-flex items-center">
+              <Profile sm/>
+            </li>
           </ul>
         </div>
       </div>
