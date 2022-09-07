@@ -78,9 +78,6 @@ const Header = () => {
             <Menu size={20}/>
           </button>
           <Logo small />
-          <button className="opacity-0 p-2 invisible">
-            <Menu size={20}/>
-          </button>
           <ul className="hidden md:flex">
             {
               navItems.map((item, i) => (
@@ -97,6 +94,9 @@ const Header = () => {
               <Profile sm/>
             </li>
           </ul>
+          <div className="inline-block md:hidden">
+            <Profile sm/>
+          </div>
         </div>
       </div>
       {
