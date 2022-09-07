@@ -4,6 +4,7 @@ import { SignUp } from '@components/Hangouts'
 import FAQ, { CoworkFAQ } from '@components/Hangouts/FAQ'
 import SlackLink from '@components/Event/SlackLink';
 import EventInfo from '@components/Event/EventInfo';
+import Avatar from '@components/Avatar';
 
 const Body = ({ event }) => {
   return(
@@ -23,6 +24,7 @@ const Body = ({ event }) => {
             date={moment(event.date).format('LLLL')}
             location={event.location}
             diff={event.diff}
+            event={event}
           />
         </div>
         <div className="col-span-2">
@@ -36,6 +38,7 @@ const Body = ({ event }) => {
             date={moment(event.date).format('LLLL')}
             location={event.location}
             diff={event.diff}
+            event={event}
           />
         </div>
       </div>

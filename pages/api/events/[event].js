@@ -13,6 +13,8 @@ export default async (req,res) => {
 
   const response = await notion.pages.retrieve({ page_id: event });
 
+  const attending = response.properties.Attending.rollup.array
+
   const item = {
     id: response.id,
     name: response.properties.Name.title[0].plain_text,
@@ -21,8 +23,13 @@ export default async (req,res) => {
     link: response.properties.Link.url,
     date: response.properties.Date.date.start,
     location: response.properties.Location.relation[0].id,
-    diff: moment(response.properties.Date.date.start).diff(moment(today), 'days')
+    diff: moment(response.properties.Date.date.start).diff(moment(today), 'days'),
+    attending: []
   }
+
+  attending.map(attendee => {
+    item.attending.push(attendee.title[0].text.content)
+  })
 
   res.status(200).json({ item });
 }

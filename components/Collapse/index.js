@@ -11,7 +11,7 @@ const Collapse = ({title, children}) => {
       <div
         role="button"
         onClick={() => setOpen(!open)}
-        className="select-none py-6 font-bold text-left transition bg-transparent hover:text-black dark:hover:text-white flex text-lg items-center justify-between"
+        className="select-none py-6 font-bold text-left transition bg-transparent hover:text-black dark:hover:text-white flex text-base lg:text-lg items-center justify-between"
       >
         {title}
         <div className={`transform relative transition opacity-60 ${open && 'rotate-180'}`}>

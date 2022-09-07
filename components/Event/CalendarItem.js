@@ -57,8 +57,8 @@ export const CalendarMobile = ({date, time, diff, padding}) => {
         <Tag color={'green'}><span className="font-bold font-mono leading-tight">{formatDate(date).dayString}</span></Tag>
         <span className="mx-2 opacity-50">/</span>
         {
-          diff && diff < 7 ? (
-            <span className="text-green-700 dark:text-green-500">In {diff} day{diff !== 1 && 's'}</span>
+          diff && diff >= 0 && diff <= 7 ? (
+            <span className="text-green-700 dark:text-green-500">In {diff} day{diff !== 1 && 's'} 🎉</span>
           )
           :
           (

@@ -2,10 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Fragment-Serif';
+  src: url('/fonts/PPFragment-GlareRegular.otf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Fragment-Sans';
+  src: url('/fonts/PPFragment-SansLight.otf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Fragment-Sans';
+  src: url('/fonts/PPFragment-SansRegular.otf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Fragment-Sans';
+  src: url('/fonts/PPFragment-SansExtraBold.otf') format('truetype');
+  font-weight: 900;
+  font-display: swap;
+  font-style: normal;
+}
+
 @layer base {
 
   body {
-    @apply bg-white text-gray-900 text-opacity-75 dark:bg-black dark:text-white dark:text-opacity-75;
+    @apply font-sans bg-white text-gray-900 text-opacity-75 dark:bg-black dark:text-white dark:text-opacity-75;
   }
 
   small {
@@ -25,7 +57,7 @@
   }
 
   h1,h2,h3,h4,h5,h6 {
-    @apply font-normal text-black dark:text-white text-opacity-100 dark:text-opacity-100 leading-tight;
+    @apply font-normal font-serif text-black dark:text-white text-opacity-100 dark:text-opacity-100 leading-snug;
   }
 
   h6 {

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import AddToCalendar from './AddToCalendar'
+import Attend from './Attend'
 import { Check } from 'react-feather'
 import moment from 'moment'
 import { motion } from 'framer-motion'
 import { GroupLogo } from '@components/Logo'
 import { CalendarMobile } from './CalendarItem'
+import Avatar from '@components/Avatar'
 
 const Header = ({ event }) => {
 
@@ -57,39 +58,75 @@ const Header = ({ event }) => {
               <div className="h-6 w-6">
                 <GroupLogo group={event.org}/>
               </div>
-              <strong className="ml-2">{event.org}</strong>
+              <strong className="mx-2">{event.org}</strong>
+              {
+                copy ? (
+                  <div className="cursor-pointer inline-flex justify-center items-center text-sm">
+                    <Check size={'16'} className="text-green-500 mr-2"/>
+                    Copied
+                  </div>
+                )
+                :
+                (
+                  <button onClick={() => copyLink(`https://tampabay.design/events/${event.id}`)} className="underline text-sm">Copy Link</button>
+                )
+              }
             </div>
           </motion.div>
         </div>
       </div>
-      <div className={`container px-3 pb-8 mx-auto lg:w-1/2 grid grid-cols-2 gap-4`}>
+      <>
         {
-          event.link.includes('tampabay.design') ? (
-            <AddToCalendar
-              name={event.name}
-              description={event.description}
-              location={event.location}
-              dateTime={event.date}
-            />
-          )
-          :
-          (
-            <a href={event.link} target="_blank" rel="noreferrer" className="button button--primary my-0">Attend</a>
+          event.diff && event.diff >= 0 && (
+            <>
+              {
+                event.link.includes('tampabay.design') ? (
+                  <div className={`container px-3 pb-8 mx-auto lg:w-1/2 grid grid-cols-1 xl:grid-cols-3 gap-y-6 lg:gap-x-6`}>
+                    <div className="col-span-2">
+                      {
+                        event.attending.length > 0 ? (
+                          <div className="flex w-full items-center">
+                            <span className="text-3xl">🎉</span>
+                            <div className="pl-2 flex-1 w-full mt-2 leading-relaxed">
+                              Join&nbsp;
+                              <strong>
+                                {
+                                  event.attending.slice(0, 3).join(', ')
+                                }
+                                {
+                                  event.attending.length >= 4 && (
+                                    <>
+                                      &nbsp;and {event.attending.length - 3} more
+                                    </>
+                                  )
+                                }
+                              </strong>
+                              &nbsp;at this event
+                            </div>
+                          </div>
+                        )
+                        :
+                        (
+                          <span className="opacity-50">Be the first to sign up for attendance!</span>
+                        )
+                      }
+                    </div>
+                    <Attend
+                      event={event}
+                    />
+                  </div>
+                )
+                :
+                (
+                  <div className={`container px-3 pb-8 mx-auto lg:w-1/2 grid grid-cols-1 gap-4`}>
+                    <a href={event.link} target="_blank" className="button my-0 button-primary">Attend</a>
+                  </div>
+                )
+              }
+            </>
           )
         }
-        {
-          copy ? (
-            <div className="text-center px-4 cursor-pointer py-3 my-0 inline-flex justify-center items-center border border-transparent">
-              <Check size={'16'} className="text-green-500 mr-2"/>
-              Copied
-            </div>
-          )
-          :
-          (
-            <button onClick={() => copyLink(`https://tampabay.design/events/${event.id}`)} className="button my-0">Copy Link</button>
-          )
-        }
-      </div>
+      </>
     </div>
   )
 }

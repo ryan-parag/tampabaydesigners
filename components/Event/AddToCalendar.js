@@ -15,7 +15,7 @@ const AddToCalendar = ({ name, description, dateTime, location}) => {
       {
         data ? (
           <button
-            className="button button--primary my-0"
+            className="inline-block text-xs mt-2 underline"
             onClick={(e) => {
               e.preventDefault();
               atcb_action({
@@ -37,7 +37,7 @@ const AddToCalendar = ({ name, description, dateTime, location}) => {
         )
         :
         (
-          <div className="inline-flex justify-center items-center text-sm py-3">
+          <div className="inline-flex justify-start items-center text-xs mt-2">
             Loading <Loader size={'16'} className="animate-spin ml-2" />
           </div>
         )
