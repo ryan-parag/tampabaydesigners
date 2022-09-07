@@ -77,7 +77,7 @@ const Header = ({ event }) => {
       </div>
       <>
         {
-          event.diff && event.diff >= 0 && (
+          event.diff && event.diff >= 0 ? (
             <>
               {
                 event.link.includes('tampabay.design') ? (
@@ -125,6 +125,8 @@ const Header = ({ event }) => {
               }
             </>
           )
+          :
+          null
         }
       </>
     </div>

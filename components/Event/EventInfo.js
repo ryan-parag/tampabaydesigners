@@ -26,9 +26,11 @@ const EventInfo = ({ event, date, location, diff }) => {
             null
           }
           {
-            diff && diff < 0 && (
+            diff && diff < 0 ? (
               <span className="mb-2 flex items-center w-full text-sm font-semibold text-red-700 dark:text-red-500">This event already took place</span>
             )
+            :
+            null
           }
           <div className="flex items-center mb-2 text-black text-opacity-60 dark:text-white dark:text-opacity-50">
             <span className="pr-2 mt-0 mb-0 text-sm">Date and time</span>
@@ -38,7 +40,7 @@ const EventInfo = ({ event, date, location, diff }) => {
             {date}
           </p>
           {
-            event && diff && diff >= 0 && (
+            event && diff && diff >= 0 ? (
               <div className="my-2">
                 <AddToCalendar
                   name={event.name}
@@ -48,6 +50,8 @@ const EventInfo = ({ event, date, location, diff }) => {
                 />
               </div>
             )
+            :
+            null
           }
         </motion.div>
         <hr className="my-4 border-b border-gray-400 border-opacity-10 dark:border-gray-400 dark:border-opacity-10"/>
