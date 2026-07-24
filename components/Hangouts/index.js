@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import FadeIn from '@components/FadeIn'
 import Box, { BoxLink } from '@components/Box'
-import { Check } from 'react-feather'
+import { Check, MapPin, Clock } from 'react-feather'
 import useSWR from 'swr';
 import fetcher from '@utils/fetcher';
 import { Event } from '@components/ListItem'
-import { Avatar } from '@components/PageIcon'
 import Tag from '@components/Tag'
+import { GroupLogo } from '@components/Logo'
 
 export const LatestHangout = () => {
 
@@ -25,14 +25,58 @@ export const LatestHangout = () => {
         )
         :
         (
-          <BoxLink href={'/hangouts'} mt={'0'} mb={'0'} p={'0'} tint={'green'}>
-            <div
-              className="flex flex-row w-full px-4 py-6 rounded backdrop-filter backdrop-blur-2xl dark:bg-green-900 dark:bg-opacity-30 bg-green-100 bg-opacity-80"
-            >
-              <Avatar type={'🎉'} />
-              <div className="flex-1 pl-4">
-                <h4 className="mt-2 mb-2">Meet designers in the area!</h4>
-                <p className="text-xs md:text-sm mb-4 mt-0">Let's get together on the first Thursday of every month somewhere around the Tampa/St. Pete area - join your fellow designers as we grab some drinks, talk shop, or whatever else comes to mind.</p>
+          <BoxLink href={'/hangouts'} title={'Design Hangout - first Thursday of every month'} mt={'0'} mb={'0'}>
+            <div className="flex items-start pt-10 md:pt-0">
+              <div className="md:hidden absolute top-0 right-0 left-0 w-full flex justify-between items-center py-2 px-4 border-b border-black border-opacity-10 dark:border-white dark:border-opacity-10">
+                <div className="text-xs font-semibold uppercase font-mono tracking-widest">
+                  <Tag color={'green'}><span className="font-bold font-mono leading-tight">Thu</span></Tag>
+                  <span className="mx-2 opacity-50">/</span>
+                  First Thursday
+                </div>
+                <Tag><span className="font-bold font-mono leading-tight">Monthly</span></Tag>
+              </div>
+              <motion.div
+                className="h-32 w-32 absolute -right-16 top-1/2 transform -translate-y-1/2 opacity-0 blur-lg rotate-6"
+                animate={{ opacity: .10 }}
+                transition={{ duration: .75, delay: 0.3 }}
+              >
+                <GroupLogo group={'Tampa Bay Designers'}/>
+              </motion.div>
+              <div className="hidden md:inline-flex relative items-start flex-col py-1 px-0 w-20">
+                <div className="relative z-10 rounded-lg text-center bg-white dark:bg-black bg-opacity-70 dark:bg-opacity-70 backdrop-blur-sm overflow-hidden shadow flex flex-col w-full">
+                  <div className="text-xs font-semibold py-1 bg-red-500 uppercase text-white font-mono tracking-widest">Thu</div>
+                  <div className="text-lg md:text-2xl py-1">🎉</div>
+                  <div className="text-xs pb-1 text-black text-opacity-50 dark:text-white dark:text-opacity-50 font-mono">Monthly</div>
+                </div>
+                <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-red-500 to-blue-500 top-0 bottom-0 left-0 right-0 rounded-full z-0"></div>
+                <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-yellow-500 to-purple-500 top-0 bottom-0 left-0 right-0 rounded-full z-0 transform rotate-6"></div>
+              </div>
+              <div className="pl-0 md:pl-4 flex-1">
+                <div className="mb-2 flex-col flex items-start">
+                  <h4>Meet designers in the area!</h4>
+                  <div className="my-2 flex flex-col text-left">
+                    <div className="text-sm items-start hidden md:inline-flex mb-2">
+                      <Clock size={'16'} className="mr-2 mt-1 text-black text-opacity-50 dark:text-white dark:text-opacity-50"/>
+                      <div>First Thursday of every month</div>
+                    </div>
+                    <div className="text-sm inline-flex items-center">
+                      <MapPin size={'16'} className="mr-2 text-black text-opacity-50 dark:text-white dark:text-opacity-50"/>
+                      <span>Around the Tampa/St. Pete area</span>
+                    </div>
+                  </div>
+                  <div className="text-sm mb-2 text-black text-opacity-50 dark:text-white dark:text-opacity-50">
+                    Join your fellow designers as we grab some drinks, talk shop, or whatever else comes to mind.
+                  </div>
+                  <small className="inline-flex items-center">
+                    Hosted by
+                    <div className="inline-flex items-center ml-2">
+                      <div className="h-6 w-6 mr-2">
+                        <GroupLogo group={'Tampa Bay Designers'}/>
+                      </div>
+                      <strong>Tampa Bay Designers</strong>
+                    </div>
+                  </small>
+                </div>
               </div>
             </div>
           </BoxLink>

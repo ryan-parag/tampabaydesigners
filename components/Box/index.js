@@ -9,7 +9,7 @@ const P = { '0': 'p-0', '4': 'p-4', '6': 'p-6' }
 
 const spacing = (mb, mt, p) => `${MB[mb] || 'mb-4'} ${MT[mt] || 'mt-4'} ${P[p] || 'p-4'}`
 
-const baseClasses = 'bg-gray-400 bg-opacity-10 rounded border border-gray-400 border-opacity-10 dark:bg-gray-500 dark:bg-opacity-10 dark:border-gray-400 dark:border-opacity-10 backdrop-filter backdrop-blur-2xl'
+const baseClasses = 'bg-gray-400 bg-opacity-10 rounded ring-1 ring-inset ring-black/[0.08] dark:bg-gray-500 dark:bg-opacity-10 dark:ring-gray-400/10 backdrop-filter backdrop-blur-2xl'
 
 const hoverClasses = 'transition dark:hover:bg-gray-400 dark:hover:bg-opacity-20 hover:bg-gray-300 hover:bg-opacity-30 hover:scale-105 focus:scale-105'
 
