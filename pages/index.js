@@ -5,6 +5,7 @@ import { LinkCard, AnchorCard } from '@components/ListItem'
 import { LatestHangout } from '@components/Hangouts'
 import Box, { BoxLink } from '@components/Box'
 import useHover from '@utils/useHover'
+import config from '../siteconfig.json'
 
 const AbsoluteImages = () => {
 
@@ -177,6 +178,17 @@ const Index = ({ title, description, ...props }) => {
                 tint={'indigo'}
                 label={'Contribute'}
                 type={'interviews'}
+              />
+            </motion.div>
+            <motion.div
+              className="transition relative transform top-4 opacity-0"
+              animate={{ opacity: 1, top: 0 }}
+              transition={{ duration: 0.24, delay: 1.4 }}
+            >
+              <AnchorCard
+                href={config.meetupUrl}
+                tint={'green'}
+                label={'Join us on Meetup'}
               />
             </motion.div>
           </div>

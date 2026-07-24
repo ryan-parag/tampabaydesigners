@@ -1,6 +1,7 @@
 import React from 'react'
 import Logo from '@components/Logo'
 import Link from 'next/link'
+import config from '../../siteconfig.json'
 
 const Footer = () => {
 
@@ -21,7 +22,11 @@ const Footer = () => {
       name: 'About',
       link: '/about'
     }, {
-      name: 'Generate Event Images',
+      name: 'Meetup',
+      link: config.meetupUrl,
+      external: true
+    }, {
+      name: 'Images',
       link: 'https://tbd-image-gen.vercel.app',
       external: true
     }
