@@ -140,12 +140,17 @@ export function resolveMeetupLink(byDate, event) {
 }
 
 // Notion Link values pointing back at the site itself are placeholders, not
-// real RSVP targets — they made the RSVP button link the site to itself
+// real RSVP targets — they made the RSVP button link the site to itself.
+// A link to the Meetup group root is also a placeholder: it adds nothing over
+// the built-in fallback and would block auto-resolution once the real Meetup
+// event exists.
 function needsLink(event) {
   if (!event) return false
   if (!event.link) return true
   try {
-    return /(^|\.)tampabay\.design$/.test(new URL(event.link).hostname)
+    const url = new URL(event.link)
+    if (/(^|\.)tampabay\.design$/.test(url.hostname)) return true
+    return /(^|\.)meetup\.com$/.test(url.hostname) && !/\/events\/\d+/.test(url.pathname)
   } catch {
     return true
   }
