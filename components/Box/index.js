@@ -13,6 +13,8 @@ const baseClasses = 'bg-gray-400 bg-opacity-10 rounded border border-gray-400 bo
 
 const hoverClasses = 'transition dark:hover:bg-gray-400 dark:hover:bg-opacity-20 hover:bg-gray-300 hover:bg-opacity-30 hover:scale-105 focus:scale-105'
 
+const ROTATE = { '1': 'hover:rotate-1 focus:rotate-1', '2': 'hover:rotate-2 focus:rotate-2' }
+
 const getTint = type => {
   switch(type) {
     case 'red':
@@ -40,20 +42,20 @@ const Box = ({ children, mb, mt, p }) => {
   )
 }
 
-export const BoxLink = ({ children, href, mb, mt, p, tint }) => {
+export const BoxLink = ({ children, href, mb, mt, p, tint, rotate }) => {
   return (
     <Link
       href={href}
-      className={`w-full transform relative overflow-hidden block ${spacing(mb, mt, p)} ${baseClasses} ${hoverClasses}`}>
+      className={`w-full transform relative overflow-hidden block ${spacing(mb, mt, p)} ${baseClasses} ${hoverClasses} ${ROTATE[rotate] || ''}`}>
       {children}
       { tint && getTint(tint) }
     </Link>
   );
 }
 
-export const BoxAnchor = ({ children, href, mb, mt, p, title, tint }) => {
+export const BoxAnchor = ({ children, href, mb, mt, p, title, tint, rotate }) => {
   return(
-    <a target="_blank" title={title} href={href} className={`transform overflow-hidden block ${spacing(mb, mt, p)} ${baseClasses} ${hoverClasses}`}>
+    <a target="_blank" title={title} href={href} className={`transform overflow-hidden block ${spacing(mb, mt, p)} ${baseClasses} ${hoverClasses} ${ROTATE[rotate] || ''}`}>
       {children}
       { tint && getTint(tint) }
     </a>

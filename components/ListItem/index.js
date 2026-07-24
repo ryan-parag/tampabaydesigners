@@ -205,7 +205,7 @@ export const Interview = ({item}) => {
 
 export const LinkCard = ({href, tint, type, label}) => {
   return(
-    <BoxLink href={href} p={'0'} mb={'0'} mt={'0'} tint={tint}>
+    <BoxLink href={href} p={'0'} mb={'0'} mt={'0'} tint={tint} rotate={'1'}>
       <div className="transition flex flex-col items-between justify-end pt-8 pb-8 h-40 px-4 hover:px-6">
         {
           type && (
@@ -225,7 +225,7 @@ export const LinkCard = ({href, tint, type, label}) => {
 
 export const AnchorCard = ({href, tint, type, label}) => {
   return(
-    <BoxAnchor href={href} p={'0'} mb={'0'} mt={'0'} tint={tint}>
+    <BoxAnchor href={href} p={'0'} mb={'0'} mt={'0'} tint={tint} rotate={'1'}>
       <div className="transition flex flex-col items-between justify-end pt-8 pb-8 h-40 pr-4 pl-4 hover:pr-6 focus:pr-6">
         {
           type && (
