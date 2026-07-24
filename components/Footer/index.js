@@ -26,7 +26,7 @@ const Footer = () => {
       link: config.meetupUrl,
       external: true
     }, {
-      name: 'Generate Event Images',
+      name: 'Images',
       link: 'https://tbd-image-gen.vercel.app',
       external: true
     }
