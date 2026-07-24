@@ -56,7 +56,7 @@ const Footer = () => {
           }
         </ul>
         <a
-          href="https://github.com/TampaBayDesigners/tampabaydesigners"
+          href="https://github.com/srhzt/tampabaydesigners"
           target="_blank"
           className="button"
         >

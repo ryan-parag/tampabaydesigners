@@ -173,7 +173,7 @@ const Index = ({ title, description, ...props }) => {
               transition={{ duration: 0.24, delay: 1.2 }}
             >
               <AnchorCard
-                href={'https://github.com/ryan-parag/tampabaydesigners'}
+                href={'https://github.com/srhzt/tampabaydesigners'}
                 tint={'indigo'}
                 label={'Contribute'}
                 type={'interviews'}
