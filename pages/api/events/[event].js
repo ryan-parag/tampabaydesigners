@@ -34,5 +34,6 @@ export default async (req,res) => {
 
   await withMeetupLinks(item)
 
+  res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600')
   res.status(200).json({ item });
 }
