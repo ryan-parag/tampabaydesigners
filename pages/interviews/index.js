@@ -5,17 +5,17 @@ import Box from '@components/Box'
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
-import { motion } from 'framer-motion'
+import FadeIn from '@components/FadeIn'
 import moment from 'moment'
 
 const Interviews = ({ interviews, title, description, ...props }) => {
 
-  const filtered = interviews.filter(item => moment(item.frontmatter.date).isBefore(moment().format('YYYY-MM-DD')))
+  const filtered = interviews.filter(item => !item.frontmatter.draft && moment(item.frontmatter.date).isBefore(moment().format('YYYY-MM-DD')))
 
   const sorted = filtered.slice().sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date))
 
   return (
-    <Layout pageTitle={title} description={description} ogImage={'/tbd-sm.png'}>
+    <Layout pageTitle={'Interviews'} description={description} ogImage={'/tbd-sm.png'}>
       <section
         className="pt-24 pb-24 flex flex-col"
         style={{
@@ -41,16 +41,15 @@ const Interviews = ({ interviews, title, description, ...props }) => {
                 >
                   {
                     sorted.map((item,i) => (
-                      <motion.div
+                      <FadeIn
                         key={i}
-                        className="relative opacity-0 top-4"
-                        animate={{ top: 0, opacity: 1 }}
-                        transition={{ duration: 0.3, delay: 0.2*i }}
+                        className="relative"
+                        delay={Math.min(0.08*i, 0.4)}
                       >
                         <Interview
                           item={item}
                         />
-                      </motion.div>
+                      </FadeIn>
                     ))
                   }
                 </div>
@@ -67,8 +66,9 @@ const Interviews = ({ interviews, title, description, ...props }) => {
                 <hr className="mt-8 mb-8 border-black dark:border-white border-opacity-20 dark:border-opacity-10"/>
                 <Box>
                   <div className="text-center py-4">
-                    <h1 className="text-6xl mt-0 mb-4">🚀</h1>
-                    <p className="mt-0 mb-4 uppercase tracking-widest text-sm">Coming Soon</p>
+                    <h1 className="text-6xl mt-0 mb-4">✍️</h1>
+                    <p className="mt-0 mb-4 uppercase tracking-widest text-sm">No interviews yet</p>
+                    <p className="mt-0 mb-4">Know a designer in the area with a story worth telling - maybe you?</p>
                     <a href="mailto:tampabaydesigners@gmail.com" className="button button--primary">
                       Want to be interviewed?
                     </a>

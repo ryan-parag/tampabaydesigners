@@ -5,15 +5,15 @@ import fetcher from '@utils/fetcher';
 import { Event, AnchorCard } from '@components/ListItem'
 import config from '../../siteconfig.json'
 import { Error, Loading, Empty } from '@components/DataStates'
-import { motion } from 'framer-motion'
+import FadeIn from '@components/FadeIn'
 import Link from 'next/link';
 
 const Events = ({ title, description, ...props }) => {
 
-  const { data, error } = useSWR('/api/events', fetcher);
+  const { data, error, mutate } = useSWR('/api/events', fetcher);
 
   return (
-    <Layout pageTitle={title} description={description} ogImage={'/tbd-events.png'}>
+    <Layout pageTitle={'Upcoming Events'} description={description} ogImage={'/tbd-events.png'}>
       <section
         className="pt-24 pb-24 flex items-start lg:items-center w-full overflow-x-hidden"
         style={{
@@ -30,36 +30,37 @@ const Events = ({ title, description, ...props }) => {
           </p>
           <ul className="pt-4">
             {
-              error && (<Error/>)
-            }
-            {
-              data ? (
-                <>
-                  {
-                    data.events.length > 0 ? (
-                      data.events.map((item,i) => (
-                        <motion.li
-                          key={item.id}
-                          className="opacity-0 top-4 relative"
-                          animate={{ top: 0, opacity: 1 }}
-                          transition={{ duration: 0.3, delay: 0.3*i }}
-                        >
-                          <Event data={item} />
-                        </motion.li>
-                      ))
-                    )
-                    :
-                    (
-                      <Empty>
-                        No events - check back soon
-                      </Empty>
-                    )
-                  }
-                </>
+              error ? (
+                <Error onRetry={() => mutate()}>
+                  <a
+                    className="button mx-2"
+                    href={config.meetupUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Browse events on Meetup
+                  </a>
+                </Error>
               )
-              :
-              (
+              : !data ? (
                 <Loading/>
+              )
+              : data.events.length === 0 ? (
+                <Empty>
+                  No events - check back soon
+                </Empty>
+              )
+              : (
+                data.events.map((item,i) => (
+                  <FadeIn
+                    as={'li'}
+                    key={item.id}
+                    className="relative"
+                    delay={Math.min(0.08*i, 0.4)}
+                  >
+                    <Event data={item} />
+                  </FadeIn>
+                ))
               )
             }
           </ul>

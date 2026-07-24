@@ -1,20 +1,16 @@
 import React from 'react'
 import { Frown, Loader } from 'react-feather'
-import { motion } from 'framer-motion'
+import FadeIn from '@components/FadeIn'
 
 const Container = ({children}) => {
   return(
-    <motion.div
-      className="my-4 opacity-0 flex text-center flex-col items-center px-4 py-6 rounded bg-black bg-opacity-5 dark:bg-white dark:bg-opacity-5 text-black dark:text-white text-opacity-50 dark:text-opacity-50"
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.24 }}
-    >
-      { children}
-    </motion.div>
+    <FadeIn className="my-4 flex text-center flex-col items-center px-4 py-6 rounded bg-black bg-opacity-5 dark:bg-white dark:bg-opacity-5 text-black dark:text-white text-opacity-50 dark:text-opacity-50">
+      { children }
+    </FadeIn>
   )
 }
 
-export const Error = () => {
+export const Error = ({ onRetry, children }) => {
   return(
     <Container>
       <h2
@@ -25,6 +21,20 @@ export const Error = () => {
         />
       </h2>
       <span>Oops - something went wrong</span>
+      {
+        (onRetry || children) && (
+          <div className="flex flex-wrap items-center justify-center mt-2">
+            {
+              onRetry && (
+                <button className="button mx-2" onClick={onRetry}>
+                  Try again
+                </button>
+              )
+            }
+            { children }
+          </div>
+        )
+      }
     </Container>
   )
 }

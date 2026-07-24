@@ -22,6 +22,9 @@ const Footer = () => {
       name: 'About',
       link: '/about'
     }, {
+      name: 'Interviews',
+      link: '/interviews'
+    }, {
       name: 'Meetup',
       link: config.meetupUrl,
       external: true
@@ -61,8 +64,9 @@ const Footer = () => {
           }
         </ul>
         <a
-          href="https://github.com/srhzt/tampabaydesigners"
+          href={config.githubUrl}
           target="_blank"
+          rel="noopener noreferrer"
           className="button"
         >
           Contribute on GitHub

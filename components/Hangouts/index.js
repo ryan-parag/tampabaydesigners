@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
+import FadeIn from '@components/FadeIn'
 import Box, { BoxLink } from '@components/Box'
 import { Check } from 'react-feather'
 import useSWR from 'swr';
@@ -12,40 +13,32 @@ export const LatestHangout = () => {
 
   const { data, error } = useSWR('/api/latest-hangout', fetcher);
 
+  // While loading, render nothing; on error or no upcoming hangout, fall
+  // back to the evergreen "first Thursday" card so the slot never vanishes.
+  if (!data && !error) return null
+
   return(
-    <>
+    <FadeIn delay={0.24} className="relative">
       {
-        data && (
-          <motion.div
-            className="relative opacity-0 top-4"
-            animate={{ top: 0, opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.24 }}
-          >
-            {
-              data.latest.upcoming ? (
-                <>
-                  <Event data={data.latest}/>
-                </>
-              )
-              :
-              (
-                <BoxLink href={'hangouts'} mt={'0'} mb={'0'} p={'0'} tint={'green'}>
-                  <div
-                    className="flex flex-row w-full px-4 py-6 rounded backdrop-filter backdrop-blur-2xl dark:bg-green-900 dark:bg-opacity-30 bg-green-100 bg-opacity-80"
-                  >
-                    <Avatar type={'🎉'} />
-                    <div className="flex-1 pl-4">
-                      <h4 className="mt-2 mb-2">Meet designers in the area!</h4>
-                      <p className="text-xs md:text-sm mb-4 mt-0">Let's get together on the first Thursday of every month somewhere around the Tampa/St. Pete area - join your fellow designers as we grab some drinks, talk shop, or whatever else comes to mind.</p>
-                    </div>
-                  </div>
-                </BoxLink>
-              )
-            }
-          </motion.div>
+        data && data.latest.upcoming ? (
+          <Event data={data.latest}/>
+        )
+        :
+        (
+          <BoxLink href={'/hangouts'} mt={'0'} mb={'0'} p={'0'} tint={'green'}>
+            <div
+              className="flex flex-row w-full px-4 py-6 rounded backdrop-filter backdrop-blur-2xl dark:bg-green-900 dark:bg-opacity-30 bg-green-100 bg-opacity-80"
+            >
+              <Avatar type={'🎉'} />
+              <div className="flex-1 pl-4">
+                <h4 className="mt-2 mb-2">Meet designers in the area!</h4>
+                <p className="text-xs md:text-sm mb-4 mt-0">Let's get together on the first Thursday of every month somewhere around the Tampa/St. Pete area - join your fellow designers as we grab some drinks, talk shop, or whatever else comes to mind.</p>
+              </div>
+            </div>
+          </BoxLink>
         )
       }
-    </>
+    </FadeIn>
   )
 }
 
@@ -54,28 +47,39 @@ export const LatestHangout = () => {
 const EmailSignup = ({ header, beforeInput, afterInput, successMessage, padded }) => {
   const [email, setEmail] = useState('')
   const [sent, setSent] = useState(false)
-  const [emailError, setEmailError] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState(null) // 'invalid' | 'failed'
 
   const sendContact = async () => {
 
-    if(email.includes('@')) {
-      const contact = {
-        email: email
-      }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError('invalid')
+      return
+    }
 
-      setSent(true)
-      setEmailError(false)
-      setEmail('')
+    setError(null)
+    setSending(true)
 
-      await fetch('/api/contacts', {
+    try {
+      const res = await fetch('/api/contacts', {
         method: 'POST',
-        body: JSON.stringify({ contact }),
+        body: JSON.stringify({ contact: { email } }),
         headers: {
           'Content-Type': 'application/json'
         }
       })
-    } else {
-      setEmailError(true)
+
+      if(!res.ok) {
+        throw new Error('Request failed')
+      }
+
+      // Only confirm success (and clear the field) once the request lands.
+      setSent(true)
+      setEmail('')
+    } catch (e) {
+      setError('failed')
+    } finally {
+      setSending(false)
     }
   }
 
@@ -87,10 +91,9 @@ const EmailSignup = ({ header, beforeInput, afterInput, successMessage, padded }
     <>
       {
         !sent ? (
-          <motion.div
-            className={`relative top-4 opacity-0 w-full text-center flex h-full flex-col justify-center items-center ${padded ? 'py-16 lg:py-24 ' : ''}overflow-visible`}
-            animate={{ opacity: 1, top: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+          <FadeIn
+            delay={0.3}
+            className={`relative w-full text-center flex h-full flex-col justify-center items-center ${padded ? 'py-16 lg:py-24 ' : ''}overflow-visible`}
           >
             {header}
             <div
@@ -99,7 +102,7 @@ const EmailSignup = ({ header, beforeInput, afterInput, successMessage, padded }
               {beforeInput}
               <div className="relative z-10 flex w-full shadow-lg overflow-visible">
                 <input
-                  type="text"
+                  type="email"
                   placeholder="Enter email..."
                   className="block border border-transparent transition w-full rounded-lg p-6 bg-white bg-opacity-80 dark:bg-black dark:bg-opacity-80 backdrop-blur-md focus:bg-opacity-100 dark:focus:bg-opacity-100 focus:outline-none focus:border-black focus:border-opacity-20 dark:focus:border-white dark:focus:border-opacity-20"
                   value={email}
@@ -108,36 +111,42 @@ const EmailSignup = ({ header, beforeInput, afterInput, successMessage, padded }
                 {
                   email.length > 0 && (
                     <motion.button
-                      className="px-6 rounded-r-lg absolute right-0 top-0 bottom-0 bg-gradient-to-t from-yellow-500 via-yellow-400 to-yellow-300 text-black text-opacity-70 h-full opacity-0 text-shadow"
+                      className="px-6 rounded-r-lg absolute right-0 top-0 bottom-0 bg-gradient-to-t from-yellow-500 via-yellow-400 to-yellow-300 text-black text-opacity-70 h-full text-shadow disabled:opacity-60"
+                      initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.3 }}
+                      disabled={sending}
                       onClick={() => sendContact()}
                     >
-                      Sign Up
+                      { sending ? 'Signing up...' : 'Sign Up' }
                     </motion.button>
                   )
                 }
               </div>
               {
-                emailError && (
-                  <div className="text-sm mt-2 text-red-500">Something is wrong with your email address</div>
+                error === 'invalid' && (
+                  <div className="text-sm mt-2 text-red-500">Please enter a valid email address, like you@example.com</div>
+                )
+              }
+              {
+                error === 'failed' && (
+                  <div className="text-sm mt-2 text-red-500">We couldn't sign you up just now - please try again</div>
                 )
               }
               <motion.div
-                className="overflow-visible opacity-0 filter blur-3xl bg-gradient-to-r from-red-500 via-pink-500 to-yellow-500 absolute top-0 bottom-0 right-0 left-0"
+                className="overflow-visible filter blur-3xl bg-gradient-to-r from-red-500 via-pink-500 to-yellow-500 absolute top-0 bottom-0 right-0 left-0"
+                initial={{ opacity: 0 }}
                 animate={{ opacity: .3 }}
                 transition={{ duration: 1, delay: 0.7 }}
               ></motion.div>
               {afterInput}
             </div>
-          </motion.div>
+          </FadeIn>
         )
         :
         <>
-          <motion.div
-            className="relative top-4 opacity-0 w-full text-center flex h-full flex-col justify-center items-center py-16 lg:py-24 px-4"
-            animate={{ opacity: 1, top: 0 }}
-            transition={{ duration: 0.5 }}
+          <FadeIn
+            className="relative w-full text-center flex h-full flex-col justify-center items-center py-16 lg:py-24 px-4"
           >
             <Box>
               <h1 className="flex justify-center text-green-500 mt-0 mb-4">
@@ -146,7 +155,7 @@ const EmailSignup = ({ header, beforeInput, afterInput, successMessage, padded }
               <p>{successMessage}</p>
               <button className="button" onClick={() => reset()}>Close</button>
             </Box>
-          </motion.div>
+          </FadeIn>
         </>
       }
     </>

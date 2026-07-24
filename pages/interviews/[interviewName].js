@@ -22,7 +22,7 @@ const ButtonLink = ({href, children}) => {
 const Page = ({ siteTitle, frontmatter, markdownBody, description }) => {
 
   return (
-    <Layout pageTitle={siteTitle} description={description} ogImage={'/tbd-sm.png'}>
+    <Layout pageTitle={frontmatter.name || siteTitle} description={description} ogImage={'/tbd-sm.png'}>
       <section
         className="pt-24 pb-24 flex flex-col"
         style={{

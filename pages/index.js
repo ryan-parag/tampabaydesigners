@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import FadeIn from '@components/FadeIn'
 import Layout from '@components/Layout'
 import { LinkCard, AnchorCard } from '@components/ListItem'
 import { LatestHangout } from '@components/Hangouts'
@@ -64,7 +65,8 @@ const Index = ({ title, description, ...props }) => {
     return random
   }
 
-  const [isRandom, setIsRandom] = useState('')
+  // Seed with a real gif so the first render never requests /static/undefined
+  const [isRandom, setIsRandom] = useState(gifs[0])
   const [hoverRef, isHovered] = useHover()
 
   useEffect(() => {
@@ -84,10 +86,8 @@ const Index = ({ title, description, ...props }) => {
       >
         <div className="container p-3 mx-auto lg:w-1/2">
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8">
-            <motion.div
-              className="transition relative transform col-span-2 lg:col-span-3 top-4 opacity-0"
-              animate={{ opacity: 1, top: 0 }}
-              transition={{ duration: 0.24 }}
+            <FadeIn
+              className="relative col-span-2 lg:col-span-3"
             >
               <AbsoluteImages/>
               <Box p={'0'} mb={'0'} mt={'0'}>
@@ -97,14 +97,13 @@ const Index = ({ title, description, ...props }) => {
                   <p>Find a slack group, check out upcoming events, look for ways to get feedback, and much more using one of the links below.</p>
                 </div>
               </Box>
-            </motion.div>
+            </FadeIn>
             <div className="col-span-2 lg:col-span-3">
               <LatestHangout/>
             </div>
-            <motion.div
-              className="transition relative transform top-4 opacity-0"
-              animate={{ opacity: 1, top: 0 }}
-              transition={{ duration: 0.24, delay: 0.4 }}
+            <FadeIn
+              className="relative"
+              delay={0.1}
             >
               <LinkCard
                 href={'/slack'}
@@ -112,11 +111,10 @@ const Index = ({ title, description, ...props }) => {
                 label={'Chat on Slack'}
                 type={'slack'}
               />
-            </motion.div>
-            <motion.div
-              className="transition relative transform top-4 opacity-0"
-              animate={{ opacity: 1, top: 0 }}
-              transition={{ duration: 0.24, delay: 0.7 }}
+            </FadeIn>
+            <FadeIn
+              className="relative"
+              delay={0.18}
             >
               <LinkCard
                 href={'/groups'}
@@ -124,11 +122,10 @@ const Index = ({ title, description, ...props }) => {
                 label={'Explore Groups'}
                 type={'groups'}
               />
-            </motion.div>
-            <motion.div
-              className="transition relative transform top-4 opacity-0 flex row-span-2 col-span-2 sm:col-span-1"
-              animate={{ opacity: 1, top: 0 }}
-              transition={{ duration: 0.24, delay: 0.9 }}
+            </FadeIn>
+            <FadeIn
+              className="relative flex row-span-2 col-span-2 sm:col-span-1"
+              delay={0.26}
             >
               <BoxLink href="/about" p={'0'} mb={'0'} mt={'0'} rotate={'2'}>
                 <span
@@ -155,11 +152,10 @@ const Index = ({ title, description, ...props }) => {
                   <div className="select-none bg-gradient-to-b z-5 from-transparent to-black opacity-90 absolute top-1/4 left-0 bottom-0 right-0"></div>
                 </div>
               </BoxLink>
-            </motion.div>
-            <motion.div
-              className="transition relative transform top-4 opacity-0"
-              animate={{ opacity: 1, top: 0 }}
-              transition={{ duration: 0.24, delay: 1 }}
+            </FadeIn>
+            <FadeIn
+              className="relative"
+              delay={0.34}
             >
               <LinkCard
                 href={'/events'}
@@ -167,30 +163,28 @@ const Index = ({ title, description, ...props }) => {
                 label={'Find an event'}
                 type={'events'}
               />
-            </motion.div>
-            <motion.div
-              className="transition relative transform top-4 opacity-0"
-              animate={{ opacity: 1, top: 0 }}
-              transition={{ duration: 0.24, delay: 1.2 }}
+            </FadeIn>
+            <FadeIn
+              className="relative"
+              delay={0.42}
             >
               <AnchorCard
-                href={'https://github.com/srhzt/tampabaydesigners'}
+                href={config.githubUrl}
                 tint={'indigo'}
                 label={'Contribute'}
                 type={'interviews'}
               />
-            </motion.div>
-            <motion.div
-              className="transition relative transform top-4 opacity-0"
-              animate={{ opacity: 1, top: 0 }}
-              transition={{ duration: 0.24, delay: 1.4 }}
+            </FadeIn>
+            <FadeIn
+              className="relative"
+              delay={0.5}
             >
               <AnchorCard
                 href={config.meetupUrl}
                 tint={'green'}
                 label={'Join us on Meetup'}
               />
-            </motion.div>
+            </FadeIn>
           </div>
         </div>
       </section>
