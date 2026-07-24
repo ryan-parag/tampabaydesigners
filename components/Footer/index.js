@@ -61,8 +61,9 @@ const Footer = () => {
           }
         </ul>
         <a
-          href="https://github.com/srhzt/tampabaydesigners"
+          href={config.githubUrl}
           target="_blank"
+          rel="noopener noreferrer"
           className="button"
         >
           Contribute on GitHub

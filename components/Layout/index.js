@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Header from '@components/Header'
 import Footer from '@components/Footer'
 import ReactGA from 'react-ga4'
+import config from '../../siteconfig.json'
 
 export default function Layout({ children, pageTitle, description, ogImage, ...props }) {
 
@@ -10,15 +11,19 @@ export default function Layout({ children, pageTitle, description, ogImage, ...p
     ReactGA.initialize(process.env.GOOGLE_ANALYTICS);
   }, [])
 
+  const fullTitle = pageTitle && pageTitle !== config.title
+    ? `${pageTitle} — ${config.title}`
+    : config.title
+
   return (
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta charSet="utf-8" />
         <meta name="Description" content={description}></meta>
-        <title>{pageTitle}</title>
+        <title>{fullTitle}</title>
         <meta property="og:type" content="website"></meta>
-        <meta property="og:title" content={pageTitle}></meta>
+        <meta property="og:title" content={fullTitle}></meta>
         <meta property="og:description" content={description}></meta>
         <meta property="og:image" content={`${ogImage}`}></meta>
         <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png"></link>

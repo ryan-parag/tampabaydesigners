@@ -1,12 +1,12 @@
 import React from 'react'
-import { motion } from 'framer-motion'
+import FadeIn from '@components/FadeIn'
 import Layout from '@components/Layout'
 import Link from 'next/link'
 
 const Page = ({ title, description, ...props }) => {
 
   return (
-    <Layout pageTitle={title} description={description} ogImage={'/tbd-sm.png'}>
+    <Layout pageTitle={'Page not found'} description={description} ogImage={'/tbd-sm.png'}>
       <section
       className="relative pt-24 lg:pt-40 pb-24 flex items-start lg:items-center w-full overflow-x-hidden"
         style={{
@@ -18,10 +18,9 @@ const Page = ({ title, description, ...props }) => {
       >
         <div className="container p-3 mx-auto lg:w-1/2">
           <div className="relative">
-            <motion.div
-              className="transform card w-50 opacity-0 top-4"
-              animate={{ top: 0, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+            <FadeIn
+              className="card w-50"
+              delay={0.2}
             >
               <div className="text-6xl mb-4">😩</div>
               <h1 className="mt-0">Sorry, page not found</h1>
@@ -29,7 +28,7 @@ const Page = ({ title, description, ...props }) => {
               <Link href="/" className="button">
                 Back Home
               </Link>
-            </motion.div>
+            </FadeIn>
           </div>
         </div>
       </section>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Check, Loader, MapPin } from 'react-feather';
 
-const delay = 12;
+const delay = 3;
 
 export const Hero = () => {
 
@@ -81,7 +81,7 @@ export const Row = ({ shift, end }) => {
   return(
     <motion.div
       style={{ transform: `translateX(${shift})`}}
-      className="grid grid-cols-12 transi{tion gap-4 w-max transform"
+      className="grid grid-cols-12 transition gap-4 w-max transform"
       animate={{ transform: `translateX(${end})` }}
       transition={{ duration: delay }}
     >
@@ -108,9 +108,11 @@ export const RandomSection = ({ setGenerated, region, data}) => {
   const [randomOption] = useState(() => options[Math.floor(Math.random()*options.length)])
 
   useEffect(() => {
+    // Just enough suspense for the card marquee to read as a "spin" —
+    // the result is available immediately.
     const timer = setTimeout(() => {
       setLoaded(true)
-    }, 5000)
+    }, 1500)
     return () => clearTimeout(timer)
   }, [])
 

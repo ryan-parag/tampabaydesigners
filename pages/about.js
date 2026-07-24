@@ -4,13 +4,14 @@ import Box from '@components/Box'
 import useSWR from 'swr';
 import fetcher from '@utils/fetcher';
 import { Loading, Error } from '@components/DataStates'
-import { motion } from 'framer-motion'
+import FadeIn from '@components/FadeIn'
 import { Credit } from '@components/ListItem'
 import Tag from '@components/Tag'
+import config from '../siteconfig.json'
 
 const About = ({ title, description, ...props }) => {
 
-  const { data, error } = useSWR('/api/credits', fetcher);
+  const { data, error, mutate } = useSWR('/api/credits', fetcher);
 
   const skills = [
     {
@@ -32,7 +33,7 @@ const About = ({ title, description, ...props }) => {
   ]
 
   return (
-    <Layout pageTitle={title} description={description} ogImage={'/tbd-sm.png'}>
+    <Layout pageTitle={'About'} description={description} ogImage={'/tbd-sm.png'}>
       <section
         className="pt-24 pb-24 flex items-start lg:items-center w-full overflow-x-hidden"
         style={{
@@ -74,29 +75,28 @@ const About = ({ title, description, ...props }) => {
                 ))
               }
             </ul>
-            <a className="button button--primary" href="https://github.com/TampaBayDesigners/tampabaydesigners">Send us a message</a>
+            <a className="button button--primary" href={config.githubUrl} target="_blank" rel="noopener noreferrer">Contribute on GitHub</a>
           </Box>
           <h3>Credits</h3>
           <ul>
             {
-              error && (<Error/>)
-            }
-            {
-              data ? (
+              error ? (
+                <Error onRetry={() => mutate()}/>
+              )
+              : !data ? (
+                <Loading/>
+              )
+              : (
                 data.credits.map((item,i) => (
-                  <motion.li
+                  <FadeIn
+                    as={'li'}
                     key={item.id}
-                    className="opacity-0 top-4 relative"
-                    animate={{ top: 0, opacity: 1 }}
-                    transition={{ duration: 0.3, delay: 0.3*i }}
+                    className="relative"
+                    delay={Math.min(0.08*i, 0.4)}
                   >
                     <Credit data={item}/>
-                  </motion.li>
+                  </FadeIn>
                 ))
-              )
-              :
-              (
-                <Loading/>
               )
             }
           </ul>

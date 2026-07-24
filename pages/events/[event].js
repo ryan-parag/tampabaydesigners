@@ -14,13 +14,13 @@ const Events = ({ title, description, ...props }) => {
   const router = useRouter();
   const { event } = router.query;
 
-  const { data, error } = useSWR(`/api/events/${event}`, fetcher);
+  const { data, error, mutate } = useSWR(`/api/events/${event}`, fetcher);
 
 
   return (
-    <Layout pageTitle={title} description={description} ogImage={'/tbd-events.png'}>
+    <Layout pageTitle={data && data.item ? data.item.name : 'Events'} description={description} ogImage={'/tbd-events.png'}>
       {
-        error && (
+        error ? (
           <section
             className="pt-24 pb-24 flex flex-col"
             style={{
@@ -38,57 +38,14 @@ const Events = ({ title, description, ...props }) => {
                     size={'20'}
                     className="mr-1"
                   />Back
-                                    
+
                 </Link>
               </div>
-              <Error/>
+              <Error onRetry={() => mutate()}/>
             </div>
           </section>
         )
-      }
-      {
-        data ? (
-          <>
-            {
-              data.item ? (
-                <>
-                  <Header event={data.item} />
-                  <Body event={data.item}/>
-                </>
-              )
-              :
-              (
-                <section
-                  className="pt-24 pb-24 flex flex-col"
-                  style={{
-                    backgroundImage: "url('/static/blur-bg.png')",
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat'
-                  }}
-                >
-                  <div className="container p-3 mx-auto lg:w-1/2">
-                    <div className="flex mb-8">
-                      <Link href="/events" className="hover:underline inline-flex items-center">
-
-                        <ArrowLeft
-                          size={'20'}
-                          className="mr-1"
-                        />Back
-                                                
-                      </Link>
-                    </div>
-                    <Empty>
-                      This event does not exist
-                    </Empty>
-                  </div>
-                </section>
-              )
-            }
-          </>
-        )
-        :
-        (
+        : !data ? (
           <section
             className="pt-24 pb-24 flex flex-col"
             style={{
@@ -100,6 +57,39 @@ const Events = ({ title, description, ...props }) => {
           >
             <div className="container p-3 mx-auto lg:w-1/2">
               <Loading/>
+            </div>
+          </section>
+        )
+        : data.item ? (
+          <>
+            <Header event={data.item} />
+            <Body event={data.item}/>
+          </>
+        )
+        : (
+          <section
+            className="pt-24 pb-24 flex flex-col"
+            style={{
+              backgroundImage: "url('/static/blur-bg.png')",
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat'
+            }}
+          >
+            <div className="container p-3 mx-auto lg:w-1/2">
+              <div className="flex mb-8">
+                <Link href="/events" className="hover:underline inline-flex items-center">
+
+                  <ArrowLeft
+                    size={'20'}
+                    className="mr-1"
+                  />Back
+
+                </Link>
+              </div>
+              <Empty>
+                This event does not exist
+              </Empty>
             </div>
           </section>
         )

@@ -12,7 +12,7 @@ const Page = ({ title, description, ...props }) => {
   const [generated, setGenerated] = useState(false)
 
   return (
-    <Layout pageTitle={title} description={description} ogImage={'/tbd-sm.png'}>
+    <Layout pageTitle={'Event Randomizer'} description={description} ogImage={'/tbd-sm.png'}>
       <section
         className="pt-24 pb-24 flex items-start lg:items-center w-full overflow-x-hidden"
         style={{
