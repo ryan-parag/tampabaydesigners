@@ -64,15 +64,15 @@ const Events = ({ title, description, ...props }) => {
           </ul>
           <p className="text-sm">
             Can't decide on a hangout spot?&nbsp;
-            <Link href="/random">
-              <a className="underline">Use the randomizer</a>
+            <Link href="/random" className="underline">
+              Use the randomizer
             </Link>
             !
           </p>
         </div>
       </section>
     </Layout>
-  )
+  );
 }
 
 export default Events

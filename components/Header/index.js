@@ -24,15 +24,15 @@ const NavItem = ({ href, name, mobile, state }) => {
     }
   }
 
-  return(
-    <Link href={href}>
-      <a
-        className={mobile ? getMobileClasses(name) : getClasses(name)}
-      >
-        {name}
-      </a>
+  return (
+    <Link
+      href={href}
+      className={mobile ? getMobileClasses(name) : getClasses(name)}>
+
+      {name}
+
     </Link>
-  )
+  );
 }
 
 const Header = () => {

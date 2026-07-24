@@ -1,9 +1,5 @@
-require('dotenv').config();
-
 module.exports = {
   env: {
-    AIRTABLE_API_KEY: process.env.AIRTABLE_API_KEY,
-    AIRTABLE_BASE: process.env.AIRTABLE_BASE,
     NOTION_SECRET: process.env.NOTION_SECRET,
     NOTION_SLACK: process.env.NOTION_SLACK,
     NOTION_GROUPS: process.env.NOTION_GROUPS,
@@ -21,9 +17,13 @@ module.exports = {
     GOOGLE_ANALYTICS: process.env.GOOGLE_ANALYTICS,
   },
   images: {
-    domains: ['i.scdn.co', 'mosaic.scdn.co', 'lh3.googleusercontent.com', 's.gravatar.com'],
+    remotePatterns: [
+      { protocol: 'https', hostname: 'i.scdn.co' },
+      { protocol: 'https', hostname: 'mosaic.scdn.co' },
+      { protocol: 'https', hostname: 'lh3.googleusercontent.com' },
+      { protocol: 'https', hostname: 's.gravatar.com' },
+    ],
   },
-  target: 'serverless',
   webpack: function (config) {
     config.module.rules.push({
       test: /\.md$/,

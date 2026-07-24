@@ -32,14 +32,13 @@ const Events = ({ title, description, ...props }) => {
           >
             <div className="container p-3 mx-auto lg:w-1/2">
               <div className="flex mb-8">
-                <Link href="/events">
-                  <a className="hover:underline inline-flex items-center">
-                    <ArrowLeft
-                      size={'20'}
-                      className="mr-1"
-                    />
-                    Back
-                  </a>
+                <Link href="/events" className="hover:underline inline-flex items-center">
+
+                  <ArrowLeft
+                    size={'20'}
+                    className="mr-1"
+                  />Back
+                                    
                 </Link>
               </div>
               <Error/>
@@ -70,14 +69,13 @@ const Events = ({ title, description, ...props }) => {
                 >
                   <div className="container p-3 mx-auto lg:w-1/2">
                     <div className="flex mb-8">
-                      <Link href="/events">
-                        <a className="hover:underline inline-flex items-center">
-                          <ArrowLeft
-                            size={'20'}
-                            className="mr-1"
-                          />
-                          Back
-                        </a>
+                      <Link href="/events" className="hover:underline inline-flex items-center">
+
+                        <ArrowLeft
+                          size={'20'}
+                          className="mr-1"
+                        />Back
+                                                
                       </Link>
                     </div>
                     <Empty>
@@ -107,7 +105,7 @@ const Events = ({ title, description, ...props }) => {
         )
       }
     </Layout>
-  )
+  );
 }
 
 export default Events

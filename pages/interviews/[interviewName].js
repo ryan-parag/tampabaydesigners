@@ -34,8 +34,8 @@ const Page = ({ siteTitle, frontmatter, markdownBody, description }) => {
       >
         <div className="container p-3 mx-auto lg:w-1/2">
           <div className="flex mb-8">
-            <Link href="/interviews">
-              <a className="hover:underline">Interviews</a>
+            <Link href="/interviews" className="hover:underline">
+              Interviews
             </Link>
             <span className="mx-2">/</span>
           </div>
@@ -98,7 +98,7 @@ const Page = ({ siteTitle, frontmatter, markdownBody, description }) => {
         </div>
       </section>
     </Layout>
-  )
+  );
 }
 
 export default Page

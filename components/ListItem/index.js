@@ -175,39 +175,37 @@ export const Interview = ({item}) => {
   const colors = ['yellow', 'pink', 'red', 'indigo', 'green', 'blue', 'green', 'purple']
 
 
-  return(
+  return (
     <Link
       href={`interviews/${item.slug}`}
-    >
-      <a
-        className="bg-gray-400 bg-opacity-10 rounded border border-gray-400 border-opacity-10 dark:bg-gray-500 dark:bg-opacity-10 dark:border-gray-400 dark:border-opacity-10 backdrop-filter backdrop-blur-2xl relative flex flex-col-reverse justify-items-start items-start p-4 mb-4 w-full h-96 transform transition shadow-sm hover:shadow-xl hover:scale-105"
+      className="bg-gray-400 bg-opacity-10 rounded border border-gray-400 border-opacity-10 dark:bg-gray-500 dark:bg-opacity-10 dark:border-gray-400 dark:border-opacity-10 backdrop-filter backdrop-blur-2xl relative flex flex-col-reverse justify-items-start items-start p-4 mb-4 w-full h-96 transform transition shadow-sm hover:shadow-xl hover:scale-105">
+
+      <div className="relative z-10">
+        <h4 className="block mt-0 mb-0">{item.frontmatter.name}</h4>
+        <span className="text-sm">{moment(item.frontmatter.date).format('MMM DD, YYYY')}</span>
+      </div>
+      <div
+        className="absolute -z-5 top-0 bottom-0 left-0 right-0 rounded opacity-50"
+        style={{
+          backgroundImage: `url(${item.frontmatter.hero})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
       >
-        <div className="relative z-10">
-          <h4 className="block mt-0 mb-0">{item.frontmatter.name}</h4>
-          <span className="text-sm">{moment(item.frontmatter.date).format('MMM DD, YYYY')}</span>
-        </div>
-        <div
-          className="absolute -z-5 top-0 bottom-0 left-0 right-0 rounded opacity-50"
-          style={{
-            backgroundImage: `url(${item.frontmatter.hero})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
-          }}
-        >
-        </div>
-        <div
-          className="absolute z-5 top-0 bottom-0 left-0 right-0 rounded bg-gradient-to-t from-white to-transparent dark:from-black"
-        ></div>
-        <div
-          className={`absolute z-0 opacity-20 bg-blend-multiply top-0 bottom-0 left-0 right-0 rounded bg-${getRandomGradient(colors)}-500`}
-        ></div>
-        <div
-          className={`absolute transform -z-5 top-0 bottom-0 left-0 filter blur opacity-10 right-0 rounded bg-gradient-to-t from-${getRandomGradient(colors)}-500 via-${getRandomGradient(colors)}-500 to-${getRandomGradient(colors)}-500`}
-        ></div>
-      </a>
+      </div>
+      <div
+        className="absolute z-5 top-0 bottom-0 left-0 right-0 rounded bg-gradient-to-t from-white to-transparent dark:from-black"
+      ></div>
+      <div
+        className={`absolute z-0 opacity-20 bg-blend-multiply top-0 bottom-0 left-0 right-0 rounded bg-${getRandomGradient(colors)}-500`}
+      ></div>
+      <div
+        className={`absolute transform -z-5 top-0 bottom-0 left-0 filter blur opacity-10 right-0 rounded bg-gradient-to-t from-${getRandomGradient(colors)}-500 via-${getRandomGradient(colors)}-500 to-${getRandomGradient(colors)}-500`}
+      ></div>
+
     </Link>
-  )
+  );
 }
 
 export const LinkCard = ({href, tint, type, label}) => {

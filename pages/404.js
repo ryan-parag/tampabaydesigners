@@ -26,15 +26,15 @@ const Page = ({ title, description, ...props }) => {
               <div className="text-6xl mb-4">😩</div>
               <h1 className="mt-0">Sorry, page not found</h1>
               <p className="mb-6">Try a different starting point by heading back to the main page</p>
-              <Link href="/">
-                <a className="button">Back Home</a>
+              <Link href="/" className="button">
+                Back Home
               </Link>
             </motion.div>
           </div>
         </div>
       </section>
     </Layout>
-  )
+  );
 }
 
 export default Page
