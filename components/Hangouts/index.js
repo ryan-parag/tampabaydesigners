@@ -166,7 +166,7 @@ export const Form = () => {
       setSent(true)
       setEmailError(false)
   
-      const response = await fetch('api/contacts', {
+      const response = await fetch('/api/contacts', {
         method: 'POST',
         body: JSON.stringify({ contact }),
         headers: {
