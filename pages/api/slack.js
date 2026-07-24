@@ -20,14 +20,14 @@ export default async (req,res) => {
 
     const lineItem = {
       id: item.id,
-      name: item.properties.Name.title[0].plain_text,
-      description: item.properties.Description.rich_text[0].plain_text,
-      logo: `/static/groups/${item.properties.Logo.files[0].name}`,
-      link: item.properties.Link.url,
-      type: item.properties.Type.select.name
+      name: item.properties.Name?.title?.[0]?.plain_text ?? '',
+      description: item.properties.Description?.rich_text?.[0]?.plain_text ?? '',
+      logo: `/static/groups/${item.properties.Logo?.files?.[0]?.name ?? ''}`,
+      link: item.properties.Link?.url,
+      type: item.properties.Type?.select?.name ?? null
     }
 
-    if(item.properties.Verified.checkbox) {
+    if(item.properties.Verified?.checkbox) {
       groups.push(lineItem)
     }
 

@@ -8,7 +8,6 @@ import Avatar from '@components/Avatar';
 const ProfilePage = ({ title, description, ...props }) => {
 
   const { user, error, isLoading } = useUser();
-  console.log(user)
 
   return (
     <Layout pageTitle={title} description={description} ogImage={'/tbd-sm.png'}>

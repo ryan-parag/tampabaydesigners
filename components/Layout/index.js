@@ -1,14 +1,14 @@
+import { useEffect } from 'react'
 import Head from 'next/head'
-import { Normalize } from 'styled-normalize'
 import Header from '@components/Header'
 import Footer from '@components/Footer'
 import ReactGA from 'react-ga4'
 
 export default function Layout({ children, pageTitle, description, ogImage, ...props }) {
-  
-  if (typeof window !== "undefined") {
+
+  useEffect(() => {
     ReactGA.initialize(process.env.GOOGLE_ANALYTICS);
-  }
+  }, [])
 
   return (
     <>
@@ -16,10 +16,6 @@ export default function Layout({ children, pageTitle, description, ogImage, ...p
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta charSet="utf-8" />
         <meta name="Description" content={description}></meta>
-        <meta name="viewport" content="width=device-width, user-scalable=no"></meta>
-        <link rel="preconnect" href="https://fonts.googleapis.com"/>
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-        <link href="https://fonts.googleapis.com/css2?family=Forum&family=Work+Sans:wght@300;400;700&display=swap" rel="stylesheet"/>
         <title>{pageTitle}</title>
         <meta property="og:type" content="website"></meta>
         <meta property="og:title" content={pageTitle}></meta>
@@ -45,7 +41,6 @@ export default function Layout({ children, pageTitle, description, ogImage, ...p
         <link rel="mask-icon" href="/favicon/notes-favicon.svg" color="#E67D01"></link>
         <link rel="icon" href="/favicon/tbd.svg"></link>
       </Head>
-      <Normalize />
       <>
         <Header />
         {children}

@@ -59,6 +59,7 @@ export const ListGroupItem = ({ data }) => {
         <div className="relative block py-1 px-0 h-14 w-14">
           <img
             src={data.logo}
+            alt={`${data.name} logo`}
             className="relative w-full z-10 rounded-full block"
           />
           {
@@ -117,18 +118,6 @@ export const ListGroupItem = ({ data }) => {
   )
 }
 
-export const SlackGroup = ({ data }) => {
-  return(
-    <ListGroupItem data={data}/>
-  )
-}
-
-export const Group = ({ data }) => {
-  return(
-    <ListGroupItem data={data}/>
-  )
-}
-
 export const Event = ({ data }) => {
   return(
     <BoxLink href={`/events/${data.id}`} title={`${data.name} - ${data.description}`} mt={'0'} mb={'4'}>
@@ -145,6 +134,7 @@ export const Credit = ({ data }) => {
         <div className="relative inline-flex py-1 px-0">
           <img
             src={`/static/credits/${data.logo}`}
+            alt={`${data.name} avatar`}
             width={'48'}
             className="relative z-10 rounded-full"
           />
@@ -166,48 +156,51 @@ export const Credit = ({ data }) => {
 
 export const Interview = ({item}) => {
 
+  // Full class names in static arrays so Tailwind's JIT generates them —
+  // interpolated names like `bg-${color}-500` are invisible to it.
   const getRandomGradient = (arr) => {
     const randomIndex = Math.floor(Math.random() * arr.length)
     const item = arr[randomIndex]
     return item
   }
 
-  const colors = ['yellow', 'pink', 'red', 'indigo', 'green', 'blue', 'green', 'purple']
+  const bgColors = ['bg-yellow-500', 'bg-pink-500', 'bg-red-500', 'bg-indigo-500', 'bg-green-500', 'bg-blue-500', 'bg-green-500', 'bg-purple-500']
+  const fromColors = ['from-yellow-500', 'from-pink-500', 'from-red-500', 'from-indigo-500', 'from-green-500', 'from-blue-500', 'from-green-500', 'from-purple-500']
+  const viaColors = ['via-yellow-500', 'via-pink-500', 'via-red-500', 'via-indigo-500', 'via-green-500', 'via-blue-500', 'via-green-500', 'via-purple-500']
+  const toColors = ['to-yellow-500', 'to-pink-500', 'to-red-500', 'to-indigo-500', 'to-green-500', 'to-blue-500', 'to-green-500', 'to-purple-500']
 
 
-  return(
+  return (
     <Link
       href={`interviews/${item.slug}`}
-    >
-      <a
-        className="bg-gray-400 bg-opacity-10 rounded border border-gray-400 border-opacity-10 dark:bg-gray-500 dark:bg-opacity-10 dark:border-gray-400 dark:border-opacity-10 backdrop-filter backdrop-blur-2xl relative flex flex-col-reverse justify-items-start items-start p-4 mb-4 w-full h-96 transform transition shadow-sm hover:shadow-xl hover:scale-105"
+      className="bg-gray-400 bg-opacity-10 rounded border border-gray-400 border-opacity-10 dark:bg-gray-500 dark:bg-opacity-10 dark:border-gray-400 dark:border-opacity-10 backdrop-filter backdrop-blur-2xl relative flex flex-col-reverse justify-items-start items-start p-4 mb-4 w-full h-96 transform transition shadow-sm hover:shadow-xl hover:scale-105">
+
+      <div className="relative z-10">
+        <h4 className="block mt-0 mb-0">{item.frontmatter.name}</h4>
+        <span className="text-sm">{moment(item.frontmatter.date).format('MMM DD, YYYY')}</span>
+      </div>
+      <div
+        className="absolute -z-5 top-0 bottom-0 left-0 right-0 rounded opacity-50"
+        style={{
+          backgroundImage: `url(${item.frontmatter.hero})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
       >
-        <div className="relative z-10">
-          <h4 className="block mt-0 mb-0">{item.frontmatter.name}</h4>
-          <span className="text-sm">{moment(item.frontmatter.date).format('MMM DD, YYYY')}</span>
-        </div>
-        <div
-          className="absolute -z-5 top-0 bottom-0 left-0 right-0 rounded opacity-50"
-          style={{
-            backgroundImage: `url(${item.frontmatter.hero})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
-          }}
-        >
-        </div>
-        <div
-          className="absolute z-5 top-0 bottom-0 left-0 right-0 rounded bg-gradient-to-t from-white to-transparent dark:from-black"
-        ></div>
-        <div
-          className={`absolute z-0 opacity-20 bg-blend-multiply top-0 bottom-0 left-0 right-0 rounded bg-${getRandomGradient(colors)}-500`}
-        ></div>
-        <div
-          className={`absolute transform -z-5 top-0 bottom-0 left-0 filter blur opacity-10 right-0 rounded bg-gradient-to-t from-${getRandomGradient(colors)}-500 via-${getRandomGradient(colors)}-500 to-${getRandomGradient(colors)}-500`}
-        ></div>
-      </a>
+      </div>
+      <div
+        className="absolute z-5 top-0 bottom-0 left-0 right-0 rounded bg-gradient-to-t from-white to-transparent dark:from-black"
+      ></div>
+      <div
+        className={`absolute z-0 opacity-20 bg-blend-multiply top-0 bottom-0 left-0 right-0 rounded ${getRandomGradient(bgColors)}`}
+      ></div>
+      <div
+        className={`absolute transform -z-5 top-0 bottom-0 left-0 filter blur opacity-10 right-0 rounded bg-gradient-to-t ${getRandomGradient(fromColors)} ${getRandomGradient(viaColors)} ${getRandomGradient(toColors)}`}
+      ></div>
+
     </Link>
-  )
+  );
 }
 
 export const LinkCard = ({href, tint, type, label}) => {

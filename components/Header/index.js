@@ -24,15 +24,15 @@ const NavItem = ({ href, name, mobile, state }) => {
     }
   }
 
-  return(
-    <Link href={href}>
-      <a
-        className={mobile ? getMobileClasses(name) : getClasses(name)}
-      >
-        {name}
-      </a>
+  return (
+    <Link
+      href={href}
+      className={mobile ? getMobileClasses(name) : getClasses(name)}>
+
+      {name}
+
     </Link>
-  )
+  );
 }
 
 const Header = () => {
@@ -72,6 +72,8 @@ const Header = () => {
       <div className="border-b border-gray-500 border-opacity-10 dark:bg-gray-600 dark:bg-opacity-10 dark:border-gray-700 dark:border-opacity-30 px-4 backdrop-filter backdrop-blur-2xl">
         <div className="container mx-auto py-2 md:py-0 flex justify-between items-center">
           <button
+            aria-label="Open menu"
+            aria-expanded={open}
             className="inline-flex md:hidden transition dark:hover:bg-black hover:bg-gray-100 text-black dark:text-white hover:text-opacity-100 dark:hover:text-opacity-100 text-opacity-50 dark:text-opacity-50 rounded-full p-2"
             onClick={() => setOpen(true)}
           >
@@ -104,6 +106,7 @@ const Header = () => {
           <div className="fixed backdrop-filter backdrop-blur-2xl bg-white bg-opacity-30 dark:bg-black dark:bg-opacity-70 top-0 bottom-0 right-0 left-0 z-40">
             <div className="flex justify-between px-4 py-2">
               <button
+                aria-label="Close menu"
                 className="inline-flex md:hidden transition dark:hover:bg-black hover:bg-gray-100 text-black dark:text-white hover:text-opacity-100 dark:hover:text-opacity-100 text-opacity-50 dark:text-opacity-50 rounded-full p-2"
                 onClick={() => setOpen(false)}
               >

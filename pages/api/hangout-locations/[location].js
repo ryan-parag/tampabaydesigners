@@ -12,9 +12,9 @@ export default async (req,res) => {
 
   const item = {
     id: response.id,
-    name: response.properties.Name.title[0].plain_text,
-    address: response.properties.Address.rich_text[0].plain_text,
-    region: response.properties.Location.select.name,
+    name: response.properties.Name?.title?.[0]?.plain_text ?? '',
+    address: response.properties.Address?.rich_text?.[0]?.plain_text ?? '',
+    region: response.properties.Location?.select?.name ?? null,
   }
 
   res.status(200).json({ item });

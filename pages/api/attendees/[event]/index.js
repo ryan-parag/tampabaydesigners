@@ -24,7 +24,7 @@ export default async (req,res) => {
 
   const list = []
 
-  response.results.map(item => list.push(item.properties.Auth_id.rich_text[0].text.content))
+  response.results.map(item => list.push(item.properties.Auth_id?.rich_text?.[0]?.text?.content ?? ''))
 
   res.status(200).json({ list });
 }

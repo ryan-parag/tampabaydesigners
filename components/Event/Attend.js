@@ -1,44 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useUser } from '@auth0/nextjs-auth0';
 import useSWR from 'swr';
 import fetcher from '@utils/fetcher';
 
-const AddAttendance = ({ user, event, setAttend }) => {
+const AddAttendance = ({ user, event, onResult }) => {
 
-  const submitAttendance = async (name, email, avatar, event, sub) => {
-    const res = await fetch(`/api/attendees/${event}/${sub}/add`, {
+  const submitAttendance = async () => {
+    const res = await fetch(`/api/attendees/${event.id}/${user.sub}/add`, {
       method: 'POST',
-      body: JSON.stringify({ name, email, avatar, event, sub }),
+      body: JSON.stringify({ name: user.name, email: user.email, avatar: user.picture, event: event.id, sub: user.sub }),
     });
     if (res.status === 201) {
-      setAttend(true)
-      alert('added to list')
+      onResult(true, "You're on the list! 🎉")
     } else {
-      alert('there was an error')
+      onResult(false, 'Something went wrong — please try again')
     }
   };
 
   return(
-    <button className="button button--primary my-0" onClick={() => submitAttendance(user.name, user.email, user.picture, event.id, user.sub)}>
+    <button className="button button--primary my-0" onClick={() => submitAttendance()}>
       Attend
     </button>
   )
 }
 
-const RemoveAttendance = ({ user, event, setAttend }) => {
+const RemoveAttendance = ({ user, event, onResult }) => {
 
   const { data } = useSWR(`/api/attendees/${event.id}/${user.sub}`, fetcher);
 
   const removeAttendance = async (id) => {
-    const res = await fetch(`/api/attendees/${event}/${user.sub}/remove`, {
+    const res = await fetch(`/api/attendees/${event.id}/${user.sub}/remove`, {
       method: 'POST',
       body: JSON.stringify({ id }),
     });
     if (res.status === 201) {
-      setAttend(false)
-      alert('removed from list')
+      onResult(false, 'Your RSVP has been removed')
     } else {
-      alert('there was an error')
+      onResult(true, 'Something went wrong — please try again')
     }
   };
 
@@ -57,32 +55,31 @@ const RemoveAttendance = ({ user, event, setAttend }) => {
 
 export default function Attend({event}) {
   const { user, error, isLoading } = useUser();
-  const [attend, setAttend] = useState(false)
+  const { data, mutate } = useSWR(`/api/attendees/${event.id}`, fetcher);
+  // null until the user acts; afterwards it overrides the server-derived value
+  const [override, setOverride] = useState(null)
+  const [status, setStatus] = useState(null)
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
 
-  const { data } = useSWR(`/api/attendees/${event.id}`, fetcher);
+  const attending = override ?? Boolean(data && user && data.list.includes(user.sub))
 
-  const checkAttendance = () => {
-    if(data && user && data.list.includes(user.sub)) {
-      setAttend(true)
-    }
+  const handleResult = (isAttending, message) => {
+    setOverride(isAttending)
+    setStatus(message)
+    mutate()
   }
-
-  useEffect(() => {
-    checkAttendance()
-  }, [])
 
   return (
     user ? (
-      <>
+      <div className="flex flex-col items-end">
         {
-          attend ? (
+          attending ? (
             <RemoveAttendance
               user={user}
               event={event}
-              setAttend={setAttend}
+              onResult={handleResult}
             />
           )
           :
@@ -90,11 +87,18 @@ export default function Attend({event}) {
             <AddAttendance
               user={user}
               event={event}
-              setAttend={setAttend}
+              onResult={handleResult}
             />
           )
         }
-      </>
+        {
+          status && (
+            <span role="status" className="text-xs mt-2 text-black text-opacity-60 dark:text-white dark:text-opacity-60">
+              {status}
+            </span>
+          )
+        }
+      </div>
     )
     :
     (

@@ -8,16 +8,17 @@ const Collapse = ({title, children}) => {
 
   return(
     <div className={`border-b border-black border-opacity-10 dark:border-white dark:border-opacity-10`}>
-      <div
-        role="button"
+      <button
+        type="button"
+        aria-expanded={open}
         onClick={() => setOpen(!open)}
-        className="select-none py-6 font-bold text-left transition bg-transparent hover:text-black dark:hover:text-white flex text-base lg:text-lg items-center justify-between"
+        className="select-none w-full py-6 font-bold text-left transition bg-transparent hover:text-black dark:hover:text-white flex text-base lg:text-lg items-center justify-between"
       >
         {title}
-        <div className={`transform relative transition opacity-60 ${open && 'rotate-180'}`}>
+        <div className={`transform relative transition opacity-60 ${open ? 'rotate-180' : ''}`}>
           <ChevronDown/>
         </div>
-      </div>
+      </button>
       {
         open && (
           <div className="pb-4 text-left">

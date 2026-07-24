@@ -37,7 +37,7 @@ const Avatar = ({ name, img, color, sm }) => {
     <div className={`inline-flex items-center justify-center rounded-full ${sm ? 'w-8 h-8' : 'w-12 h-12'} border border-opacity-10 bg-opacity-10 dark:bg-opacity-10 dark:border-opacity-20 ${getType(color)} relative overflow-hidden`} title={name}>
       {
         img ? (
-          <Image src={img ?? ''} alt={img ?? ''} layout="fill" />
+          <Image src={img ?? ''} alt={name} fill className="object-cover" />
         )
         :
         (

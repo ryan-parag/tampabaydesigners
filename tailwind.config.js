@@ -3,17 +3,13 @@ module.exports = {
     './pages/**/*.{js,jsx,ts,tsx}',
     './components/**/*.{js,jsx,ts,tsx}',
   ],
-  darkMode: 'class', // or 'media' or 'class'
+  darkMode: 'media',
   theme: {
     fontFamily: {
       sans: ['Fragment-Sans', 'sans-serif'],
       serif: ['Fragment-Serif', 'serif'],
     },
     extend: {
-      screens: {
-        light: { raw: "(prefers-color-scheme: light)" },
-        dark: { raw: "(prefers-color-scheme: dark)" }
-      },
       zIndex: {
         '-1': '-1',
         '-3': '-3',
@@ -34,7 +30,7 @@ module.exports = {
           color: config("theme.colors.black"),
           backgroundColor: config("theme.colors.white")
         },
-        "@screen dark": {
+        "@media (prefers-color-scheme: dark)": {
           body: {
             color: config("theme.colors.white"),
             backgroundColor: config("theme.colors.black")
