@@ -139,17 +139,29 @@ export function resolveMeetupLink(byDate, event) {
   return best?.url ?? null
 }
 
+// Notion Link values pointing back at the site itself are placeholders, not
+// real RSVP targets — they made the RSVP button link the site to itself
+function needsLink(event) {
+  if (!event) return false
+  if (!event.link) return true
+  try {
+    return /(^|\.)tampabay\.design$/.test(new URL(event.link).hostname)
+  } catch {
+    return true
+  }
+}
+
 export async function withMeetupLinks(events) {
   try {
     const list = Array.isArray(events) ? events : [events]
-    if (!list.some(event => event && !event.link)) return events
+    if (!list.some(needsLink)) return events
 
     const byDate = await getMeetupEventsByDate()
     if (!byDate) return events
 
     list.forEach(event => {
-      if (event && !event.link) {
-        event.link = resolveMeetupLink(byDate, event) ?? event.link
+      if (needsLink(event)) {
+        event.link = resolveMeetupLink(byDate, event) ?? null
       }
     })
   } catch (error) {
