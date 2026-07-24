@@ -2,7 +2,8 @@ import React from 'react'
 import Layout from '@components/Layout'
 import useSWR from 'swr';
 import fetcher from '@utils/fetcher';
-import { Event } from '@components/ListItem'
+import { Event, AnchorCard } from '@components/ListItem'
+import config from '../../siteconfig.json'
 import { Error, Loading, Empty } from '@components/DataStates'
 import { motion } from 'framer-motion'
 import Link from 'next/link';
@@ -62,6 +63,13 @@ const Events = ({ title, description, ...props }) => {
               )
             }
           </ul>
+          <div className="pt-4">
+            <AnchorCard
+              href={config.meetupUrl}
+              tint={'red'}
+              label={'Join us on Meetup'}
+            />
+          </div>
           <p className="text-sm">
             Can't decide on a hangout spot?&nbsp;
             <Link href="/random" className="underline">
