@@ -1,5 +1,6 @@
 const { Client } = require('@notionhq/client');
 import moment from 'moment';
+import { withMeetupLinks } from '@utils/meetup';
 
 const notion = new Client({ auth: process.env.NOTION_SECRET });
 
@@ -31,5 +32,8 @@ export default async (req,res) => {
     item.attending.push(attendee.title?.[0]?.text?.content ?? '')
   })
 
+  await withMeetupLinks(item)
+
+  res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600')
   res.status(200).json({ item });
 }
