@@ -49,7 +49,9 @@ export const LatestHangout = () => {
   )
 }
 
-export const SignUp = () => {
+// Shared email-capture form behind SignUp and Form, which differ only in
+// heading, outer padding, success copy, and whether the upcoming event shows.
+const EmailSignup = ({ header, beforeInput, afterInput, successMessage, padded }) => {
   const [email, setEmail] = useState('')
   const [sent, setSent] = useState(false)
   const [emailError, setEmailError] = useState(false)
@@ -60,18 +62,18 @@ export const SignUp = () => {
       const contact = {
         email: email
       }
-  
+
       setSent(true)
       setEmailError(false)
-  
-      const response = await fetch('/api/contacts', {
+      setEmail('')
+
+      await fetch('/api/contacts', {
         method: 'POST',
         body: JSON.stringify({ contact }),
         headers: {
           'Content-Type': 'application/json'
         }
       })
-      const data = await response.json()
     } else {
       setEmailError(true)
     }
@@ -79,7 +81,6 @@ export const SignUp = () => {
 
   const reset = () => {
     setSent(false)
-    setEmail('')
   }
 
   return(
@@ -87,14 +88,15 @@ export const SignUp = () => {
       {
         !sent ? (
           <motion.div
-            className="relative top-4 opacity-0 w-full text-center flex h-full flex-col justify-center items-center overflow-visible"
+            className={`relative top-4 opacity-0 w-full text-center flex h-full flex-col justify-center items-center ${padded ? 'py-16 lg:py-24 ' : ''}overflow-visible`}
             animate={{ opacity: 1, top: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
+            {header}
             <div
               className="py-4 lg:py-8 lg:px-8 w-full relative overflow-visible"
             >
-              <span className="text-sm block mb-2">Subscribe to the Design Hangout calendar:</span>
+              {beforeInput}
               <div className="relative z-10 flex w-full shadow-lg overflow-visible">
                 <input
                   type="text"
@@ -126,6 +128,7 @@ export const SignUp = () => {
                 animate={{ opacity: .3 }}
                 transition={{ duration: 1, delay: 0.7 }}
               ></motion.div>
+              {afterInput}
             </div>
           </motion.div>
         )
@@ -140,7 +143,7 @@ export const SignUp = () => {
               <h1 className="flex justify-center text-green-500 mt-0 mb-4">
                 <Check size={32}/>
               </h1>
-              <p>Thanks! We'll add you to the list.</p>
+              <p>{successMessage}</p>
               <button className="button" onClick={() => reset()}>Close</button>
             </Box>
           </motion.div>
@@ -150,122 +153,34 @@ export const SignUp = () => {
   )
 }
 
+export const SignUp = () => (
+  <EmailSignup
+    beforeInput={<span className="text-sm block mb-2">Subscribe to the Design Hangout calendar:</span>}
+    successMessage={"Thanks! We'll add you to the list."}
+  />
+)
+
 export const Form = () => {
 
-  const [email, setEmail] = useState('')
-  const [sent, setSent] = useState(false)
-  const [emailError, setEmailError] = useState(false)
-
-  const sendContact = async () => {
-
-    if(email.includes('@')) {
-      const contact = {
-        email: email
-      }
-  
-      setSent(true)
-      setEmailError(false)
-  
-      const response = await fetch('/api/contacts', {
-        method: 'POST',
-        body: JSON.stringify({ contact }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      const data = await response.json()
-  
-      setEmail('')
-    } else {
-      setEmailError(true)
-    }
-  }
-
-  const reset = () => {
-    setSent(false)
-  }
-
-  const { data, error } = useSWR('/api/latest-hangout', fetcher);
+  const { data } = useSWR('/api/latest-hangout', fetcher);
 
   return(
-    <>
-      {
-        !sent ? (
-          <motion.div
-            className="relative top-4 opacity-0 w-full text-center flex h-full flex-col justify-center items-center py-16 lg:py-24 overflow-visible"
-            animate={{ opacity: 1, top: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            <span className="uppercase text-xs tracking-widest">🙏 Please join us</span>
-            <h3 className="text-black dark:text-white mt-4 mb-0">Sign up to be notified about the next hangout</h3>
-            <div
-              className="py-4 lg:py-8 lg:px-8 w-full relative overflow-visible"
-            >
-              <div className="relative z-10 flex w-full shadow-lg overflow-visible">
-                <input
-                  type="text"
-                  placeholder="Enter email..."
-                  className="block border border-transparent transition w-full rounded-lg p-6 bg-white bg-opacity-80 dark:bg-black dark:bg-opacity-80 backdrop-blur-md focus:bg-opacity-100 dark:focus:bg-opacity-100 focus:outline-none focus:border-black focus:border-opacity-20 dark:focus:border-white dark:focus:border-opacity-20"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                />
-                {
-                  email.length > 0 && (
-                    <motion.button
-                      className="px-6 rounded-r-lg absolute right-0 top-0 bottom-0 bg-gradient-to-t from-yellow-500 via-yellow-400 to-yellow-300 text-black text-opacity-70 h-full opacity-0 text-shadow"
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.3 }}
-                      onClick={() => sendContact()}
-                    >
-                      Sign Up
-                    </motion.button>
-                  )
-                }
-              </div>
-              {
-                emailError && (
-                  <div className="text-sm mt-2 text-red-500">Something is wrong with your email address</div>
-                )
-              }
-              <motion.div
-                className="overflow-visible opacity-0 filter blur-3xl bg-gradient-to-r from-red-500 via-pink-500 to-yellow-500 absolute top-0 bottom-0 right-0 left-0"
-                animate={{ opacity: .3 }}
-                transition={{ duration: 1, delay: 0.7 }}
-              ></motion.div>
-              {
-                data && (
-                  <>
-                    {
-                      data.latest.upcoming && (
-                        <div className="text-left mt-4">
-                          <Event data={data.latest}/>
-                        </div>
-                      )
-                      
-                    }
-                  </>
-                )
-              }
-            </div>
-          </motion.div>
-        )
-        :
+    <EmailSignup
+      padded
+      header={
         <>
-          <motion.div
-            className="relative top-4 opacity-0 w-full text-center flex h-full flex-col justify-center items-center py-16 lg:py-24 px-4"
-            animate={{ opacity: 1, top: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Box>
-              <h1 className="flex justify-center text-green-500 mt-0 mb-4">
-                <Check size={32}/>
-              </h1>
-              <p>Thanks! We'll let you know when the next one is scheduled</p>
-              <button className="button" onClick={() => reset()}>Close</button>
-            </Box>
-          </motion.div>
+          <span className="uppercase text-xs tracking-widest">🙏 Please join us</span>
+          <h3 className="text-black dark:text-white mt-4 mb-0">Sign up to be notified about the next hangout</h3>
         </>
       }
-    </>
+      afterInput={
+        data && data.latest.upcoming ? (
+          <div className="text-left mt-4">
+            <Event data={data.latest}/>
+          </div>
+        ) : null
+      }
+      successMessage={"Thanks! We'll let you know when the next one is scheduled"}
+    />
   )
 }

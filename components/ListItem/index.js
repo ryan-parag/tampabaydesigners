@@ -117,18 +117,6 @@ export const ListGroupItem = ({ data }) => {
   )
 }
 
-export const SlackGroup = ({ data }) => {
-  return(
-    <ListGroupItem data={data}/>
-  )
-}
-
-export const Group = ({ data }) => {
-  return(
-    <ListGroupItem data={data}/>
-  )
-}
-
 export const Event = ({ data }) => {
   return(
     <BoxLink href={`/events/${data.id}`} title={`${data.name} - ${data.description}`} mt={'0'} mb={'4'}>

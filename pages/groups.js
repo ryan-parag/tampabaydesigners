@@ -3,7 +3,7 @@ import Layout from '@components/Layout'
 import useSWR from 'swr';
 import fetcher from '@utils/fetcher';
 import { motion } from 'framer-motion'
-import { Group } from '@components/ListItem'
+import { ListGroupItem } from '@components/ListItem'
 import { Error, Loading } from '@components/DataStates'
 
 const Groups = ({ title, description, ...props }) => {
@@ -39,7 +39,7 @@ const Groups = ({ title, description, ...props }) => {
                     animate={{ top: 0, opacity: 1 }}
                     transition={{ duration: 0.3, delay: 0.3*i }}
                   >
-                    <Group data={item} />
+                    <ListGroupItem data={item} />
                   </motion.li>
                 ))
               )
