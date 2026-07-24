@@ -4,7 +4,7 @@ import FadeIn from '@components/FadeIn'
 
 const Container = ({children}) => {
   return(
-    <FadeIn className="my-4 flex text-center flex-col items-center px-4 py-6 rounded bg-black bg-opacity-5 dark:bg-white dark:bg-opacity-5 text-black dark:text-white text-opacity-50 dark:text-opacity-50">
+    <FadeIn className="my-4 flex text-center flex-col items-center px-4 py-6 rounded-lg bg-black bg-opacity-5 dark:bg-white dark:bg-opacity-5 text-black dark:text-white text-opacity-50 dark:text-opacity-50">
       { children }
     </FadeIn>
   )

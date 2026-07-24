@@ -14,7 +14,7 @@ export const LatestHangout = () => {
   const { data, error } = useSWR('/api/latest-hangout', fetcher);
 
   // While loading, render nothing; on error or no upcoming hangout, fall
-  // back to the evergreen "first Thursday" card so the slot never vanishes.
+  // back to the evergreen "third Thursday" card so the slot never vanishes.
   if (!data && !error) return null
 
   return(
@@ -25,13 +25,13 @@ export const LatestHangout = () => {
         )
         :
         (
-          <BoxLink href={'/hangouts'} title={'Design Hangout - first Thursday of every month'} mt={'0'} mb={'0'}>
+          <BoxLink href={'/hangouts'} title={'Design Hangout - third Thursday of every month'} mt={'0'} mb={'0'}>
             <div className="flex items-start pt-10 md:pt-0">
               <div className="md:hidden absolute top-0 right-0 left-0 w-full flex justify-between items-center py-2 px-4 border-b border-black border-opacity-10 dark:border-white dark:border-opacity-10">
                 <div className="text-xs font-semibold uppercase font-mono tracking-widest">
                   <Tag color={'green'}><span className="font-bold font-mono leading-tight">Thu</span></Tag>
                   <span className="mx-2 opacity-50">/</span>
-                  First Thursday
+                  Third Thursday
                 </div>
                 <Tag><span className="font-bold font-mono leading-tight">Monthly</span></Tag>
               </div>
@@ -57,7 +57,7 @@ export const LatestHangout = () => {
                   <div className="my-2 flex flex-col text-left">
                     <div className="text-sm items-start hidden md:inline-flex mb-2">
                       <Clock size={'16'} className="mr-2 mt-1 text-black text-opacity-50 dark:text-white dark:text-opacity-50"/>
-                      <div>First Thursday of every month</div>
+                      <div>Third Thursday of every month</div>
                     </div>
                     <div className="text-sm inline-flex items-center">
                       <MapPin size={'16'} className="mr-2 text-black text-opacity-50 dark:text-white dark:text-opacity-50"/>
