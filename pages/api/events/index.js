@@ -1,5 +1,6 @@
 const { Client } = require('@notionhq/client');
 import moment from 'moment';
+import { withMeetupLinks } from '@utils/meetup';
 
 const notion = new Client({ auth: process.env.NOTION_SECRET });
 
@@ -54,6 +55,8 @@ export default async (req,res) => {
     events.unshift(lineItem)
 
   })
+
+  await withMeetupLinks(events)
 
   res.status(200).json({ events });
 }

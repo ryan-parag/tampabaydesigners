@@ -1,5 +1,6 @@
 const { Client } = require('@notionhq/client');
 import moment from 'moment';
+import { withMeetupLinks } from '@utils/meetup';
 
 const notion = new Client({ auth: process.env.NOTION_SECRET });
 
@@ -30,6 +31,8 @@ export default async (req,res) => {
   attending.map(attendee => {
     item.attending.push(attendee.title?.[0]?.text?.content ?? '')
   })
+
+  await withMeetupLinks(item)
 
   res.status(200).json({ item });
 }
