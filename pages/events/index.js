@@ -67,8 +67,9 @@ const Events = ({ title, description, ...props }) => {
           <div className="pt-4">
             <AnchorCard
               href={config.meetupUrl}
-              tint={'red'}
+              tint={'pink'}
               label={'Join us on Meetup'}
+              type={'meetup'}
             />
           </div>
           <p className="text-sm">

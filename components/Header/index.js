@@ -40,9 +40,6 @@ const Header = () => {
     }, {
       name: 'Hangouts',
       link: '/hangouts'
-    }, {
-      name: 'About',
-      link: '/about'
     }
   ]
 

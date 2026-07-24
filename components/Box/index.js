@@ -29,6 +29,8 @@ const getTint = type => {
       return (<div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-transparent to-yellow-500 opacity-20"></div>)
     case 'purple':
       return (<div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-transparent to-purple-500 opacity-20"></div>)
+    case 'pink':
+      return (<div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-transparent to-pink-500 opacity-20"></div>)
     default:
       return (<div className="absolute top-0 bottom-0 left-0 right-0 opacity-20"></div>)
   }

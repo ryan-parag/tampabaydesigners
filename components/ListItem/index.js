@@ -223,7 +223,26 @@ export const LinkCard = ({href, tint, type, label}) => {
   )
 }
 
-export const AnchorCard = ({href, tint, type, label}) => {
+export const AnchorCard = ({href, tint, type, label, wide}) => {
+  if (wide) {
+    return (
+      <BoxAnchor href={href} p={'0'} mb={'0'} mt={'0'} tint={tint}>
+        <div className="transition flex items-center py-6 px-4 hover:px-6 focus:px-6">
+          {
+            type && (
+              <div className="opacity-70 mr-4">
+                <Avatar type={type}/>
+              </div>
+            )
+          }
+          <div className="flex flex-1 justify-between items-center">
+            <h6>{label}</h6>
+            <ExternalLink size={20} />
+          </div>
+        </div>
+      </BoxAnchor>
+    )
+  }
   return(
     <BoxAnchor href={href} p={'0'} mb={'0'} mt={'0'} tint={tint} rotate={'1'}>
       <div className="transition flex flex-col items-between justify-end pt-8 pb-8 h-40 pr-4 pl-4 hover:pr-6 focus:pr-6">

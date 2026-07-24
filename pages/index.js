@@ -172,17 +172,19 @@ const Index = ({ title, description, ...props }) => {
                 href={config.githubUrl}
                 tint={'indigo'}
                 label={'Contribute'}
-                type={'interviews'}
+                type={'github'}
               />
             </FadeIn>
             <FadeIn
-              className="relative"
+              className="relative col-span-2 lg:col-span-3"
               delay={0.5}
             >
               <AnchorCard
                 href={config.meetupUrl}
-                tint={'green'}
+                tint={'pink'}
                 label={'Join us on Meetup'}
+                type={'meetup'}
+                wide
               />
             </FadeIn>
           </div>

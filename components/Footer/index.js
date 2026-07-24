@@ -22,9 +22,6 @@ const Footer = () => {
       name: 'About',
       link: '/about'
     }, {
-      name: 'Interviews',
-      link: '/interviews'
-    }, {
       name: 'Meetup',
       link: config.meetupUrl,
       external: true
