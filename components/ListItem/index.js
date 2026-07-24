@@ -166,13 +166,18 @@ export const Credit = ({ data }) => {
 
 export const Interview = ({item}) => {
 
+  // Full class names in static arrays so Tailwind's JIT generates them —
+  // interpolated names like `bg-${color}-500` are invisible to it.
   const getRandomGradient = (arr) => {
     const randomIndex = Math.floor(Math.random() * arr.length)
     const item = arr[randomIndex]
     return item
   }
 
-  const colors = ['yellow', 'pink', 'red', 'indigo', 'green', 'blue', 'green', 'purple']
+  const bgColors = ['bg-yellow-500', 'bg-pink-500', 'bg-red-500', 'bg-indigo-500', 'bg-green-500', 'bg-blue-500', 'bg-green-500', 'bg-purple-500']
+  const fromColors = ['from-yellow-500', 'from-pink-500', 'from-red-500', 'from-indigo-500', 'from-green-500', 'from-blue-500', 'from-green-500', 'from-purple-500']
+  const viaColors = ['via-yellow-500', 'via-pink-500', 'via-red-500', 'via-indigo-500', 'via-green-500', 'via-blue-500', 'via-green-500', 'via-purple-500']
+  const toColors = ['to-yellow-500', 'to-pink-500', 'to-red-500', 'to-indigo-500', 'to-green-500', 'to-blue-500', 'to-green-500', 'to-purple-500']
 
 
   return (
@@ -198,10 +203,10 @@ export const Interview = ({item}) => {
         className="absolute z-5 top-0 bottom-0 left-0 right-0 rounded bg-gradient-to-t from-white to-transparent dark:from-black"
       ></div>
       <div
-        className={`absolute z-0 opacity-20 bg-blend-multiply top-0 bottom-0 left-0 right-0 rounded bg-${getRandomGradient(colors)}-500`}
+        className={`absolute z-0 opacity-20 bg-blend-multiply top-0 bottom-0 left-0 right-0 rounded ${getRandomGradient(bgColors)}`}
       ></div>
       <div
-        className={`absolute transform -z-5 top-0 bottom-0 left-0 filter blur opacity-10 right-0 rounded bg-gradient-to-t from-${getRandomGradient(colors)}-500 via-${getRandomGradient(colors)}-500 to-${getRandomGradient(colors)}-500`}
+        className={`absolute transform -z-5 top-0 bottom-0 left-0 filter blur opacity-10 right-0 rounded bg-gradient-to-t ${getRandomGradient(fromColors)} ${getRandomGradient(viaColors)} ${getRandomGradient(toColors)}`}
       ></div>
 
     </Link>
@@ -210,7 +215,7 @@ export const Interview = ({item}) => {
 
 export const LinkCard = ({href, tint, type, label}) => {
   return(
-    <BoxLink href={href} p={'0'} mb={'0'} mt={'0'} tint={tint} rotate={'1'}>
+    <BoxLink href={href} p={'0'} mb={'0'} mt={'0'} tint={tint}>
       <div className="transition flex flex-col items-between justify-end pt-8 pb-8 h-40 px-4 hover:px-6">
         {
           type && (
@@ -230,7 +235,7 @@ export const LinkCard = ({href, tint, type, label}) => {
 
 export const AnchorCard = ({href, tint, type, label}) => {
   return(
-    <BoxAnchor href={href} p={'0'} mb={'0'} mt={'0'} tint={tint} rotate={'1'}>
+    <BoxAnchor href={href} p={'0'} mb={'0'} mt={'0'} tint={tint}>
       <div className="transition flex flex-col items-between justify-end pt-8 pb-8 h-40 pr-4 pl-4 hover:pr-6 focus:pr-6">
         {
           type && (

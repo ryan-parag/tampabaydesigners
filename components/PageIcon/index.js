@@ -35,9 +35,9 @@ const PageIcon = ({type}) => {
   }
 }
 
-export const Avatar = ({type, mb, mt}) => {
+export const Avatar = ({type}) => {
   return(
-    <div className={`relative w-16 h-16 mb-${mb ? mb : '0'} mt-${mt ? mt : '0'}`}>
+    <div className="relative w-16 h-16">
       <span className="z-10 relative inline-flex rounded-full items-center justify-center text-4xl bg-white bg-opacity-70 dark:bg-black dark:bg-opacity-70 w-16 h-16">
         <PageIcon type={type}/>
       </span>
