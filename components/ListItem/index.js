@@ -59,6 +59,7 @@ export const ListGroupItem = ({ data }) => {
         <div className="relative block py-1 px-0 h-14 w-14">
           <img
             src={data.logo}
+            alt={`${data.name} logo`}
             className="relative w-full z-10 rounded-full block"
           />
           {
@@ -133,6 +134,7 @@ export const Credit = ({ data }) => {
         <div className="relative inline-flex py-1 px-0">
           <img
             src={`/static/credits/${data.logo}`}
+            alt={`${data.name} avatar`}
             width={'48'}
             className="relative z-10 rounded-full"
           />

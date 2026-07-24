@@ -14,9 +14,9 @@ export default async (req,res) => {
   });
 
   const data = {
-    name: pageData.properties.Name.title[0].plain_text,
-    twitter: pageData.properties.Twitter.rich_text[0].plain_text,
-    website: pageData.properties.Website.url
+    name: pageData.properties.Name?.title?.[0]?.plain_text ?? '',
+    twitter: pageData.properties.Twitter?.rich_text?.[0]?.plain_text ?? '',
+    website: pageData.properties.Website?.url
   }
 
   res.status(200).json({ data });

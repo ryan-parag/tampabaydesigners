@@ -14,13 +14,13 @@ export default async (req,res) => {
 
     const lineItem = {
       id: item.id,
-      name: item.properties.Name.title[0].plain_text,
-      description: item.properties.Description.rich_text[0].plain_text,
-      link: item.properties.Link.url,
-      logo: item.properties.Logo.files[0].name
+      name: item.properties.Name?.title?.[0]?.plain_text ?? '',
+      description: item.properties.Description?.rich_text?.[0]?.plain_text ?? '',
+      link: item.properties.Link?.url,
+      logo: item.properties.Logo?.files?.[0]?.name ?? ''
     }
 
-    if(item.properties.Verified.checkbox) {
+    if(item.properties.Verified?.checkbox) {
       credits.push(lineItem)
     }
 

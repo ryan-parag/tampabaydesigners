@@ -14,9 +14,9 @@ export default async (req,res) => {
 
     const lineItem = {
       id: item.id,
-      name: item.properties.Name.title[0].plain_text,
-      address: item.properties.Address.rich_text[0].plain_text,
-      region: item.properties.Location.select.name,
+      name: item.properties.Name?.title?.[0]?.plain_text ?? '',
+      address: item.properties.Address?.rich_text?.[0]?.plain_text ?? '',
+      region: item.properties.Location?.select?.name ?? null,
     }
 
     locations.push(lineItem)
