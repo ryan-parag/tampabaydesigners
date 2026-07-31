@@ -27,20 +27,20 @@ export const NextEvent = () => {
             {
               data.next && (
                 <BoxLink href={`/events/${data.next.id}`} mt={'0'} mb={'0'}>
-                  <div className="flex items-center justify-between">
-                    <div className="inline-flex items-center text-sm min-w-0">
+                  <div className="flex flex-col items-start md:flex-row md:items-center md:justify-between">
+                    <div className="inline-flex flex-wrap md:flex-nowrap items-center text-sm min-w-0">
                       <Tag color={'blue'}><span className="font-bold font-mono leading-tight whitespace-nowrap">Up next</span></Tag>
-                      <span className="ml-3 whitespace-nowrap">{data.next.name}</span>
+                      <span className="ml-3 min-w-0 break-words md:whitespace-nowrap">{data.next.name}</span>
                       {
                         data.next.locationName && (
-                          <span className="ml-3 inline-flex items-center min-w-0 text-black text-opacity-50 dark:text-white dark:text-opacity-50">
+                          <span className="mt-1 md:mt-0 md:ml-3 w-full md:w-auto inline-flex items-center min-w-0 text-black text-opacity-50 dark:text-white dark:text-opacity-50">
                             <MapPin size={'14'} className="mr-1 flex-shrink-0"/>
                             <span className="truncate">{data.next.locationName}</span>
                           </span>
                         )
                       }
                     </div>
-                    <span className="ml-3 whitespace-nowrap text-xs font-mono text-black text-opacity-50 dark:text-white dark:text-opacity-50">
+                    <span className="mt-2 md:mt-0 md:ml-3 whitespace-nowrap text-xs font-mono text-black text-opacity-50 dark:text-white dark:text-opacity-50">
                       {formatDateParts(data.next.date).monthString} {formatDateParts(data.next.date).numString} · {formatDateParts(data.next.date).timeString}
                     </span>
                   </div>
