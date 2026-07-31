@@ -8,12 +8,13 @@ import fetcher from '@utils/fetcher';
 import { Event } from '@components/ListItem'
 import Tag from '@components/Tag'
 import { GroupLogo } from '@components/Logo'
+import { formatDateParts } from '@utils/date'
 
-export const LatestHangout = () => {
+export const NextEvent = () => {
 
-  const { data, error } = useSWR('/api/latest-hangout', fetcher);
+  const { data, error } = useSWR('/api/next-events', fetcher);
 
-  // While loading, render nothing; on error or no upcoming hangout, fall
+  // While loading, render nothing; on error or no upcoming event, fall
   // back to the evergreen "third Thursday" card so the slot never vanishes.
   if (!data && !error) return null
 
@@ -21,7 +22,24 @@ export const LatestHangout = () => {
     <FadeIn delay={0.24} className="relative">
       {
         data && data.latest.upcoming ? (
-          <Event data={data.latest}/>
+          <>
+            <Event data={data.latest}/>
+            {
+              data.next && (
+                <BoxLink href={`/events/${data.next.id}`} mt={'0'} mb={'0'}>
+                  <div className="flex items-center justify-between">
+                    <div className="inline-flex items-center text-sm">
+                      <Tag color={'blue'}><span className="font-bold font-mono leading-tight">Up next</span></Tag>
+                      <span className="ml-3">{data.next.name}</span>
+                    </div>
+                    <span className="ml-3 whitespace-nowrap text-xs font-mono text-black text-opacity-50 dark:text-white dark:text-opacity-50">
+                      {formatDateParts(data.next.date).monthString} {formatDateParts(data.next.date).numString}
+                    </span>
+                  </div>
+                </BoxLink>
+              )
+            }
+          </>
         )
         :
         (

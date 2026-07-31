@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import FadeIn from '@components/FadeIn'
 import Layout from '@components/Layout'
 import { LinkCard, AnchorCard } from '@components/ListItem'
-import { LatestHangout } from '@components/Hangouts'
+import { NextEvent } from '@components/Hangouts'
 import Box, { BoxLink } from '@components/Box'
 import useHover from '@utils/useHover'
 import config from '../siteconfig.json'
@@ -35,7 +35,7 @@ const AbsoluteImages = () => {
           <motion.img
             key={i}
             src={`static/${item.type}.png`}
-            className={`transform absolute opacity-0 select-none ${item.classes}`}
+            className={`transform absolute opacity-0 select-none pointer-events-none ${item.classes}`}
             animate={{ opacity: .1 }}
             transition={{ duration: 0.8, delay: 0.3*i }}
           />
@@ -99,7 +99,7 @@ const Index = ({ title, description, ...props }) => {
               </Box>
             </FadeIn>
             <div className="col-span-2 lg:col-span-3">
-              <LatestHangout/>
+              <NextEvent/>
             </div>
             <FadeIn
               className="relative"
