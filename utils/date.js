@@ -12,4 +12,5 @@ export const formatDateParts = (date, { longMonth = false } = {}) => ({
   numString: moment(date).date(),
   monthString: (longMonth ? MONTHS_LONG : MONTHS_SHORT)[moment(date).month()],
   yearString: new Date(date).getFullYear(),
+  timeString: moment(date).format('LT'),
 })
