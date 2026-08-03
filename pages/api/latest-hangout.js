@@ -1,5 +1,6 @@
 const { Client } = require('@notionhq/client');
 import moment from 'moment'
+import { withMeetupLinks } from '@utils/meetup';
 
 const notion = new Client({ auth: process.env.NOTION_SECRET });
 
@@ -17,17 +18,17 @@ export default async (req,res) => {
 
     const events = []
 
-    if(item.properties.Verified.checkbox && item.properties.Name.title[0].plain_text.includes('Design Hangout')) {
+    if(item.properties.Verified?.checkbox && item.properties.Name?.title?.[0]?.plain_text?.includes('Design Hangout')) {
       const event = {
         id: item.id,
-        name: item.properties.Name.title[0].plain_text,
-        description: item.properties.Description.rich_text[0].plain_text,
-        org: item.properties.Org.select.name,
-        link: item.properties.Link.url,
-        date: item.properties.Date.date.start,
-        upcoming: moment(item.properties.Date.date.start).isAfter(moment().format('YYYY-MM-DD')),
-        locationName: item.properties.LocationName.formula.string,
-        diff: moment(item.properties.Date.date.start).diff(moment(today), 'days')
+        name: item.properties.Name?.title?.[0]?.plain_text ?? '',
+        description: item.properties.Description?.rich_text?.[0]?.plain_text ?? '',
+        org: item.properties.Org?.select?.name ?? null,
+        link: item.properties.Link?.url,
+        date: item.properties.Date?.date?.start ?? null,
+        upcoming: moment(item.properties.Date?.date?.start ?? null).isAfter(moment().format('YYYY-MM-DD')),
+        locationName: item.properties.LocationName?.formula?.string ?? null,
+        diff: moment(item.properties.Date?.date?.start ?? null).diff(moment(today), 'days')
       }
       events.push(event)
     }
@@ -45,5 +46,10 @@ export default async (req,res) => {
 
   const latest = hangouts.length > 0 ? hangouts[0] : {upcoming: false}
 
+  if (latest.upcoming) {
+    await withMeetupLinks(latest)
+  }
+
+  res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600')
   res.status(200).json({ latest });
 }

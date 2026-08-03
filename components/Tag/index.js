@@ -1,38 +1,34 @@
 import React from 'react'
 
-const Tag = ({color, children, ml, mt, mb, mr, bg}) => {
+// Static lookups so Tailwind's JIT can see every class we emit.
+const MR = { '2': 'mr-2' }
+const MT = { '2': 'mt-2' }
 
-  const getType = color => {
-    switch(color) {
-      case 'red':
-        return 'bg-red-500'
-        break;
-      case 'blue':
-        return 'bg-blue-500'
-        break;
-      case 'green':
-        return 'bg-green-500'
-        break;
-      case 'purple':
-        return 'bg-purple-500'
-        break;
-      case 'yellow':
-        return 'bg-yellow-500'
-        break;
-      case 'indigo':
-        return 'bg-indigo-500'
-        break;
-      case 'pink':
-        return 'bg-pink-500'
-        break;
-      default:
-        return 'bg-white'
-    }
+const getType = color => {
+  switch(color) {
+    case 'red':
+      return 'bg-red-500'
+    case 'blue':
+      return 'bg-blue-500'
+    case 'green':
+      return 'bg-green-500'
+    case 'purple':
+      return 'bg-purple-500'
+    case 'yellow':
+      return 'bg-yellow-500'
+    case 'indigo':
+      return 'bg-indigo-500'
+    case 'pink':
+      return 'bg-pink-500'
+    default:
+      return 'bg-white'
   }
+}
 
+const Tag = ({color, children, mt, mr}) => {
   return(
     <span
-      className={`mb-${mb ? mb : '0'} mt-${mt ? mt : '0'} mr-${mr ? mr : '0'} ml-${ml ? ml : '0'} rounded-full inline-flex items-center text-xs tracking-wide py-1 px-3 border border-${bg ? `${bg}-200` : 'current'} bg-${bg ? `${bg}-100` : 'white'} bg-opacity-100 shadow dark:bg-${bg ? `${bg}-500` : 'white'} dark:bg-opacity-5 dark:border-${bg ? `${bg}-300` : 'white'} dark:border-opacity-10 text-${bg ? `${bg}-700` : 'black'} text-opacity-100 dark:text-${bg ? `${bg}-300` : 'white'} dark:text-opacity-100`}
+      className={`${MR[mr] || ''} ${MT[mt] || ''} rounded-full inline-flex items-center text-xs tracking-wide py-1 px-3 border bg-white bg-opacity-100 shadow dark:bg-white dark:bg-opacity-5 dark:border-white dark:border-opacity-10 text-black text-opacity-100 dark:text-white dark:text-opacity-100`}
     >
       {
         color && (

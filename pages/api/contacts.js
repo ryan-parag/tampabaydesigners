@@ -34,7 +34,7 @@ export default async (req,res) => {
   
       const lineItem = {
         id: item.id,
-        email: item.properties.Email.title[0].plain_text
+        email: item.properties.Email?.title?.[0]?.plain_text ?? ''
       }
 
       contacts.push(lineItem)

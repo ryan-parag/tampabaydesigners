@@ -1,5 +1,6 @@
 const { Client } = require('@notionhq/client');
 import moment from 'moment';
+import { withMeetupLinks } from '@utils/meetup';
 
 const notion = new Client({ auth: process.env.NOTION_SECRET });
 
@@ -17,19 +18,22 @@ export default async (req,res) => {
 
   const item = {
     id: response.id,
-    name: response.properties.Name.title[0].plain_text,
-    description: response.properties.Description.rich_text[0].plain_text,
-    org: response.properties.Org.select.name,
-    link: response.properties.Link.url,
-    date: response.properties.Date.date.start,
+    name: response.properties.Name?.title?.[0]?.plain_text ?? '',
+    description: response.properties.Description?.rich_text?.[0]?.plain_text ?? '',
+    org: response.properties.Org?.select?.name ?? null,
+    link: response.properties.Link?.url,
+    date: response.properties.Date?.date?.start ?? null,
     location: response.properties.Location.relation[0].id,
-    diff: moment(response.properties.Date.date.start).diff(moment(today), 'days'),
+    diff: moment(response.properties.Date?.date?.start ?? null).diff(moment(today), 'days'),
     attending: []
   }
 
   attending.map(attendee => {
-    item.attending.push(attendee.title[0].text.content)
+    item.attending.push(attendee.title?.[0]?.text?.content ?? '')
   })
 
+  await withMeetupLinks(item)
+
+  res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600')
   res.status(200).json({ item });
 }

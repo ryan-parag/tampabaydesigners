@@ -2,16 +2,16 @@ import React from 'react'
 import Layout from '@components/Layout'
 import useSWR from 'swr';
 import fetcher from '@utils/fetcher';
-import { motion } from 'framer-motion'
-import { Group } from '@components/ListItem'
-import { Error, Loading } from '@components/DataStates'
+import FadeIn from '@components/FadeIn'
+import { ListGroupItem } from '@components/ListItem'
+import { Error, Loading, Empty } from '@components/DataStates'
 
 const Groups = ({ title, description, ...props }) => {
 
-  const { data, error } = useSWR('/api/groups', fetcher);
+  const { data, error, mutate } = useSWR('/api/groups', fetcher);
 
   return (
-    <Layout pageTitle={title} description={description} ogImage={'/tbd-sm.png'}>
+    <Layout pageTitle={'Groups'} description={description} ogImage={'/tbd-sm.png'}>
       <section
         className="pt-24 pb-24 flex items-start lg:items-center w-full overflow-x-hidden"
         style={{
@@ -28,24 +28,28 @@ const Groups = ({ title, description, ...props }) => {
           </p>
           <ul>
             {
-              error && (<Error/>)
-            }
-            {
-              data ? (
-                data.groups.map((item,i) => (
-                  <motion.li
-                    key={item.id}
-                    className="opacity-0 top-4 relative"
-                    animate={{ top: 0, opacity: 1 }}
-                    transition={{ duration: 0.3, delay: 0.3*i }}
-                  >
-                    <Group data={item} />
-                  </motion.li>
-                ))
+              error ? (
+                <Error onRetry={() => mutate()}/>
               )
-              :
-              (
+              : !data ? (
                 <Loading/>
+              )
+              : data.groups.length === 0 ? (
+                <Empty>
+                  No groups yet - check back soon
+                </Empty>
+              )
+              : (
+                data.groups.map((item,i) => (
+                  <FadeIn
+                    as={'li'}
+                    key={item.id}
+                    className="relative"
+                    delay={Math.min(0.08*i, 0.4)}
+                  >
+                    <ListGroupItem data={item} />
+                  </FadeIn>
+                ))
               )
             }
           </ul>

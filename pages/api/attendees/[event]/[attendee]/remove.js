@@ -9,25 +9,11 @@ export default async function handler(req, res) {
       .json({ message: `${req.method} requests are not allowed` });
   }
   try {
-    const { event, sub } = JSON.parse(req.body);
+    const { id } = JSON.parse(req.body);
 
-    const response = await notion.databases.query({ 
-      database_id: process.env.NOTION_ATTENDEES,
-      filter: {
-        "and": [
-          {
-            "property": "Events",
-            "relation": {
-                "contains": event
-            }
-          }, {
-            "property": "Auth_id",
-            "rich_text": {
-                "contains": sub
-            }
-          },
-        ]
-      }
+    await notion.pages.update({
+      page_id: id,
+      archived: true
     });
 
     res.status(201).json({ msg: 'Removed from attendance' });

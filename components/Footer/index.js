@@ -1,6 +1,7 @@
 import React from 'react'
 import Logo from '@components/Logo'
 import Link from 'next/link'
+import config from '../../siteconfig.json'
 
 const Footer = () => {
 
@@ -21,7 +22,11 @@ const Footer = () => {
       name: 'About',
       link: '/about'
     }, {
-      name: 'Generate Event Images',
+      name: 'Meetup',
+      link: config.meetupUrl,
+      external: true
+    }, {
+      name: 'Images',
       link: 'https://tbd-image-gen.vercel.app',
       external: true
     }
@@ -43,10 +48,12 @@ const Footer = () => {
                     { item.name }
                   </a>
                 ) : (
-                  <Link href={item.link}>
-                    <a className="my-1 inline-flex transition text-black dark:text-white text-opacity-50 dark:text-opacity-50 hover:text-opacity-100 dark:hover:text-opacity-100 py-1 px-3 hover:bg-black hover:bg-opacity-5 dark:hover:bg-white dark:hover:bg-opacity-10 rounded-full mx-2">
-                      { item.name }
-                    </a>
+                  <Link
+                    href={item.link}
+                    className="my-1 inline-flex transition text-black dark:text-white text-opacity-50 dark:text-opacity-50 hover:text-opacity-100 dark:hover:text-opacity-100 py-1 px-3 hover:bg-black hover:bg-opacity-5 dark:hover:bg-white dark:hover:bg-opacity-10 rounded-full mx-2">
+
+                    { item.name }
+
                   </Link>
                 )}
               </li>
@@ -54,15 +61,16 @@ const Footer = () => {
           }
         </ul>
         <a
-          href="https://github.com/srhzt/tampabaydesigners"
+          href={config.githubUrl}
           target="_blank"
+          rel="noopener noreferrer"
           className="button"
         >
           Contribute on GitHub
         </a>
       </div>
     </footer>
-  )
+  );
 }
 
 export default Footer

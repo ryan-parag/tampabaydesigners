@@ -1,5 +1,6 @@
 const { Client } = require('@notionhq/client');
 import moment from 'moment';
+import { withMeetupLinks } from '@utils/meetup';
 
 const notion = new Client({ auth: process.env.NOTION_SECRET });
 
@@ -41,19 +42,22 @@ export default async (req,res) => {
 
     const lineItem = {
       id: item.id,
-      name: item.properties.Name.title[0].plain_text,
-      description: item.properties.Description.rich_text[0].plain_text,
-      org: item.properties.Org.select.name,
-      link: item.properties.Link.url,
-      date: item.properties.Date.date.start,
+      name: item.properties.Name?.title?.[0]?.plain_text ?? '',
+      description: item.properties.Description?.rich_text?.[0]?.plain_text ?? '',
+      org: item.properties.Org?.select?.name ?? null,
+      link: item.properties.Link?.url,
+      date: item.properties.Date?.date?.start ?? null,
       location: item.properties.Location.relation[0].id,
-      locationName: item.properties.LocationName.formula.string,
-      diff: moment(item.properties.Date.date.start).diff(moment(today), 'days')
+      locationName: item.properties.LocationName?.formula?.string ?? null,
+      diff: moment(item.properties.Date?.date?.start ?? null).diff(moment(today), 'days')
     }
 
     events.unshift(lineItem)
 
   })
 
+  await withMeetupLinks(events)
+
+  res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600')
   res.status(200).json({ events });
 }

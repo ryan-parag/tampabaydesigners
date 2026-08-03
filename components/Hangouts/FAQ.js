@@ -7,6 +7,29 @@ import { motion } from 'framer-motion'
 import { Error, Loading } from '@components/DataStates'
 import Box from '@components/Box';
 
+// Animated chip list shared by the "What can I expect?" answers below.
+const ExpectChips = ({ items }) => (
+  <ul className="flex flex-wrap items-center">
+    {
+      items.map((item,i) => (
+        <motion.li
+          className="relative opacity-0 top-4"
+          key={i}
+          animate={{ opacity: 1, top: 0 }}
+          transition={{ duration: 0.3, delay: `${0.2 + 0.12*i}` }}
+        >
+          <span className="mx-2 my-2 inline-flex shadow items-center tracking-wider text-xs uppercase font-sans bg-white bg-opacity-50 dark:bg-white dark:bg-opacity-10 text-black text-opacity-70 dark:text-white dark:text-opacity-70 backdrop-blur rounded-full px-4 py-1">
+            <span className="mr-2 text-lg">
+              {item.icon}
+            </span>
+            {item.label}
+          </span>
+        </motion.li>
+      ))
+    }
+  </ul>
+)
+
 const FAQ = () => {
 
   const descriptions = [
@@ -37,25 +60,7 @@ const FAQ = () => {
     <>
       <h5 className="mb-2 mt-0">Frequently Asked Questions</h5>
       <Collapse title="What can I expect?">
-        <ul className="flex flex-wrap items-center">
-          {
-            descriptions.map((item,i) => (
-              <motion.li
-                className="relative opacity-0 top-4"
-                key={i}
-                animate={{ opacity: 1, top: 0 }}
-                transition={{ duration: 0.3, delay: `${0.2 + 0.12*i}` }}
-              >
-                <span className="mx-2 my-2 inline-flex shadow items-center tracking-wider text-xs uppercase font-sans bg-white bg-opacity-50 dark:bg-white dark:bg-opacity-10 text-black text-opacity-70 dark:text-white dark:text-opacity-70 backdrop-blur rounded-full px-4 py-1">
-                  <span className="mr-2 text-lg">
-                    {item.icon}
-                  </span>
-                  {item.label}
-                </span>
-              </motion.li>
-            ))
-          }
-        </ul>
+        <ExpectChips items={descriptions} />
       </Collapse>
       <Collapse title="When are hangouts scheduled?">
         <p className="leading-normal">Hangouts are held monthly, typically on the 2nd Thursday of each month (+ or - a week if it's looking stormy ⛈).</p>
@@ -144,25 +149,7 @@ export const CoworkFAQ = () => {
     <>
       <h3>Frequently Asked Questions</h3>
       <Collapse title="What can I expect?">
-        <ul className="flex flex-wrap items-center">
-          {
-            descriptions.map((item,i) => (
-              <motion.li
-                className="relative opacity-0 top-4"
-                key={i}
-                animate={{ opacity: 1, top: 0 }}
-                transition={{ duration: 0.3, delay: `${0.2 + 0.12*i}` }}
-              >
-                <span className="mx-2 my-2 inline-flex shadow items-center tracking-wider text-xs uppercase font-sans bg-white bg-opacity-50 dark:bg-white dark:bg-opacity-10 text-black text-opacity-70 dark:text-white dark:text-opacity-70 backdrop-blur rounded-full px-4 py-1">
-                  <span className="mr-2 text-lg">
-                    {item.icon}
-                  </span>
-                  {item.label}
-                </span>
-              </motion.li>
-            ))
-          }
-        </ul>
+        <ExpectChips items={descriptions} />
       </Collapse>
       <Collapse title="When are coworking sessions scheduled?">
         <p className="leading-normal">Coworking sessions are held monthly, typically on the last Friday of each month.</p>

@@ -2,37 +2,25 @@ import React, { useState } from 'react'
 import Logo from '@components/Logo'
 import Link from 'next/link'
 import { Menu, X } from 'react-feather'
-import { motion } from 'framer-motion'
+import FadeIn from '@components/FadeIn'
 import { useRouter } from 'next/router'
 import Profile from '@components/Profile'
 
 const NavItem = ({ href, name, mobile, state }) => {
 
-  const getClasses = (x) => {
-    if(x === 'Hangouts') {
-      return `border-b-2 inline-flex p-4 text-yellow-600 dark:text-yellow-500 transition hover:bg-yellow-500 hover:bg-opacity-10 hover:text-yellow-700 dark:hover:bg-yellow-500 dark:hover:text-yellow-300 dark:hover:bg-opacity-10 ${state === 'active' ? 'border-yellow-500' : 'border-transparent'}`
-    } else {
-      return `border-b-2 inline-flex p-4 transition text-black dark:text-white text-opacity-50 dark:text-opacity-50 hover:bg-yellow-500 hover:bg-opacity-10 dark:hover:bg-yellow-500 dark:hover:bg-opacity-10 hover:text-opacity-100 dark:hover:text-opacity-100 ${state === 'active' ? 'border-yellow-500' : 'border-transparent'}`
-    }
-  }
+  const classes = `border-b-2 inline-flex p-4 transition text-black dark:text-white text-opacity-50 dark:text-opacity-50 hover:bg-yellow-500 hover:bg-opacity-10 dark:hover:bg-yellow-500 dark:hover:bg-opacity-10 hover:text-opacity-100 dark:hover:text-opacity-100 ${state === 'active' ? 'border-yellow-500 text-opacity-100 dark:text-opacity-100' : 'border-transparent'}`
 
-  const getMobileClasses = (x) => {
-    if(x === 'Hangouts') {
-      return `block transition px-4 py-8 text-center text-2xl hover:bg-black hover:text-opacity-100 dark:hover:bg-white dark:hover:text-opacity-100 hover:bg-opacity-10 dark:hover:bg-opacity-10 ${state === 'active' ? 'text-yellow-700 dark:text-yellow-300' : 'text-black dark:text-white text-opacity-50 dark:text-opacity-50'}`
-    } else {
-      return `block transition px-4 py-8 text-center text-2xl hover:bg-black hover:text-opacity-100 dark:hover:bg-white dark:hover:text-opacity-100 hover:bg-opacity-10 dark:hover:bg-opacity-10 ${state === 'active' ? 'text-yellow-700 dark:text-yellow-300' : 'text-black dark:text-white text-opacity-50 dark:text-opacity-50'}`
-    }
-  }
+  const mobileClasses = `block transition px-4 py-8 text-center text-2xl hover:bg-black hover:text-opacity-100 dark:hover:bg-white dark:hover:text-opacity-100 hover:bg-opacity-10 dark:hover:bg-opacity-10 ${state === 'active' ? 'text-yellow-700 dark:text-yellow-300' : 'text-black dark:text-white text-opacity-50 dark:text-opacity-50'}`
 
-  return(
-    <Link href={href}>
-      <a
-        className={mobile ? getMobileClasses(name) : getClasses(name)}
-      >
-        {name}
-      </a>
+  return (
+    <Link
+      href={href}
+      className={mobile ? mobileClasses : classes}>
+
+      {name}
+
     </Link>
-  )
+  );
 }
 
 const Header = () => {
@@ -72,6 +60,8 @@ const Header = () => {
       <div className="border-b border-gray-500 border-opacity-10 dark:bg-gray-600 dark:bg-opacity-10 dark:border-gray-700 dark:border-opacity-30 px-4 backdrop-filter backdrop-blur-2xl">
         <div className="container mx-auto py-2 md:py-0 flex justify-between items-center">
           <button
+            aria-label="Open menu"
+            aria-expanded={open}
             className="inline-flex md:hidden transition dark:hover:bg-black hover:bg-gray-100 text-black dark:text-white hover:text-opacity-100 dark:hover:text-opacity-100 text-opacity-50 dark:text-opacity-50 rounded-full p-2"
             onClick={() => setOpen(true)}
           >
@@ -104,6 +94,7 @@ const Header = () => {
           <div className="fixed backdrop-filter backdrop-blur-2xl bg-white bg-opacity-30 dark:bg-black dark:bg-opacity-70 top-0 bottom-0 right-0 left-0 z-40">
             <div className="flex justify-between px-4 py-2">
               <button
+                aria-label="Close menu"
                 className="inline-flex md:hidden transition dark:hover:bg-black hover:bg-gray-100 text-black dark:text-white hover:text-opacity-100 dark:hover:text-opacity-100 text-opacity-50 dark:text-opacity-50 rounded-full p-2"
                 onClick={() => setOpen(false)}
               >
@@ -117,11 +108,11 @@ const Header = () => {
             <ul className="pt-20 flex flex-col">
               {
                 navItems.map((item, i) => (
-                  <motion.li
-                    className="transition block top-4 opacity-0"
+                  <FadeIn
+                    as={'li'}
+                    className="block"
                     key={i}
-                    animate={{ top: 0, opacity: 1 }}
-                    transition={{ duration: 0.24, delay: 0.1*i }}
+                    delay={0.05*i}
                   >
                     <NavItem
                       mobile
@@ -129,7 +120,7 @@ const Header = () => {
                       href={item.link}
                       state={activeNavItem(item.link)}
                     />
-                  </motion.li>
+                  </FadeIn>
                 ))
               }
             </ul>

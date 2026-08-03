@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Check, Loader, MapPin } from 'react-feather';
 
-const delay = 12;
+const delay = 3;
 
 export const Hero = () => {
 
@@ -72,7 +72,7 @@ export const EventCard = () => {
 
   return(
     <div className={`card h-32 w-32 overflow-hidden relative`}>
-      <img className="rounded-lg w-24 h-24 absolute select-none top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition hover:rotate-6 hover:scale-110" src={`/static/events/${randomOption}.png`}/>
+      <img className="rounded-lg w-24 h-24 absolute select-none top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition hover:rotate-6 hover:scale-110" src={`/static/events/${randomOption}.png`} alt=""/>
     </div>
   )
 }
@@ -81,7 +81,7 @@ export const Row = ({ shift, end }) => {
   return(
     <motion.div
       style={{ transform: `translateX(${shift})`}}
-      className="grid grid-cols-12 transi{tion gap-4 w-max transform"
+      className="grid grid-cols-12 transition gap-4 w-max transform"
       animate={{ transform: `translateX(${end})` }}
       transition={{ duration: delay }}
     >
@@ -105,15 +105,16 @@ export const RandomSection = ({ setGenerated, region, data}) => {
 
   const options = ['beer', 'donut', 'taco', 'drink', 'frog']
 
-  const getRandom = () => {
-    return options[Math.floor(Math.random()*options.length)]
-   }
- 
-   const randomOption = getRandom()
+  const [randomOption] = useState(() => options[Math.floor(Math.random()*options.length)])
 
-  setTimeout(() => {
-    setLoaded(true)
-  }, 5000)
+  useEffect(() => {
+    // Just enough suspense for the card marquee to read as a "spin" —
+    // the result is available immediately.
+    const timer = setTimeout(() => {
+      setLoaded(true)
+    }, 1500)
+    return () => clearTimeout(timer)
+  }, [])
 
   const getRandomLocation = () => {
     const filtered = data.locations.filter(location => (location.region === region));
@@ -136,7 +137,7 @@ export const RandomSection = ({ setGenerated, region, data}) => {
             <div className="card px-0 py-0 my-4">
               <div className="flex flex-col lg:flex-row w-full items-center px-3 lg:px-6 py-4 lg:py-6">
                 <div className="w-32 h-32 mb-4 lg:mb-0 card p-2">
-                  <img className="rounded-lg transition hover:rotate-6 hover:scale-110" src={`/static/events/${randomOption}.png`}/>
+                  <img className="rounded-lg transition hover:rotate-6 hover:scale-110" src={`/static/events/${randomOption}.png`} alt=""/>
                 </div>
                 <div className="text-center pl-0 lg:text-left flex-1 w-full lg:pl-4">
                   {

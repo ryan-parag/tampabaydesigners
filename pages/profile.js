@@ -8,10 +8,9 @@ import Avatar from '@components/Avatar';
 const ProfilePage = ({ title, description, ...props }) => {
 
   const { user, error, isLoading } = useUser();
-  console.log(user)
 
   return (
-    <Layout pageTitle={title} description={description} ogImage={'/tbd-sm.png'}>
+    <Layout pageTitle={'Profile'} description={description} ogImage={'/tbd-sm.png'}>
       <section
         className="pt-24 pb-24 flex items-start lg:items-center w-full overflow-x-hidden"
         style={{
@@ -23,10 +22,14 @@ const ProfilePage = ({ title, description, ...props }) => {
       >
         <div className="container p-3 mx-auto lg:w-1/2">
           <h1>Account Settings</h1>
-          { isLoading && <Loading/> }
-          { error && <Error/> }
           {
-            user ? (
+            isLoading ? (
+              <Loading/>
+            )
+            : error ? (
+              <Error/>
+            )
+            : user ? (
               <>
                 <Box p={'0'}>
                   <div className="px-3 py-3 border-b border-black border-opacity-10 dark:border-white dark:border-opacity-10 flex items-center justify-between">
@@ -43,8 +46,7 @@ const ProfilePage = ({ title, description, ...props }) => {
                 </Box>
               </>
             )
-            :
-            (
+            : (
               <Box>
                 <div className="text-center flex flex-col items-center">
                   <a className="button button--primary" href="/api/auth/login">Sign In</a>

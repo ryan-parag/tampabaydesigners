@@ -2,9 +2,10 @@ import React from 'react'
 import useSWR from 'swr';
 import fetcher from '@utils/fetcher';
 import { motion } from 'framer-motion'
-import { MapPin, Clock } from 'react-feather'
+import { MapPin, Clock, ExternalLink } from 'react-feather'
 import Box from '@components/Box'
 import AddToCalendar from './AddToCalendar';
+import config from '../../siteconfig.json'
 
 const EventInfo = ({ event, date, location, diff }) => {
 
@@ -18,6 +19,19 @@ const EventInfo = ({ event, date, location, diff }) => {
           animate={{ opacity: 1, top: 0 }}
           transition={{ duration: 0.3, delay: 0.5 }}
         >
+          {
+            !(diff && diff < 0) && (
+              <a
+                href={event?.link || config.meetupUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="button button--primary w-full mt-0 mb-4"
+              >
+                RSVP on Meetup
+                <ExternalLink size={'16'} className="ml-2"/>
+              </a>
+            )
+          }
           {
             diff && diff >= 0 && diff <= 7 ? (
               <span className="mb-2 flex items-center w-full text-sm font-semibold text-yellow-700 dark:text-yellow-500">Starts in {diff} day{diff !== 1 && 's'} 🎉</span>
