@@ -5,6 +5,7 @@ import { Menu, X } from 'react-feather'
 import FadeIn from '@components/FadeIn'
 import { useRouter } from 'next/router'
 import Profile from '@components/Profile'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 
 const NavItem = ({ href, name, mobile, state }) => {
 
@@ -37,9 +38,6 @@ const Header = () => {
     }, {
       name: 'Events',
       link: '/events'
-    }, {
-      name: 'Hangouts',
-      link: '/hangouts'
     }
   ]
 
@@ -55,10 +53,12 @@ const Header = () => {
 
   const [ open, setOpen ] = useState(false)
 
+  const reduceMotion = useReducedMotion()
+
   return(
     <>
       <div className="border-b border-gray-500 border-opacity-10 dark:bg-gray-600 dark:bg-opacity-10 dark:border-gray-700 dark:border-opacity-30 px-4 backdrop-filter backdrop-blur-2xl">
-        <div className="container mx-auto py-2 md:py-0 flex justify-between items-center">
+        <div className="container mx-auto py-2 md:py-0 flex justify-start md:justify-between gap-2 items-center">
           <button
             aria-label="Open menu"
             aria-expanded={open}
@@ -80,53 +80,52 @@ const Header = () => {
                 </li>
               ))
             }
-            <li className="px-2 inline-flex items-center">
-              <Profile sm/>
-            </li>
           </ul>
-          <div className="inline-block md:hidden">
-            <Profile sm/>
-          </div>
         </div>
       </div>
-      {
-        open && (
-          <div className="fixed backdrop-filter backdrop-blur-2xl bg-white bg-opacity-30 dark:bg-black dark:bg-opacity-70 top-0 bottom-0 right-0 left-0 z-40">
-            <div className="flex justify-between px-4 py-2">
-              <button
-                aria-label="Close menu"
-                className="inline-flex md:hidden transition dark:hover:bg-black hover:bg-gray-100 text-black dark:text-white hover:text-opacity-100 dark:hover:text-opacity-100 text-opacity-50 dark:text-opacity-50 rounded-full p-2"
-                onClick={() => setOpen(false)}
-              >
-                <X size={20}/>
-              </button>
-              <Logo small mono />
-              <span className="p-2 invisible">
-                <X size={20}/>
-              </span>
-            </div>
-            <ul className="pt-20 flex flex-col">
-              {
-                navItems.map((item, i) => (
-                  <FadeIn
-                    as={'li'}
-                    className="block"
-                    key={i}
-                    delay={0.05*i}
-                  >
-                    <NavItem
-                      mobile
-                      name={item.name}
-                      href={item.link}
-                      state={activeNavItem(item.link)}
-                    />
-                  </FadeIn>
-                ))
-              }
-            </ul>
-          </div>
-        )
-      }
+      <AnimatePresence>
+        {
+          open && (
+            <motion.div
+              className="fixed backdrop-filter backdrop-blur-2xl bg-white/10 dark:bg-black/10 top-0 bottom-0 right-0 left-0 z-40"
+              initial={reduceMotion ? false : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={reduceMotion ? undefined : { opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="flex justify-start gap-2 px-4 py-2">
+                <button
+                  aria-label="Close menu"
+                  className="inline-flex md:hidden transition dark:hover:bg-black hover:bg-gray-100 text-black dark:text-white hover:text-opacity-100 dark:hover:text-opacity-100 text-opacity-50 dark:text-opacity-50 rounded-full p-2"
+                  onClick={() => setOpen(false)}
+                >
+                  <X size={20}/>
+                </button>
+                <Logo small/>
+              </div>
+              <ul className="pt-20 flex flex-col">
+                {
+                  navItems.map((item, i) => (
+                    <FadeIn
+                      as={'li'}
+                      className="block"
+                      key={i}
+                      delay={0.05*i}
+                    >
+                      <NavItem
+                        mobile
+                        name={item.name}
+                        href={item.link}
+                        state={activeNavItem(item.link)}
+                      />
+                    </FadeIn>
+                  ))
+                }
+              </ul>
+            </motion.div>
+          )
+        }
+      </AnimatePresence>
     </>
   )
 }

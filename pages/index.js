@@ -95,12 +95,10 @@ const Index = ({ title, description, ...props }) => {
                   <h1 className="text-3xl md:text-4xl xl:text-5xl mt-0">Discover design communities in the Tampa Bay area!</h1>
                   <p>New to the Tampa Bay/St. Pete design community?</p>
                   <p>Find a slack group, check out upcoming events, look for ways to get feedback, and much more using one of the links below.</p>
+                  <NextEvent/>
                 </div>
               </Box>
             </FadeIn>
-            <div className="col-span-2 lg:col-span-3">
-              <NextEvent/>
-            </div>
             <FadeIn
               className="relative"
               delay={0.1}

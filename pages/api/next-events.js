@@ -4,7 +4,7 @@ import { withMeetupLinks } from '@utils/meetup';
 
 const notion = new Client({ auth: process.env.NOTION_SECRET });
 
-// The next two upcoming verified events of any type, ascending by date.
+// The next upcoming Design Hangout and next upcoming Designer Cowork, reported separately.
 export default async (req,res) => {
 
   const today = new Date().toISOString()
@@ -33,7 +33,7 @@ export default async (req,res) => {
           "direction": "ascending"
       }
     ],
-    page_size: 5
+    page_size: 100
   });
 
   const events = response.results.map(item => ({
@@ -48,13 +48,14 @@ export default async (req,res) => {
     diff: moment(item.properties.Date?.date?.start ?? null).diff(moment(today), 'days')
   })).filter(event => event.upcoming)
 
-  const latest = events.length > 0 ? events[0] : {upcoming: false}
-  const next = events.length > 1 ? events[1] : null
+  const hangout = events.find(event => event.name.includes('Design Hangout')) ?? null
+  const cowork = events.find(event => event.name.includes('Designer Cowork')) ?? null
 
-  if (latest.upcoming) {
-    await withMeetupLinks(events.slice(0, 2))
-  }
+  if (hangout) hangout.type = 'hangout'
+  if (cowork) cowork.type = 'cowork'
+
+  await withMeetupLinks([hangout, cowork].filter(Boolean))
 
   res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600')
-  res.status(200).json({ latest, next });
+  res.status(200).json({ hangout, cowork });
 }
