@@ -7,6 +7,7 @@ import { Check } from 'react-feather'
 import useSWR from 'swr';
 import fetcher from '@utils/fetcher';
 import { Event } from '@components/ListItem'
+import { Loading } from '@components/DataStates'
 import Tag from '@components/Tag'
 import { formatDateParts } from '@utils/date'
 import moment from 'moment'
@@ -17,7 +18,15 @@ const withinNextDays = (item, days) => item && item.diff >= 0 && item.diff <= da
 // it falls within the next 30 days - skipped entirely otherwise.
 export const NextEvent = () => {
 
-  const { data } = useSWR('/api/next-events', fetcher);
+  const { data, error } = useSWR('/api/next-events', fetcher);
+
+  if (!data && !error) {
+    return (
+      <div className="mt-4">
+        <Loading />
+      </div>
+    )
+  }
 
   if (!data) return null
 
@@ -189,7 +198,7 @@ export const SignUp = () => (
 
 export const Form = () => {
 
-  const { data } = useSWR('/api/latest-hangout', fetcher);
+  const { data, error } = useSWR('/api/latest-hangout', fetcher);
 
   return(
     <EmailSignup
@@ -201,7 +210,11 @@ export const Form = () => {
         </>
       }
       afterInput={
-        data && data.latest.upcoming ? (
+        !data && !error ? (
+          <div className="mt-4">
+            <Loading />
+          </div>
+        ) : data && data.latest && data.latest.upcoming ? (
           <div className="text-left mt-4">
             <Event data={data.latest}/>
           </div>
