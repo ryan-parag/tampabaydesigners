@@ -93,9 +93,9 @@ const Index = ({ title, description, ...props }) => {
               <AbsoluteImages/>
               <Box p={'0'} mb={'0'} mt={'0'}>
                 <div className="w-full relative transform -top-20 flex items-center gap-0 h-20 left-8">
-                  <div className="relative w-16 h-16">
+                  <div className="relative w-20 h-20">
                     <motion.div
-                      className="relative w-32 h-32 rounded-lg overflow-hidden ring-4 ring-white shadow-lg transform -rotate-2"
+                      className="relative w-36 h-36 rounded-xl overflow-hidden border-4 border-white ring-1 ring-black/5 shadow-lg transform -rotate-2"
                       initial={{ opacity: 0, top: 20 }}
                       animate={{ opacity: 1, top: 0 }}
                       transition={{ duration: 0.3, delay: 0.2, ease: 'easeInOut', type: 'spring', stiffness: 150 }}
@@ -107,9 +107,9 @@ const Index = ({ title, description, ...props }) => {
                       }}
                     />
                   </div>
-                  <div className="relative w-16 h-16">
+                  <div className="relative w-20 h-20">
                     <motion.div
-                      className="relative top-3 w-32 h-32 rounded-lg overflow-hidden ring-4 ring-white shadow-lg transform rotate-3"
+                      className="relative top-3 w-36 h-36 rounded-xl overflow-hidden border-4 border-white ring-1 ring-black/5 shadow-lg transform rotate-3"
                       initial={{ opacity: 0, top: 20 }}
                       animate={{ opacity: 1, top: 0 }}
                       transition={{ duration: 0.3, delay: 0.5, ease: 'easeInOut', type: 'spring', stiffness: 150 }}
@@ -121,9 +121,9 @@ const Index = ({ title, description, ...props }) => {
                       }}
                     />
                   </div>
-                  <div className="relative w-16 h-16">
+                  <div className="relative w-20 h-20">
                     <motion.div
-                      className="relative -top-1 w-32 h-32 rounded-lg overflow-hidden ring-4 ring-white shadow-lg transform -rotate-6"
+                      className="relative -top-1 w-36 h-36 rounded-xl overflow-hidden border-4 border-white ring-1 ring-black/5 shadow-lg transform -rotate-6"
                       initial={{ opacity: 0, top: 20 }}
                       animate={{ opacity: 1, top: 0 }}
                       transition={{ duration: 0.3, delay: 0.8, ease: 'easeInOut', type: 'spring', stiffness: 150 }}
