@@ -7,6 +7,7 @@ import { NextEvent } from '@components/Hangouts'
 import Box, { BoxLink } from '@components/Box'
 import useHover from '@utils/useHover'
 import config from '../siteconfig.json'
+import Image from 'next/image'
 
 const AbsoluteImages = () => {
 
@@ -91,10 +92,56 @@ const Index = ({ title, description, ...props }) => {
             >
               <AbsoluteImages/>
               <Box p={'0'} mb={'0'} mt={'0'}>
-                <div className="p-8">
+                <div className="w-full relative transform -top-20 flex items-center gap-0 h-20 left-8">
+                  <div className="relative w-16 h-16">
+                    <motion.div
+                      className="relative w-32 h-32 rounded-lg overflow-hidden ring-4 ring-white shadow-lg transform -rotate-2"
+                      initial={{ opacity: 0, top: 20 }}
+                      animate={{ opacity: 1, top: 0 }}
+                      transition={{ duration: 0.3, delay: 0.2, ease: 'easeInOut', type: 'spring', stiffness: 150 }}
+                      style={{
+                        backgroundImage: `url('/static/hero-1.jpeg')`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat'
+                      }}
+                    />
+                  </div>
+                  <div className="relative w-16 h-16">
+                    <motion.div
+                      className="relative top-3 w-32 h-32 rounded-lg overflow-hidden ring-4 ring-white shadow-lg transform rotate-3"
+                      initial={{ opacity: 0, top: 20 }}
+                      animate={{ opacity: 1, top: 0 }}
+                      transition={{ duration: 0.3, delay: 0.5, ease: 'easeInOut', type: 'spring', stiffness: 150 }}
+                      style={{
+                        backgroundImage: `url('/static/hero-2.jpeg')`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat'
+                      }}
+                    />
+                  </div>
+                  <div className="relative w-16 h-16">
+                    <motion.div
+                      className="relative -top-1 w-32 h-32 rounded-lg overflow-hidden ring-4 ring-white shadow-lg transform -rotate-6"
+                      initial={{ opacity: 0, top: 20 }}
+                      animate={{ opacity: 1, top: 0 }}
+                      transition={{ duration: 0.3, delay: 0.8, ease: 'easeInOut', type: 'spring', stiffness: 150 }}
+                      style={{
+                        backgroundImage: `url('/static/hero-3.jpeg')`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat'
+                      }}
+                    />
+                  </div>
+                </div>
+                <div className="p-8 pb-0">
                   <h1 className="text-3xl md:text-4xl xl:text-5xl mt-0">Discover design communities in the Tampa Bay area!</h1>
                   <p>New to the Tampa Bay/St. Pete design community?</p>
                   <p>Find a slack group, check out upcoming events, look for ways to get feedback, and much more using one of the links below.</p>
+                </div>
+                <div className="pb-1">
                   <NextEvent/>
                 </div>
               </Box>

@@ -37,14 +37,14 @@ export const NextEvent = () => {
   if (items.length === 0) return null
 
   return(
-    <FadeIn delay={0.24} className="mt-4 divide-y divide-black divide-opacity-10 dark:divide-white dark:divide-opacity-10">
-      <div className="text-xs py-2">In the next 30 days...</div>
+    <FadeIn delay={0.24} className="my-4 mx-4 border border-black/10 dark:border-white/10 rounded divide-y divide-black divide-opacity-10 dark:divide-white dark:divide-opacity-10 bg-white/30 dark:bg-black/30">
+      <div className="text-xs py-2 px-4">In the next 30 days...</div>
       {
         items.map(item => (
           <Link
             key={item.id}
             href={`/events/${item.id}`}
-            className={`flex flex-col md:flex-row items-start md:items-center text-left justify-between py-3 text-sm transition opacity-90 hover:opacity-100 gap-2 group ${item.id === items[0].id && 'font-bold'}`}
+            className={`flex flex-col md:flex-row items-start md:items-center text-left justify-between px-4 py-3 text-sm transition opacity-90 hover:opacity-100 hover:bg-black/5 dark:hover:bg-white/5 gap-2 group ${item.id === items[0].id && 'font-bold'}`}
           >
             <span className="inline-flex text-left flex-col md:flex-row items-start md:items-center min-w-0 gap-2">
               <Tag color={item.type === 'hangout' ? 'blue' : 'green'}>
