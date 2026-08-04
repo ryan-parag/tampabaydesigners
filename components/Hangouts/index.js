@@ -1,112 +1,69 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 import FadeIn from '@components/FadeIn'
-import Box, { BoxLink } from '@components/Box'
-import { Check, MapPin, Clock } from 'react-feather'
+import Box from '@components/Box'
+import { Check } from 'react-feather'
 import useSWR from 'swr';
 import fetcher from '@utils/fetcher';
 import { Event } from '@components/ListItem'
+import { Loading } from '@components/DataStates'
 import Tag from '@components/Tag'
-import { GroupLogo } from '@components/Logo'
 import { formatDateParts } from '@utils/date'
+import moment from 'moment'
 
+const withinNextDays = (item, days) => item && item.diff >= 0 && item.diff <= days
+
+// Single-line rows for the next hangout and next cowork, each only shown if
+// it falls within the next 30 days - skipped entirely otherwise.
 export const NextEvent = () => {
 
   const { data, error } = useSWR('/api/next-events', fetcher);
 
-  // While loading, render nothing; on error or no upcoming event, fall
-  // back to the evergreen "third Thursday" card so the slot never vanishes.
-  if (!data && !error) return null
+  if (!data && !error) {
+    return (
+      <div className="mt-4">
+        <Loading />
+      </div>
+    )
+  }
+
+  if (!data) return null
+
+  const items = [data.hangout, data.cowork]
+    .filter(item => withinNextDays(item, 30))
+    .sort((a, b) => new Date(a.date) - new Date(b.date))
+
+  if (items.length === 0) return null
 
   return(
-    <FadeIn delay={0.24} className="relative">
+    <FadeIn delay={0.24} className="my-4 mx-4 border border-black/10 dark:border-white/10 rounded divide-y divide-black divide-opacity-10 dark:divide-white dark:divide-opacity-10 bg-white/30 dark:bg-black/30">
+      <div className="text-xs py-2 px-4">In the next 30 days...</div>
       {
-        data && data.latest.upcoming ? (
-          <>
-            <Event data={data.latest}/>
-            {
-              data.next && (
-                <BoxLink href={`/events/${data.next.id}`} mt={'0'} mb={'0'}>
-                  <div className="flex flex-col items-start md:flex-row md:items-center md:justify-between">
-                    <div className="inline-flex flex-wrap md:flex-nowrap items-center text-sm min-w-0">
-                      <Tag color={'blue'}><span className="font-bold font-mono leading-tight whitespace-nowrap">Up next</span></Tag>
-                      <span className="ml-3 min-w-0 break-words md:whitespace-nowrap">{data.next.name}</span>
-                      {
-                        data.next.locationName && (
-                          <span className="mt-1 md:mt-0 md:ml-3 w-full md:w-auto inline-flex items-center min-w-0 text-black text-opacity-50 dark:text-white dark:text-opacity-50">
-                            <MapPin size={'14'} className="mr-1 flex-shrink-0"/>
-                            <span className="truncate">{data.next.locationName}</span>
-                          </span>
-                        )
-                      }
-                    </div>
-                    <span className="mt-2 md:mt-0 md:ml-3 whitespace-nowrap text-xs font-mono text-black text-opacity-50 dark:text-white dark:text-opacity-50">
-                      {formatDateParts(data.next.date).monthString} {formatDateParts(data.next.date).numString} · {formatDateParts(data.next.date).timeString}
-                    </span>
-                  </div>
-                </BoxLink>
-              )
-            }
-          </>
-        )
-        :
-        (
-          <BoxLink href={'/hangouts'} title={'Design Hangout - third Thursday of every month'} mt={'0'} mb={'0'}>
-            <div className="flex items-start pt-10 md:pt-0">
-              <div className="md:hidden absolute top-0 right-0 left-0 w-full flex justify-between items-center py-2 px-4 border-b border-black border-opacity-10 dark:border-white dark:border-opacity-10">
-                <div className="text-xs font-semibold uppercase font-mono tracking-widest">
-                  <Tag color={'green'}><span className="font-bold font-mono leading-tight">Thu</span></Tag>
-                  <span className="mx-2 opacity-50">/</span>
-                  Third Thursday
-                </div>
-                <Tag><span className="font-bold font-mono leading-tight">Monthly</span></Tag>
+        items.map(item => (
+          <Link
+            key={item.id}
+            href={`/events/${item.id}`}
+            className={`flex flex-col md:flex-row items-start md:items-center text-left justify-between px-4 py-3 text-sm transition opacity-90 hover:opacity-100 hover:bg-black/5 dark:hover:bg-white/5 gap-2 group ${item.id === items[0].id && 'font-bold'}`}
+          >
+            <span className="inline-flex text-left flex-col md:flex-row items-start md:items-center min-w-0 gap-2">
+              <Tag color={item.type === 'hangout' ? 'blue' : 'green'}>
+                <span className="font-bold font-mono leading-tight whitespace-nowrap group-hover:scale-105 transition">
+                  { item.type === 'hangout' ? 'Hangout' : 'Cowork' }
+                </span>
+              </Tag>
+              <span className="min-w-0 truncate">{item.locationName}</span>
+            </span>
+              <div className="inline-flex items-center gap-2">
+                {
+                  items[0].id === item.id && (<span className="uppercase text-[10px] tracking-wider font-bold py-0 px-2 rounded-full bg-yellow-500/20 text-yellow-700 dark:text-yellow-300 border border-yellow-500/20">{moment(item.date).fromNow()}</span>)
+                }
+                <span className="whitespace-nowrap text-xs font-mono text-black text-opacity-50 dark:text-white dark:text-opacity-50">
+                  {formatDateParts(item.date).monthString} {formatDateParts(item.date).numString} · {formatDateParts(item.date).timeString}
+                </span>
               </div>
-              <motion.div
-                className="h-32 w-32 absolute -right-16 top-1/2 transform -translate-y-1/2 opacity-0 blur-lg rotate-6"
-                animate={{ opacity: .10 }}
-                transition={{ duration: .75, delay: 0.3 }}
-              >
-                <GroupLogo group={'Tampa Bay Designers'}/>
-              </motion.div>
-              <div className="hidden md:inline-flex relative items-start flex-col py-1 px-0 w-20">
-                <div className="relative z-10 rounded-lg text-center bg-white dark:bg-black bg-opacity-70 dark:bg-opacity-70 backdrop-blur-sm overflow-hidden shadow flex flex-col w-full">
-                  <div className="text-xs font-semibold py-1 bg-red-500 uppercase text-white font-mono tracking-widest">Thu</div>
-                  <div className="text-lg md:text-2xl py-1">🎉</div>
-                  <div className="text-xs pb-1 text-black text-opacity-50 dark:text-white dark:text-opacity-50 font-mono">Monthly</div>
-                </div>
-                <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-red-500 to-blue-500 top-0 bottom-0 left-0 right-0 rounded-full z-0"></div>
-                <div className="absolute filter opacity-40 blur-lg bg-gradient-to-tl from-yellow-500 to-purple-500 top-0 bottom-0 left-0 right-0 rounded-full z-0 transform rotate-6"></div>
-              </div>
-              <div className="pl-0 md:pl-4 flex-1">
-                <div className="mb-2 flex-col flex items-start">
-                  <h4>Meet designers in the area!</h4>
-                  <div className="my-2 flex flex-col text-left">
-                    <div className="text-sm items-start hidden md:inline-flex mb-2">
-                      <Clock size={'16'} className="mr-2 mt-1 text-black text-opacity-50 dark:text-white dark:text-opacity-50"/>
-                      <div>Third Thursday of every month</div>
-                    </div>
-                    <div className="text-sm inline-flex items-center">
-                      <MapPin size={'16'} className="mr-2 text-black text-opacity-50 dark:text-white dark:text-opacity-50"/>
-                      <span>Around the Tampa/St. Pete area</span>
-                    </div>
-                  </div>
-                  <div className="text-sm mb-2 text-black text-opacity-50 dark:text-white dark:text-opacity-50">
-                    Join your fellow designers as we grab some drinks, talk shop, or whatever else comes to mind.
-                  </div>
-                  <small className="inline-flex items-center">
-                    Hosted by
-                    <div className="inline-flex items-center ml-2">
-                      <div className="h-6 w-6 mr-2">
-                        <GroupLogo group={'Tampa Bay Designers'}/>
-                      </div>
-                      <strong>Tampa Bay Designers</strong>
-                    </div>
-                  </small>
-                </div>
-              </div>
-            </div>
-          </BoxLink>
-        )
+          </Link>
+        ))
       }
     </FadeIn>
   )
@@ -241,7 +198,7 @@ export const SignUp = () => (
 
 export const Form = () => {
 
-  const { data } = useSWR('/api/latest-hangout', fetcher);
+  const { data, error } = useSWR('/api/latest-hangout', fetcher);
 
   return(
     <EmailSignup
@@ -253,7 +210,11 @@ export const Form = () => {
         </>
       }
       afterInput={
-        data && data.latest.upcoming ? (
+        !data && !error ? (
+          <div className="mt-4">
+            <Loading />
+          </div>
+        ) : data && data.latest && data.latest.upcoming ? (
           <div className="text-left mt-4">
             <Event data={data.latest}/>
           </div>

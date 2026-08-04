@@ -6,13 +6,13 @@ export default function Logo(props) {
   return (
     <Link
       href="/"
-      className={`inline-flex items-center ${props.small ? 'rounded-lg' : 'rounded-xl'} transition`}>
+      className={`inline-flex group items-center ${props.small ? 'rounded-lg' : 'rounded-xl'} transition`}>
 
       <div className="inline-flex items-center">
         {
           props.mono ? (
             <div
-              className={`${props.small ? 'h-8 w-8' : 'w-12 h-12'} transform -rotate-6 ${props.small ? 'rounded-lg' : 'rounded-xl'} icon items-center justify-center shadow relative bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-10`}
+              className={`${props.small ? 'h-8 w-8' : 'w-12 h-12'} transform -rotate-6 ${props.small ? 'rounded-lg' : 'rounded-xl'} icon items-center justify-center shadow relative bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-10 group-hover:scale-110 transition transform`}
               >
               <svg xmlns="http://www.w3.org/2000/svg" width="100%" fill="none" viewBox="0 0 80 80">
                 <g fill="currentColor" className="text-black dark:text-white" clipPath="url(#clip0)">
@@ -28,7 +28,7 @@ export default function Logo(props) {
               style={{
                 background: 'linear-gradient(45deg, #FEC100, #C21600)'
               }}
-              className={`${props.small ? 'h-8 w-8' : 'w-12 h-12'} transform -rotate-6 ${props.small ? 'rounded-lg' : 'rounded-xl'} icon items-center justify-center shadow relative`}
+              className={`${props.small ? 'h-8 w-8' : 'w-12 h-12'} transform -rotate-6 group-hover:scale-110 transition transform ${props.small ? 'rounded-lg' : 'rounded-xl'} icon items-center justify-center shadow relative`}
               >
               <svg xmlns="http://www.w3.org/2000/svg" width="100%" fill="none" viewBox="0 0 80 80">
                 <g fill="currentColor" className="text-white" clipPath="url(#clip0)">
@@ -39,9 +39,13 @@ export default function Logo(props) {
             </div>
           )
         }
-        <div className={`${props.small ? 'pl-2' : 'pl-4'}`}>
-          <h2 className={`${props.small ? 'text-sm' : 'text-lg'} ${props.mono ? 'text-black dark:text-white dark:text-opacity-50 text-opacity-50' : 'text-black dark:text-white dark:text-opacity-100 text-opacity-100'} tracking-wider uppercase font-sans font-black`}>{siteConfig.title}</h2>
-        </div>
+        {
+          !props.icon && (
+            <div className={`${props.small ? 'pl-2' : 'pl-4'}`}>
+              <h2 className={`${props.small ? 'text-sm' : 'text-lg'} ${props.mono ? 'text-black dark:text-white dark:text-opacity-50 text-opacity-50' : 'text-black dark:text-white dark:text-opacity-100 text-opacity-100'} tracking-wider uppercase font-sans font-black`}>{siteConfig.title}</h2>
+            </div>
+          )
+        }
       </div>
 
     </Link>
