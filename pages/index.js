@@ -138,28 +138,28 @@ const Index = ({ title, description, ...props }) => {
               >
                 <AbsoluteImages/>
                 <Box p={'0'} mb={'0'} mt={'0'}>
-                  <div className="w-full relative transform -top-10 flex items-center gap-0 h-20 left-8">
+                  <div className="w-full relative transform -top-16 flex items-center gap-0 h-20 left-8">
                     <LightboxImage
                     src="/static/hero-1.jpeg"
                     alt="Tampa Bay design community hero 1"
-                    wrapperClassName="relative w-32 h-32"
-                    motionClassName="w-36 h-36 rounded-xl overflow-hidden border-4 border-white ring-1 ring-black/5 shadow-lg transform -rotate-2 focus:outline-none focus:ring-4 focus:ring-white/40"
+                    wrapperClassName="relative w-20 h-20 lg:w-24 lg:h-24"
+                    motionClassName="w-28 h-28 lg:w-36 lg:h-36 rounded-xl overflow-hidden border-4 border-white ring-1 ring-black/5 shadow-lg transform -rotate-2 focus:outline-none focus:ring-4 focus:ring-white/40"
                     delay={0.2}
                     onOpen={() => openLightbox('/static/hero-1.jpeg')}
                   />
                   <LightboxImage
                     src="/static/hero-2.jpeg"
                     alt="Tampa Bay design community hero 2"
-                    wrapperClassName="relative w-32 h-32"
-                    motionClassName="relative top-3 w-36 h-36 rounded-xl overflow-hidden border-4 border-white ring-1 ring-black/5 shadow-lg transform rotate-3 focus:outline-none focus:ring-4 focus:ring-white/40"
+                    wrapperClassName="relative w-20 h-20 lg:w-24 lg:h-24"
+                    motionClassName="relative top-3 w-28 h-28 lg:w-36 lg:h-36 rounded-xl overflow-hidden border-4 border-white ring-1 ring-black/5 shadow-lg transform rotate-3 focus:outline-none focus:ring-4 focus:ring-white/40"
                     delay={0.5}
                     onOpen={() => openLightbox('/static/hero-2.jpeg')}
                   />
                   <LightboxImage
                     src="/static/hero-3.jpeg"
                     alt="Tampa Bay design community hero 3"
-                    wrapperClassName="relative w-32 h-32"
-                    motionClassName="relative -top-1 w-36 h-36 rounded-xl overflow-hidden border-4 border-white ring-1 ring-black/5 shadow-lg transform -rotate-6 focus:outline-none focus:ring-4 focus:ring-white/40"
+                    wrapperClassName="relative w-20 h-20 lg:w-24 lg:h-24"
+                    motionClassName="relative -top-1 w-28 h-28 lg:w-36 lg:h-36 rounded-xl overflow-hidden border-4 border-white ring-1 ring-black/5 shadow-lg transform -rotate-6 focus:outline-none focus:ring-4 focus:ring-white/40"
                     delay={0.8}
                     onOpen={() => openLightbox('/static/hero-3.jpeg')}
                   />

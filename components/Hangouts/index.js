@@ -44,23 +44,28 @@ export const NextEvent = () => {
           <Link
             key={item.id}
             href={`/events/${item.id}`}
-            className={`flex flex-col md:flex-row items-start md:items-center text-left justify-between px-4 py-3 text-sm transition opacity-90 hover:opacity-100 hover:bg-black/5 dark:hover:bg-white/5 gap-2 group ${item.id === items[0].id && 'font-bold'}`}
+            className={`flex flex-col md:flex-row items-start md:items-center text-left justify-between px-4 py-3 text-sm transition opacity-90 hover:opacity-100 hover:bg-black/5 dark:hover:bg-white/5 gap-2 lg:gap-4 group ${item.id === items[0].id && 'font-bold'}`}
           >
-            <span className="inline-flex text-left flex-col md:flex-row items-start md:items-center min-w-0 gap-2">
+            <span className="inline-flex text-left items-center min-w-0 gap-2">
               <Tag color={item.type === 'hangout' ? 'blue' : 'green'}>
                 <span className="font-bold font-mono leading-tight whitespace-nowrap group-hover:scale-105 transition">
                   { item.type === 'hangout' ? 'Hangout' : 'Cowork' }
                 </span>
               </Tag>
-              <span className="min-w-0 truncate">{item.locationName}</span>
+              {
+                items[0].id === item.id && (<span className="inline-flex md:hidden uppercase text-[9px] tracking-wider font-bold py-0 px-2 rounded-full bg-yellow-500/20 text-yellow-700 dark:text-yellow-300 border border-yellow-500/20">{moment(item.date).fromNow()}</span>)
+              }
             </span>
+            <div className="flex items-center justify-between gap-2 w-full">
+              <span className="min-w-0 truncate">{item.locationName}</span>
               <div className="inline-flex items-center gap-2">
                 {
-                  items[0].id === item.id && (<span className="uppercase text-[10px] tracking-wider font-bold py-0 px-2 rounded-full bg-yellow-500/20 text-yellow-700 dark:text-yellow-300 border border-yellow-500/20">{moment(item.date).fromNow()}</span>)
+                  items[0].id === item.id && (<span className="hidden md:inline-flex uppercase text-[9px] tracking-wider font-bold py-0 px-2 rounded-full bg-yellow-500/20 text-yellow-700 dark:text-yellow-300 border border-yellow-500/20">{moment(item.date).fromNow()}</span>)
                 }
                 <span className="whitespace-nowrap text-xs font-mono text-black text-opacity-50 dark:text-white dark:text-opacity-50">
                   {formatDateParts(item.date).monthString} {formatDateParts(item.date).numString} · {formatDateParts(item.date).timeString}
                 </span>
+              </div>
               </div>
           </Link>
         ))
