@@ -6,6 +6,7 @@ import { MapPin, Clock, ExternalLink } from 'react-feather'
 import Box from '@components/Box'
 import AddToCalendar from './AddToCalendar';
 import config from '../../siteconfig.json'
+import PageIcon from '@components/PageIcon';
 
 const EventInfo = ({ event, date, location, diff }) => {
 
@@ -25,10 +26,11 @@ const EventInfo = ({ event, date, location, diff }) => {
                 href={event?.link || config.meetupUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="button button--primary w-full mt-0 mb-4"
+                className="transition transform pl-1 pr-2 py-0 mb-4 bg-black/10 hover:bg-black/20 text-black dark:bg-white/90 dark:hover:bg-white/100 rounded-lg flex items-center gap-0 text-sm active:scale-[97%] active:shadow-inner"
               >
-                RSVP on Meetup
-                <ExternalLink size={'16'} className="ml-2"/>
+                <PageIcon type={'meetup'} size={16}/>
+                <span className="flex-1 w-full">RSVP on Meetup</span>
+                <ExternalLink size={'14'} className="ml-1"/>
               </a>
             )
           }
