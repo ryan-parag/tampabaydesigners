@@ -8,6 +8,7 @@ import Box, { BoxLink } from '@components/Box'
 import useHover from '@utils/useHover'
 import config from '../siteconfig.json'
 import Image from 'next/image'
+import LightboxImage from '@components/LightboxImage'
 
 const AbsoluteImages = () => {
 
@@ -68,174 +69,202 @@ const Index = ({ title, description, ...props }) => {
 
   // Seed with a real gif so the first render never requests /static/undefined
   const [isRandom, setIsRandom] = useState(gifs[0])
+  const [selectedImage, setSelectedImage] = useState(null)
   const [hoverRef, isHovered] = useHover()
 
   useEffect(() => {
     setIsRandom(randomFact())
   }, [])
 
+  const openLightbox = (src) => {
+    setSelectedImage(src)
+  }
+
+  const closeLightbox = () => {
+    setSelectedImage(null)
+  }
+
   return (
-    <Layout pageTitle={title} description={description} ogImage={'/tbd-sm.png'}>
-      <section
-      className="relative pt-24 lg:pt-40 pb-24 flex items-start lg:items-center w-full overflow-x-hidden"
-        style={{
-          backgroundImage: "url('/static/blur-bg.png')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
-      >
-        <div className="container p-3 mx-auto lg:w-1/2">
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8">
-            <FadeIn
-              className="relative col-span-2 lg:col-span-3"
+    <>
+      {selectedImage && (
+        <motion.div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.2, ease: 'easeOut' }}
+          onClick={closeLightbox}
+        >
+          <div className="absolute inset-0 bg-white/50 dark:bg-black/50 backdrop-blur" />
+          <motion.div
+            className="relative z-10 w-full max-w-5xl max-h-[calc(100vh-4rem)] overflow-hidden rounded-3xl border border-black/10 dark:border-white/10 shadow-2xl"
+            initial={{ opacity: 0, scale: 0.96, y: 24 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.28, ease: 'easeOut' }}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="absolute transition top-4 right-4 z-20 text-gray-900 dark:text-white text-3xl leading-none hover:scale-105"
+              aria-label="Close image preview"
+              onClick={closeLightbox}
             >
-              <AbsoluteImages/>
-              <Box p={'0'} mb={'0'} mt={'0'}>
-                <div className="w-full relative transform -top-20 flex items-center gap-0 h-20 left-8">
-                  <div className="relative w-20 h-20">
-                    <motion.div
-                      className="relative w-36 h-36 rounded-xl overflow-hidden border-4 border-white ring-1 ring-black/5 shadow-lg transform -rotate-2"
-                      initial={{ opacity: 0, top: 20 }}
-                      animate={{ opacity: 1, top: 0 }}
-                      transition={{ duration: 0.3, delay: 0.2, ease: 'easeInOut', type: 'spring', stiffness: 150 }}
-                      style={{
-                        backgroundImage: `url('/static/hero-1.jpeg')`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                        backgroundRepeat: 'no-repeat'
-                      }}
-                    />
-                  </div>
-                  <div className="relative w-20 h-20">
-                    <motion.div
-                      className="relative top-3 w-36 h-36 rounded-xl overflow-hidden border-4 border-white ring-1 ring-black/5 shadow-lg transform rotate-3"
-                      initial={{ opacity: 0, top: 20 }}
-                      animate={{ opacity: 1, top: 0 }}
-                      transition={{ duration: 0.3, delay: 0.5, ease: 'easeInOut', type: 'spring', stiffness: 150 }}
-                      style={{
-                        backgroundImage: `url('/static/hero-2.jpeg')`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                        backgroundRepeat: 'no-repeat'
-                      }}
-                    />
-                  </div>
-                  <div className="relative w-20 h-20">
-                    <motion.div
-                      className="relative -top-1 w-36 h-36 rounded-xl overflow-hidden border-4 border-white ring-1 ring-black/5 shadow-lg transform -rotate-6"
-                      initial={{ opacity: 0, top: 20 }}
-                      animate={{ opacity: 1, top: 0 }}
-                      transition={{ duration: 0.3, delay: 0.8, ease: 'easeInOut', type: 'spring', stiffness: 150 }}
-                      style={{
-                        backgroundImage: `url('/static/hero-3.jpeg')`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                        backgroundRepeat: 'no-repeat'
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className="p-8 pb-0">
-                  <h1 className="text-3xl md:text-4xl xl:text-5xl mt-0">Discover design communities in the Tampa Bay area!</h1>
-                  <p>New to the Tampa Bay/St. Pete design community?</p>
-                  <p>Find a slack group, check out upcoming events, look for ways to get feedback, and much more using one of the links below.</p>
-                </div>
-                <div className="pb-1">
-                  <NextEvent/>
-                </div>
-              </Box>
-            </FadeIn>
-            <FadeIn
-              className="relative"
-              delay={0.1}
-            >
-              <LinkCard
-                href={'/slack'}
-                tint={'yellow'}
-                label={'Chat on Slack'}
-                type={'slack'}
+              ×
+            </button>
+            <div className="relative w-full h-[70vh] sm:h-[80vh] bg-white dark:bg-black">
+              <Image
+                src={selectedImage}
+                alt="Tampa Bay design community hero"
+                fill
+                className="object-contain"
               />
-            </FadeIn>
-            <FadeIn
-              className="relative"
-              delay={0.18}
-            >
-              <LinkCard
-                href={'/groups'}
-                tint={'red'}
-                label={'Explore Groups'}
-                type={'groups'}
-              />
-            </FadeIn>
-            <FadeIn
-              className="relative flex row-span-2 col-span-2 sm:col-span-1"
-              delay={0.26}
-            >
-              <BoxLink href="/about" p={'0'} mb={'0'} mt={'0'} rotate={'2'}>
-                <span
-                  className="inline-flex items-center transition text-white py-1 px-2 bg-black bg-opacity-60 rounded-full text-xs absolute top-2 right-2 z-10 select-none"
-                >
-                  <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse mr-1"></span>
-                  {isRandom.artist}
-                </span>
-                <div ref={hoverRef} className="select-none flex relative flex-col-reverse h-full pt-16 pb-8 sm:pt-8 px-4">
-                  <div className="relative z-10 text-white dark:text-white">
-                    <h5 className='text-base md:text-base xl:text-xl text-white'>About</h5>
-                    <p className="text-xs md:text-sm mt-0 mb-0">Learn more about this project</p>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+      <Layout pageTitle={title} description={description} ogImage={'/tbd-sm.png'}>
+        <section
+        className="relative pt-24 lg:pt-40 pb-24 flex items-start lg:items-center w-full overflow-x-hidden"
+          style={{
+            backgroundImage: "url('/static/blur-bg.png')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        >
+          <div className="container p-3 mx-auto lg:w-1/2">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8">
+              <FadeIn
+                className="relative col-span-2 lg:col-span-3"
+              >
+                <AbsoluteImages/>
+                <Box p={'0'} mb={'0'} mt={'0'}>
+                  <div className="w-full relative transform -top-10 flex items-center gap-0 h-20 left-8">
+                    <LightboxImage
+                    src="/static/hero-1.jpeg"
+                    alt="Tampa Bay design community hero 1"
+                    wrapperClassName="relative w-32 h-32"
+                    motionClassName="w-36 h-36 rounded-xl overflow-hidden border-4 border-white ring-1 ring-black/5 shadow-lg transform -rotate-2 focus:outline-none focus:ring-4 focus:ring-white/40"
+                    delay={0.2}
+                    onOpen={() => openLightbox('/static/hero-1.jpeg')}
+                  />
+                  <LightboxImage
+                    src="/static/hero-2.jpeg"
+                    alt="Tampa Bay design community hero 2"
+                    wrapperClassName="relative w-32 h-32"
+                    motionClassName="relative top-3 w-36 h-36 rounded-xl overflow-hidden border-4 border-white ring-1 ring-black/5 shadow-lg transform rotate-3 focus:outline-none focus:ring-4 focus:ring-white/40"
+                    delay={0.5}
+                    onOpen={() => openLightbox('/static/hero-2.jpeg')}
+                  />
+                  <LightboxImage
+                    src="/static/hero-3.jpeg"
+                    alt="Tampa Bay design community hero 3"
+                    wrapperClassName="relative w-32 h-32"
+                    motionClassName="relative -top-1 w-36 h-36 rounded-xl overflow-hidden border-4 border-white ring-1 ring-black/5 shadow-lg transform -rotate-6 focus:outline-none focus:ring-4 focus:ring-white/40"
+                    delay={0.8}
+                    onOpen={() => openLightbox('/static/hero-3.jpeg')}
+                  />
                   </div>
-                  <div
-                    className={`absolute transition top-0 left-0 bottom-0 right-0 z-0 filter ${isHovered ? 'blur-sm brightness-75 contrast-125' : 'blur-none'}`}
-                    style={{
-                      backgroundImage: `url('/static/${isRandom.img}')`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                      backgroundRepeat: 'no-repeat'
-                    }}
+                  <div className="p-8 pb-0">
+                    <h1 className="text-3xl md:text-4xl xl:text-5xl mt-0">Discover design communities in the Tampa Bay area!</h1>
+                    <p>New to the Tampa Bay/St. Pete design community?</p>
+                    <p>Find a slack group, check out upcoming events, look for ways to get feedback, and much more using one of the links below.</p>
+                  </div>
+                  <div className="pb-1">
+                    <NextEvent/>
+                  </div>
+                </Box>
+              </FadeIn>
+              <FadeIn
+                className="relative"
+                delay={0.1}
+              >
+                <LinkCard
+                  href={'/slack'}
+                  tint={'yellow'}
+                  label={'Chat on Slack'}
+                  type={'slack'}
+                />
+              </FadeIn>
+              <FadeIn
+                className="relative"
+                delay={0.18}
+              >
+                <LinkCard
+                  href={'/groups'}
+                  tint={'red'}
+                  label={'Explore Groups'}
+                  type={'groups'}
+                />
+              </FadeIn>
+              <FadeIn
+                className="relative flex row-span-2 col-span-2 sm:col-span-1"
+                delay={0.26}
+              >
+                <BoxLink href="/about" p={'0'} mb={'0'} mt={'0'} rotate={'2'}>
+                  <span
+                    className="inline-flex items-center transition text-white py-1 px-2 bg-black bg-opacity-60 rounded-full text-xs absolute top-2 right-2 z-10 select-none"
                   >
+                    <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse mr-1"></span>
+                    {isRandom.artist}
+                  </span>
+                  <div ref={hoverRef} className="select-none flex relative flex-col-reverse h-full pt-16 pb-8 sm:pt-8 px-4">
+                    <div className="relative z-10 text-white dark:text-white">
+                      <h5 className='text-base md:text-base xl:text-xl text-white'>About</h5>
+                      <p className="text-xs md:text-sm mt-0 mb-0">Learn more about this project</p>
+                    </div>
+                    <div
+                      className={`absolute transition top-0 left-0 bottom-0 right-0 z-0 filter ${isHovered ? 'blur-sm brightness-75 contrast-125' : 'blur-none'}`}
+                      style={{
+                        backgroundImage: `url('/static/${isRandom.img}')`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat'
+                      }}
+                    >
+                    </div>
+                    <div className="select-none bg-gradient-to-b z-5 from-transparent to-black opacity-90 absolute top-1/4 left-0 bottom-0 right-0"></div>
                   </div>
-                  <div className="select-none bg-gradient-to-b z-5 from-transparent to-black opacity-90 absolute top-1/4 left-0 bottom-0 right-0"></div>
-                </div>
-              </BoxLink>
-            </FadeIn>
-            <FadeIn
-              className="relative"
-              delay={0.34}
-            >
-              <LinkCard
-                href={'/events'}
-                tint={'blue'}
-                label={'Find an event'}
-                type={'events'}
-              />
-            </FadeIn>
-            <FadeIn
-              className="relative"
-              delay={0.42}
-            >
-              <AnchorCard
-                href={config.githubUrl}
-                tint={'indigo'}
-                label={'Contribute'}
-                type={'github'}
-              />
-            </FadeIn>
-            <FadeIn
-              className="relative col-span-2 lg:col-span-3"
-              delay={0.5}
-            >
-              <AnchorCard
-                href={config.meetupUrl}
-                tint={'pink'}
-                label={'Join us on Meetup'}
-                type={'meetup'}
-                wide
-              />
-            </FadeIn>
+                </BoxLink>
+              </FadeIn>
+              <FadeIn
+                className="relative"
+                delay={0.34}
+              >
+                <LinkCard
+                  href={'/events'}
+                  tint={'blue'}
+                  label={'Find an event'}
+                  type={'events'}
+                />
+              </FadeIn>
+              <FadeIn
+                className="relative"
+                delay={0.42}
+              >
+                <AnchorCard
+                  href={config.githubUrl}
+                  tint={'indigo'}
+                  label={'Contribute'}
+                  type={'github'}
+                />
+              </FadeIn>
+              <FadeIn
+                className="relative col-span-2 lg:col-span-3"
+                delay={0.5}
+              >
+                <AnchorCard
+                  href={config.meetupUrl}
+                  tint={'pink'}
+                  label={'Join us on Meetup'}
+                  type={'meetup'}
+                  wide
+                />
+              </FadeIn>
+            </div>
           </div>
-        </div>
-      </section>
-    </Layout>
+        </section>
+      </Layout>
+    </>
   )
 }
 
