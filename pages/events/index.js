@@ -2,7 +2,7 @@ import React from 'react'
 import Layout from '@components/Layout'
 import useSWR from 'swr';
 import fetcher from '@utils/fetcher';
-import { Event, AnchorCard } from '@components/ListItem'
+import { Event, LinkCard, AnchorCard } from '@components/ListItem'
 import config from '../../siteconfig.json'
 import { Error, Loading, Empty } from '@components/DataStates'
 import FadeIn from '@components/FadeIn'
@@ -64,7 +64,13 @@ const Events = ({ title, description, ...props }) => {
               )
             }
           </ul>
-          <div className="pt-4">
+          <div className="pt-4 grid grid-cols-2 gap-4">
+            <LinkCard
+              href={'/events/past'}
+              tint={'blue'}
+              label={'Browse past events'}
+              type={'events'}
+            />
             <AnchorCard
               href={config.meetupUrl}
               tint={'pink'}
