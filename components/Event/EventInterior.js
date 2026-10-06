@@ -42,7 +42,7 @@ const EventInterior = ({ data }) => {
                 <div>
                   {moment(data.date).format('dddd, MMMM D, YYYY')}
                   {
-                    data.diff && data.diff !== 0 && data.diff < 7 ? (
+                    data.diff > 0 && data.diff < 7 ? (
                       <span className="ml-2 font-semibold text-yellow-700 dark:text-yellow-500">In {data.diff} Day{data.diff !== 1 && 's'} 🎉</span>
                     )
                     :
