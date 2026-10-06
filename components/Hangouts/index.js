@@ -12,10 +12,8 @@ import Tag from '@components/Tag'
 import { formatDateParts } from '@utils/date'
 import moment from 'moment'
 
-const withinNextDays = (item, days) => item && item.diff >= 0 && item.diff <= days
-
-// Single-line rows for the next hangout and next cowork, each only shown if
-// it falls within the next 30 days - skipped entirely otherwise.
+// Single-line rows for every hangout and cowork in the next 30 days -
+// skipped entirely if there are none.
 export const NextEvent = () => {
 
   const { data, error } = useSWR('/api/next-events', fetcher);
@@ -30,9 +28,7 @@ export const NextEvent = () => {
 
   if (!data) return null
 
-  const items = [data.hangout, data.cowork]
-    .filter(item => withinNextDays(item, 30))
-    .sort((a, b) => new Date(a.date) - new Date(b.date))
+  const items = data.items ?? []
 
   if (items.length === 0) return null
 

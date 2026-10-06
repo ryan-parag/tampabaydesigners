@@ -4,7 +4,7 @@ import { withMeetupLinks } from '@utils/meetup';
 
 const notion = new Client({ auth: process.env.NOTION_SECRET });
 
-// The next upcoming Design Hangout and next upcoming Designer Cowork, reported separately.
+// Every Design Hangout and Designer Cowork in the next 30 days, soonest first.
 export default async (req,res) => {
 
   const today = new Date().toISOString()
@@ -48,14 +48,13 @@ export default async (req,res) => {
     diff: moment(item.properties.Date?.date?.start ?? null).diff(moment(today), 'days')
   })).filter(event => event.upcoming)
 
-  const hangout = events.find(event => event.name.includes('Design Hangout')) ?? null
-  const cowork = events.find(event => event.name.includes('Designer Cowork')) ?? null
+  const items = events
+    .filter(event => event.diff >= 0 && event.diff <= 30)
+    .filter(event => /Design Hangout|Designer Cowork/.test(event.name))
+    .map(event => ({ ...event, type: event.name.includes('Designer Cowork') ? 'cowork' : 'hangout' }))
 
-  if (hangout) hangout.type = 'hangout'
-  if (cowork) cowork.type = 'cowork'
-
-  await withMeetupLinks([hangout, cowork].filter(Boolean))
+  await withMeetupLinks(items)
 
   res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600')
-  res.status(200).json({ hangout, cowork });
+  res.status(200).json({ items });
 }
